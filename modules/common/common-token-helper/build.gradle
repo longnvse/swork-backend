@@ -1,0 +1,9 @@
+dependencies {
+	compileOnly group: "com.liferay.portal", name: "release.portal.api", version: "7.4.3.13-ga13"
+
+	compileOnly group: "com.liferay", name: "javax.xml.bind", version: "2.3.0.LIFERAY-PATCHED-2"
+
+	compileOnly group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+	compileOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+	compileOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+}

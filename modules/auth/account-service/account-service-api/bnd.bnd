@@ -1,0 +1,10 @@
+Bundle-Name: account-service-api
+Bundle-SymbolicName: com.swork.account.service.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.swork.account.service.exception,\
+	com.swork.account.service.model,\
+	com.swork.account.service.service,\
+	com.swork.account.service.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../account-service-service/service.xml

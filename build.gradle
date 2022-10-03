@@ -1,0 +1,73 @@
+// Check GETTING_STARTED.markdown for information regarding usage.
+// Check GETTING_STARTED.markdown for information regarding usage.
+// Check GETTING_STARTED.markdown for information regarding usage.
+plugins {
+    id 'jacoco'
+    id "org.sonarqube" version "3.0"
+    id 'maven-publish'
+}
+
+import org.gradle.internal.os.OperatingSystem
+
+task buildProject(type: Exec) {
+
+    workingDir "${projectDir}"
+    def argsList = []
+    if (OperatingSystem.current().isWindows()) {
+        argsList.add('cmd')
+        argsList.add('/c')
+        argsList.add('.\\gradlew')
+    } else {
+        argsList.add('./gradlew')
+    }
+
+    subprojects.each { p ->
+        if ("$p.path".lastIndexOf("-rest-impl") == ("$p.path".length() - 10)) {
+            argsList.add("$p.path" + ":buildREST")
+        }
+        if ("$p.path".lastIndexOf("-service-service") == ("$p.path".length() - 16)) {
+            argsList.add("$p.path" + ":buildSERVICE")
+        }
+    }
+
+    commandLine argsList
+    standardOutput = System.out
+    errorOutput = System.err
+    doLast {
+        println "Output: $standardOutput"
+        println "Output: $errorOutput"
+    }
+}
+
+def javaProjects() {
+    subprojects.findAll { new File(it.projectDir, 'src').directory }
+}
+
+allprojects {
+    apply plugin: 'maven-publish'
+    apply plugin: 'java'
+
+    repositories {
+
+        maven {
+            url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+        }
+
+        maven {
+            url "https://repository.liferay.com/nexus/content/groups/public"
+        }
+    }
+}
+
+configure(javaProjects()) {
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+}
+
+dependencies {
+    implementation 'com.liferay:com.liferay.portal.search:8.0.22'
+}
+
+repositories {
+    mavenCentral()
+}

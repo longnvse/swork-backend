@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.swork.account.service.model.AccountEntry">
+		<field name="uuid" type="String" />
+		<field name="externalReferenceCode" type="String" />
+		<field name="accountId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="creatorId" type="long" />
+		<field name="username" type="String" />
+		<field name="password" type="String" />
+		<field name="fullName" type="String" />
+		<field name="phoneNumber" type="Integer" />
+		<field name="email" type="String" />
+		<field name="address" type="String" />
+		<field name="departmentId" type="Long" />
+	</model>
+</model-hints>

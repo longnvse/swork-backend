@@ -1,0 +1,5 @@
+Bundle-Name: account-rest-test
+Bundle-SymbolicName: com.swork.account.rest.test
+Bundle-Version: 1.0.0
+-includeresource: com.swork.account.rest.client.jar=../account-rest-client/build/libs/com.swork.account.rest.client-1.0.0.jar;lib:=true
+-provider-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}

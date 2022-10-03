@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN"
+        "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder dependency-injector="ds" auto-namespace-tables="false" package-path="com.swork.account.service">
+    <namespace>SW_ACCOUNT</namespace>
+    <!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
+    <entity
+            local-service="true"
+            name="AccountEntry"
+            table="SW_AccountEntry"
+            remote-service="false"
+            external-reference-code="true"
+            uuid="true">
+
+        <!-- PK fields -->
+
+        <column name="accountId" primary="true" type="long"/>
+
+        <!-- Group instance -->
+
+        <column name="groupId" type="long"/>
+
+        <!-- Audit fields -->
+
+        <column name="companyId" type="long"/>
+        <column name="createDate" type="Date"/>
+        <column name="modifiedDate" type="Date"/>
+        <column name="creatorId" type="long"/>
+
+        <!-- Other fields -->
+
+        <column name="username" type="String"/>
+        <column name="password" type="String"/>
+        <column name="fullName" type="String"/>
+        <column name="phoneNumber" type="Integer"/>
+        <column name="email" type="String"/>
+        <column name="address" type="String"/>
+        <column name="departmentId" type="Long"/>
+
+        <!-- Finder methods -->
+
+        <finder name="U_P" return-type="AccountEntry">
+            <finder-column name="username"/>
+            <finder-column name="password"/>
+        </finder>
+
+    </entity>
+</service-builder>
