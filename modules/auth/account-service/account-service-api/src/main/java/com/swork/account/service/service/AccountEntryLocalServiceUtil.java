@@ -259,6 +259,10 @@ public class AccountEntryLocalServiceUtil {
 		return getService().fetchAccountEntryByUuidAndGroupId(uuid, groupId);
 	}
 
+	public static AccountEntry getAccount(String username) {
+		return getService().getAccount(username);
+	}
+
 	/**
 	 * Returns a range of all the account entries.
 	 *

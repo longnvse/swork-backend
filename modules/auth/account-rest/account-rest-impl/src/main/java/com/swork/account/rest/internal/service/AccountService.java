@@ -6,6 +6,7 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.PwdGenerator;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -61,7 +62,7 @@ public class AccountService {
                 accountEntryLocalService.addAccountEntry(
                         creatorId,
                         account.getUsername(),
-                        "",
+                        PwdGenerator.getPassword(12, PwdGenerator.KEY3, PwdGenerator.KEY1),
                         account.getFullName(),
                         account.getEmail(),
                         account.getPhoneNumber(),

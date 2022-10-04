@@ -287,6 +287,13 @@ public class AccountEntryLocalServiceWrapper
 			uuid, groupId);
 	}
 
+	@Override
+	public com.swork.account.service.model.AccountEntry getAccount(
+		String username) {
+
+		return _accountEntryLocalService.getAccount(username);
+	}
+
 	/**
 	 * Returns a range of all the account entries.
 	 *

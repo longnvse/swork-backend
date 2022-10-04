@@ -1,0 +1,6 @@
+Bundle-Name: login-service-service
+Bundle-SymbolicName: com.swork.auth.login.service.service
+Bundle-Version: 1.0.0
+Liferay-Require-SchemaVersion: 1.0.0
+Liferay-Service: true
+-dsannotations-options: inherit

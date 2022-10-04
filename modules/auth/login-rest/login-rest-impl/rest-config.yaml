@@ -1,0 +1,9 @@
+apiDir: "../login-rest-api/src/main/java"
+apiPackagePath: "com.swork.auth.login.rest"
+application:
+    baseURI: "/login-rest"
+    className: "LoginRestApplication"
+    name: "LoginRest"
+author: "Long Hip"
+clientDir: "../login-rest-client/src/main/java"
+testDir: "../login-rest-test/src/testIntegration/java"

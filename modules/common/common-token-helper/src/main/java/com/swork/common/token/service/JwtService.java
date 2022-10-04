@@ -23,7 +23,11 @@ public class JwtService {
     private final Properties authProperties =
             new Helper().loadResourceBundled(AUTH_PROPERTIES_PATH);
 
-    public String getJWToken(long businessId, long userId, String userName) {
+    public String getAuthPropertiesPath(String key) {
+        return authProperties.getProperty(key);
+    }
+
+    public String getJWToken( long accountId, String userName) {
 
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
@@ -40,7 +44,7 @@ public class JwtService {
         c.add(Calendar.MILLISECOND, expiration);
         Claims claims = Jwts.claims().setSubject(TokenKeys.TOKEN_SUBJECT);
 
-        claimsUtils.buildClaims(businessId, userId, userName, claims);
+        claimsUtils.buildClaims( accountId, userName, claims);
 
         token = Jwts.builder()
                 .setClaims(claims)

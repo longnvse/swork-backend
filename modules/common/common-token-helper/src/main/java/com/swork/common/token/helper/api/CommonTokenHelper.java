@@ -28,14 +28,10 @@ public class CommonTokenHelper {
 
         UserTokenModel userToken = new UserTokenModel();
 
-        userToken.setUserId(GetterUtil.getLong(claims.get(ClaimsKeys.USER_ID)));
-        userToken.setCustomerId(GetterUtil.getLong(claims.get(ClaimsKeys.CUSTOMER_ID)));
         userToken.setEmail(GetterUtil.getString(claims.get(ClaimsKeys.EMAIL)));
-        userToken.setScreenName(GetterUtil.getString(claims.get(ClaimsKeys.SCREEN_NAME)));
+        userToken.setUsername(GetterUtil.getString(claims.get(ClaimsKeys.USERNAME)));
         userToken.setFullName(GetterUtil.getString(claims.get(ClaimsKeys.FULL_NAME)));
         userToken.setAccount(getAccountTokenModel(claims));
-        userToken.setCustomer(GetterUtil.getString(claims.get(ClaimsKeys.CUSTOMER_NAME)));
-        userToken.setEmployeeId(GetterUtil.getLong(claims.get(ClaimsKeys.EMPLOYEE)));
         userToken.setAccountId(GetterUtil.getLong(claims.get(ClaimsKeys.ACCOUNT_ID)));
 
         return userToken;

@@ -11,7 +11,7 @@ public class ClaimsKeys {
     public static final String CUSTOMER_NAME = "customerName";
     public static final String EMAIL = "email";
     public static final String FULL_NAME = "fullName";
-    public static final String SCREEN_NAME = "screenName";
+    public static final String USERNAME = "username";
     public static final String DEPARTMENT = "department";
     public static final String POSITIONS = "positions";
     public static final String NAME = "name";

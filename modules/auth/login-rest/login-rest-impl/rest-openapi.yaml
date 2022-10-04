@@ -1,0 +1,106 @@
+components:
+  schemas:
+    ExceptionType:
+      description: Exception Type
+      properties:
+        status:
+          enum: [ BadRequest, Auth, Resource ]
+    Credential:
+      description: Credential model
+      properties:
+        username:
+          writeOnly: true
+          type: string
+        accountId:
+          readOnly: true
+          format: int64
+          type: integer
+        password:
+          writeOnly: true
+          type: string
+        accessToken:
+          readOnly: true
+          type: string
+        tokenType:
+          readOnly: true
+          type: string
+        refreshToken:
+          readOnly: true
+          type: string
+        rememberMe:
+          writeOnly: true
+          type: boolean
+    CredentialRefresh:
+      description: CredentialRefresh model
+      properties:
+        accessToken:
+          readOnly: true
+          type: string
+        tokenType:
+          readOnly: true
+          type: string
+        refreshToken:
+          readOnly: true
+          type: string
+info:
+  description: "LoginRest REST API"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  title: "LoginRest"
+  version: v1.0
+openapi: 3.0.1
+
+paths:
+  "/signin":
+    post:
+      tags: [ "Login" ]
+      description: Create new login
+      operationId: postCredential
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Credential"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Credential"
+      responses:
+        201:
+          description:
+            "Create a Pet"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Credential"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Credential"
+  "/refreshtoken":
+    post:
+      tags: [ "Login" ]
+      description: Refresh new token
+      operationId: postCredentialRefresh
+      responses:
+        201:
+          description:
+            "Create a Credential"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CredentialRefresh"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/CredentialRefresh"
+  "/logout":
+    post:
+      tags: [ "Login" ]
+      description: Logout
+      operationId: postCredentialLogout
+      responses:
+        200:
+          description:
+            "Logout"
+          content:
+            application/json: { }
+            application/xml: { }
