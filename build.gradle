@@ -22,10 +22,10 @@ task buildProject(type: Exec) {
     }
 
     subprojects.each { p ->
-        if ("$p.path".lastIndexOf("-rest-impl") == ("$p.path".length() - 10)) {
+        if ("$p.path".contains("-rest-impl") && "$p.path".lastIndexOf("-rest-impl") == ("$p.path".length() - 10)) {
             argsList.add("$p.path" + ":buildREST")
         }
-        if ("$p.path".lastIndexOf("-service-service") == ("$p.path".length() - 16)) {
+        if ("$p.path".contains("-service-service") && "$p.path".lastIndexOf("-service-service") == ("$p.path".length() - 16)) {
             argsList.add("$p.path" + ":buildSERVICE")
         }
     }
