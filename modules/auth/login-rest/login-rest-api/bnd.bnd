@@ -1,0 +1,6 @@
+Bundle-Name: login-rest-api
+Bundle-SymbolicName: com.swork.auth.login.rest.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.swork.auth.login.rest.dto.v1_0,\
+	com.swork.auth.login.rest.resource.v1_0

@@ -124,6 +124,27 @@ public class Account implements Cloneable, Serializable {
 
 	protected Long id;
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setPassword(
+		UnsafeSupplier<String, Exception> passwordUnsafeSupplier) {
+
+		try {
+			password = passwordUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String password;
+
 	public Integer getPhoneNumber() {
 		return phoneNumber;
 	}

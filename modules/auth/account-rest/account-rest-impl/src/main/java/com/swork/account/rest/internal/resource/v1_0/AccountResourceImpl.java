@@ -27,11 +27,11 @@ import javax.ws.rs.core.MultivaluedMap;
         scope = ServiceScope.PROTOTYPE, service = AccountResource.class
 )
 public class AccountResourceImpl extends BaseAccountResourceImpl {
-    private final EntityModel _entityModel = new AccountEntityModel();
+    private final EntityModel entityModel = new AccountEntityModel();
 
     @Override
     public EntityModel getEntityModel(MultivaluedMap multivaluedMap) {
-        return _entityModel;
+        return entityModel;
     }
 
     @Override
@@ -48,7 +48,8 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
     @Override
     public Account postAccount(Account account) throws Exception {
         return service.addAccount(
-                getUserToken().getAccountId(),
+//                getUserToken().getAccountId(),
+                0L,
                 account,
                 getServiceContext()
         );
@@ -67,7 +68,8 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
     @Override
     public Account putAccount(Long accountId, Account account) {
         return service.updateAccount(
-                getUserToken().getAccountId(),
+//                getUserToken().getAccountId(),
+                0L,
                 accountId,
                 account,
                 getServiceContext()
@@ -84,11 +86,11 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
     }
 
     private UserTokenModel getUserToken() {
-        return _tokenHelper.getUserToken(contextHttpServletRequest);
+        return tokenHelper.getUserToken(contextHttpServletRequest);
     }
 
     @Reference
-    private CommonTokenHelper _tokenHelper;
+    private CommonTokenHelper tokenHelper;
 
     @Reference
     private AccountService service;

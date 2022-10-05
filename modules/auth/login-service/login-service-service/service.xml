@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN"
+        "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder
+        dependency-injector="ds"
+        package-path="com.swork.auth.login.service"
+        auto-namespace-tables="false"
+>
+    <namespace>SW_LOGIN</namespace>
+    <!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
+    <entity local-service="true"
+            name="TokenEntry"
+            table="SW_TokenEntry"
+            remote-service="false"
+            uuid="true">
+
+        <!-- PK fields -->
+
+        <column name="tokenId" primary="true" type="long"/>
+
+        <!-- Other fields -->
+
+        <column name="accountId" type="long"/>
+        <column name="businessId" type="long"/>
+        <column name="userName" type="String"/>
+        <column name="refreshToken" type="String"/>
+        <column name="expiryDate" type="Date"/>
+        <column name="issuedDate" type="Date"/>
+        <column name="refreshedDate" type="Date"/>
+        <column name="userAgent" type="String"/>
+        <column name="clientIp" type="String"/>
+        <column name="firstLoginDate" type="Date"/>
+        <column name="sessionId" type="String"/>
+        <column name="remember" type="Boolean"/>
+
+        <!-- Finder methods -->
+
+        <finder name="R_T" return-type="TokenEntry">
+            <finder-column name="refreshToken"/>
+        </finder>
+
+        <finder name="U_N" return-type="TokenEntry">
+            <finder-column name="userName"/>
+        </finder>
+    </entity>
+
+    <exceptions>
+        <exception>UnAuthentication</exception>
+        <exception>TokenExpired</exception>
+        <exception>FieldRequired</exception>
+    </exceptions>
+</service-builder>

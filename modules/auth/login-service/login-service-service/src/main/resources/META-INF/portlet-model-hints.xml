@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.swork.auth.login.service.model.TokenEntry">
+		<field name="uuid" type="String" />
+		<field name="tokenId" type="long" />
+		<field name="accountId" type="long" />
+		<field name="businessId" type="long" />
+		<field name="userName" type="String" />
+		<field name="refreshToken" type="String" />
+		<field name="expiryDate" type="Date" />
+		<field name="issuedDate" type="Date" />
+		<field name="refreshedDate" type="Date" />
+		<field name="userAgent" type="String" />
+		<field name="clientIp" type="String" />
+		<field name="firstLoginDate" type="Date" />
+		<field name="sessionId" type="String" />
+		<field name="remember" type="Boolean" />
+	</model>
+</model-hints>

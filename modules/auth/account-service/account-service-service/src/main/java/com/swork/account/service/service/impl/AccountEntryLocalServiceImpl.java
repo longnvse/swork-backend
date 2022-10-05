@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.exception.PwdEncryptorException;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.Validator;
 import com.swork.account.service.model.AccountEntry;
 import com.swork.account.service.service.base.AccountEntryLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
@@ -87,6 +88,16 @@ public class AccountEntryLocalServiceImpl
         entry.setAddress(address);
 
         return updateAccountEntry(entry);
+    }
+
+    public AccountEntry getAccount(String username) {
+        AccountEntry entry = accountEntryPersistence.fetchByU(username);
+
+        if (Validator.isNotNull(entry)) {
+            return entry;
+        }
+
+        return accountEntryPersistence.fetchByEmail(username);
     }
 
 

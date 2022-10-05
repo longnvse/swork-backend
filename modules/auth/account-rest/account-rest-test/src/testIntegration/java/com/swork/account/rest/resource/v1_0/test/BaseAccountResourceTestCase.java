@@ -176,6 +176,7 @@ public abstract class BaseAccountResourceTestCase {
 		account.setAddress(regex);
 		account.setEmail(regex);
 		account.setFullName(regex);
+		account.setPassword(regex);
 		account.setUsername(regex);
 
 		String json = AccountSerDes.toJSON(account);
@@ -187,6 +188,7 @@ public abstract class BaseAccountResourceTestCase {
 		Assert.assertEquals(regex, account.getAddress());
 		Assert.assertEquals(regex, account.getEmail());
 		Assert.assertEquals(regex, account.getFullName());
+		Assert.assertEquals(regex, account.getPassword());
 		Assert.assertEquals(regex, account.getUsername());
 	}
 
@@ -721,6 +723,14 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("password", additionalAssertFieldName)) {
+				if (account.getPassword() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("phoneNumber", additionalAssertFieldName)) {
 				if (account.getPhoneNumber() == null) {
 					valid = false;
@@ -869,6 +879,16 @@ public abstract class BaseAccountResourceTestCase {
 
 			if (Objects.equals("id", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(account1.getId(), account2.getId())) {
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("password", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getPassword(), account2.getPassword())) {
+
 					return false;
 				}
 
@@ -1052,6 +1072,14 @@ public abstract class BaseAccountResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("password")) {
+			sb.append("'");
+			sb.append(String.valueOf(account.getPassword()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("phoneNumber")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1117,6 +1145,8 @@ public abstract class BaseAccountResourceTestCase {
 				fullName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
+				password = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				phoneNumber = RandomTestUtil.randomInt();
 				username = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());

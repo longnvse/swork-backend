@@ -242,6 +242,9 @@ public interface AccountEntryLocalService
 	public AccountEntry fetchAccountEntryByUuidAndGroupId(
 		String uuid, long groupId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public AccountEntry getAccount(String username);
+
 	/**
 	 * Returns a range of all the account entries.
 	 *
