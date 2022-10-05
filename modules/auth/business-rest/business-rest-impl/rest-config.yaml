@@ -1,0 +1,9 @@
+apiDir: "../business-rest-api/src/main/java"
+apiPackagePath: "com.swork.business.rest"
+application:
+  baseURI: "/swork/business-rest"
+  className: "BusinessRestApplication"
+  name: "BusinessRest"
+author: "Long Hip"
+clientDir: "../business-rest-client/src/main/java"
+testDir: "../business-rest-test/src/testIntegration/java"

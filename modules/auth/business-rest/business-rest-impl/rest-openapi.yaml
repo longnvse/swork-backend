@@ -1,0 +1,175 @@
+components:
+  schemas:
+    Business:
+      type: object
+      properties:
+        externalReferenceCode:
+          type: string
+          readOnly: true
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+        customerName:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        businessAddress:
+          type: string
+        fieldOperations:
+          type: string
+        status:
+          enum: [ pending, approved ]
+          type: string
+          readOnly: true
+        logoId:
+          type: string
+          readOnly: true
+info:
+  description: "BusinessRest REST API"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  title: "BusinessRest"
+  version: v1.0
+openapi: 3.0.1
+paths:
+  "/business":
+    get:
+      tags: [ "Business" ]
+      description:
+        Retrieves the business. Results can be paginated, filtered, searched, and sorted.
+      operationId: getbusinessPage
+      parameters:
+        - in: query
+          name: filter
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: sort
+          schema:
+            type: string
+      responses:
+        200:
+          description: The data returned
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Business"
+                type: array
+            application/xml:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Business"
+                type: array
+    post:
+      tags: [ "Business" ]
+      description: Create a new Business
+      operationId: postBusiness
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Business"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Business"
+      responses:
+        201:
+          description:
+            "Created an Business"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Business"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Business"
+  "/business/{businessId}":
+    put:
+      tags: [ "Business" ]
+      description: Update an Business
+      operationId: putBusiness
+      parameters:
+        - in: path
+          name: businessId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Business"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Business"
+      responses:
+        200:
+          description:
+            "Updated an Business"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Business"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Business"
+    get:
+      tags: [ "Business" ]
+      description: Get an Business
+      operationId: getBusiness
+      parameters:
+        - in: path
+          name: businessId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        200:
+          description:
+            "Get detail an Business"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Business"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Business"
+    delete:
+      tags: [ "Business" ]
+      description: Delete an business
+      operationId: deleteBusiness
+      parameters:
+        - in: path
+          name: businessId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        204:
+          description:
+            "Deleted an Business"
+          content:
+            application/json: { }
+            application/xml: { }
