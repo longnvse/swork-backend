@@ -91,7 +91,7 @@ public class BusinessEntryLocalServiceImpl
         entry.setBusinessAddress(model.getBusinessAddress());
         entry.setFieldOperations(model.getFieldOperations());
 
-        return addBusinessEntry(entry);
+        return updateBusinessEntry(entry);
     }
 
     public BusinessEntry findByPhoneNumber(String phoneNumber) {
