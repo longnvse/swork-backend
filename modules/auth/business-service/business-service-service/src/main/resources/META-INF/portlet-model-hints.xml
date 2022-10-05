@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.swork.business.service.model.BusinessEntry">
+		<field name="uuid" type="String" />
+		<field name="externalReferenceCode" type="String" />
+		<field name="businessId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="accountId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="creatorId" type="long" />
+		<field name="customerName" type="String" />
+		<field name="phoneNumber" type="String" />
+		<field name="email" type="String" />
+		<field name="businessAddress" type="String" />
+		<field name="name" type="String" />
+		<field name="fieldOperations" type="String" />
+		<field name="logoId" type="Long" />
+		<field name="status" type="String" />
+	</model>
+</model-hints>

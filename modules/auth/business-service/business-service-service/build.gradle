@@ -1,0 +1,12 @@
+dependencies {
+	compile project(":modules:auth:business-service:business-service-api")
+	compile project(":modules:auth:account-service:account-service-api")
+
+	compileOnly group: "com.liferay.portal", name: "release.portal.api", version: "7.4.3.13-ga13"
+}
+
+buildService {
+	apiDir = "../business-service-api/src/main/java"
+}
+
+group = "com.swork.business.service"
