@@ -1,0 +1,9 @@
+apiDir: "../checklist-rest-api/src/main/java"
+apiPackagePath: "com.swork.checklist.rest"
+application:
+    baseURI: "/checklist-rest"
+    className: "ChecklistRestApplication"
+    name: "ChecklistRest"
+author: "adm"
+clientDir: "../checklist-rest-client/src/main/java"
+testDir: "../checklist-rest-test/src/testIntegration/java"

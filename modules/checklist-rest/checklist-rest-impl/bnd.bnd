@@ -1,0 +1,3 @@
+Bundle-Name: checklist-rest-impl
+Bundle-SymbolicName: com.swork.checklist.rest.impl
+Bundle-Version: 1.0.0

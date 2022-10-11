@@ -1,0 +1,5 @@
+Bundle-Name: checklist-rest-test
+Bundle-SymbolicName: com.swork.checklist.rest.test
+Bundle-Version: 1.0.0
+-includeresource: com.swork.checklist.rest.client.jar=../checklist-rest-client/build/libs/com.swork.checklist.rest.client-1.0.0.jar;lib:=true
+-provider-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}
