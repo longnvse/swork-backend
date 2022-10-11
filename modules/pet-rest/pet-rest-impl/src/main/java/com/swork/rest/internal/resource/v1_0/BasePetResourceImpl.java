@@ -207,6 +207,36 @@ public abstract class BasePetResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/pet-rest/v1.0/pets/{petId}'  -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Parameters(
+		value = {
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
+				name = "petId"
+			)
+		}
+	)
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Pet")}
+	)
+	@javax.ws.rs.GET
+	@javax.ws.rs.Path("/pets/{petId}")
+	@javax.ws.rs.Produces({"application/json", "application/xml"})
+	@Override
+	public Pet getPet(
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.PathParam("petId")
+			Long petId)
+		throws Exception {
+
+		return new Pet();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -X 'PUT' 'http://localhost:8080/o/pet-rest/v1.0/pets/{petId}' -d $'{"id": ___, "name": ___, "price": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(

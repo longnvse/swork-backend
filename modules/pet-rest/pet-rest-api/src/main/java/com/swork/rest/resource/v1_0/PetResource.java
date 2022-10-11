@@ -55,6 +55,8 @@ public interface PetResource {
 	public Response deletePetBatch(String callbackURL, Object object)
 		throws Exception;
 
+	public Pet getPet(Long petId) throws Exception;
+
 	public Pet putPet(Long petId, Pet pet) throws Exception;
 
 	public Response putPetBatch(String callbackURL, Object object)

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -260,6 +261,11 @@ public abstract class BasePetResourceTestCase {
 
 		assertHttpResponseStatusCode(
 			204, petResource.deletePetHttpResponse(pet.getId()));
+
+		assertHttpResponseStatusCode(
+			404, petResource.getPetHttpResponse(pet.getId()));
+
+		assertHttpResponseStatusCode(404, petResource.getPetHttpResponse(0L));
 	}
 
 	protected Pet testDeletePet_addPet() throws Exception {
@@ -282,6 +288,76 @@ public abstract class BasePetResourceTestCase {
 							}
 						})),
 				"JSONObject/data", "Object/deletePet"));
+
+		JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"pet",
+					new HashMap<String, Object>() {
+						{
+							put("petId", pet.getId());
+						}
+					},
+					new GraphQLField("id"))),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray.length() > 0);
+	}
+
+	@Test
+	public void testGetPet() throws Exception {
+		Pet postPet = testGetPet_addPet();
+
+		Pet getPet = petResource.getPet(postPet.getId());
+
+		assertEquals(postPet, getPet);
+		assertValid(getPet);
+	}
+
+	protected Pet testGetPet_addPet() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetPet() throws Exception {
+		Pet pet = testGraphQLPet_addPet();
+
+		Assert.assertTrue(
+			equals(
+				pet,
+				PetSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"pet",
+								new HashMap<String, Object>() {
+									{
+										put("petId", pet.getId());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/pet"))));
+	}
+
+	@Test
+	public void testGraphQLGetPetNotFound() throws Exception {
+		Long irrelevantPetId = RandomTestUtil.randomLong();
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"pet",
+						new HashMap<String, Object>() {
+							{
+								put("petId", irrelevantPetId);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
 	}
 
 	@Test

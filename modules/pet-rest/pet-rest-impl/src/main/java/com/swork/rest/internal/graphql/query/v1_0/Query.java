@@ -53,6 +53,18 @@ public class Query {
 			petResource -> new PetPage(petResource.getPets()));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {pet(petId: ___){id, name, price}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public Pet pet(@GraphQLName("petId") Long petId) throws Exception {
+		return _applyComponentServiceObjects(
+			_petResourceComponentServiceObjects, this::_populateResourceContext,
+			petResource -> petResource.getPet(petId));
+	}
+
 	@GraphQLName("PetPage")
 	public class PetPage {
 

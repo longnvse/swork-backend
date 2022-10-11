@@ -62,6 +62,27 @@ paths:
               schema:
                 $ref: '#/components/schemas/Pet'
   "/pets/{petId}":
+    get:
+      operationId: getPet
+      tags: [ "Pet" ]
+      parameters:
+        - name: petId
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: "Get Pet by Id"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Pet'
+
     put:
       operationId: putPet
       tags: [ "Pet" ]
