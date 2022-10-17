@@ -79,6 +79,10 @@ public class ChecklistEntryLocalServiceImpl
 		return updateChecklistEntry(checklistEntry);
 	}
 
+	public ChecklistEntry findByName(String name) {
+		return checklistEntryPersistence.fetchByName(name);
+	}
+
 	private void createModifierAudit(ChecklistEntry entry,
 									 User user,
 									 ServiceContext serviceContext) {

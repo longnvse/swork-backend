@@ -235,6 +235,10 @@ public class ChecklistEntryLocalServiceUtil {
 		return getService().fetchChecklistEntryByUuidAndGroupId(uuid, groupId);
 	}
 
+	public static ChecklistEntry findByName(String name) {
+		return getService().findByName(name);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

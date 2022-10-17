@@ -28,6 +28,9 @@
 		<column name="taskId" type="Long" />
 		<column name="status" type="Boolean" />
 
+		<finder name="Name" return-type="ChecklistEntry">
+			<finder-column name="name"/>
+		</finder>
 
 	</entity>
 </service-builder>

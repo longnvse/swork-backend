@@ -220,6 +220,8 @@ public interface ChecklistEntryLocalService
 	public ChecklistEntry fetchChecklistEntryByUuidAndGroupId(
 		String uuid, long groupId);
 
+	public ChecklistEntry findByName(String name);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 

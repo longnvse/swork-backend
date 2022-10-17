@@ -391,6 +391,50 @@ public interface ChecklistEntryPersistence
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
+	 * Returns the checklist entry where name = &#63; or throws a <code>NoSuchChecklistEntryException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @return the matching checklist entry
+	 * @throws NoSuchChecklistEntryException if a matching checklist entry could not be found
+	 */
+	public ChecklistEntry findByName(String name)
+		throws NoSuchChecklistEntryException;
+
+	/**
+	 * Returns the checklist entry where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @return the matching checklist entry, or <code>null</code> if a matching checklist entry could not be found
+	 */
+	public ChecklistEntry fetchByName(String name);
+
+	/**
+	 * Returns the checklist entry where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching checklist entry, or <code>null</code> if a matching checklist entry could not be found
+	 */
+	public ChecklistEntry fetchByName(String name, boolean useFinderCache);
+
+	/**
+	 * Removes the checklist entry where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @return the checklist entry that was removed
+	 */
+	public ChecklistEntry removeByName(String name)
+		throws NoSuchChecklistEntryException;
+
+	/**
+	 * Returns the number of checklist entries where name = &#63;.
+	 *
+	 * @param name the name
+	 * @return the number of matching checklist entries
+	 */
+	public int countByName(String name);
+
+	/**
 	 * Caches the checklist entry in the entity cache if it is enabled.
 	 *
 	 * @param checklistEntry the checklist entry

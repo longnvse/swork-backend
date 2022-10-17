@@ -257,6 +257,13 @@ public class ChecklistEntryLocalServiceWrapper
 	}
 
 	@Override
+	public com.swork.checklist.service.model.ChecklistEntry findByName(
+		String name) {
+
+		return _checklistEntryLocalService.findByName(name);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

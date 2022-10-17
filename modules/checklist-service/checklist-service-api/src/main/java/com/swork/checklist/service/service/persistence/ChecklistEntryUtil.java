@@ -542,6 +542,66 @@ public class ChecklistEntryUtil {
 	}
 
 	/**
+	 * Returns the checklist entry where name = &#63; or throws a <code>NoSuchChecklistEntryException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @return the matching checklist entry
+	 * @throws NoSuchChecklistEntryException if a matching checklist entry could not be found
+	 */
+	public static ChecklistEntry findByName(String name)
+		throws com.swork.checklist.service.exception.
+			NoSuchChecklistEntryException {
+
+		return getPersistence().findByName(name);
+	}
+
+	/**
+	 * Returns the checklist entry where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @return the matching checklist entry, or <code>null</code> if a matching checklist entry could not be found
+	 */
+	public static ChecklistEntry fetchByName(String name) {
+		return getPersistence().fetchByName(name);
+	}
+
+	/**
+	 * Returns the checklist entry where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching checklist entry, or <code>null</code> if a matching checklist entry could not be found
+	 */
+	public static ChecklistEntry fetchByName(
+		String name, boolean useFinderCache) {
+
+		return getPersistence().fetchByName(name, useFinderCache);
+	}
+
+	/**
+	 * Removes the checklist entry where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @return the checklist entry that was removed
+	 */
+	public static ChecklistEntry removeByName(String name)
+		throws com.swork.checklist.service.exception.
+			NoSuchChecklistEntryException {
+
+		return getPersistence().removeByName(name);
+	}
+
+	/**
+	 * Returns the number of checklist entries where name = &#63;.
+	 *
+	 * @param name the name
+	 * @return the number of matching checklist entries
+	 */
+	public static int countByName(String name) {
+		return getPersistence().countByName(name);
+	}
+
+	/**
 	 * Caches the checklist entry in the entity cache if it is enabled.
 	 *
 	 * @param checklistEntry the checklist entry

@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 
@@ -54,6 +55,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1462,6 +1464,245 @@ public class ChecklistEntryPersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"checklistEntry.companyId = ?";
 
+	private FinderPath _finderPathFetchByName;
+	private FinderPath _finderPathCountByName;
+
+	/**
+	 * Returns the checklist entry where name = &#63; or throws a <code>NoSuchChecklistEntryException</code> if it could not be found.
+	 *
+	 * @param name the name
+	 * @return the matching checklist entry
+	 * @throws NoSuchChecklistEntryException if a matching checklist entry could not be found
+	 */
+	@Override
+	public ChecklistEntry findByName(String name)
+		throws NoSuchChecklistEntryException {
+
+		ChecklistEntry checklistEntry = fetchByName(name);
+
+		if (checklistEntry == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("name=");
+			sb.append(name);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchChecklistEntryException(sb.toString());
+		}
+
+		return checklistEntry;
+	}
+
+	/**
+	 * Returns the checklist entry where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @return the matching checklist entry, or <code>null</code> if a matching checklist entry could not be found
+	 */
+	@Override
+	public ChecklistEntry fetchByName(String name) {
+		return fetchByName(name, true);
+	}
+
+	/**
+	 * Returns the checklist entry where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching checklist entry, or <code>null</code> if a matching checklist entry could not be found
+	 */
+	@Override
+	public ChecklistEntry fetchByName(String name, boolean useFinderCache) {
+		name = Objects.toString(name, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {name};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(_finderPathFetchByName, finderArgs);
+		}
+
+		if (result instanceof ChecklistEntry) {
+			ChecklistEntry checklistEntry = (ChecklistEntry)result;
+
+			if (!Objects.equals(name, checklistEntry.getName())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_CHECKLISTENTRY_WHERE);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				sb.append(_FINDER_COLUMN_NAME_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				sb.append(_FINDER_COLUMN_NAME_NAME_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindName) {
+					queryPos.add(name);
+				}
+
+				List<ChecklistEntry> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByName, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {name};
+							}
+
+							_log.warn(
+								"ChecklistEntryPersistenceImpl.fetchByName(String, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					ChecklistEntry checklistEntry = list.get(0);
+
+					result = checklistEntry;
+
+					cacheResult(checklistEntry);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (ChecklistEntry)result;
+		}
+	}
+
+	/**
+	 * Removes the checklist entry where name = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @return the checklist entry that was removed
+	 */
+	@Override
+	public ChecklistEntry removeByName(String name)
+		throws NoSuchChecklistEntryException {
+
+		ChecklistEntry checklistEntry = findByName(name);
+
+		return remove(checklistEntry);
+	}
+
+	/**
+	 * Returns the number of checklist entries where name = &#63;.
+	 *
+	 * @param name the name
+	 * @return the number of matching checklist entries
+	 */
+	@Override
+	public int countByName(String name) {
+		name = Objects.toString(name, "");
+
+		FinderPath finderPath = _finderPathCountByName;
+
+		Object[] finderArgs = new Object[] {name};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_CHECKLISTENTRY_WHERE);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				sb.append(_FINDER_COLUMN_NAME_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				sb.append(_FINDER_COLUMN_NAME_NAME_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindName) {
+					queryPos.add(name);
+				}
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_NAME_NAME_2 =
+		"checklistEntry.name = ?";
+
+	private static final String _FINDER_COLUMN_NAME_NAME_3 =
+		"(checklistEntry.name IS NULL OR checklistEntry.name = '')";
+
 	public ChecklistEntryPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -1493,6 +1734,10 @@ public class ChecklistEntryPersistenceImpl
 			new Object[] {
 				checklistEntry.getUuid(), checklistEntry.getGroupId()
 			},
+			checklistEntry);
+
+		finderCache.putResult(
+			_finderPathFetchByName, new Object[] {checklistEntry.getName()},
 			checklistEntry);
 	}
 
@@ -1576,6 +1821,12 @@ public class ChecklistEntryPersistenceImpl
 		finderCache.putResult(_finderPathCountByUUID_G, args, Long.valueOf(1));
 		finderCache.putResult(
 			_finderPathFetchByUUID_G, args, checklistEntryModelImpl);
+
+		args = new Object[] {checklistEntryModelImpl.getName()};
+
+		finderCache.putResult(_finderPathCountByName, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByName, args, checklistEntryModelImpl);
 	}
 
 	/**
@@ -2095,6 +2346,15 @@ public class ChecklistEntryPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
 			new String[] {String.class.getName(), Long.class.getName()},
 			new String[] {"uuid_", "companyId"}, false);
+
+		_finderPathFetchByName = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByName",
+			new String[] {String.class.getName()}, new String[] {"name"}, true);
+
+		_finderPathCountByName = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByName",
+			new String[] {String.class.getName()}, new String[] {"name"},
+			false);
 
 		_setChecklistEntryUtilPersistence(this);
 	}
