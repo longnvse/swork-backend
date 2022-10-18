@@ -283,6 +283,20 @@ public interface AccountEntryModel
 	 */
 	public void setDepartmentId(Long departmentId);
 
+	/**
+	 * Returns the business ID of this account entry.
+	 *
+	 * @return the business ID of this account entry
+	 */
+	public Long getBusinessId();
+
+	/**
+	 * Sets the business ID of this account entry.
+	 *
+	 * @param businessId the business ID of this account entry
+	 */
+	public void setBusinessId(Long businessId);
+
 	@Override
 	public AccountEntry cloneWithOriginalValues();
 

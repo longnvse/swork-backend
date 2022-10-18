@@ -91,7 +91,7 @@ public class AccountEntryLocalServiceImpl
     }
 
     public AccountEntry getAccount(String username) {
-        AccountEntry entry = accountEntryPersistence.fetchByU(username);
+        AccountEntry entry = accountEntryPersistence.fetchByUsername(username);
 
         if (Validator.isNotNull(entry)) {
             return entry;

@@ -8,7 +8,7 @@ create table SW_TokenEntry (
 	expiryDate DATE null,
 	issuedDate DATE null,
 	refreshedDate DATE null,
-	userAgent VARCHAR(75) null,
+	userAgent VARCHAR(200) null,
 	clientIp VARCHAR(75) null,
 	firstLoginDate DATE null,
 	sessionId VARCHAR(75) null,

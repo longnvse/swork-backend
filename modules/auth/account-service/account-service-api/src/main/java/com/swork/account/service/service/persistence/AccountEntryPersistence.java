@@ -396,7 +396,7 @@ public interface AccountEntryPersistence extends BasePersistence<AccountEntry> {
 	 * @return the matching account entry
 	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
 	 */
-	public AccountEntry findByU(String username)
+	public AccountEntry findByUsername(String username)
 		throws NoSuchAccountEntryException;
 
 	/**
@@ -405,7 +405,7 @@ public interface AccountEntryPersistence extends BasePersistence<AccountEntry> {
 	 * @param username the username
 	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
 	 */
-	public AccountEntry fetchByU(String username);
+	public AccountEntry fetchByUsername(String username);
 
 	/**
 	 * Returns the account entry where username = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -414,7 +414,8 @@ public interface AccountEntryPersistence extends BasePersistence<AccountEntry> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
 	 */
-	public AccountEntry fetchByU(String username, boolean useFinderCache);
+	public AccountEntry fetchByUsername(
+		String username, boolean useFinderCache);
 
 	/**
 	 * Removes the account entry where username = &#63; from the database.
@@ -422,7 +423,7 @@ public interface AccountEntryPersistence extends BasePersistence<AccountEntry> {
 	 * @param username the username
 	 * @return the account entry that was removed
 	 */
-	public AccountEntry removeByU(String username)
+	public AccountEntry removeByUsername(String username)
 		throws NoSuchAccountEntryException;
 
 	/**
@@ -431,7 +432,7 @@ public interface AccountEntryPersistence extends BasePersistence<AccountEntry> {
 	 * @param username the username
 	 * @return the number of matching account entries
 	 */
-	public int countByU(String username);
+	public int countByUsername(String username);
 
 	/**
 	 * Returns the account entry where email = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
