@@ -1,0 +1,43 @@
+_id: req_1ef89b6258804fef93f6889356bb5a1f
+type: Request
+parentId: wrk_812aebf2c4b742f189f98af77402a552
+modified: 1666110373324
+created: 1661268376235
+url: http://localhost:8080/o/account-rest/v1.0/accounts
+name: Account
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "username": "longhip",
+      "fullName": "Nguyễn Viết Long",
+      "email": "shanglong0604@gmail.com",
+      "phoneNumber": "0394762939",
+      "address": "Hà Nội"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_ff5c96e2bdd74fe5b51f924257995675
+  - id: pair_94004786742346679647a36d1c3c790d
+    name: swork-x-user-context-request
+    value: "{% response 'body', 'req_c27a6192cd8c44e6aa8a91128b4a4f87',
+      'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'no-history', 60 %}"
+    description: ""
+authentication:
+  type: oauth2
+  grantType: client_credentials
+  accessTokenUrl: http://localhost:8080/o/oauth2/token
+  clientId: id-b934b7c8-4ff7-13b1-a725-525862a3219c
+  clientSecret: secret-ca7b6a6e-cf5d-3e6f-e2f5-57a411c556
+metaSortKey: -1661268376235
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
