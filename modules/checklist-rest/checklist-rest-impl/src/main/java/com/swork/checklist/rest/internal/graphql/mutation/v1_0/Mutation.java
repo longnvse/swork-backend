@@ -64,6 +64,17 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public CheckList changecheckListStatusById(@GraphQLName("cid") Long cid)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_checkListResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			checkListResource -> checkListResource.changecheckListStatusById(
+				cid));
+	}
+
+	@GraphQLField
 	public boolean deleteCheckList(@GraphQLName("cid") Long cid)
 		throws Exception {
 

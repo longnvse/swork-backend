@@ -222,6 +222,11 @@ public abstract class BaseCheckListResourceTestCase {
 	}
 
 	@Test
+	public void testChangecheckListStatusById() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
 	public void testDeleteCheckList() throws Exception {
 		Assert.assertTrue(false);
 	}

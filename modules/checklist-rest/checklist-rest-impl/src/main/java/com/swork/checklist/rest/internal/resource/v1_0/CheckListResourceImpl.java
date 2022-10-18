@@ -48,6 +48,11 @@ public class CheckListResourceImpl extends BaseCheckListResourceImpl {
 		return service.getCheckListById(cid);
 	}
 
+	@Override
+	public CheckList changecheckListStatusById(Long cid) throws Exception {
+		checkListValidator.validatorChecklistIsExists(cid);
+		return null;
+	}
 
 	public ServiceContext getServiceContext() {
 		ServiceContext serviceContext = new ServiceContext();

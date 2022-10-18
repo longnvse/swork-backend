@@ -79,6 +79,17 @@ public class ChecklistEntryLocalServiceImpl
 		return updateChecklistEntry(checklistEntry);
 	}
 
+	private ChecklistEntry changeStatus(Long userId,Long checkListId,Boolean status,ServiceContext serviceContext){
+		ChecklistEntry checklistEntry=fetchChecklistEntry(checkListId);
+		checklistEntry.setStatus(status);
+		updateModifierAudit(
+				checklistEntry,
+				userLocalService.fetchUser(userId),
+				serviceContext);
+
+		return updateChecklistEntry(checklistEntry);
+	}
+
 	public ChecklistEntry findByName(String name) {
 		return checklistEntryPersistence.fetchByName(name);
 	}
@@ -108,6 +119,7 @@ public class ChecklistEntryLocalServiceImpl
 		entry.setModifiedDate(serviceContext.getModifiedDate(current));
 		entry.setUserId(serviceContext.getUserId());
 	}
+
 
 
 }

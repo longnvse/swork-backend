@@ -50,6 +50,8 @@ public interface CheckListResource {
 	public Response postCheckListBatch(String callbackURL, Object object)
 		throws Exception;
 
+	public CheckList changecheckListStatusById(Long cid) throws Exception;
+
 	public void deleteCheckList(Long cid) throws Exception;
 
 	public Response deleteCheckListBatch(

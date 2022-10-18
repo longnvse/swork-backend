@@ -52,11 +52,17 @@ public class CheckListService {
 
         return mapper.mapDTOFromEntry(checklistEntry);
     }
+    public CheckList updateCheckListStatusById(long userId,long cid,Boolean status,ServiceContext serviceContext){
+//        ChecklistEntry checklistEntry= checklistEntryLocalService.chan
+        return null;
+    }
 
     public CheckList getCheckListById(long cid) throws PortalException {
         ChecklistEntry checklistEntry=checklistEntryLocalService.getChecklistEntry(cid);
         return mapper.mapDTOFromEntry(checklistEntry);
     }
+
+
 
 
 

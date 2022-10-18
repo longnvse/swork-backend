@@ -58,13 +58,13 @@ public abstract class BaseCheckListResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/checklist-rest/v1.0/checkLists'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/checklist-rest/v1.0/checklists'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "CheckList")}
 	)
 	@javax.ws.rs.GET
-	@javax.ws.rs.Path("/checkLists")
+	@javax.ws.rs.Path("/checklists")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
 	public Page<CheckList> getChecklists() throws Exception {
@@ -74,13 +74,13 @@ public abstract class BaseCheckListResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/checklist-rest/v1.0/checkLists' -d $'{"checkListId": ___, "name": ___, "status": ___, "taskId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/checklist-rest/v1.0/checklists' -d $'{"checkListId": ___, "name": ___, "status": ___, "taskId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "CheckList")}
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
-	@javax.ws.rs.Path("/checkLists")
+	@javax.ws.rs.Path("/checklists")
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -91,7 +91,7 @@ public abstract class BaseCheckListResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/checklist-rest/v1.0/checkLists/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/checklist-rest/v1.0/checklists/batch'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {
@@ -105,7 +105,7 @@ public abstract class BaseCheckListResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "CheckList")}
 	)
 	@javax.ws.rs.Consumes("application/json")
-	@javax.ws.rs.Path("/checkLists/batch")
+	@javax.ws.rs.Path("/checklists/batch")
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces("application/json")
 	@Override
@@ -135,7 +135,36 @@ public abstract class BaseCheckListResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/checklist-rest/v1.0/checkLists/{cid}'  -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/checklist-rest/v1.0/checklists/change-status/{cid}'  -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Parameters(
+		value = {
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
+				name = "cid"
+			)
+		}
+	)
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "CheckList")}
+	)
+	@javax.ws.rs.Path("/checklists/change-status/{cid}")
+	@javax.ws.rs.Produces({"application/json", "application/xml"})
+	@javax.ws.rs.PUT
+	@Override
+	public CheckList changecheckListStatusById(
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull @javax.ws.rs.PathParam("cid")
+			Long cid)
+		throws Exception {
+
+		return new CheckList();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/checklist-rest/v1.0/checklists/{cid}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {
@@ -149,7 +178,7 @@ public abstract class BaseCheckListResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "CheckList")}
 	)
 	@javax.ws.rs.DELETE
-	@javax.ws.rs.Path("/checkLists/{cid}")
+	@javax.ws.rs.Path("/checklists/{cid}")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
 	public void deleteCheckList(
@@ -162,7 +191,7 @@ public abstract class BaseCheckListResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/checklist-rest/v1.0/checkLists/{cid}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/checklist-rest/v1.0/checklists/{cid}/batch'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {
@@ -181,7 +210,7 @@ public abstract class BaseCheckListResourceImpl
 	)
 	@javax.ws.rs.Consumes("application/json")
 	@javax.ws.rs.DELETE
-	@javax.ws.rs.Path("/checkLists/{cid}/batch")
+	@javax.ws.rs.Path("/checklists/{cid}/batch")
 	@javax.ws.rs.Produces("application/json")
 	@Override
 	public Response deleteCheckListBatch(
@@ -213,7 +242,7 @@ public abstract class BaseCheckListResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/checklist-rest/v1.0/checkLists/{cid}'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/checklist-rest/v1.0/checklists/{cid}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {
@@ -227,7 +256,7 @@ public abstract class BaseCheckListResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "CheckList")}
 	)
 	@javax.ws.rs.GET
-	@javax.ws.rs.Path("/checkLists/{cid}")
+	@javax.ws.rs.Path("/checklists/{cid}")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
 	public CheckList getCheckListById(
@@ -242,7 +271,7 @@ public abstract class BaseCheckListResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/checklist-rest/v1.0/checkLists/{cid}' -d $'{"checkListId": ___, "name": ___, "status": ___, "taskId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/checklist-rest/v1.0/checklists/{cid}' -d $'{"checkListId": ___, "name": ___, "status": ___, "taskId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {
@@ -256,7 +285,7 @@ public abstract class BaseCheckListResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "CheckList")}
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
-	@javax.ws.rs.Path("/checkLists/{cid}")
+	@javax.ws.rs.Path("/checklists/{cid}")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
 	@Override
