@@ -34,9 +34,6 @@ public class CookieService {
                 "HttpOnly" +
                 StringPool.SEMICOLON +
                 StringPool.SPACE +
-                "secure" +
-                StringPool.SEMICOLON +
-                StringPool.SPACE +
                 stringNameValue("SameSite", "none");
 
         response.setHeader("Set-Cookie", cookieString);
@@ -68,9 +65,6 @@ public class CookieService {
                 StringPool.SEMICOLON +
                 StringPool.SPACE +
                 "HttpOnly" +
-                StringPool.SEMICOLON +
-                StringPool.SPACE +
-                "secure" +
                 StringPool.SEMICOLON +
                 StringPool.SPACE +
                 stringNameValue("SameSite", "none");
