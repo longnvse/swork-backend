@@ -11,7 +11,9 @@
 		<field name="expiryDate" type="Date" />
 		<field name="issuedDate" type="Date" />
 		<field name="refreshedDate" type="Date" />
-		<field name="userAgent" type="String" />
+		<field name="userAgent" type="String">
+			<hint name="max-length">200</hint>
+		</field>
 		<field name="clientIp" type="String" />
 		<field name="firstLoginDate" type="Date" />
 		<field name="sessionId" type="String" />

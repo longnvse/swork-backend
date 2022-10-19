@@ -37,10 +37,11 @@
         <column name="email" type="String"/>
         <column name="address" type="String"/>
         <column name="departmentId" type="Long"/>
+        <column name="businessId" type="Long"/>
 
         <!-- Finder methods -->
 
-        <finder name="U" return-type="AccountEntry">
+        <finder name="Username" return-type="AccountEntry">
             <finder-column name="username"/>
         </finder>
         <finder name="Email" return-type="AccountEntry">

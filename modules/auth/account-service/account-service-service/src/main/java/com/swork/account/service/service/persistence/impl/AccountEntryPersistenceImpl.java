@@ -1459,8 +1459,8 @@ public class AccountEntryPersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"accountEntry.companyId = ?";
 
-	private FinderPath _finderPathFetchByU;
-	private FinderPath _finderPathCountByU;
+	private FinderPath _finderPathFetchByUsername;
+	private FinderPath _finderPathCountByUsername;
 
 	/**
 	 * Returns the account entry where username = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
@@ -1470,10 +1470,10 @@ public class AccountEntryPersistenceImpl
 	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
 	 */
 	@Override
-	public AccountEntry findByU(String username)
+	public AccountEntry findByUsername(String username)
 		throws NoSuchAccountEntryException {
 
-		AccountEntry accountEntry = fetchByU(username);
+		AccountEntry accountEntry = fetchByUsername(username);
 
 		if (accountEntry == null) {
 			StringBundler sb = new StringBundler(4);
@@ -1502,8 +1502,8 @@ public class AccountEntryPersistenceImpl
 	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
 	 */
 	@Override
-	public AccountEntry fetchByU(String username) {
-		return fetchByU(username, true);
+	public AccountEntry fetchByUsername(String username) {
+		return fetchByUsername(username, true);
 	}
 
 	/**
@@ -1514,7 +1514,9 @@ public class AccountEntryPersistenceImpl
 	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
 	 */
 	@Override
-	public AccountEntry fetchByU(String username, boolean useFinderCache) {
+	public AccountEntry fetchByUsername(
+		String username, boolean useFinderCache) {
+
 		username = Objects.toString(username, "");
 
 		Object[] finderArgs = null;
@@ -1526,7 +1528,8 @@ public class AccountEntryPersistenceImpl
 		Object result = null;
 
 		if (useFinderCache) {
-			result = finderCache.getResult(_finderPathFetchByU, finderArgs);
+			result = finderCache.getResult(
+				_finderPathFetchByUsername, finderArgs);
 		}
 
 		if (result instanceof AccountEntry) {
@@ -1545,12 +1548,12 @@ public class AccountEntryPersistenceImpl
 			boolean bindUsername = false;
 
 			if (username.isEmpty()) {
-				sb.append(_FINDER_COLUMN_U_USERNAME_3);
+				sb.append(_FINDER_COLUMN_USERNAME_USERNAME_3);
 			}
 			else {
 				bindUsername = true;
 
-				sb.append(_FINDER_COLUMN_U_USERNAME_2);
+				sb.append(_FINDER_COLUMN_USERNAME_USERNAME_2);
 			}
 
 			String sql = sb.toString();
@@ -1573,7 +1576,7 @@ public class AccountEntryPersistenceImpl
 				if (list.isEmpty()) {
 					if (useFinderCache) {
 						finderCache.putResult(
-							_finderPathFetchByU, finderArgs, list);
+							_finderPathFetchByUsername, finderArgs, list);
 					}
 				}
 				else {
@@ -1586,7 +1589,7 @@ public class AccountEntryPersistenceImpl
 							}
 
 							_log.warn(
-								"AccountEntryPersistenceImpl.fetchByU(String, boolean) with parameters (" +
+								"AccountEntryPersistenceImpl.fetchByUsername(String, boolean) with parameters (" +
 									StringUtil.merge(finderArgs) +
 										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
 						}
@@ -1622,10 +1625,10 @@ public class AccountEntryPersistenceImpl
 	 * @return the account entry that was removed
 	 */
 	@Override
-	public AccountEntry removeByU(String username)
+	public AccountEntry removeByUsername(String username)
 		throws NoSuchAccountEntryException {
 
-		AccountEntry accountEntry = findByU(username);
+		AccountEntry accountEntry = findByUsername(username);
 
 		return remove(accountEntry);
 	}
@@ -1637,10 +1640,10 @@ public class AccountEntryPersistenceImpl
 	 * @return the number of matching account entries
 	 */
 	@Override
-	public int countByU(String username) {
+	public int countByUsername(String username) {
 		username = Objects.toString(username, "");
 
-		FinderPath finderPath = _finderPathCountByU;
+		FinderPath finderPath = _finderPathCountByUsername;
 
 		Object[] finderArgs = new Object[] {username};
 
@@ -1654,12 +1657,12 @@ public class AccountEntryPersistenceImpl
 			boolean bindUsername = false;
 
 			if (username.isEmpty()) {
-				sb.append(_FINDER_COLUMN_U_USERNAME_3);
+				sb.append(_FINDER_COLUMN_USERNAME_USERNAME_3);
 			}
 			else {
 				bindUsername = true;
 
-				sb.append(_FINDER_COLUMN_U_USERNAME_2);
+				sb.append(_FINDER_COLUMN_USERNAME_USERNAME_2);
 			}
 
 			String sql = sb.toString();
@@ -1692,10 +1695,10 @@ public class AccountEntryPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_U_USERNAME_2 =
+	private static final String _FINDER_COLUMN_USERNAME_USERNAME_2 =
 		"accountEntry.username = ?";
 
-	private static final String _FINDER_COLUMN_U_USERNAME_3 =
+	private static final String _FINDER_COLUMN_USERNAME_USERNAME_3 =
 		"(accountEntry.username IS NULL OR accountEntry.username = '')";
 
 	private FinderPath _finderPathFetchByEmail;
@@ -2241,8 +2244,8 @@ public class AccountEntryPersistenceImpl
 			accountEntry);
 
 		finderCache.putResult(
-			_finderPathFetchByU, new Object[] {accountEntry.getUsername()},
-			accountEntry);
+			_finderPathFetchByUsername,
+			new Object[] {accountEntry.getUsername()}, accountEntry);
 
 		finderCache.putResult(
 			_finderPathFetchByEmail, new Object[] {accountEntry.getEmail()},
@@ -2338,8 +2341,10 @@ public class AccountEntryPersistenceImpl
 
 		args = new Object[] {accountEntryModelImpl.getUsername()};
 
-		finderCache.putResult(_finderPathCountByU, args, Long.valueOf(1));
-		finderCache.putResult(_finderPathFetchByU, args, accountEntryModelImpl);
+		finderCache.putResult(
+			_finderPathCountByUsername, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByUsername, args, accountEntryModelImpl);
 
 		args = new Object[] {accountEntryModelImpl.getEmail()};
 
@@ -2872,13 +2877,13 @@ public class AccountEntryPersistenceImpl
 			new String[] {String.class.getName(), Long.class.getName()},
 			new String[] {"uuid_", "companyId"}, false);
 
-		_finderPathFetchByU = new FinderPath(
-			FINDER_CLASS_NAME_ENTITY, "fetchByU",
+		_finderPathFetchByUsername = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByUsername",
 			new String[] {String.class.getName()}, new String[] {"username"},
 			true);
 
-		_finderPathCountByU = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByU",
+		_finderPathCountByUsername = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUsername",
 			new String[] {String.class.getName()}, new String[] {"username"},
 			false);
 
