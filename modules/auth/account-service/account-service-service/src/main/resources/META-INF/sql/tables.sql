@@ -13,5 +13,6 @@ create table SW_AccountEntry (
 	phoneNumber INTEGER,
 	email VARCHAR(75) null,
 	address VARCHAR(75) null,
-	departmentId LONG
+	departmentId LONG,
+	businessId LONG
 );

@@ -1,5 +1,0 @@
-Bundle-Name: pet-rest-test
-Bundle-SymbolicName: com.swork.rest.test
-Bundle-Version: 1.0.0
--includeresource: com.swork.rest.client.jar=../pet-rest-client/build/libs/com.swork.rest.client-1.0.0.jar;lib:=true
--provider-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}

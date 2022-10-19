@@ -58,6 +58,7 @@ public class AccountEntryWrapper
 		attributes.put("email", getEmail());
 		attributes.put("address", getAddress());
 		attributes.put("departmentId", getDepartmentId());
+		attributes.put("businessId", getBusinessId());
 
 		return attributes;
 	}
@@ -154,6 +155,12 @@ public class AccountEntryWrapper
 		if (departmentId != null) {
 			setDepartmentId(departmentId);
 		}
+
+		Long businessId = (Long)attributes.get("businessId");
+
+		if (businessId != null) {
+			setBusinessId(businessId);
+		}
 	}
 
 	@Override
@@ -179,6 +186,16 @@ public class AccountEntryWrapper
 	@Override
 	public String getAddress() {
 		return model.getAddress();
+	}
+
+	/**
+	 * Returns the business ID of this account entry.
+	 *
+	 * @return the business ID of this account entry
+	 */
+	@Override
+	public Long getBusinessId() {
+		return model.getBusinessId();
 	}
 
 	/**
@@ -344,6 +361,16 @@ public class AccountEntryWrapper
 	@Override
 	public void setAddress(String address) {
 		model.setAddress(address);
+	}
+
+	/**
+	 * Sets the business ID of this account entry.
+	 *
+	 * @param businessId the business ID of this account entry
+	 */
+	@Override
+	public void setBusinessId(Long businessId) {
+		model.setBusinessId(businessId);
 	}
 
 	/**

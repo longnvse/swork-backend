@@ -1,9 +1,0 @@
-apiDir: "../pet-rest-api/src/main/java"
-apiPackagePath: "com.swork.rest"
-application:
-    baseURI: "/pet-rest"
-    className: "PetRestApplication"
-    name: "PetRest"
-author: "Long Hip"
-clientDir: "../pet-rest-client/src/main/java"
-testDir: "../pet-rest-test/src/testIntegration/java"

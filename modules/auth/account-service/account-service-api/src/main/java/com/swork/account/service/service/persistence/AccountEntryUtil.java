@@ -538,10 +538,10 @@ public class AccountEntryUtil {
 	 * @return the matching account entry
 	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
 	 */
-	public static AccountEntry findByU(String username)
+	public static AccountEntry findByUsername(String username)
 		throws com.swork.account.service.exception.NoSuchAccountEntryException {
 
-		return getPersistence().findByU(username);
+		return getPersistence().findByUsername(username);
 	}
 
 	/**
@@ -550,8 +550,8 @@ public class AccountEntryUtil {
 	 * @param username the username
 	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
 	 */
-	public static AccountEntry fetchByU(String username) {
-		return getPersistence().fetchByU(username);
+	public static AccountEntry fetchByUsername(String username) {
+		return getPersistence().fetchByUsername(username);
 	}
 
 	/**
@@ -561,10 +561,10 @@ public class AccountEntryUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
 	 */
-	public static AccountEntry fetchByU(
+	public static AccountEntry fetchByUsername(
 		String username, boolean useFinderCache) {
 
-		return getPersistence().fetchByU(username, useFinderCache);
+		return getPersistence().fetchByUsername(username, useFinderCache);
 	}
 
 	/**
@@ -573,10 +573,10 @@ public class AccountEntryUtil {
 	 * @param username the username
 	 * @return the account entry that was removed
 	 */
-	public static AccountEntry removeByU(String username)
+	public static AccountEntry removeByUsername(String username)
 		throws com.swork.account.service.exception.NoSuchAccountEntryException {
 
-		return getPersistence().removeByU(username);
+		return getPersistence().removeByUsername(username);
 	}
 
 	/**
@@ -585,8 +585,8 @@ public class AccountEntryUtil {
 	 * @param username the username
 	 * @return the number of matching account entries
 	 */
-	public static int countByU(String username) {
-		return getPersistence().countByU(username);
+	public static int countByUsername(String username) {
+		return getPersistence().countByUsername(username);
 	}
 
 	/**
