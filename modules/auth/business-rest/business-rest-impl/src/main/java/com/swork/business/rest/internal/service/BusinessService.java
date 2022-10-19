@@ -88,8 +88,7 @@ public class BusinessService {
                         searchContext.setKeywords(search);
                     }
                 },
-                sorts
-                ,
+                sorts,
                 document -> {
                     long businessId = GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK));
 
