@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * This class is used by SOAP remote services, specifically {@link com.swork.checklist.service.service.http.ChecklistEntryServiceSoap}.
+ * This class is used by SOAP remote services.
  *
  * @author Brian Wing Shun Chan
  * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -42,6 +42,8 @@ public class ChecklistEntrySoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setName(model.getName());
+		soapModel.setStartDate(model.getStartDate());
+		soapModel.setEndDate(model.getEndDate());
 		soapModel.setTaskId(model.getTaskId());
 		soapModel.setStatus(model.getStatus());
 
@@ -174,6 +176,22 @@ public class ChecklistEntrySoap implements Serializable {
 		_name = name;
 	}
 
+	public Date getStartDate() {
+		return _startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		_startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return _endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		_endDate = endDate;
+	}
+
 	public Long getTaskId() {
 		return _taskId;
 	}
@@ -199,6 +217,8 @@ public class ChecklistEntrySoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _name;
+	private Date _startDate;
+	private Date _endDate;
 	private Long _taskId;
 	private Boolean _status;
 

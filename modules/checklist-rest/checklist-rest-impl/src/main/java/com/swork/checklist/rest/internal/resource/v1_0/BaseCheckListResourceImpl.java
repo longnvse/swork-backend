@@ -74,7 +74,7 @@ public abstract class BaseCheckListResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/checklist-rest/v1.0/checklists' -d $'{"checkListId": ___, "name": ___, "status": ___, "taskId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/checklist-rest/v1.0/checklists' -d $'{"checkListId": ___, "endDate": ___, "name": ___, "startDate": ___, "status": ___, "taskId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "CheckList")}
@@ -142,6 +142,10 @@ public abstract class BaseCheckListResourceImpl
 			@io.swagger.v3.oas.annotations.Parameter(
 				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
 				name = "cid"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "status"
 			)
 		}
 	)
@@ -152,10 +156,14 @@ public abstract class BaseCheckListResourceImpl
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
 	@Override
-	public CheckList changecheckListStatusById(
+	public CheckList changeCheckListStatusById(
 			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
 			@javax.validation.constraints.NotNull @javax.ws.rs.PathParam("cid")
-			Long cid)
+			Long cid,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.QueryParam("status")
+			Boolean status)
 		throws Exception {
 
 		return new CheckList();
@@ -271,7 +279,7 @@ public abstract class BaseCheckListResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/checklist-rest/v1.0/checklists/{cid}' -d $'{"checkListId": ___, "name": ___, "status": ___, "taskId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/checklist-rest/v1.0/checklists/{cid}' -d $'{"checkListId": ___, "endDate": ___, "name": ___, "startDate": ___, "status": ___, "taskId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {

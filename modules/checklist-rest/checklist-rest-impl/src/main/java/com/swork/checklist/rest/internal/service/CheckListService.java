@@ -11,6 +11,9 @@ import com.swork.checklist.service.service.ChecklistEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Component(
@@ -26,9 +29,9 @@ public class CheckListService {
     }
 
     public CheckList postCheckList(long userId,
-                       CheckList checkList,
-                       ServiceContext serviceContext) {
-        ChecklistEntry checklistEntry = checklistEntryLocalService.addCheckListEntry(userId, checkList.getName(), checkList.getTaskId(),checkList.getStatus(), serviceContext);
+                                   CheckList checkList,
+                                   ServiceContext serviceContext) throws ParseException {
+        ChecklistEntry checklistEntry = checklistEntryLocalService.addCheckListEntry(userId, checkList.getName(), checkList.getStartDate(), checkList.getEndDate(), checkList.getTaskId(), checkList.getStatus(), serviceContext);
 
         return mapper.mapDTOFromEntry(checklistEntry);
     }
@@ -38,13 +41,16 @@ public class CheckListService {
     }
 
     public CheckList updateCheckList(long userId,
-                         long cid,
-                         CheckList checkList,
-                         ServiceContext serviceContext) {
+                                     long cid,
+                                     CheckList checkList,
+                                     ServiceContext serviceContext) {
         ChecklistEntry checklistEntry = checklistEntryLocalService.updateCheckListEntry(
                 userId,
                 cid,
                 checkList.getName(),
+
+                checkList.getStartDate(),
+                checkList.getEndDate(),
                 checkList.getTaskId(),
                 checkList.getStatus(),
                 serviceContext
@@ -52,18 +58,16 @@ public class CheckListService {
 
         return mapper.mapDTOFromEntry(checklistEntry);
     }
-    public CheckList updateCheckListStatusById(long userId,long cid,Boolean status,ServiceContext serviceContext){
-//        ChecklistEntry checklistEntry= checklistEntryLocalService.chan
-        return null;
-    }
 
-    public CheckList getCheckListById(long cid) throws PortalException {
-        ChecklistEntry checklistEntry=checklistEntryLocalService.getChecklistEntry(cid);
+    public CheckList updateCheckListStatusById(long userId, long cid, Boolean status, ServiceContext serviceContext) {
+        ChecklistEntry checklistEntry = checklistEntryLocalService.changeStatus(userId, cid, status, serviceContext);
         return mapper.mapDTOFromEntry(checklistEntry);
     }
 
-
-
+    public CheckList getCheckListById(long cid) throws PortalException {
+        ChecklistEntry checklistEntry = checklistEntryLocalService.getChecklistEntry(cid);
+        return mapper.mapDTOFromEntry(checklistEntry);
+    }
 
 
     @Reference

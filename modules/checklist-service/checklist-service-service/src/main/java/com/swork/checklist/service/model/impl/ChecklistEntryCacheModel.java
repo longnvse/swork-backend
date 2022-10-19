@@ -63,7 +63,7 @@ public class ChecklistEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -83,6 +83,10 @@ public class ChecklistEntryCacheModel
 		sb.append(modifiedDate);
 		sb.append(", name=");
 		sb.append(name);
+		sb.append(", startDate=");
+		sb.append(startDate);
+		sb.append(", endDate=");
+		sb.append(endDate);
 		sb.append(", taskId=");
 		sb.append(taskId);
 		sb.append(", status=");
@@ -136,6 +140,20 @@ public class ChecklistEntryCacheModel
 			checklistEntryImpl.setName(name);
 		}
 
+		if (startDate == Long.MIN_VALUE) {
+			checklistEntryImpl.setStartDate(null);
+		}
+		else {
+			checklistEntryImpl.setStartDate(new Date(startDate));
+		}
+
+		if (endDate == Long.MIN_VALUE) {
+			checklistEntryImpl.setEndDate(null);
+		}
+		else {
+			checklistEntryImpl.setEndDate(new Date(endDate));
+		}
+
 		checklistEntryImpl.setTaskId(taskId);
 		checklistEntryImpl.setStatus(status);
 
@@ -159,6 +177,8 @@ public class ChecklistEntryCacheModel
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		name = objectInput.readUTF();
+		startDate = objectInput.readLong();
+		endDate = objectInput.readLong();
 
 		taskId = objectInput.readLong();
 
@@ -199,6 +219,9 @@ public class ChecklistEntryCacheModel
 			objectOutput.writeUTF(name);
 		}
 
+		objectOutput.writeLong(startDate);
+		objectOutput.writeLong(endDate);
+
 		objectOutput.writeLong(taskId);
 
 		objectOutput.writeBoolean(status);
@@ -213,6 +236,8 @@ public class ChecklistEntryCacheModel
 	public long createDate;
 	public long modifiedDate;
 	public String name;
+	public long startDate;
+	public long endDate;
 	public long taskId;
 	public boolean status;
 

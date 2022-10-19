@@ -1,161 +1,181 @@
 components:
-    schemas:
-        CheckList:
-            type: object
+  schemas:
+    CheckList:
+      type: object
+      properties:
+        checkListId:
+          type: integer
+          format: int64
+        name:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        taskId:
+          type: integer
+          format: int64
+        status:
+          type: boolean
+        CheckListHandler:
+          type: array
+          items:
             properties:
-                checkListId:
-                    type: integer
-                    format: int64
-                name:
-                    type: string
-                taskId:
-                    type: integer
-                    format: int64
-                status:
-                    type: boolean
-
+              checkListHandlerId:
+                type: integer
+                format: int64
+              handlerId:
+                type: integer
+                format: int64
 
 
 info:
-    description: "ChecklistRest REST API"
-    license:
-        name: "Apache 2.0"
-        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-    title: "ChecklistRest"
-    version: v1.0
+  description: "ChecklistRest REST API"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  title: "ChecklistRest"
+  version: v1.0
 openapi: 3.0.1
 
 paths:
-    "/checklists":
-        get:
-            operationId: getChecklists
-            tags: [ "CheckList" ]
-            responses:
-                200:
-                    description: "Get List CheckList"
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/CheckList'
-                        application/xml:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/CheckList'
+  "/checklists":
+    get:
+      operationId: getChecklists
+      tags: [ "CheckList" ]
+      responses:
+        200:
+          description: "Get List CheckList"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CheckList'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CheckList'
 
 
-        post:
-            operationId: postCheckList
-            tags: [ "CheckList" ]
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/CheckList'
-                    application/xml:
-                        schema:
-                            $ref: '#/components/schemas/CheckList'
-            responses:
-                200:
-                    description: "Create a CheckList"
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/CheckList'
-                        application/xml:
-                            schema:
-                                $ref: '#/components/schemas/CheckList'
+    post:
+      operationId: postCheckList
+      tags: [ "CheckList" ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckList'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CheckList'
+      responses:
+        200:
+          description: "Create a CheckList"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckList'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CheckList'
 
-    "/checklists/change-status/{cid}":
-        put:
-            operationId: changecheckListStatusById
-            tags: [ "CheckList" ]
-            parameters:
-                - name: cid
-                  in: path
-                  schema:
-                      type: integer
-                      format: int64
-                  required: true
-            responses:
-                200:
-                    description: "Change CheckList Status by Id"
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/CheckList'
-                        application/xml:
-                            schema:
-                                $ref: '#/components/schemas/CheckList'
+  "/checklists/change-status/{cid}":
+    put:
+      operationId: changeCheckListStatusById
+      tags: [ "CheckList" ]
+      parameters:
+        - name: cid
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+        - name: status
+          in: query
+          schema:
+            type: boolean
+          required: true
+      responses:
+        200:
+          description: "Change CheckList Status by Id"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckList'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CheckList'
 
-    "/checklists/{cid}":
-        get:
-            operationId: getCheckListById
-            tags: [ "CheckList" ]
-            parameters:
-                - name: cid
-                  in: path
-                  schema:
-                      type: integer
-                      format: int64
-                  required: true
-            responses:
-                200:
-                    description: "Get CheckList by Id"
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/CheckList'
-                        application/xml:
-                            schema:
-                                $ref: '#/components/schemas/CheckList'
+  "/checklists/{cid}":
+    get:
+      operationId: getCheckListById
+      tags: [ "CheckList" ]
+      parameters:
+        - name: cid
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: "Get CheckList by Id"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckList'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CheckList'
 
 
 
-        delete:
-            operationId: deleteCheckList
-            tags: [ "CheckList" ]
-            parameters:
-                - name: cid
-                  in: path
-                  schema:
-                      type: integer
-                      format: int64
-                  required: true
-            responses:
-                204:
-                    description: "Delete a CheckList"
-                    content:
-                        application/json: { }
-                        application/xml: { }
+    delete:
+      operationId: deleteCheckList
+      tags: [ "CheckList" ]
+      parameters:
+        - name: cid
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        204:
+          description: "Delete a CheckList"
+          content:
+            application/json: { }
+            application/xml: { }
 
-        put:
-            operationId: updateCheckList
-            tags: [ "CheckList" ]
-            parameters:
-                - name: cid
-                  in: path
-                  schema:
-                      type: integer
-                      format: int64
-                  required: true
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/CheckList'
-                    application/xml:
-                        schema:
-                            $ref: '#/components/schemas/CheckList'
-            responses:
-                200:
-                    description: "Update a CheckList"
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/CheckList'
-                        application/xml:
-                            schema:
-                                $ref: '#/components/schemas/CheckList'
+    put:
+      operationId: updateCheckList
+      tags: [ "CheckList" ]
+      parameters:
+        - name: cid
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckList'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CheckList'
+      responses:
+        200:
+          description: "Update a CheckList"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckList'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CheckList'

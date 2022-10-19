@@ -38,6 +38,7 @@ import com.swork.checklist.service.model.ChecklistEntry;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -81,7 +82,11 @@ public interface ChecklistEntryLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public ChecklistEntry addCheckListEntry(
-		long userId, String name, Long taskId, Boolean status,
+		long userId, String name, Date startDate, Date endDate, Long taskId,
+		Boolean status, ServiceContext serviceContext);
+
+	public ChecklistEntry changeStatus(
+		Long userId, Long checkListId, Boolean status,
 		ServiceContext serviceContext);
 
 	/**
@@ -334,7 +339,7 @@ public interface ChecklistEntryLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public ChecklistEntry updateCheckListEntry(
-		Long userId, Long cid, String name, Long taskId, Boolean status,
-		ServiceContext serviceContext);
+		Long userId, Long cid, String name, Date startDate, Date endDate,
+		Long taskId, Boolean status, ServiceContext serviceContext);
 
 }

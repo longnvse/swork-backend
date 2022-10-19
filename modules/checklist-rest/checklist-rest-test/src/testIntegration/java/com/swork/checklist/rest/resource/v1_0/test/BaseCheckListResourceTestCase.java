@@ -53,6 +53,7 @@ import javax.annotation.Generated;
 import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.lang.time.DateUtils;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -222,7 +223,7 @@ public abstract class BaseCheckListResourceTestCase {
 	}
 
 	@Test
-	public void testChangecheckListStatusById() throws Exception {
+	public void testChangeCheckListStatusById() throws Exception {
 		Assert.assertTrue(false);
 	}
 
@@ -335,8 +336,24 @@ public abstract class BaseCheckListResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("endDate", additionalAssertFieldName)) {
+				if (checkList.getEndDate() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (checkList.getName() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("startDate", additionalAssertFieldName)) {
+				if (checkList.getStartDate() == null) {
 					valid = false;
 				}
 
@@ -460,9 +477,29 @@ public abstract class BaseCheckListResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("endDate", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						checkList1.getEndDate(), checkList2.getEndDate())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						checkList1.getName(), checkList2.getName())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("startDate", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						checkList1.getStartDate(), checkList2.getStartDate())) {
 
 					return false;
 				}
@@ -592,10 +629,72 @@ public abstract class BaseCheckListResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("endDate")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(checkList.getEndDate(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(checkList.getEndDate(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(_dateFormat.format(checkList.getEndDate()));
+			}
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("name")) {
 			sb.append("'");
 			sb.append(String.valueOf(checkList.getName()));
 			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("startDate")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(checkList.getStartDate(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(checkList.getStartDate(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(_dateFormat.format(checkList.getStartDate()));
+			}
 
 			return sb.toString();
 		}
@@ -655,7 +754,9 @@ public abstract class BaseCheckListResourceTestCase {
 		return new CheckList() {
 			{
 				checkListId = RandomTestUtil.randomLong();
+				endDate = RandomTestUtil.nextDate();
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				startDate = RandomTestUtil.nextDate();
 				status = RandomTestUtil.randomBoolean();
 				taskId = RandomTestUtil.randomLong();
 			}

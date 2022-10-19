@@ -39,6 +39,8 @@ public class ChecklistEntryLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	public ChecklistEntry addCheckListEntry(long userId,
 									  String name,
+									  Date startDate,
+									  Date endDate,
 									  Long taskId,
 									  Boolean status,
 									  ServiceContext serviceContext) {
@@ -51,6 +53,8 @@ public class ChecklistEntryLocalServiceImpl
 				serviceContext);
 
 		checklistEntry.setName(name);
+		checklistEntry.setStartDate(startDate);
+		checklistEntry.setEndDate(endDate);
 		checklistEntry.setTaskId(taskId);
 		checklistEntry.setStatus(status);
 
@@ -61,6 +65,8 @@ public class ChecklistEntryLocalServiceImpl
 	public ChecklistEntry updateCheckListEntry(Long userId,
 											   Long cid,
 											   String name,
+											   Date startDate,
+											   Date endDate,
 											   Long taskId,
 											   Boolean status,
 											   ServiceContext serviceContext) {
@@ -72,6 +78,8 @@ public class ChecklistEntryLocalServiceImpl
 				serviceContext);
 
 		checklistEntry.setName(name);
+		checklistEntry.setStartDate(startDate);
+		checklistEntry.setEndDate(endDate);
 		checklistEntry.setTaskId(taskId);
 		checklistEntry.setStatus(status);
 
@@ -79,7 +87,7 @@ public class ChecklistEntryLocalServiceImpl
 		return updateChecklistEntry(checklistEntry);
 	}
 
-	private ChecklistEntry changeStatus(Long userId,Long checkListId,Boolean status,ServiceContext serviceContext){
+	public ChecklistEntry changeStatus(Long userId,Long checkListId,Boolean status,ServiceContext serviceContext){
 		ChecklistEntry checklistEntry=fetchChecklistEntry(checkListId);
 		checklistEntry.setStatus(status);
 		updateModifierAudit(

@@ -5,6 +5,7 @@ import com.swork.checklist.rest.client.serdes.v1_0.CheckListSerDes;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -41,6 +42,27 @@ public class CheckList implements Cloneable, Serializable {
 
 	protected Long checkListId;
 
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public void setEndDate(
+		UnsafeSupplier<Date, Exception> endDateUnsafeSupplier) {
+
+		try {
+			endDate = endDateUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date endDate;
+
 	public String getName() {
 		return name;
 	}
@@ -59,6 +81,27 @@ public class CheckList implements Cloneable, Serializable {
 	}
 
 	protected String name;
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public void setStartDate(
+		UnsafeSupplier<Date, Exception> startDateUnsafeSupplier) {
+
+		try {
+			startDate = startDateUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date startDate;
 
 	public Boolean getStatus() {
 		return status;

@@ -63,11 +63,20 @@ public class ChecklistEntryLocalServiceUtil {
 	}
 
 	public static ChecklistEntry addCheckListEntry(
-		long userId, String name, Long taskId, Boolean status,
+		long userId, String name, java.util.Date startDate,
+		java.util.Date endDate, Long taskId, Boolean status,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().addCheckListEntry(
-			userId, name, taskId, status, serviceContext);
+			userId, name, startDate, endDate, taskId, status, serviceContext);
+	}
+
+	public static ChecklistEntry changeStatus(
+		Long userId, Long checkListId, Boolean status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().changeStatus(
+			userId, checkListId, status, serviceContext);
 	}
 
 	/**
@@ -379,11 +388,13 @@ public class ChecklistEntryLocalServiceUtil {
 	}
 
 	public static ChecklistEntry updateCheckListEntry(
-		Long userId, Long cid, String name, Long taskId, Boolean status,
+		Long userId, Long cid, String name, java.util.Date startDate,
+		java.util.Date endDate, Long taskId, Boolean status,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().updateCheckListEntry(
-			userId, cid, name, taskId, status, serviceContext);
+			userId, cid, name, startDate, endDate, taskId, status,
+			serviceContext);
 	}
 
 	public static ChecklistEntryLocalService getService() {

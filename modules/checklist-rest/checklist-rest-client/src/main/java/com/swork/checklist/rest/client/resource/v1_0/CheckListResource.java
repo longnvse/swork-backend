@@ -43,10 +43,11 @@ public interface CheckListResource {
 			String callbackURL, Object object)
 		throws Exception;
 
-	public CheckList changecheckListStatusById(Long cid) throws Exception;
+	public CheckList changeCheckListStatusById(Long cid, Boolean status)
+		throws Exception;
 
-	public HttpInvoker.HttpResponse changecheckListStatusByIdHttpResponse(
-			Long cid)
+	public HttpInvoker.HttpResponse changeCheckListStatusByIdHttpResponse(
+			Long cid, Boolean status)
 		throws Exception;
 
 	public void deleteCheckList(Long cid) throws Exception;
@@ -371,9 +372,11 @@ public interface CheckListResource {
 			return httpInvoker.invoke();
 		}
 
-		public CheckList changecheckListStatusById(Long cid) throws Exception {
+		public CheckList changeCheckListStatusById(Long cid, Boolean status)
+			throws Exception {
+
 			HttpInvoker.HttpResponse httpResponse =
-				changecheckListStatusByIdHttpResponse(cid);
+				changeCheckListStatusByIdHttpResponse(cid, status);
 
 			String content = httpResponse.getContent();
 
@@ -412,11 +415,13 @@ public interface CheckListResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse changecheckListStatusByIdHttpResponse(
-				Long cid)
+		public HttpInvoker.HttpResponse changeCheckListStatusByIdHttpResponse(
+				Long cid, Boolean status)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(status.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -436,6 +441,10 @@ public interface CheckListResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (status != null) {
+				httpInvoker.parameter("status", String.valueOf(status));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +

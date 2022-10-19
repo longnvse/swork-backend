@@ -52,6 +52,8 @@ public class ChecklistEntryWrapper
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("name", getName());
+		attributes.put("startDate", getStartDate());
+		attributes.put("endDate", getEndDate());
 		attributes.put("taskId", getTaskId());
 		attributes.put("status", getStatus());
 
@@ -114,6 +116,18 @@ public class ChecklistEntryWrapper
 			setName(name);
 		}
 
+		Date startDate = (Date)attributes.get("startDate");
+
+		if (startDate != null) {
+			setStartDate(startDate);
+		}
+
+		Date endDate = (Date)attributes.get("endDate");
+
+		if (endDate != null) {
+			setEndDate(endDate);
+		}
+
 		Long taskId = (Long)attributes.get("taskId");
 
 		if (taskId != null) {
@@ -163,6 +177,16 @@ public class ChecklistEntryWrapper
 	}
 
 	/**
+	 * Returns the end date of this checklist entry.
+	 *
+	 * @return the end date of this checklist entry
+	 */
+	@Override
+	public Date getEndDate() {
+		return model.getEndDate();
+	}
+
+	/**
 	 * Returns the group ID of this checklist entry.
 	 *
 	 * @return the group ID of this checklist entry
@@ -200,6 +224,16 @@ public class ChecklistEntryWrapper
 	@Override
 	public long getPrimaryKey() {
 		return model.getPrimaryKey();
+	}
+
+	/**
+	 * Returns the start date of this checklist entry.
+	 *
+	 * @return the start date of this checklist entry
+	 */
+	@Override
+	public Date getStartDate() {
+		return model.getStartDate();
 	}
 
 	/**
@@ -298,6 +332,16 @@ public class ChecklistEntryWrapper
 	}
 
 	/**
+	 * Sets the end date of this checklist entry.
+	 *
+	 * @param endDate the end date of this checklist entry
+	 */
+	@Override
+	public void setEndDate(Date endDate) {
+		model.setEndDate(endDate);
+	}
+
+	/**
 	 * Sets the group ID of this checklist entry.
 	 *
 	 * @param groupId the group ID of this checklist entry
@@ -335,6 +379,16 @@ public class ChecklistEntryWrapper
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		model.setPrimaryKey(primaryKey);
+	}
+
+	/**
+	 * Sets the start date of this checklist entry.
+	 *
+	 * @param startDate the start date of this checklist entry
+	 */
+	@Override
+	public void setStartDate(Date startDate) {
+		model.setStartDate(startDate);
 	}
 
 	/**

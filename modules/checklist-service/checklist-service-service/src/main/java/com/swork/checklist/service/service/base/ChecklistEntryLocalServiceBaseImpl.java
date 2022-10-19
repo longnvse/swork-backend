@@ -49,6 +49,7 @@ import com.swork.checklist.service.model.ChecklistEntry;
 import com.swork.checklist.service.service.ChecklistEntryLocalService;
 import com.swork.checklist.service.service.ChecklistEntryLocalServiceUtil;
 import com.swork.checklist.service.service.persistence.ChecklistEntryPersistence;
+import com.swork.checklist.service.service.persistence.ChecklistHandlerEntryPersistence;
 
 import java.io.Serializable;
 
@@ -597,6 +598,9 @@ public abstract class ChecklistEntryLocalServiceBaseImpl
 
 	@Reference
 	protected ChecklistEntryPersistence checklistEntryPersistence;
+
+	@Reference
+	protected ChecklistHandlerEntryPersistence checklistHandlerEntryPersistence;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService

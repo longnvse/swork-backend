@@ -15,6 +15,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
@@ -71,6 +75,34 @@ public class CheckList implements Serializable {
 	protected Long checkListId;
 
 	@Schema
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	@JsonIgnore
+	public void setEndDate(
+		UnsafeSupplier<Date, Exception> endDateUnsafeSupplier) {
+
+		try {
+			endDate = endDateUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Date endDate;
+
+	@Schema
 	public String getName() {
 		return name;
 	}
@@ -95,6 +127,34 @@ public class CheckList implements Serializable {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String name;
+
+	@Schema
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	@JsonIgnore
+	public void setStartDate(
+		UnsafeSupplier<Date, Exception> startDateUnsafeSupplier) {
+
+		try {
+			startDate = startDateUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Date startDate;
 
 	@Schema
 	public Boolean getStatus() {
@@ -179,6 +239,9 @@ public class CheckList implements Serializable {
 
 		sb.append("{");
 
+		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
 		if (checkListId != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -187,6 +250,20 @@ public class CheckList implements Serializable {
 			sb.append("\"checkListId\": ");
 
 			sb.append(checkListId);
+		}
+
+		if (endDate != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"endDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(endDate));
+
+			sb.append("\"");
 		}
 
 		if (name != null) {
@@ -199,6 +276,20 @@ public class CheckList implements Serializable {
 			sb.append("\"");
 
 			sb.append(_escape(name));
+
+			sb.append("\"");
+		}
+
+		if (startDate != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"startDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(startDate));
 
 			sb.append("\"");
 		}

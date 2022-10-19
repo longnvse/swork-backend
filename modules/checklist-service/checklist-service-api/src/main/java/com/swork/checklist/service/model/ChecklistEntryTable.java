@@ -22,7 +22,7 @@ import java.sql.Types;
 import java.util.Date;
 
 /**
- * The table class for the &quot;SW_CHECKLIST_ChecklistEntry&quot; database table.
+ * The table class for the &quot;SW_Checklist&quot; database table.
  *
  * @author Brian Wing Shun Chan
  * @see ChecklistEntry
@@ -51,13 +51,17 @@ public class ChecklistEntryTable extends BaseTable<ChecklistEntryTable> {
 		"modifiedDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<ChecklistEntryTable, String> name = createColumn(
 		"name", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ChecklistEntryTable, Date> startDate = createColumn(
+		"startDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
+	public final Column<ChecklistEntryTable, Date> endDate = createColumn(
+		"endDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<ChecklistEntryTable, Long> taskId = createColumn(
 		"taskId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<ChecklistEntryTable, Boolean> status = createColumn(
 		"status", Boolean.class, Types.BOOLEAN, Column.FLAG_DEFAULT);
 
 	private ChecklistEntryTable() {
-		super("SW_CHECKLIST_ChecklistEntry", ChecklistEntryTable::new);
+		super("SW_Checklist", ChecklistEntryTable::new);
 	}
 
 }

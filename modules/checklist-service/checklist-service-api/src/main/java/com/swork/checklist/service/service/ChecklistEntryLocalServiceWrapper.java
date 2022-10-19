@@ -52,11 +52,21 @@ public class ChecklistEntryLocalServiceWrapper
 
 	@Override
 	public com.swork.checklist.service.model.ChecklistEntry addCheckListEntry(
-		long userId, String name, Long taskId, Boolean status,
+		long userId, String name, java.util.Date startDate,
+		java.util.Date endDate, Long taskId, Boolean status,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _checklistEntryLocalService.addCheckListEntry(
-			userId, name, taskId, status, serviceContext);
+			userId, name, startDate, endDate, taskId, status, serviceContext);
+	}
+
+	@Override
+	public com.swork.checklist.service.model.ChecklistEntry changeStatus(
+		Long userId, Long checkListId, Boolean status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _checklistEntryLocalService.changeStatus(
+			userId, checkListId, status, serviceContext);
 	}
 
 	/**
@@ -427,11 +437,13 @@ public class ChecklistEntryLocalServiceWrapper
 	@Override
 	public com.swork.checklist.service.model.ChecklistEntry
 		updateCheckListEntry(
-			Long userId, Long cid, String name, Long taskId, Boolean status,
+			Long userId, Long cid, String name, java.util.Date startDate,
+			java.util.Date endDate, Long taskId, Boolean status,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _checklistEntryLocalService.updateCheckListEntry(
-			userId, cid, name, taskId, status, serviceContext);
+			userId, cid, name, startDate, endDate, taskId, status,
+			serviceContext);
 	}
 
 	@Override
