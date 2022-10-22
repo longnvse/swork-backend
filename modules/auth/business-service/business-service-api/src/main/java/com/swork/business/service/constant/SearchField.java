@@ -2,7 +2,6 @@ package com.swork.business.service.constant;
 
 public class SearchField {
     public static final String INDEXER = "indexer.class.name=com.swork.business.service.model.BusinessEntry";
-
     public static final String CUSTOMER_NAME = "customerName";
     public static final String NAME = "name";
     public static final String EMAIL = "email";

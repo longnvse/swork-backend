@@ -23,7 +23,6 @@ public class BusinessValidator {
 
 
     public void validatorForPostBusiness(Business business) throws SW_DataInputException, SW_FieldRequiredException, SW_FieldDuplicateException, SW_NameDuplicateException {
-
         validatorFieldsForUpdateBusiness(business);
 
         validatorNameIsExist(business.getName());
@@ -91,9 +90,9 @@ public class BusinessValidator {
         throw new SW_NoSuchEntryException("Đơn vị không tồn tại");
     }
 
-    private void validatorNameIsExist(long customerId,
+    private void validatorNameIsExist(long businessId,
                                       String value) throws SW_NameDuplicateException {
-        BusinessEntry entry = localService.fetchBusinessEntry(customerId);
+        BusinessEntry entry = localService.fetchBusinessEntry(businessId);
 
         if (entry.getName().equals(value)) return;
 

@@ -40,7 +40,7 @@ public class BusinessEntryModelIndexerWriterContributor implements ModelIndexerW
 
     @Override
     public BatchIndexingActionable getBatchIndexingActionable() {
-        return _dynamicQueryBatchIndexingActionableFactory.getBatchIndexingActionable(customerEntryLocalService.getIndexableActionableDynamicQuery());
+        return _dynamicQueryBatchIndexingActionableFactory.getBatchIndexingActionable(businessEntryLocalService.getIndexableActionableDynamicQuery());
     }
 
     @Override
@@ -49,7 +49,7 @@ public class BusinessEntryModelIndexerWriterContributor implements ModelIndexerW
     }
 
     @Reference
-    private BusinessEntryLocalService customerEntryLocalService;
+    private BusinessEntryLocalService businessEntryLocalService;
 
     @Reference
     private DynamicQueryBatchIndexingActionableFactory _dynamicQueryBatchIndexingActionableFactory;

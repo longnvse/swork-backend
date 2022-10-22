@@ -7,7 +7,9 @@ import com.swork.auth.login.rest.internal.service.CookieService;
 import com.swork.auth.login.rest.internal.service.TokenService;
 import com.swork.auth.login.rest.internal.validator.TokenValidator;
 import com.swork.auth.login.rest.resource.v1_0.LoginResource;
+import com.swork.common.exception.model.SW_FieldRequiredException;
 import com.swork.common.exception.model.SW_TokenExpiredException;
+import com.swork.common.exception.model.SW_UnAuthorizationException;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -23,7 +25,7 @@ public class LoginResourceImpl extends BaseLoginResourceImpl {
     public static final String USER_AGENT = "User-Agent";
 
     @Override
-    public Credential postCredential(Credential credential) throws Exception {
+    public Credential postCredential(Credential credential) throws SW_UnAuthorizationException, SW_FieldRequiredException {
         validator.validatorForLogin(
                 credential.getUsername(),
                 credential.getPassword());
@@ -40,7 +42,7 @@ public class LoginResourceImpl extends BaseLoginResourceImpl {
     }
 
     @Override
-    public CredentialRefresh postCredentialRefresh() throws Exception {
+    public CredentialRefresh postCredentialRefresh() throws SW_TokenExpiredException {
         String refreshToken = _cookieService.getRefreshTokenByCookies(contextHttpServletRequest);
 
         validator.validatorRefreshToken(refreshToken);
