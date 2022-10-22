@@ -63,12 +63,11 @@ public class ChecklistEntryLocalServiceUtil {
 	}
 
 	public static ChecklistEntry addCheckListEntry(
-		long userId, String name, java.util.Date startDate,
-		java.util.Date endDate, Long taskId, Boolean status,
+		long userId,
+		com.swork.checklist.service.mapper.model.ChecklistMapperModel model,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
-		return getService().addCheckListEntry(
-			userId, name, startDate, endDate, taskId, status, serviceContext);
+		return getService().addCheckListEntry(userId, model, serviceContext);
 	}
 
 	public static ChecklistEntry changeStatus(
@@ -388,13 +387,12 @@ public class ChecklistEntryLocalServiceUtil {
 	}
 
 	public static ChecklistEntry updateCheckListEntry(
-		Long userId, Long cid, String name, java.util.Date startDate,
-		java.util.Date endDate, Long taskId, Boolean status,
+		long userId, long checklistId,
+		com.swork.checklist.service.mapper.model.ChecklistMapperModel model,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().updateCheckListEntry(
-			userId, cid, name, startDate, endDate, taskId, status,
-			serviceContext);
+			userId, checklistId, model, serviceContext);
 	}
 
 	public static ChecklistEntryLocalService getService() {

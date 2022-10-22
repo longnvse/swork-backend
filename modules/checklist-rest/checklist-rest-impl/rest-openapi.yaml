@@ -19,16 +19,11 @@ components:
           format: int64
         status:
           type: boolean
-        CheckListHandler:
+        handlers:
           type: array
           items:
-            properties:
-              checkListHandlerId:
-                type: integer
-                format: int64
-              handlerId:
-                type: integer
-                format: int64
+            type: integer
+            format: int64
 
 
 info:
@@ -41,29 +36,52 @@ info:
 openapi: 3.0.1
 
 paths:
-  "/checklists":
+  "/checklist":
     get:
-      operationId: getChecklists
-      tags: [ "CheckList" ]
+      tags: [ "Checklist" ]
+      description:
+        Retrieves the checklist. Results can be paginated, filtered, searched, and sorted.
+      operationId: getChecklistPages
+      parameters:
+        - in: query
+          name: filter
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: sort
+          schema:
+            type: string
       responses:
         200:
-          description: "Get List CheckList"
+          description: The data returned
           content:
             application/json:
               schema:
-                type: array
                 items:
-                  $ref: '#/components/schemas/CheckList'
+                  $ref: "#/components/schemas/CheckList"
+                type: array
             application/xml:
               schema:
-                type: array
                 items:
-                  $ref: '#/components/schemas/CheckList'
+                  $ref: "#/components/schemas/CheckList"
+                type: array
 
 
     post:
       operationId: postCheckList
-      tags: [ "CheckList" ]
+      tags: [ "Checklist" ]
       requestBody:
         content:
           application/json:
@@ -83,10 +101,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/CheckList'
 
-  "/checklists/change-status/{cid}":
+  "/checklist/change-status/{cid}":
     put:
       operationId: changeCheckListStatusById
-      tags: [ "CheckList" ]
+      tags: [ "Checklist" ]
       parameters:
         - name: cid
           in: path
@@ -110,10 +128,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/CheckList'
 
-  "/checklists/{cid}":
+  "/checklist/{cid}":
     get:
       operationId: getCheckListById
-      tags: [ "CheckList" ]
+      tags: [ "Checklist" ]
       parameters:
         - name: cid
           in: path
@@ -136,7 +154,7 @@ paths:
 
     delete:
       operationId: deleteCheckList
-      tags: [ "CheckList" ]
+      tags: [ "Checklist" ]
       parameters:
         - name: cid
           in: path
@@ -153,7 +171,7 @@ paths:
 
     put:
       operationId: updateCheckList
-      tags: [ "CheckList" ]
+      tags: [ "Checklist" ]
       parameters:
         - name: cid
           in: path

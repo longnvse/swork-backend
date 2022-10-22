@@ -1,5 +1,6 @@
 package com.swork.checklist.rest.resource.v1_0;
 
+import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ResourceActionLocalService;
@@ -9,6 +10,7 @@ import com.liferay.portal.odata.filter.ExpressionConvert;
 import com.liferay.portal.odata.filter.FilterParserProvider;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.pagination.Pagination;
 
 import com.swork.checklist.rest.dto.v1_0.CheckList;
 
@@ -22,7 +24,6 @@ import javax.annotation.Generated;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -37,27 +38,22 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @Generated("")
 @ProviderType
-public interface CheckListResource {
+public interface ChecklistResource {
 
 	public static Builder builder() {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<CheckList> getChecklists() throws Exception;
+	public Page<CheckList> getChecklistPages(
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
+		throws Exception;
 
 	public CheckList postCheckList(CheckList checkList) throws Exception;
-
-	public Response postCheckListBatch(String callbackURL, Object object)
-		throws Exception;
 
 	public CheckList changeCheckListStatusById(Long cid, Boolean status)
 		throws Exception;
 
 	public void deleteCheckList(Long cid) throws Exception;
-
-	public Response deleteCheckListBatch(
-			Long cid, String callbackURL, Object object)
-		throws Exception;
 
 	public CheckList getCheckListById(Long cid) throws Exception;
 
@@ -121,7 +117,7 @@ public interface CheckListResource {
 	@ProviderType
 	public interface Builder {
 
-		public CheckListResource build();
+		public ChecklistResource build();
 
 		public Builder checkPermissions(boolean checkPermissions);
 

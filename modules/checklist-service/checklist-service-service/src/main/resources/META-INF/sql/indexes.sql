@@ -9,4 +9,5 @@ create index IX_6B709570 on SW_Checklist (name[$COLUMN_LENGTH:75$]);
 create index IX_AFA8C625 on SW_Checklist (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_F08691E7 on SW_Checklist (uuid_[$COLUMN_LENGTH:75$], groupId);
 
+create index IX_26DF962C on SW_ChecklistHandler (checkListId);
 create unique index IX_35B17ADB on SW_ChecklistHandler (uuid_[$COLUMN_LENGTH:75$], groupId);

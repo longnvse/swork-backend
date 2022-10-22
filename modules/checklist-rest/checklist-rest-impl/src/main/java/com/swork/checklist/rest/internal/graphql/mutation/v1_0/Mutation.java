@@ -6,11 +6,6 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
-
-import com.swork.checklist.rest.dto.v1_0.CheckList;
-import com.swork.checklist.rest.resource.v1_0.CheckListResource;
 
 import java.util.function.BiFunction;
 
@@ -19,7 +14,6 @@ import javax.annotation.Generated;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.ComponentServiceObjects;
@@ -30,89 +24,6 @@ import org.osgi.service.component.ComponentServiceObjects;
  */
 @Generated("")
 public class Mutation {
-
-	public static void setCheckListResourceComponentServiceObjects(
-		ComponentServiceObjects<CheckListResource>
-			checkListResourceComponentServiceObjects) {
-
-		_checkListResourceComponentServiceObjects =
-			checkListResourceComponentServiceObjects;
-	}
-
-	@GraphQLField
-	public CheckList createCheckList(
-			@GraphQLName("checkList") CheckList checkList)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_checkListResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			checkListResource -> checkListResource.postCheckList(checkList));
-	}
-
-	@GraphQLField
-	public Response createCheckListBatch(
-			@GraphQLName("callbackURL") String callbackURL,
-			@GraphQLName("object") Object object)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_checkListResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			checkListResource -> checkListResource.postCheckListBatch(
-				callbackURL, object));
-	}
-
-	@GraphQLField
-	public CheckList changeCheckListStatusById(
-			@GraphQLName("cid") Long cid, @GraphQLName("status") Boolean status)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_checkListResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			checkListResource -> checkListResource.changeCheckListStatusById(
-				cid, status));
-	}
-
-	@GraphQLField
-	public boolean deleteCheckList(@GraphQLName("cid") Long cid)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_checkListResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			checkListResource -> checkListResource.deleteCheckList(cid));
-
-		return true;
-	}
-
-	@GraphQLField
-	public Response deleteCheckListBatch(
-			@GraphQLName("cid") Long cid,
-			@GraphQLName("callbackURL") String callbackURL,
-			@GraphQLName("object") Object object)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_checkListResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			checkListResource -> checkListResource.deleteCheckListBatch(
-				cid, callbackURL, object));
-	}
-
-	@GraphQLField
-	public CheckList updateCheckList(
-			@GraphQLName("cid") Long cid,
-			@GraphQLName("checkList") CheckList checkList)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_checkListResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			checkListResource -> checkListResource.updateCheckList(
-				cid, checkList));
-	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
 			_applyComponentServiceObjects(
@@ -151,22 +62,6 @@ public class Mutation {
 			componentServiceObjects.ungetService(resource);
 		}
 	}
-
-	private void _populateResourceContext(CheckListResource checkListResource)
-		throws Exception {
-
-		checkListResource.setContextAcceptLanguage(_acceptLanguage);
-		checkListResource.setContextCompany(_company);
-		checkListResource.setContextHttpServletRequest(_httpServletRequest);
-		checkListResource.setContextHttpServletResponse(_httpServletResponse);
-		checkListResource.setContextUriInfo(_uriInfo);
-		checkListResource.setContextUser(_user);
-		checkListResource.setGroupLocalService(_groupLocalService);
-		checkListResource.setRoleLocalService(_roleLocalService);
-	}
-
-	private static ComponentServiceObjects<CheckListResource>
-		_checkListResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
 	private com.liferay.portal.kernel.model.Company _company;

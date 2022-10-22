@@ -5,6 +5,7 @@ Export-Package:\
 	com.swork.checklist.service.exception,\
 	com.swork.checklist.service.model,\
 	com.swork.checklist.service.service,\
-	com.swork.checklist.service.service.persistence
+	com.swork.checklist.service.service.persistence,\
+    com.swork.checklist.service.mapper.model
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../checklist-service-service/service.xml

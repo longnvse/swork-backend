@@ -103,6 +103,34 @@ public class CheckList implements Serializable {
 	protected Date endDate;
 
 	@Schema
+	public Long[] getHandlers() {
+		return handlers;
+	}
+
+	public void setHandlers(Long[] handlers) {
+		this.handlers = handlers;
+	}
+
+	@JsonIgnore
+	public void setHandlers(
+		UnsafeSupplier<Long[], Exception> handlersUnsafeSupplier) {
+
+		try {
+			handlers = handlersUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long[] handlers;
+
+	@Schema
 	public String getName() {
 		return name;
 	}
@@ -264,6 +292,26 @@ public class CheckList implements Serializable {
 			sb.append(liferayToJSONDateFormat.format(endDate));
 
 			sb.append("\"");
+		}
+
+		if (handlers != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"handlers\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < handlers.length; i++) {
+				sb.append(handlers[i]);
+
+				if ((i + 1) < handlers.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
 		}
 
 		if (name != null) {

@@ -1,13 +1,6 @@
 package com.swork.checklist.rest.resource.v1_0.test;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
-
+import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -21,10 +14,12 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -32,8 +27,8 @@ import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.swork.checklist.rest.client.dto.v1_0.CheckList;
 import com.swork.checklist.rest.client.http.HttpInvoker;
 import com.swork.checklist.rest.client.pagination.Page;
-import com.swork.checklist.rest.client.resource.v1_0.CheckListResource;
-import com.swork.checklist.rest.client.serdes.v1_0.CheckListSerDes;
+import com.swork.checklist.rest.client.pagination.Pagination;
+import com.swork.checklist.rest.client.resource.v1_0.ChecklistResource;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -41,6 +36,8 @@ import java.text.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +49,7 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang.time.DateUtils;
 
@@ -68,7 +66,7 @@ import org.junit.Test;
  * @generated
  */
 @Generated("")
-public abstract class BaseCheckListResourceTestCase {
+public abstract class BaseChecklistResourceTestCase {
 
 	@ClassRule
 	@Rule
@@ -89,11 +87,11 @@ public abstract class BaseCheckListResourceTestCase {
 		testCompany = CompanyLocalServiceUtil.getCompany(
 			testGroup.getCompanyId());
 
-		_checkListResource.setContextCompany(testCompany);
+		_checklistResource.setContextCompany(testCompany);
 
-		CheckListResource.Builder builder = CheckListResource.builder();
+		ChecklistResource.Builder builder = ChecklistResource.builder();
 
-		checkListResource = builder.authentication(
+		checklistResource = builder.authentication(
 			"test@liferay.com", "test"
 		).locale(
 			LocaleUtil.getDefault()
@@ -107,124 +105,241 @@ public abstract class BaseCheckListResourceTestCase {
 	}
 
 	@Test
-	public void testClientSerDesToDTO() throws Exception {
-		ObjectMapper objectMapper = new ObjectMapper() {
-			{
-				configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true);
-				configure(
-					SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true);
-				enable(SerializationFeature.INDENT_OUTPUT);
-				setDateFormat(new ISO8601DateFormat());
-				setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-				setSerializationInclusion(JsonInclude.Include.NON_NULL);
-				setVisibility(
-					PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-				setVisibility(
-					PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE);
-			}
-		};
-
-		CheckList checkList1 = randomCheckList();
-
-		String json = objectMapper.writeValueAsString(checkList1);
-
-		CheckList checkList2 = CheckListSerDes.toDTO(json);
-
-		Assert.assertTrue(equals(checkList1, checkList2));
-	}
-
-	@Test
-	public void testClientSerDesToJSON() throws Exception {
-		ObjectMapper objectMapper = new ObjectMapper() {
-			{
-				configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true);
-				configure(
-					SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true);
-				setDateFormat(new ISO8601DateFormat());
-				setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-				setSerializationInclusion(JsonInclude.Include.NON_NULL);
-				setVisibility(
-					PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-				setVisibility(
-					PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE);
-			}
-		};
-
-		CheckList checkList = randomCheckList();
-
-		String json1 = objectMapper.writeValueAsString(checkList);
-		String json2 = CheckListSerDes.toJSON(checkList);
-
-		Assert.assertEquals(
-			objectMapper.readTree(json1), objectMapper.readTree(json2));
-	}
-
-	@Test
-	public void testEscapeRegexInStringFields() throws Exception {
-		String regex = "^[0-9]+(\\.[0-9]{1,2})\"?";
-
-		CheckList checkList = randomCheckList();
-
-		checkList.setName(regex);
-
-		String json = CheckListSerDes.toJSON(checkList);
-
-		Assert.assertFalse(json.contains(regex));
-
-		checkList = CheckListSerDes.toDTO(json);
-
-		Assert.assertEquals(regex, checkList.getName());
-	}
-
-	@Test
-	public void testGetChecklists() throws Exception {
-		Page<CheckList> page = checkListResource.getChecklists();
+	public void testGetChecklistPages() throws Exception {
+		Page<Checklist> page = checklistResource.getChecklistPages(
+			null, null, Pagination.of(1, 10), null);
 
 		long totalCount = page.getTotalCount();
 
-		CheckList checkList1 = testGetChecklists_addCheckList(
-			randomCheckList());
+		Checklist checklist1 = testGetChecklistPages_addChecklist(
+			randomChecklist());
 
-		CheckList checkList2 = testGetChecklists_addCheckList(
-			randomCheckList());
+		Checklist checklist2 = testGetChecklistPages_addChecklist(
+			randomChecklist());
 
-		page = checkListResource.getChecklists();
+		page = checklistResource.getChecklistPages(
+			null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
-		assertContains(checkList1, (List<CheckList>)page.getItems());
-		assertContains(checkList2, (List<CheckList>)page.getItems());
+		assertContains(checklist1, (List<Checklist>)page.getItems());
+		assertContains(checklist2, (List<Checklist>)page.getItems());
 		assertValid(page);
 	}
 
-	protected CheckList testGetChecklists_addCheckList(CheckList checkList)
+	@Test
+	public void testGetChecklistPagesWithFilterDateTimeEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Checklist checklist1 = randomChecklist();
+
+		checklist1 = testGetChecklistPages_addChecklist(checklist1);
+
+		for (EntityField entityField : entityFields) {
+			Page<Checklist> page = checklistResource.getChecklistPages(
+				null, getFilterString(entityField, "between", checklist1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(checklist1),
+				(List<Checklist>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetChecklistPagesWithFilterStringEquals() throws Exception {
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Checklist checklist1 = testGetChecklistPages_addChecklist(
+			randomChecklist());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Checklist checklist2 = testGetChecklistPages_addChecklist(
+			randomChecklist());
+
+		for (EntityField entityField : entityFields) {
+			Page<Checklist> page = checklistResource.getChecklistPages(
+				null, getFilterString(entityField, "eq", checklist1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(checklist1),
+				(List<Checklist>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetChecklistPagesWithPagination() throws Exception {
+		Page<Checklist> totalPage = checklistResource.getChecklistPages(
+			null, null, null, null);
+
+		int totalCount = GetterUtil.getInteger(totalPage.getTotalCount());
+
+		Checklist checklist1 = testGetChecklistPages_addChecklist(
+			randomChecklist());
+
+		Checklist checklist2 = testGetChecklistPages_addChecklist(
+			randomChecklist());
+
+		Checklist checklist3 = testGetChecklistPages_addChecklist(
+			randomChecklist());
+
+		Page<Checklist> page1 = checklistResource.getChecklistPages(
+			null, null, Pagination.of(1, totalCount + 2), null);
+
+		List<Checklist> checklists1 = (List<Checklist>)page1.getItems();
+
+		Assert.assertEquals(
+			checklists1.toString(), totalCount + 2, checklists1.size());
+
+		Page<Checklist> page2 = checklistResource.getChecklistPages(
+			null, null, Pagination.of(2, totalCount + 2), null);
+
+		Assert.assertEquals(totalCount + 3, page2.getTotalCount());
+
+		List<Checklist> checklists2 = (List<Checklist>)page2.getItems();
+
+		Assert.assertEquals(checklists2.toString(), 1, checklists2.size());
+
+		Page<Checklist> page3 = checklistResource.getChecklistPages(
+			null, null, Pagination.of(1, totalCount + 3), null);
+
+		assertContains(checklist1, (List<Checklist>)page3.getItems());
+		assertContains(checklist2, (List<Checklist>)page3.getItems());
+		assertContains(checklist3, (List<Checklist>)page3.getItems());
+	}
+
+	@Test
+	public void testGetChecklistPagesWithSortDateTime() throws Exception {
+		testGetChecklistPagesWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, checklist1, checklist2) -> {
+				BeanUtils.setProperty(
+					checklist1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetChecklistPagesWithSortInteger() throws Exception {
+		testGetChecklistPagesWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, checklist1, checklist2) -> {
+				BeanUtils.setProperty(checklist1, entityField.getName(), 0);
+				BeanUtils.setProperty(checklist2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetChecklistPagesWithSortString() throws Exception {
+		testGetChecklistPagesWithSort(
+			EntityField.Type.STRING,
+			(entityField, checklist1, checklist2) -> {
+				Class<?> clazz = checklist1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				java.lang.reflect.Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanUtils.setProperty(
+						checklist1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanUtils.setProperty(
+						checklist2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						checklist1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						checklist2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanUtils.setProperty(
+						checklist1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanUtils.setProperty(
+						checklist2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetChecklistPagesWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer<EntityField, Checklist, Checklist, Exception>
+				unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Checklist checklist1 = randomChecklist();
+		Checklist checklist2 = randomChecklist();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(entityField, checklist1, checklist2);
+		}
+
+		checklist1 = testGetChecklistPages_addChecklist(checklist1);
+
+		checklist2 = testGetChecklistPages_addChecklist(checklist2);
+
+		for (EntityField entityField : entityFields) {
+			Page<Checklist> ascPage = checklistResource.getChecklistPages(
+				null, null, Pagination.of(1, 2),
+				entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(checklist1, checklist2),
+				(List<Checklist>)ascPage.getItems());
+
+			Page<Checklist> descPage = checklistResource.getChecklistPages(
+				null, null, Pagination.of(1, 2),
+				entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(checklist2, checklist1),
+				(List<Checklist>)descPage.getItems());
+		}
+	}
+
+	protected Checklist testGetChecklistPages_addChecklist(Checklist checklist)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testPostCheckList() throws Exception {
-		CheckList randomCheckList = randomCheckList();
-
-		CheckList postCheckList = testPostCheckList_addCheckList(
-			randomCheckList);
-
-		assertEquals(randomCheckList, postCheckList);
-		assertValid(postCheckList);
-	}
-
-	protected CheckList testPostCheckList_addCheckList(CheckList checkList)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testChangeCheckListStatusById() throws Exception {
-		Assert.assertTrue(false);
 	}
 
 	@Test
@@ -232,38 +347,88 @@ public abstract class BaseCheckListResourceTestCase {
 		Assert.assertTrue(false);
 	}
 
+	@Rule
+	public SearchTestRule searchTestRule = new SearchTestRule();
+
 	@Test
-	public void testGraphQLDeleteCheckList() throws Exception {
-		Assert.assertTrue(false);
+	public void testPostCheckList() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testChangeCheckListStatusById() throws Exception {
+		Checklist postChecklist = testPutChecklist_addChecklist();
+
+		testChangeCheckListStatusById_addCheckList(
+			postChecklist.getId(), randomCheckList());
+
+		CheckList randomCheckList = randomCheckList();
+
+		CheckList putCheckList = checklistResource.changeCheckListStatusById(
+			null, null);
+
+		assertEquals(randomCheckList, putCheckList);
+		assertValid(putCheckList);
+	}
+
+	protected CheckList testChangeCheckListStatusById_addCheckList(
+			long checklistId, CheckList checkList)
+		throws Exception {
+
+		return checklistResource.changeCheckListStatusById(
+			checklistId, checkList);
 	}
 
 	@Test
 	public void testGetCheckListById() throws Exception {
-		Assert.assertTrue(false);
+		Checklist postChecklist = testGetChecklist_addChecklist();
+
+		CheckList postCheckList = testGetCheckListById_addCheckList(
+			postChecklist.getId(), randomCheckList());
+
+		CheckList getCheckList = checklistResource.getCheckListById(
+			postChecklist.getId());
+
+		assertEquals(postCheckList, getCheckList);
+		assertValid(getCheckList);
 	}
 
-	@Test
-	public void testGraphQLGetCheckListById() throws Exception {
-		Assert.assertTrue(true);
-	}
+	protected CheckList testGetCheckListById_addCheckList(
+			long checklistId, CheckList checkList)
+		throws Exception {
 
-	@Test
-	public void testGraphQLGetCheckListByIdNotFound() throws Exception {
-		Assert.assertTrue(true);
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
 	public void testUpdateCheckList() throws Exception {
-		Assert.assertTrue(false);
+		Checklist postChecklist = testPutChecklist_addChecklist();
+
+		testUpdateCheckList_addCheckList(
+			postChecklist.getId(), randomCheckList());
+
+		CheckList randomCheckList = randomCheckList();
+
+		CheckList putCheckList = checklistResource.updateCheckList(
+			null, randomCheckList);
+
+		assertEquals(randomCheckList, putCheckList);
+		assertValid(putCheckList);
 	}
 
-	protected void assertContains(
-		CheckList checkList, List<CheckList> checkLists) {
+	protected CheckList testUpdateCheckList_addCheckList(
+			long checklistId, CheckList checkList)
+		throws Exception {
 
+		return checklistResource.updateCheckList(checklistId, checkList);
+	}
+
+	protected void assertContains(Object checklist, List<Object> checklists) {
 		boolean contains = false;
 
-		for (CheckList item : checkLists) {
-			if (equals(checkList, item)) {
+		for (Object item : checklists) {
+			if (equals(checklist, item)) {
 				contains = true;
 
 				break;
@@ -271,7 +436,7 @@ public abstract class BaseCheckListResourceTestCase {
 		}
 
 		Assert.assertTrue(
-			checkLists + " does not contain " + checkList, contains);
+			checklists + " does not contain " + checklist, contains);
 	}
 
 	protected void assertHttpResponseStatusCode(
@@ -282,35 +447,41 @@ public abstract class BaseCheckListResourceTestCase {
 			expectedHttpResponseStatusCode, actualHttpResponse.getStatusCode());
 	}
 
+	protected void assertEquals(Object checklist1, Object checklist2) {
+		Assert.assertTrue(
+			checklist1 + " does not equal " + checklist2,
+			equals(checklist1, checklist2));
+	}
+
+	protected void assertEquals(
+		List<Object> checklists1, List<Object> checklists2) {
+
+		Assert.assertEquals(checklists1.size(), checklists2.size());
+
+		for (int i = 0; i < checklists1.size(); i++) {
+			Object checklist1 = checklists1.get(i);
+			Object checklist2 = checklists2.get(i);
+
+			assertEquals(checklist1, checklist2);
+		}
+	}
+
 	protected void assertEquals(CheckList checkList1, CheckList checkList2) {
 		Assert.assertTrue(
 			checkList1 + " does not equal " + checkList2,
 			equals(checkList1, checkList2));
 	}
 
-	protected void assertEquals(
-		List<CheckList> checkLists1, List<CheckList> checkLists2) {
-
-		Assert.assertEquals(checkLists1.size(), checkLists2.size());
-
-		for (int i = 0; i < checkLists1.size(); i++) {
-			CheckList checkList1 = checkLists1.get(i);
-			CheckList checkList2 = checkLists2.get(i);
-
-			assertEquals(checkList1, checkList2);
-		}
-	}
-
 	protected void assertEqualsIgnoringOrder(
-		List<CheckList> checkLists1, List<CheckList> checkLists2) {
+		List<Object> checklists1, List<Object> checklists2) {
 
-		Assert.assertEquals(checkLists1.size(), checkLists2.size());
+		Assert.assertEquals(checklists1.size(), checklists2.size());
 
-		for (CheckList checkList1 : checkLists1) {
+		for (Object checklist1 : checklists1) {
 			boolean contains = false;
 
-			for (CheckList checkList2 : checkLists2) {
-				if (equals(checkList1, checkList2)) {
+			for (Object checklist2 : checklists2) {
+				if (equals(checklist1, checklist2)) {
 					contains = true;
 
 					break;
@@ -318,15 +489,46 @@ public abstract class BaseCheckListResourceTestCase {
 			}
 
 			Assert.assertTrue(
-				checkLists2 + " does not contain " + checkList1, contains);
+				checklists2 + " does not contain " + checklist1, contains);
 		}
 	}
 
-	protected void assertValid(CheckList checkList) throws Exception {
+	protected void assertValid(Object checklist) throws Exception {
 		boolean valid = true;
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
+
+			throw new IllegalArgumentException(
+				"Invalid additional assert field name " +
+					additionalAssertFieldName);
+		}
+
+		Assert.assertTrue(valid);
+	}
+
+	protected void assertValid(Page<Object> page) {
+		boolean valid = false;
+
+		java.util.Collection<Object> checklists = page.getItems();
+
+		int size = checklists.size();
+
+		if ((page.getLastPage() > 0) && (page.getPage() > 0) &&
+			(page.getPageSize() > 0) && (page.getTotalCount() > 0) &&
+			(size > 0)) {
+
+			valid = true;
+		}
+
+		Assert.assertTrue(valid);
+	}
+
+	protected void assertValid(CheckList checkList) {
+		boolean valid = true;
+
+		for (String additionalAssertFieldName :
+				getAdditionalCheckListAssertFieldNames()) {
 
 			if (Objects.equals("checkListId", additionalAssertFieldName)) {
 				if (checkList.getCheckListId() == null) {
@@ -338,6 +540,14 @@ public abstract class BaseCheckListResourceTestCase {
 
 			if (Objects.equals("endDate", additionalAssertFieldName)) {
 				if (checkList.getEndDate() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("handlers", additionalAssertFieldName)) {
+				if (checkList.getHandlers() == null) {
 					valid = false;
 				}
 
@@ -384,42 +594,16 @@ public abstract class BaseCheckListResourceTestCase {
 		Assert.assertTrue(valid);
 	}
 
-	protected void assertValid(Page<CheckList> page) {
-		boolean valid = false;
-
-		java.util.Collection<CheckList> checkLists = page.getItems();
-
-		int size = checkLists.size();
-
-		if ((page.getLastPage() > 0) && (page.getPage() > 0) &&
-			(page.getPageSize() > 0) && (page.getTotalCount() > 0) &&
-			(size > 0)) {
-
-			valid = true;
-		}
-
-		Assert.assertTrue(valid);
+	protected String[] getAdditionalAssertFieldNames() {
+		return new String[0];
 	}
 
-	protected String[] getAdditionalAssertFieldNames() {
+	protected String[] getAdditionalCheckListAssertFieldNames() {
 		return new String[0];
 	}
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
-
-		for (java.lang.reflect.Field field :
-				getDeclaredFields(
-					com.swork.checklist.rest.dto.v1_0.CheckList.class)) {
-
-			if (!ArrayUtil.contains(
-					getAdditionalAssertFieldNames(), field.getName())) {
-
-				continue;
-			}
-
-			graphQLFields.addAll(getGraphQLFields(field));
-		}
 
 		return graphQLFields;
 	}
@@ -458,13 +642,55 @@ public abstract class BaseCheckListResourceTestCase {
 		return new String[0];
 	}
 
+	protected boolean equals(Object checklist1, Object checklist2) {
+		if (checklist1 == checklist2) {
+			return true;
+		}
+
+		for (String additionalAssertFieldName :
+				getAdditionalAssertFieldNames()) {
+
+			throw new IllegalArgumentException(
+				"Invalid additional assert field name " +
+					additionalAssertFieldName);
+		}
+
+		return true;
+	}
+
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
+
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
+
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		return false;
+	}
+
 	protected boolean equals(CheckList checkList1, CheckList checkList2) {
 		if (checkList1 == checkList2) {
 			return true;
 		}
 
 		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+				getAdditionalCheckListAssertFieldNames()) {
 
 			if (Objects.equals("checkListId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
@@ -480,6 +706,16 @@ public abstract class BaseCheckListResourceTestCase {
 			if (Objects.equals("endDate", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						checkList1.getEndDate(), checkList2.getEndDate())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("handlers", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						checkList1.getHandlers(), checkList2.getHandlers())) {
 
 					return false;
 				}
@@ -535,32 +771,6 @@ public abstract class BaseCheckListResourceTestCase {
 		return true;
 	}
 
-	protected boolean equals(
-		Map<String, Object> map1, Map<String, Object> map2) {
-
-		if (Objects.equals(map1.keySet(), map2.keySet())) {
-			for (Map.Entry<String, Object> entry : map1.entrySet()) {
-				if (entry.getValue() instanceof Map) {
-					if (!equals(
-							(Map)entry.getValue(),
-							(Map)map2.get(entry.getKey()))) {
-
-						return false;
-					}
-				}
-				else if (!Objects.deepEquals(
-							entry.getValue(), map2.get(entry.getKey()))) {
-
-					return false;
-				}
-			}
-
-			return true;
-		}
-
-		return false;
-	}
-
 	protected java.lang.reflect.Field[] getDeclaredFields(Class clazz)
 		throws Exception {
 
@@ -577,13 +787,13 @@ public abstract class BaseCheckListResourceTestCase {
 	protected java.util.Collection<EntityField> getEntityFields()
 		throws Exception {
 
-		if (!(_checkListResource instanceof EntityModelResource)) {
+		if (!(_checklistResource instanceof EntityModelResource)) {
 			throw new UnsupportedOperationException(
 				"Resource is not an instance of EntityModelResource");
 		}
 
 		EntityModelResource entityModelResource =
-			(EntityModelResource)_checkListResource;
+			(EntityModelResource)_checklistResource;
 
 		EntityModel entityModel = entityModelResource.getEntityModel(
 			new MultivaluedHashMap());
@@ -612,7 +822,7 @@ public abstract class BaseCheckListResourceTestCase {
 	}
 
 	protected String getFilterString(
-		EntityField entityField, String operator, CheckList checkList) {
+		EntityField entityField, String operator, Object checklist) {
 
 		StringBundler sb = new StringBundler();
 
@@ -623,91 +833,6 @@ public abstract class BaseCheckListResourceTestCase {
 		sb.append(" ");
 		sb.append(operator);
 		sb.append(" ");
-
-		if (entityFieldName.equals("checkListId")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("endDate")) {
-			if (operator.equals("between")) {
-				sb = new StringBundler();
-
-				sb.append("(");
-				sb.append(entityFieldName);
-				sb.append(" gt ");
-				sb.append(
-					_dateFormat.format(
-						DateUtils.addSeconds(checkList.getEndDate(), -2)));
-				sb.append(" and ");
-				sb.append(entityFieldName);
-				sb.append(" lt ");
-				sb.append(
-					_dateFormat.format(
-						DateUtils.addSeconds(checkList.getEndDate(), 2)));
-				sb.append(")");
-			}
-			else {
-				sb.append(entityFieldName);
-
-				sb.append(" ");
-				sb.append(operator);
-				sb.append(" ");
-
-				sb.append(_dateFormat.format(checkList.getEndDate()));
-			}
-
-			return sb.toString();
-		}
-
-		if (entityFieldName.equals("name")) {
-			sb.append("'");
-			sb.append(String.valueOf(checkList.getName()));
-			sb.append("'");
-
-			return sb.toString();
-		}
-
-		if (entityFieldName.equals("startDate")) {
-			if (operator.equals("between")) {
-				sb = new StringBundler();
-
-				sb.append("(");
-				sb.append(entityFieldName);
-				sb.append(" gt ");
-				sb.append(
-					_dateFormat.format(
-						DateUtils.addSeconds(checkList.getStartDate(), -2)));
-				sb.append(" and ");
-				sb.append(entityFieldName);
-				sb.append(" lt ");
-				sb.append(
-					_dateFormat.format(
-						DateUtils.addSeconds(checkList.getStartDate(), 2)));
-				sb.append(")");
-			}
-			else {
-				sb.append(entityFieldName);
-
-				sb.append(" ");
-				sb.append(operator);
-				sb.append(" ");
-
-				sb.append(_dateFormat.format(checkList.getStartDate()));
-			}
-
-			return sb.toString();
-		}
-
-		if (entityFieldName.equals("status")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("taskId")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
 
 		throw new IllegalArgumentException(
 			"Invalid entity field " + entityFieldName);
@@ -755,7 +880,7 @@ public abstract class BaseCheckListResourceTestCase {
 			{
 				checkListId = RandomTestUtil.randomLong();
 				endDate = RandomTestUtil.nextDate();
-				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				name = RandomTestUtil.randomString();
 				startDate = RandomTestUtil.nextDate();
 				status = RandomTestUtil.randomBoolean();
 				taskId = RandomTestUtil.randomLong();
@@ -763,17 +888,7 @@ public abstract class BaseCheckListResourceTestCase {
 		};
 	}
 
-	protected CheckList randomIrrelevantCheckList() throws Exception {
-		CheckList randomIrrelevantCheckList = randomCheckList();
-
-		return randomIrrelevantCheckList;
-	}
-
-	protected CheckList randomPatchCheckList() throws Exception {
-		return randomCheckList();
-	}
-
-	protected CheckListResource checkListResource;
+	protected ChecklistResource checklistResource;
 	protected Group irrelevantGroup;
 	protected Company testCompany;
 	protected Group testGroup;
@@ -850,7 +965,7 @@ public abstract class BaseCheckListResourceTestCase {
 	}
 
 	private static final com.liferay.portal.kernel.log.Log _log =
-		LogFactoryUtil.getLog(BaseCheckListResourceTestCase.class);
+		LogFactoryUtil.getLog(BaseChecklistResourceTestCase.class);
 
 	private static BeanUtilsBean _beanUtilsBean = new BeanUtilsBean() {
 
@@ -867,7 +982,7 @@ public abstract class BaseCheckListResourceTestCase {
 	private static DateFormat _dateFormat;
 
 	@Inject
-	private com.swork.checklist.rest.resource.v1_0.CheckListResource
-		_checkListResource;
+	private com.swork.checklist.rest.resource.v1_0.ChecklistResource
+		_checklistResource;
 
 }

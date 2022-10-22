@@ -52,5 +52,9 @@
 		<column name="checkListId" type="Long" />
 		<column name="accId" type="Long" />
 
+		<!-- name la ten ham finder de tim va tao-->
+		<finder name="checkListId" return-type="Collection">
+			<finder-column name="checkListId"/>
+		</finder>
 	</entity>
 </service-builder>

@@ -20,7 +20,7 @@ import com.liferay.portal.odata.filter.ExpressionConvert;
 import com.liferay.portal.odata.filter.FilterParserProvider;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 
-import com.swork.checklist.rest.resource.v1_0.CheckListResource;
+import com.swork.checklist.rest.resource.v1_0.ChecklistResource;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -45,23 +45,23 @@ import org.osgi.service.component.annotations.ReferenceScope;
  * @author adm
  * @generated
  */
-@Component(immediate = true, service = CheckListResource.Factory.class)
+@Component(immediate = true, service = ChecklistResource.Factory.class)
 @Generated("")
-public class CheckListResourceFactoryImpl implements CheckListResource.Factory {
+public class ChecklistResourceFactoryImpl implements ChecklistResource.Factory {
 
 	@Override
-	public CheckListResource.Builder create() {
-		return new CheckListResource.Builder() {
+	public ChecklistResource.Builder create() {
+		return new ChecklistResource.Builder() {
 
 			@Override
-			public CheckListResource build() {
+			public ChecklistResource build() {
 				if (_user == null) {
 					throw new IllegalArgumentException("User is not set");
 				}
 
-				return (CheckListResource)ProxyUtil.newProxyInstance(
-					CheckListResource.class.getClassLoader(),
-					new Class<?>[] {CheckListResource.class},
+				return (ChecklistResource)ProxyUtil.newProxyInstance(
+					ChecklistResource.class.getClassLoader(),
+					new Class<?>[] {ChecklistResource.class},
 					(proxy, method, arguments) -> _invoke(
 						method, arguments, _checkPermissions,
 						_httpServletRequest, _httpServletResponse,
@@ -69,7 +69,7 @@ public class CheckListResourceFactoryImpl implements CheckListResource.Factory {
 			}
 
 			@Override
-			public CheckListResource.Builder checkPermissions(
+			public ChecklistResource.Builder checkPermissions(
 				boolean checkPermissions) {
 
 				_checkPermissions = checkPermissions;
@@ -78,7 +78,7 @@ public class CheckListResourceFactoryImpl implements CheckListResource.Factory {
 			}
 
 			@Override
-			public CheckListResource.Builder httpServletRequest(
+			public ChecklistResource.Builder httpServletRequest(
 				HttpServletRequest httpServletRequest) {
 
 				_httpServletRequest = httpServletRequest;
@@ -87,7 +87,7 @@ public class CheckListResourceFactoryImpl implements CheckListResource.Factory {
 			}
 
 			@Override
-			public CheckListResource.Builder httpServletResponse(
+			public ChecklistResource.Builder httpServletResponse(
 				HttpServletResponse httpServletResponse) {
 
 				_httpServletResponse = httpServletResponse;
@@ -96,7 +96,7 @@ public class CheckListResourceFactoryImpl implements CheckListResource.Factory {
 			}
 
 			@Override
-			public CheckListResource.Builder preferredLocale(
+			public ChecklistResource.Builder preferredLocale(
 				Locale preferredLocale) {
 
 				_preferredLocale = preferredLocale;
@@ -105,7 +105,7 @@ public class CheckListResourceFactoryImpl implements CheckListResource.Factory {
 			}
 
 			@Override
-			public CheckListResource.Builder user(User user) {
+			public ChecklistResource.Builder user(User user) {
 				_user = user;
 
 				return this;
@@ -122,12 +122,12 @@ public class CheckListResourceFactoryImpl implements CheckListResource.Factory {
 
 	@Activate
 	protected void activate() {
-		CheckListResource.FactoryHolder.factory = this;
+		ChecklistResource.FactoryHolder.factory = this;
 	}
 
 	@Deactivate
 	protected void deactivate() {
-		CheckListResource.FactoryHolder.factory = null;
+		ChecklistResource.FactoryHolder.factory = null;
 	}
 
 	private Object _invoke(
@@ -153,36 +153,36 @@ public class CheckListResourceFactoryImpl implements CheckListResource.Factory {
 				_liberalPermissionCheckerFactory.create(user));
 		}
 
-		CheckListResource checkListResource =
+		ChecklistResource checklistResource =
 			_componentServiceObjects.getService();
 
-		checkListResource.setContextAcceptLanguage(
+		checklistResource.setContextAcceptLanguage(
 			new AcceptLanguageImpl(httpServletRequest, preferredLocale, user));
 
 		Company company = _companyLocalService.getCompany(user.getCompanyId());
 
-		checkListResource.setContextCompany(company);
+		checklistResource.setContextCompany(company);
 
-		checkListResource.setContextHttpServletRequest(httpServletRequest);
-		checkListResource.setContextHttpServletResponse(httpServletResponse);
-		checkListResource.setContextUser(user);
-		checkListResource.setExpressionConvert(_expressionConvert);
-		checkListResource.setFilterParserProvider(_filterParserProvider);
-		checkListResource.setGroupLocalService(_groupLocalService);
-		checkListResource.setResourceActionLocalService(
+		checklistResource.setContextHttpServletRequest(httpServletRequest);
+		checklistResource.setContextHttpServletResponse(httpServletResponse);
+		checklistResource.setContextUser(user);
+		checklistResource.setExpressionConvert(_expressionConvert);
+		checklistResource.setFilterParserProvider(_filterParserProvider);
+		checklistResource.setGroupLocalService(_groupLocalService);
+		checklistResource.setResourceActionLocalService(
 			_resourceActionLocalService);
-		checkListResource.setResourcePermissionLocalService(
+		checklistResource.setResourcePermissionLocalService(
 			_resourcePermissionLocalService);
-		checkListResource.setRoleLocalService(_roleLocalService);
+		checklistResource.setRoleLocalService(_roleLocalService);
 
 		try {
-			return method.invoke(checkListResource, arguments);
+			return method.invoke(checklistResource, arguments);
 		}
 		catch (InvocationTargetException invocationTargetException) {
 			throw invocationTargetException.getTargetException();
 		}
 		finally {
-			_componentServiceObjects.ungetService(checkListResource);
+			_componentServiceObjects.ungetService(checklistResource);
 
 			PrincipalThreadLocal.setName(name);
 
@@ -194,7 +194,7 @@ public class CheckListResourceFactoryImpl implements CheckListResource.Factory {
 	private CompanyLocalService _companyLocalService;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
-	private ComponentServiceObjects<CheckListResource> _componentServiceObjects;
+	private ComponentServiceObjects<ChecklistResource> _componentServiceObjects;
 
 	@Reference
 	private PermissionCheckerFactory _defaultPermissionCheckerFactory;

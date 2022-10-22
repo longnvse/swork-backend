@@ -34,11 +34,11 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import com.swork.checklist.service.mapper.model.ChecklistMapperModel;
 import com.swork.checklist.service.model.ChecklistEntry;
 
 import java.io.Serializable;
 
-import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -82,8 +82,7 @@ public interface ChecklistEntryLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public ChecklistEntry addCheckListEntry(
-		long userId, String name, Date startDate, Date endDate, Long taskId,
-		Boolean status, ServiceContext serviceContext);
+		long userId, ChecklistMapperModel model, ServiceContext serviceContext);
 
 	public ChecklistEntry changeStatus(
 		Long userId, Long checkListId, Boolean status,
@@ -339,7 +338,7 @@ public interface ChecklistEntryLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public ChecklistEntry updateCheckListEntry(
-		Long userId, Long cid, String name, Date startDate, Date endDate,
-		Long taskId, Boolean status, ServiceContext serviceContext);
+		long userId, long checklistId, ChecklistMapperModel model,
+		ServiceContext serviceContext);
 
 }

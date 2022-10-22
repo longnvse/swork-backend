@@ -3,6 +3,7 @@ package com.swork.checklist.rest.client.resource.v1_0;
 import com.swork.checklist.rest.client.dto.v1_0.CheckList;
 import com.swork.checklist.rest.client.http.HttpInvoker;
 import com.swork.checklist.rest.client.pagination.Page;
+import com.swork.checklist.rest.client.pagination.Pagination;
 import com.swork.checklist.rest.client.problem.Problem;
 import com.swork.checklist.rest.client.serdes.v1_0.CheckListSerDes;
 
@@ -19,28 +20,26 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public interface CheckListResource {
+public interface ChecklistResource {
 
 	public static Builder builder() {
 		return new Builder();
 	}
 
-	public Page<CheckList> getChecklists() throws Exception;
+	public Page<CheckList> getChecklistPages(
+			String search, String filterString, Pagination pagination,
+			String sortString)
+		throws Exception;
 
-	public HttpInvoker.HttpResponse getChecklistsHttpResponse()
+	public HttpInvoker.HttpResponse getChecklistPagesHttpResponse(
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public CheckList postCheckList(CheckList checkList) throws Exception;
 
 	public HttpInvoker.HttpResponse postCheckListHttpResponse(
 			CheckList checkList)
-		throws Exception;
-
-	public void postCheckListBatch(String callbackURL, Object object)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse postCheckListBatchHttpResponse(
-			String callbackURL, Object object)
 		throws Exception;
 
 	public CheckList changeCheckListStatusById(Long cid, Boolean status)
@@ -53,14 +52,6 @@ public interface CheckListResource {
 	public void deleteCheckList(Long cid) throws Exception;
 
 	public HttpInvoker.HttpResponse deleteCheckListHttpResponse(Long cid)
-		throws Exception;
-
-	public void deleteCheckListBatch(
-			Long cid, String callbackURL, Object object)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse deleteCheckListBatchHttpResponse(
-			Long cid, String callbackURL, Object object)
 		throws Exception;
 
 	public CheckList getCheckListById(Long cid) throws Exception;
@@ -84,8 +75,8 @@ public interface CheckListResource {
 			return this;
 		}
 
-		public CheckListResource build() {
-			return new CheckListResourceImpl(this);
+		public ChecklistResource build() {
+			return new ChecklistResourceImpl(this);
 		}
 
 		public Builder endpoint(String host, int port, String scheme) {
@@ -144,10 +135,16 @@ public interface CheckListResource {
 
 	}
 
-	public static class CheckListResourceImpl implements CheckListResource {
+	public static class ChecklistResourceImpl implements ChecklistResource {
 
-		public Page<CheckList> getChecklists() throws Exception {
-			HttpInvoker.HttpResponse httpResponse = getChecklistsHttpResponse();
+		public Page<CheckList> getChecklistPages(
+				String search, String filterString, Pagination pagination,
+				String sortString)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getChecklistPagesHttpResponse(
+					search, filterString, pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -186,7 +183,9 @@ public interface CheckListResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getChecklistsHttpResponse()
+		public HttpInvoker.HttpResponse getChecklistPagesHttpResponse(
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -210,9 +209,28 @@ public interface CheckListResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
 
+			if (search != null) {
+				httpInvoker.parameter("search", String.valueOf(search));
+			}
+
+			if (filterString != null) {
+				httpInvoker.parameter("filter", filterString);
+			}
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			if (sortString != null) {
+				httpInvoker.parameter("sort", sortString);
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/checklist-rest/v1.0/checklists");
+					_builder._port + "/o/checklist-rest/v1.0/checklist");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -290,81 +308,7 @@ public interface CheckListResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/checklist-rest/v1.0/checklists");
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public void postCheckListBatch(String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				postCheckListBatchHttpResponse(callbackURL, object);
-
-			String content = httpResponse.getContent();
-
-			if ((httpResponse.getStatusCode() / 100) != 2) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response content: " + content);
-				_logger.log(
-					Level.WARNING,
-					"HTTP response message: " + httpResponse.getMessage());
-				_logger.log(
-					Level.WARNING,
-					"HTTP response status code: " +
-						httpResponse.getStatusCode());
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-			else {
-				_logger.fine("HTTP response content: " + content);
-				_logger.fine(
-					"HTTP response message: " + httpResponse.getMessage());
-				_logger.fine(
-					"HTTP response status code: " +
-						httpResponse.getStatusCode());
-			}
-		}
-
-		public HttpInvoker.HttpResponse postCheckListBatchHttpResponse(
-				String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(object.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
-
-			if (callbackURL != null) {
-				httpInvoker.parameter(
-					"callbackURL", String.valueOf(callbackURL));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/checklist-rest/v1.0/checklists/batch");
+					_builder._port + "/o/checklist-rest/v1.0/checklist");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -449,7 +393,7 @@ public interface CheckListResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/checklist-rest/v1.0/checklists/change-status/{cid}");
+						"/o/checklist-rest/v1.0/checklist/change-status/{cid}");
 
 			httpInvoker.path("cid", cid);
 
@@ -526,85 +470,7 @@ public interface CheckListResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/checklist-rest/v1.0/checklists/{cid}");
-
-			httpInvoker.path("cid", cid);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public void deleteCheckListBatch(
-				Long cid, String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				deleteCheckListBatchHttpResponse(cid, callbackURL, object);
-
-			String content = httpResponse.getContent();
-
-			if ((httpResponse.getStatusCode() / 100) != 2) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response content: " + content);
-				_logger.log(
-					Level.WARNING,
-					"HTTP response message: " + httpResponse.getMessage());
-				_logger.log(
-					Level.WARNING,
-					"HTTP response status code: " +
-						httpResponse.getStatusCode());
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-			else {
-				_logger.fine("HTTP response content: " + content);
-				_logger.fine(
-					"HTTP response message: " + httpResponse.getMessage());
-				_logger.fine(
-					"HTTP response status code: " +
-						httpResponse.getStatusCode());
-			}
-		}
-
-		public HttpInvoker.HttpResponse deleteCheckListBatchHttpResponse(
-				Long cid, String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(object.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
-
-			if (callbackURL != null) {
-				httpInvoker.parameter(
-					"callbackURL", String.valueOf(callbackURL));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/checklist-rest/v1.0/checklists/{cid}/batch");
+					_builder._port + "/o/checklist-rest/v1.0/checklist/{cid}");
 
 			httpInvoker.path("cid", cid);
 
@@ -681,7 +547,7 @@ public interface CheckListResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/checklist-rest/v1.0/checklists/{cid}");
+					_builder._port + "/o/checklist-rest/v1.0/checklist/{cid}");
 
 			httpInvoker.path("cid", cid);
 
@@ -763,7 +629,7 @@ public interface CheckListResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/checklist-rest/v1.0/checklists/{cid}");
+					_builder._port + "/o/checklist-rest/v1.0/checklist/{cid}");
 
 			httpInvoker.path("cid", cid);
 
@@ -773,12 +639,12 @@ public interface CheckListResource {
 			return httpInvoker.invoke();
 		}
 
-		private CheckListResourceImpl(Builder builder) {
+		private ChecklistResourceImpl(Builder builder) {
 			_builder = builder;
 		}
 
 		private static final Logger _logger = Logger.getLogger(
-			CheckListResource.class.getName());
+			ChecklistResource.class.getName());
 
 		private Builder _builder;
 

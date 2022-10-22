@@ -69,6 +69,26 @@ public class CheckListSerDes {
 			sb.append("\"");
 		}
 
+		if (checkList.getHandlers() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"handlers\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < checkList.getHandlers().length; i++) {
+				sb.append(checkList.getHandlers()[i]);
+
+				if ((i + 1) < checkList.getHandlers().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (checkList.getName() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -154,6 +174,13 @@ public class CheckListSerDes {
 				liferayToJSONDateFormat.format(checkList.getEndDate()));
 		}
 
+		if (checkList.getHandlers() == null) {
+			map.put("handlers", null);
+		}
+		else {
+			map.put("handlers", String.valueOf(checkList.getHandlers()));
+		}
+
 		if (checkList.getName() == null) {
 			map.put("name", null);
 		}
@@ -213,6 +240,12 @@ public class CheckListSerDes {
 			else if (Objects.equals(jsonParserFieldName, "endDate")) {
 				if (jsonParserFieldValue != null) {
 					checkList.setEndDate(toDate((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "handlers")) {
+				if (jsonParserFieldValue != null) {
+					checkList.setHandlers(
+						toLongs((Object[])jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "name")) {

@@ -63,6 +63,27 @@ public class CheckList implements Cloneable, Serializable {
 
 	protected Date endDate;
 
+	public Long[] getHandlers() {
+		return handlers;
+	}
+
+	public void setHandlers(Long[] handlers) {
+		this.handlers = handlers;
+	}
+
+	public void setHandlers(
+		UnsafeSupplier<Long[], Exception> handlersUnsafeSupplier) {
+
+		try {
+			handlers = handlersUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long[] handlers;
+
 	public String getName() {
 		return name;
 	}

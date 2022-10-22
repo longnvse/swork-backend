@@ -41,7 +41,6 @@ public class CheckListValidator {
 
         validatorFieldsForUpdateCheckList(checkList);
 
-        validatorNameIsExist(checkList.getName());
     }
 
 
