@@ -66,7 +66,7 @@ public class OpenAPIResourceImpl {
 
 	private final Set<Class<?>> _resourceClasses = new HashSet<Class<?>>() {
 		{
-			add(CheckListResourceImpl.class);
+			add(ChecklistResourceImpl.class);
 
 			add(OpenAPIResourceImpl.class);
 		}

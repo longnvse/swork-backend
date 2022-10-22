@@ -1,11 +1,14 @@
 package com.swork.checklist.rest.internal.resource.v1_0;
 
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.pagination.Pagination;
 import com.swork.checklist.rest.dto.v1_0.CheckList;
 import com.swork.checklist.rest.internal.service.CheckListService;
 import com.swork.checklist.rest.internal.validator.CheckListValidator;
-import com.swork.checklist.rest.resource.v1_0.CheckListResource;
+import com.swork.checklist.rest.resource.v1_0.ChecklistResource;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -15,13 +18,19 @@ import org.osgi.service.component.annotations.ServiceScope;
  * @author adm
  */
 @Component(
-	properties = "OSGI-INF/liferay/rest/v1_0/check-list.properties",
-	scope = ServiceScope.PROTOTYPE, service = CheckListResource.class
+	properties = "OSGI-INF/liferay/rest/v1_0/checklist.properties",
+	scope = ServiceScope.PROTOTYPE, service = ChecklistResource.class
 )
-public class CheckListResourceImpl extends BaseCheckListResourceImpl {
+public class ChecklistResourceImpl extends BaseChecklistResourceImpl {
 	@Override
-	public Page<CheckList> getChecklists() throws Exception {
-		return service.getCheckListPages();
+	public Page<CheckList> getChecklistPages(String search, Filter filter, Pagination pagination, Sort[] sorts) throws Exception {
+		return service.getChecklistPages(
+				search,
+				filter,
+				pagination,
+				sorts,
+				getServiceContext()
+		);
 	}
 
 	@Override
@@ -64,6 +73,8 @@ public class CheckListResourceImpl extends BaseCheckListResourceImpl {
 
 		return serviceContext;
 	}
+
+
 
 	@Reference
 	CheckListService service;
