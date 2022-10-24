@@ -5,9 +5,9 @@ import com.swork.account.service.model.AccountEntry;
 import com.swork.account.service.service.AccountEntryLocalService;
 import com.swork.auth.login.service.model.TokenEntry;
 import com.swork.auth.login.service.service.TokenEntryLocalService;
-import com.swork.common.exception.model.SW_BadRequestException;
 import com.swork.common.exception.model.SW_FieldRequiredException;
 import com.swork.common.exception.model.SW_TokenExpiredException;
+import com.swork.common.exception.model.SW_UnAuthorizationException;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -17,7 +17,7 @@ import java.util.Date;
 public class TokenValidator {
 
     public void validatorForLogin(String username,
-                                  String password) throws SW_FieldRequiredException, SW_BadRequestException {
+                                  String password) throws SW_FieldRequiredException, SW_UnAuthorizationException {
 
         isNotPopulated(username, "Vui lòng nhập tên người dùng");
         isNotPopulated(password, "Vui lòng nhập mật khẩu");
@@ -28,7 +28,7 @@ public class TokenValidator {
             return;
         }
 
-        throw new SW_BadRequestException("Vui lòng nhập lại tên người dùng hoặc mật khẩu!");
+        throw new SW_UnAuthorizationException("Vui lòng nhập lại tên người dùng hoặc mật khẩu!");
     }
 
     public void validatorRefreshToken(String refreshToken) throws SW_TokenExpiredException {
