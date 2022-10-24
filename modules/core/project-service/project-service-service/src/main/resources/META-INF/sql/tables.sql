@@ -1,0 +1,23 @@
+create table SW_Project (
+	uuid_ VARCHAR(75) null,
+	projectId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	accountId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	modifiedId LONG,
+	name VARCHAR(75) null,
+	code_ VARCHAR(75) null,
+	startDate DATE null,
+	endDate DATE null,
+	budget LONG,
+	description VARCHAR(75) null,
+	status VARCHAR(75) null,
+	progress INTEGER,
+	actualTime DATE null,
+	actualStart DATE null,
+	progressType VARCHAR(75) null,
+	businessId LONG
+);
