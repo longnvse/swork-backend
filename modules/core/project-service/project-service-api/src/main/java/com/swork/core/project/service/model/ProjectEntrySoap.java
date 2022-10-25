@@ -34,11 +34,11 @@ public class ProjectEntrySoap implements Serializable {
 		ProjectEntrySoap soapModel = new ProjectEntrySoap();
 
 		soapModel.setUuid(model.getUuid());
+		soapModel.setExternalReferenceCode(model.getExternalReferenceCode());
 		soapModel.setProjectId(model.getProjectId());
 		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setAccountId(model.getAccountId());
-		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setModifiedId(model.getModifiedId());
@@ -115,6 +115,14 @@ public class ProjectEntrySoap implements Serializable {
 		_uuid = uuid;
 	}
 
+	public String getExternalReferenceCode() {
+		return _externalReferenceCode;
+	}
+
+	public void setExternalReferenceCode(String externalReferenceCode) {
+		_externalReferenceCode = externalReferenceCode;
+	}
+
 	public long getProjectId() {
 		return _projectId;
 	}
@@ -145,14 +153,6 @@ public class ProjectEntrySoap implements Serializable {
 
 	public void setAccountId(long accountId) {
 		_accountId = accountId;
-	}
-
-	public String getUserName() {
-		return _userName;
-	}
-
-	public void setUserName(String userName) {
-		_userName = userName;
 	}
 
 	public Date getCreateDate() {
@@ -276,11 +276,11 @@ public class ProjectEntrySoap implements Serializable {
 	}
 
 	private String _uuid;
+	private String _externalReferenceCode;
 	private long _projectId;
 	private long _groupId;
 	private long _companyId;
 	private long _accountId;
-	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _modifiedId;

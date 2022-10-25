@@ -34,6 +34,10 @@ public class ProjectEntryTable extends BaseTable<ProjectEntryTable> {
 
 	public final Column<ProjectEntryTable, String> uuid = createColumn(
 		"uuid_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ProjectEntryTable, String> externalReferenceCode =
+		createColumn(
+			"externalReferenceCode", String.class, Types.VARCHAR,
+			Column.FLAG_DEFAULT);
 	public final Column<ProjectEntryTable, Long> projectId = createColumn(
 		"projectId", Long.class, Types.BIGINT, Column.FLAG_PRIMARY);
 	public final Column<ProjectEntryTable, Long> groupId = createColumn(
@@ -42,8 +46,6 @@ public class ProjectEntryTable extends BaseTable<ProjectEntryTable> {
 		"companyId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<ProjectEntryTable, Long> accountId = createColumn(
 		"accountId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
-	public final Column<ProjectEntryTable, String> userName = createColumn(
-		"userName", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ProjectEntryTable, Date> createDate = createColumn(
 		"createDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<ProjectEntryTable, Date> modifiedDate = createColumn(

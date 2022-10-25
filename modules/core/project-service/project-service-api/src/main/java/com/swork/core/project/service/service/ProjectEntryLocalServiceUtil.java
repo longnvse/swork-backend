@@ -45,6 +45,14 @@ public class ProjectEntryLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.swork.core.project.service.service.impl.ProjectEntryLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static ProjectEntry addProject(
+		long businessId, long creatorId,
+		com.swork.core.project.service.mapper.model.ProjectMapperModel model,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().addProject(
+			businessId, creatorId, model, serviceContext);
+	}
 
 	/**
 	 * Adds the project entry to the database. Also notifies the appropriate model listeners.
@@ -58,6 +66,15 @@ public class ProjectEntryLocalServiceUtil {
 	 */
 	public static ProjectEntry addProjectEntry(ProjectEntry projectEntry) {
 		return getService().addProjectEntry(projectEntry);
+	}
+
+	public static ProjectEntry approvalProject(
+			long creatorId, long projectId, String status,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().approvalProject(
+			creatorId, projectId, status, serviceContext);
 	}
 
 	/**
@@ -211,6 +228,31 @@ public class ProjectEntryLocalServiceUtil {
 	}
 
 	/**
+	 * Returns the project entry with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the project entry's external reference code
+	 * @return the matching project entry, or <code>null</code> if a matching project entry could not be found
+	 */
+	public static ProjectEntry fetchProjectEntryByExternalReferenceCode(
+		long companyId, String externalReferenceCode) {
+
+		return getService().fetchProjectEntryByExternalReferenceCode(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchProjectEntryByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
+	public static ProjectEntry fetchProjectEntryByReferenceCode(
+		long companyId, String externalReferenceCode) {
+
+		return getService().fetchProjectEntryByReferenceCode(
+			companyId, externalReferenceCode);
+	}
+
+	/**
 	 * Returns the project entry matching the UUID and group.
 	 *
 	 * @param uuid the project entry's UUID
@@ -223,10 +265,22 @@ public class ProjectEntryLocalServiceUtil {
 		return getService().fetchProjectEntryByUuidAndGroupId(uuid, groupId);
 	}
 
+	public static List<ProjectEntry> findByBusinessId(long businessId) {
+		return getService().findByBusinessId(businessId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
 		return getService().getActionableDynamicQuery();
+	}
+
+	public static ProjectEntry getByCode(long businessId, String projectCode) {
+		return getService().getByCode(businessId, projectCode);
+	}
+
+	public static ProjectEntry getByName(long businessId, String projectName) {
+		return getService().getByName(businessId, projectName);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
@@ -332,6 +386,22 @@ public class ProjectEntryLocalServiceUtil {
 	}
 
 	/**
+	 * Returns the project entry with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the project entry's external reference code
+	 * @return the matching project entry
+	 * @throws PortalException if a matching project entry could not be found
+	 */
+	public static ProjectEntry getProjectEntryByExternalReferenceCode(
+			long companyId, String externalReferenceCode)
+		throws PortalException {
+
+		return getService().getProjectEntryByExternalReferenceCode(
+			companyId, externalReferenceCode);
+	}
+
+	/**
 	 * Returns the project entry matching the UUID and group.
 	 *
 	 * @param uuid the project entry's UUID
@@ -344,6 +414,15 @@ public class ProjectEntryLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getProjectEntryByUuidAndGroupId(uuid, groupId);
+	}
+
+	public static ProjectEntry updateProject(
+		long creatorId, long projectId,
+		com.swork.core.project.service.mapper.model.ProjectMapperModel model,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateProject(
+			creatorId, projectId, model, serviceContext);
 	}
 
 	/**

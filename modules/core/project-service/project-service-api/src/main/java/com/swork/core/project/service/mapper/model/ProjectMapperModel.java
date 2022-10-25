@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class ProjectMapperModel {
     private String externalReferenceCode;
-    private String projectCode;
-    private String projectName;
+    private String code;
+    private String name;
     private Date startDate;
     private Date endDate;
     private Long budget;
@@ -14,10 +14,10 @@ public class ProjectMapperModel {
     private Integer progress;
     private Date actualTime;
     private Date actualStart;
-
     private String progressType;
-    private Boolean percentageTask;
-
+    private ProjectMembersMapperModel manages;
+    private ProjectMembersMapperModel handles;
+    private ProjectMembersMapperModel participates;
 
     public String getExternalReferenceCode() {
         return externalReferenceCode;
@@ -27,20 +27,20 @@ public class ProjectMapperModel {
         this.externalReferenceCode = externalReferenceCode;
     }
 
-    public String getProjectCode() {
-        return projectCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setProjectCode(String projectCode) {
-        this.projectCode = projectCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getProjectName() {
-        return projectName;
+    public String getName() {
+        return name;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getStartDate() {
@@ -114,5 +114,29 @@ public class ProjectMapperModel {
 
     public void setProgressType(String progressType) {
         this.progressType = progressType;
+    }
+
+    public ProjectMembersMapperModel getManages() {
+        return manages;
+    }
+
+    public void setManages(ProjectMembersMapperModel manages) {
+        this.manages = manages;
+    }
+
+    public ProjectMembersMapperModel getHandles() {
+        return handles;
+    }
+
+    public void setHandles(ProjectMembersMapperModel handles) {
+        this.handles = handles;
+    }
+
+    public ProjectMembersMapperModel getParticipates() {
+        return participates;
+    }
+
+    public void setParticipates(ProjectMembersMapperModel participates) {
+        this.participates = participates;
     }
 }

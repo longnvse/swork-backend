@@ -633,6 +633,59 @@ public interface ProjectEntryPersistence extends BasePersistence<ProjectEntry> {
 	public int countByB_(long businessId);
 
 	/**
+	 * Returns the project entry where companyId = &#63; and externalReferenceCode = &#63; or throws a <code>NoSuchProjectEntryException</code> if it could not be found.
+	 *
+	 * @param companyId the company ID
+	 * @param externalReferenceCode the external reference code
+	 * @return the matching project entry
+	 * @throws NoSuchProjectEntryException if a matching project entry could not be found
+	 */
+	public ProjectEntry findByC_ERC(
+			long companyId, String externalReferenceCode)
+		throws NoSuchProjectEntryException;
+
+	/**
+	 * Returns the project entry where companyId = &#63; and externalReferenceCode = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param companyId the company ID
+	 * @param externalReferenceCode the external reference code
+	 * @return the matching project entry, or <code>null</code> if a matching project entry could not be found
+	 */
+	public ProjectEntry fetchByC_ERC(
+		long companyId, String externalReferenceCode);
+
+	/**
+	 * Returns the project entry where companyId = &#63; and externalReferenceCode = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param companyId the company ID
+	 * @param externalReferenceCode the external reference code
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching project entry, or <code>null</code> if a matching project entry could not be found
+	 */
+	public ProjectEntry fetchByC_ERC(
+		long companyId, String externalReferenceCode, boolean useFinderCache);
+
+	/**
+	 * Removes the project entry where companyId = &#63; and externalReferenceCode = &#63; from the database.
+	 *
+	 * @param companyId the company ID
+	 * @param externalReferenceCode the external reference code
+	 * @return the project entry that was removed
+	 */
+	public ProjectEntry removeByC_ERC(
+			long companyId, String externalReferenceCode)
+		throws NoSuchProjectEntryException;
+
+	/**
+	 * Returns the number of project entries where companyId = &#63; and externalReferenceCode = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param externalReferenceCode the external reference code
+	 * @return the number of matching project entries
+	 */
+	public int countByC_ERC(long companyId, String externalReferenceCode);
+
+	/**
 	 * Caches the project entry in the entity cache if it is enabled.
 	 *
 	 * @param projectEntry the project entry

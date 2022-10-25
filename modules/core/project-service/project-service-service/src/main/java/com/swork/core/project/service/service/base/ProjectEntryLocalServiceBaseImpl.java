@@ -49,6 +49,7 @@ import com.swork.core.project.service.model.ProjectEntry;
 import com.swork.core.project.service.service.ProjectEntryLocalService;
 import com.swork.core.project.service.service.ProjectEntryLocalServiceUtil;
 import com.swork.core.project.service.service.persistence.ProjectEntryPersistence;
+import com.swork.core.project.service.service.persistence.ProjectMemberEntryPersistence;
 
 import java.io.Serializable;
 
@@ -263,6 +264,50 @@ public abstract class ProjectEntryLocalServiceBaseImpl
 		String uuid, long groupId) {
 
 		return projectEntryPersistence.fetchByUUID_G(uuid, groupId);
+	}
+
+	/**
+	 * Returns the project entry with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the project entry's external reference code
+	 * @return the matching project entry, or <code>null</code> if a matching project entry could not be found
+	 */
+	@Override
+	public ProjectEntry fetchProjectEntryByExternalReferenceCode(
+		long companyId, String externalReferenceCode) {
+
+		return projectEntryPersistence.fetchByC_ERC(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchProjectEntryByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
+	@Override
+	public ProjectEntry fetchProjectEntryByReferenceCode(
+		long companyId, String externalReferenceCode) {
+
+		return fetchProjectEntryByExternalReferenceCode(
+			companyId, externalReferenceCode);
+	}
+
+	/**
+	 * Returns the project entry with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the project entry's external reference code
+	 * @return the matching project entry
+	 * @throws PortalException if a matching project entry could not be found
+	 */
+	@Override
+	public ProjectEntry getProjectEntryByExternalReferenceCode(
+			long companyId, String externalReferenceCode)
+		throws PortalException {
+
+		return projectEntryPersistence.findByC_ERC(
+			companyId, externalReferenceCode);
 	}
 
 	/**
@@ -594,6 +639,9 @@ public abstract class ProjectEntryLocalServiceBaseImpl
 
 	@Reference
 	protected ProjectEntryPersistence projectEntryPersistence;
+
+	@Reference
+	protected ProjectMemberEntryPersistence projectMemberEntryPersistence;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService

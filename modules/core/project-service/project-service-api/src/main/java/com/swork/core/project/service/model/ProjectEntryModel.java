@@ -76,6 +76,21 @@ public interface ProjectEntryModel
 	public void setUuid(String uuid);
 
 	/**
+	 * Returns the external reference code of this project entry.
+	 *
+	 * @return the external reference code of this project entry
+	 */
+	@AutoEscape
+	public String getExternalReferenceCode();
+
+	/**
+	 * Sets the external reference code of this project entry.
+	 *
+	 * @param externalReferenceCode the external reference code of this project entry
+	 */
+	public void setExternalReferenceCode(String externalReferenceCode);
+
+	/**
 	 * Returns the project ID of this project entry.
 	 *
 	 * @return the project ID of this project entry
@@ -132,21 +147,6 @@ public interface ProjectEntryModel
 	 * @param accountId the account ID of this project entry
 	 */
 	public void setAccountId(long accountId);
-
-	/**
-	 * Returns the user name of this project entry.
-	 *
-	 * @return the user name of this project entry
-	 */
-	@AutoEscape
-	public String getUserName();
-
-	/**
-	 * Sets the user name of this project entry.
-	 *
-	 * @param userName the user name of this project entry
-	 */
-	public void setUserName(String userName);
 
 	/**
 	 * Returns the create date of this project entry.

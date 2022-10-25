@@ -70,9 +70,9 @@ public class ProjectEntryModelImpl
 	public static final String TABLE_NAME = "SW_Project";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"uuid_", Types.VARCHAR}, {"projectId", Types.BIGINT},
-		{"groupId", Types.BIGINT}, {"companyId", Types.BIGINT},
-		{"accountId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"uuid_", Types.VARCHAR}, {"externalReferenceCode", Types.VARCHAR},
+		{"projectId", Types.BIGINT}, {"groupId", Types.BIGINT},
+		{"companyId", Types.BIGINT}, {"accountId", Types.BIGINT},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"modifiedId", Types.BIGINT}, {"name", Types.VARCHAR},
 		{"code_", Types.VARCHAR}, {"startDate", Types.TIMESTAMP},
@@ -88,11 +88,11 @@ public class ProjectEntryModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("externalReferenceCode", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("projectId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("groupId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("accountId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedId", Types.BIGINT);
@@ -111,7 +111,7 @@ public class ProjectEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_Project (uuid_ VARCHAR(75) null,projectId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,modifiedId LONG,name VARCHAR(75) null,code_ VARCHAR(75) null,startDate DATE null,endDate DATE null,budget LONG,description VARCHAR(75) null,status VARCHAR(75) null,progress INTEGER,actualTime DATE null,actualStart DATE null,progressType VARCHAR(75) null,businessId LONG)";
+		"create table SW_Project (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,projectId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedDate DATE null,modifiedId LONG,name VARCHAR(75) null,code_ VARCHAR(75) null,startDate DATE null,endDate DATE null,budget LONG,description VARCHAR(75) null,status VARCHAR(75) null,progress INTEGER,actualTime DATE null,actualStart DATE null,progressType VARCHAR(75) null,businessId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_Project";
 
@@ -149,26 +149,32 @@ public class ProjectEntryModelImpl
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long GROUPID_COLUMN_BITMASK = 8L;
+	public static final long EXTERNALREFERENCECODE_COLUMN_BITMASK = 8L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long NAME_COLUMN_BITMASK = 16L;
+	public static final long GROUPID_COLUMN_BITMASK = 16L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long UUID_COLUMN_BITMASK = 32L;
+	public static final long NAME_COLUMN_BITMASK = 32L;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
+	public static final long UUID_COLUMN_BITMASK = 64L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *		#getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long PROJECTID_COLUMN_BITMASK = 64L;
+	public static final long PROJECTID_COLUMN_BITMASK = 128L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -311,6 +317,12 @@ public class ProjectEntryModelImpl
 		attributeGetterFunctions.put("uuid", ProjectEntry::getUuid);
 		attributeSetterBiConsumers.put(
 			"uuid", (BiConsumer<ProjectEntry, String>)ProjectEntry::setUuid);
+		attributeGetterFunctions.put(
+			"externalReferenceCode", ProjectEntry::getExternalReferenceCode);
+		attributeSetterBiConsumers.put(
+			"externalReferenceCode",
+			(BiConsumer<ProjectEntry, String>)
+				ProjectEntry::setExternalReferenceCode);
 		attributeGetterFunctions.put("projectId", ProjectEntry::getProjectId);
 		attributeSetterBiConsumers.put(
 			"projectId",
@@ -327,10 +339,6 @@ public class ProjectEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"accountId",
 			(BiConsumer<ProjectEntry, Long>)ProjectEntry::setAccountId);
-		attributeGetterFunctions.put("userName", ProjectEntry::getUserName);
-		attributeSetterBiConsumers.put(
-			"userName",
-			(BiConsumer<ProjectEntry, String>)ProjectEntry::setUserName);
 		attributeGetterFunctions.put("createDate", ProjectEntry::getCreateDate);
 		attributeSetterBiConsumers.put(
 			"createDate",
@@ -428,6 +436,34 @@ public class ProjectEntryModelImpl
 	}
 
 	@Override
+	public String getExternalReferenceCode() {
+		if (_externalReferenceCode == null) {
+			return "";
+		}
+		else {
+			return _externalReferenceCode;
+		}
+	}
+
+	@Override
+	public void setExternalReferenceCode(String externalReferenceCode) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_externalReferenceCode = externalReferenceCode;
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public String getOriginalExternalReferenceCode() {
+		return getColumnOriginalValue("externalReferenceCode");
+	}
+
+	@Override
 	public long getProjectId() {
 		return _projectId;
 	}
@@ -500,25 +536,6 @@ public class ProjectEntryModelImpl
 		}
 
 		_accountId = accountId;
-	}
-
-	@Override
-	public String getUserName() {
-		if (_userName == null) {
-			return "";
-		}
-		else {
-			return _userName;
-		}
-	}
-
-	@Override
-	public void setUserName(String userName) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_userName = userName;
 	}
 
 	@Override
@@ -853,11 +870,11 @@ public class ProjectEntryModelImpl
 		ProjectEntryImpl projectEntryImpl = new ProjectEntryImpl();
 
 		projectEntryImpl.setUuid(getUuid());
+		projectEntryImpl.setExternalReferenceCode(getExternalReferenceCode());
 		projectEntryImpl.setProjectId(getProjectId());
 		projectEntryImpl.setGroupId(getGroupId());
 		projectEntryImpl.setCompanyId(getCompanyId());
 		projectEntryImpl.setAccountId(getAccountId());
-		projectEntryImpl.setUserName(getUserName());
 		projectEntryImpl.setCreateDate(getCreateDate());
 		projectEntryImpl.setModifiedDate(getModifiedDate());
 		projectEntryImpl.setModifiedId(getModifiedId());
@@ -884,6 +901,8 @@ public class ProjectEntryModelImpl
 		ProjectEntryImpl projectEntryImpl = new ProjectEntryImpl();
 
 		projectEntryImpl.setUuid(this.<String>getColumnOriginalValue("uuid_"));
+		projectEntryImpl.setExternalReferenceCode(
+			this.<String>getColumnOriginalValue("externalReferenceCode"));
 		projectEntryImpl.setProjectId(
 			this.<Long>getColumnOriginalValue("projectId"));
 		projectEntryImpl.setGroupId(
@@ -892,8 +911,6 @@ public class ProjectEntryModelImpl
 			this.<Long>getColumnOriginalValue("companyId"));
 		projectEntryImpl.setAccountId(
 			this.<Long>getColumnOriginalValue("accountId"));
-		projectEntryImpl.setUserName(
-			this.<String>getColumnOriginalValue("userName"));
 		projectEntryImpl.setCreateDate(
 			this.<Date>getColumnOriginalValue("createDate"));
 		projectEntryImpl.setModifiedDate(
@@ -1007,6 +1024,18 @@ public class ProjectEntryModelImpl
 			projectEntryCacheModel.uuid = null;
 		}
 
+		projectEntryCacheModel.externalReferenceCode =
+			getExternalReferenceCode();
+
+		String externalReferenceCode =
+			projectEntryCacheModel.externalReferenceCode;
+
+		if ((externalReferenceCode != null) &&
+			(externalReferenceCode.length() == 0)) {
+
+			projectEntryCacheModel.externalReferenceCode = null;
+		}
+
 		projectEntryCacheModel.projectId = getProjectId();
 
 		projectEntryCacheModel.groupId = getGroupId();
@@ -1014,14 +1043,6 @@ public class ProjectEntryModelImpl
 		projectEntryCacheModel.companyId = getCompanyId();
 
 		projectEntryCacheModel.accountId = getAccountId();
-
-		projectEntryCacheModel.userName = getUserName();
-
-		String userName = projectEntryCacheModel.userName;
-
-		if ((userName != null) && (userName.length() == 0)) {
-			projectEntryCacheModel.userName = null;
-		}
 
 		Date createDate = getCreateDate();
 
@@ -1220,11 +1241,11 @@ public class ProjectEntryModelImpl
 	}
 
 	private String _uuid;
+	private String _externalReferenceCode;
 	private long _projectId;
 	private long _groupId;
 	private long _companyId;
 	private long _accountId;
-	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
@@ -1272,11 +1293,12 @@ public class ProjectEntryModelImpl
 		_columnOriginalValues = new HashMap<String, Object>();
 
 		_columnOriginalValues.put("uuid_", _uuid);
+		_columnOriginalValues.put(
+			"externalReferenceCode", _externalReferenceCode);
 		_columnOriginalValues.put("projectId", _projectId);
 		_columnOriginalValues.put("groupId", _groupId);
 		_columnOriginalValues.put("companyId", _companyId);
 		_columnOriginalValues.put("accountId", _accountId);
-		_columnOriginalValues.put("userName", _userName);
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
 		_columnOriginalValues.put("modifiedId", _modifiedId);
@@ -1318,15 +1340,15 @@ public class ProjectEntryModelImpl
 
 		columnBitmasks.put("uuid_", 1L);
 
-		columnBitmasks.put("projectId", 2L);
+		columnBitmasks.put("externalReferenceCode", 2L);
 
-		columnBitmasks.put("groupId", 4L);
+		columnBitmasks.put("projectId", 4L);
 
-		columnBitmasks.put("companyId", 8L);
+		columnBitmasks.put("groupId", 8L);
 
-		columnBitmasks.put("accountId", 16L);
+		columnBitmasks.put("companyId", 16L);
 
-		columnBitmasks.put("userName", 32L);
+		columnBitmasks.put("accountId", 32L);
 
 		columnBitmasks.put("createDate", 64L);
 

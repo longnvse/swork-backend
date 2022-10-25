@@ -44,11 +44,11 @@ public class ProjectEntryWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("uuid", getUuid());
+		attributes.put("externalReferenceCode", getExternalReferenceCode());
 		attributes.put("projectId", getProjectId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("accountId", getAccountId());
-		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("modifiedId", getModifiedId());
@@ -76,6 +76,13 @@ public class ProjectEntryWrapper
 			setUuid(uuid);
 		}
 
+		String externalReferenceCode = (String)attributes.get(
+			"externalReferenceCode");
+
+		if (externalReferenceCode != null) {
+			setExternalReferenceCode(externalReferenceCode);
+		}
+
 		Long projectId = (Long)attributes.get("projectId");
 
 		if (projectId != null) {
@@ -98,12 +105,6 @@ public class ProjectEntryWrapper
 
 		if (accountId != null) {
 			setAccountId(accountId);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -303,6 +304,16 @@ public class ProjectEntryWrapper
 	}
 
 	/**
+	 * Returns the external reference code of this project entry.
+	 *
+	 * @return the external reference code of this project entry
+	 */
+	@Override
+	public String getExternalReferenceCode() {
+		return model.getExternalReferenceCode();
+	}
+
+	/**
 	 * Returns the group ID of this project entry.
 	 *
 	 * @return the group ID of this project entry
@@ -400,16 +411,6 @@ public class ProjectEntryWrapper
 	@Override
 	public String getStatus() {
 		return model.getStatus();
-	}
-
-	/**
-	 * Returns the user name of this project entry.
-	 *
-	 * @return the user name of this project entry
-	 */
-	@Override
-	public String getUserName() {
-		return model.getUserName();
 	}
 
 	/**
@@ -528,6 +529,16 @@ public class ProjectEntryWrapper
 	}
 
 	/**
+	 * Sets the external reference code of this project entry.
+	 *
+	 * @param externalReferenceCode the external reference code of this project entry
+	 */
+	@Override
+	public void setExternalReferenceCode(String externalReferenceCode) {
+		model.setExternalReferenceCode(externalReferenceCode);
+	}
+
+	/**
 	 * Sets the group ID of this project entry.
 	 *
 	 * @param groupId the group ID of this project entry
@@ -625,16 +636,6 @@ public class ProjectEntryWrapper
 	@Override
 	public void setStatus(String status) {
 		model.setStatus(status);
-	}
-
-	/**
-	 * Sets the user name of this project entry.
-	 *
-	 * @param userName the user name of this project entry
-	 */
-	@Override
-	public void setUserName(String userName) {
-		model.setUserName(userName);
 	}
 
 	/**

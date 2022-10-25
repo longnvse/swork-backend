@@ -67,6 +67,8 @@ public class ProjectEntryCacheModel
 
 		sb.append("{uuid=");
 		sb.append(uuid);
+		sb.append(", externalReferenceCode=");
+		sb.append(externalReferenceCode);
 		sb.append(", projectId=");
 		sb.append(projectId);
 		sb.append(", groupId=");
@@ -75,8 +77,6 @@ public class ProjectEntryCacheModel
 		sb.append(companyId);
 		sb.append(", accountId=");
 		sb.append(accountId);
-		sb.append(", userName=");
-		sb.append(userName);
 		sb.append(", createDate=");
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
@@ -123,17 +123,17 @@ public class ProjectEntryCacheModel
 			projectEntryImpl.setUuid(uuid);
 		}
 
+		if (externalReferenceCode == null) {
+			projectEntryImpl.setExternalReferenceCode("");
+		}
+		else {
+			projectEntryImpl.setExternalReferenceCode(externalReferenceCode);
+		}
+
 		projectEntryImpl.setProjectId(projectId);
 		projectEntryImpl.setGroupId(groupId);
 		projectEntryImpl.setCompanyId(companyId);
 		projectEntryImpl.setAccountId(accountId);
-
-		if (userName == null) {
-			projectEntryImpl.setUserName("");
-		}
-		else {
-			projectEntryImpl.setUserName(userName);
-		}
 
 		if (createDate == Long.MIN_VALUE) {
 			projectEntryImpl.setCreateDate(null);
@@ -228,6 +228,7 @@ public class ProjectEntryCacheModel
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
+		externalReferenceCode = objectInput.readUTF();
 
 		projectId = objectInput.readLong();
 
@@ -236,7 +237,6 @@ public class ProjectEntryCacheModel
 		companyId = objectInput.readLong();
 
 		accountId = objectInput.readLong();
-		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 
@@ -267,6 +267,13 @@ public class ProjectEntryCacheModel
 			objectOutput.writeUTF(uuid);
 		}
 
+		if (externalReferenceCode == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(externalReferenceCode);
+		}
+
 		objectOutput.writeLong(projectId);
 
 		objectOutput.writeLong(groupId);
@@ -274,14 +281,6 @@ public class ProjectEntryCacheModel
 		objectOutput.writeLong(companyId);
 
 		objectOutput.writeLong(accountId);
-
-		if (userName == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(userName);
-		}
-
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
@@ -335,11 +334,11 @@ public class ProjectEntryCacheModel
 	}
 
 	public String uuid;
+	public String externalReferenceCode;
 	public long projectId;
 	public long groupId;
 	public long companyId;
 	public long accountId;
-	public String userName;
 	public long createDate;
 	public long modifiedDate;
 	public long modifiedId;

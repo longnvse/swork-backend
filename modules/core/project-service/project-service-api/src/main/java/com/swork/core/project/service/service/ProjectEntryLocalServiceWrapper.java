@@ -33,6 +33,16 @@ public class ProjectEntryLocalServiceWrapper
 		_projectEntryLocalService = projectEntryLocalService;
 	}
 
+	@Override
+	public com.swork.core.project.service.model.ProjectEntry addProject(
+		long businessId, long creatorId,
+		com.swork.core.project.service.mapper.model.ProjectMapperModel model,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _projectEntryLocalService.addProject(
+			businessId, creatorId, model, serviceContext);
+	}
+
 	/**
 	 * Adds the project entry to the database. Also notifies the appropriate model listeners.
 	 *
@@ -48,6 +58,16 @@ public class ProjectEntryLocalServiceWrapper
 		com.swork.core.project.service.model.ProjectEntry projectEntry) {
 
 		return _projectEntryLocalService.addProjectEntry(projectEntry);
+	}
+
+	@Override
+	public com.swork.core.project.service.model.ProjectEntry approvalProject(
+			long creatorId, long projectId, String status,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _projectEntryLocalService.approvalProject(
+			creatorId, projectId, status, serviceContext);
 	}
 
 	/**
@@ -231,6 +251,36 @@ public class ProjectEntryLocalServiceWrapper
 	}
 
 	/**
+	 * Returns the project entry with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the project entry's external reference code
+	 * @return the matching project entry, or <code>null</code> if a matching project entry could not be found
+	 */
+	@Override
+	public com.swork.core.project.service.model.ProjectEntry
+		fetchProjectEntryByExternalReferenceCode(
+			long companyId, String externalReferenceCode) {
+
+		return _projectEntryLocalService.
+			fetchProjectEntryByExternalReferenceCode(
+				companyId, externalReferenceCode);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchProjectEntryByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
+	@Override
+	public com.swork.core.project.service.model.ProjectEntry
+		fetchProjectEntryByReferenceCode(
+			long companyId, String externalReferenceCode) {
+
+		return _projectEntryLocalService.fetchProjectEntryByReferenceCode(
+			companyId, externalReferenceCode);
+	}
+
+	/**
 	 * Returns the project entry matching the UUID and group.
 	 *
 	 * @param uuid the project entry's UUID
@@ -246,10 +296,31 @@ public class ProjectEntryLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.swork.core.project.service.model.ProjectEntry>
+		findByBusinessId(long businessId) {
+
+		return _projectEntryLocalService.findByBusinessId(businessId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
 		return _projectEntryLocalService.getActionableDynamicQuery();
+	}
+
+	@Override
+	public com.swork.core.project.service.model.ProjectEntry getByCode(
+		long businessId, String projectCode) {
+
+		return _projectEntryLocalService.getByCode(businessId, projectCode);
+	}
+
+	@Override
+	public com.swork.core.project.service.model.ProjectEntry getByName(
+		long businessId, String projectName) {
+
+		return _projectEntryLocalService.getByName(businessId, projectName);
 	}
 
 	@Override
@@ -371,6 +442,24 @@ public class ProjectEntryLocalServiceWrapper
 	}
 
 	/**
+	 * Returns the project entry with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the project entry's external reference code
+	 * @return the matching project entry
+	 * @throws PortalException if a matching project entry could not be found
+	 */
+	@Override
+	public com.swork.core.project.service.model.ProjectEntry
+			getProjectEntryByExternalReferenceCode(
+				long companyId, String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _projectEntryLocalService.getProjectEntryByExternalReferenceCode(
+			companyId, externalReferenceCode);
+	}
+
+	/**
 	 * Returns the project entry matching the UUID and group.
 	 *
 	 * @param uuid the project entry's UUID
@@ -385,6 +474,16 @@ public class ProjectEntryLocalServiceWrapper
 
 		return _projectEntryLocalService.getProjectEntryByUuidAndGroupId(
 			uuid, groupId);
+	}
+
+	@Override
+	public com.swork.core.project.service.model.ProjectEntry updateProject(
+		long creatorId, long projectId,
+		com.swork.core.project.service.mapper.model.ProjectMapperModel model,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _projectEntryLocalService.updateProject(
+			creatorId, projectId, model, serviceContext);
 	}
 
 	/**

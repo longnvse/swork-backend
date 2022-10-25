@@ -28,11 +28,13 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import com.swork.core.project.service.mapper.model.ProjectMapperModel;
 import com.swork.core.project.service.model.ProjectEntry;
 
 import java.io.Serializable;
@@ -64,6 +66,14 @@ public interface ProjectEntryLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.swork.core.project.service.service.impl.ProjectEntryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the project entry local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link ProjectEntryLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	@Indexable(type = IndexableType.REINDEX)
+	@Transactional(
+		isolation = Isolation.PORTAL,
+		rollbackFor = {PortalException.class, SystemException.class}
+	)
+	public ProjectEntry addProject(
+		long businessId, long creatorId, ProjectMapperModel model,
+		ServiceContext serviceContext);
 
 	/**
 	 * Adds the project entry to the database. Also notifies the appropriate model listeners.
@@ -77,6 +87,12 @@ public interface ProjectEntryLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public ProjectEntry addProjectEntry(ProjectEntry projectEntry);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public ProjectEntry approvalProject(
+			long creatorId, long projectId, String status,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * @throws PortalException
@@ -204,6 +220,25 @@ public interface ProjectEntryLocalService
 	public ProjectEntry fetchProjectEntry(long projectId);
 
 	/**
+	 * Returns the project entry with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the project entry's external reference code
+	 * @return the matching project entry, or <code>null</code> if a matching project entry could not be found
+	 */
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ProjectEntry fetchProjectEntryByExternalReferenceCode(
+		long companyId, String externalReferenceCode);
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #fetchProjectEntryByExternalReferenceCode(long, String)}
+	 */
+	@Deprecated
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ProjectEntry fetchProjectEntryByReferenceCode(
+		long companyId, String externalReferenceCode);
+
+	/**
 	 * Returns the project entry matching the UUID and group.
 	 *
 	 * @param uuid the project entry's UUID
@@ -214,8 +249,16 @@ public interface ProjectEntryLocalService
 	public ProjectEntry fetchProjectEntryByUuidAndGroupId(
 		String uuid, long groupId);
 
+	public List<ProjectEntry> findByBusinessId(long businessId);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ProjectEntry getByCode(long businessId, String projectCode);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ProjectEntry getByName(long businessId, String projectName);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
@@ -298,6 +341,19 @@ public interface ProjectEntryLocalService
 	public ProjectEntry getProjectEntry(long projectId) throws PortalException;
 
 	/**
+	 * Returns the project entry with the matching external reference code and company.
+	 *
+	 * @param companyId the primary key of the company
+	 * @param externalReferenceCode the project entry's external reference code
+	 * @return the matching project entry
+	 * @throws PortalException if a matching project entry could not be found
+	 */
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ProjectEntry getProjectEntryByExternalReferenceCode(
+			long companyId, String externalReferenceCode)
+		throws PortalException;
+
+	/**
 	 * Returns the project entry matching the UUID and group.
 	 *
 	 * @param uuid the project entry's UUID
@@ -309,6 +365,15 @@ public interface ProjectEntryLocalService
 	public ProjectEntry getProjectEntryByUuidAndGroupId(
 			String uuid, long groupId)
 		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Transactional(
+		isolation = Isolation.PORTAL,
+		rollbackFor = {PortalException.class, SystemException.class}
+	)
+	public ProjectEntry updateProject(
+		long creatorId, long projectId, ProjectMapperModel model,
+		ServiceContext serviceContext);
 
 	/**
 	 * Updates the project entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

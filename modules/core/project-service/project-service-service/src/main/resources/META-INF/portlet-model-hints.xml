@@ -3,11 +3,11 @@
 <model-hints>
 	<model name="com.swork.core.project.service.model.ProjectEntry">
 		<field name="uuid" type="String" />
+		<field name="externalReferenceCode" type="String" />
 		<field name="projectId" type="long" />
 		<field name="groupId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="accountId" type="long" />
-		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="modifiedId" type="long" />
@@ -23,5 +23,12 @@
 		<field name="actualStart" type="Date" />
 		<field name="progressType" type="String" />
 		<field name="businessId" type="long" />
+	</model>
+	<model name="com.swork.core.project.service.model.ProjectMemberEntry">
+		<field name="projectMemberId" type="long" />
+		<field name="projectId" type="long" />
+		<field name="memberId" type="long" />
+		<field name="memberType" type="String" />
+		<field name="type" type="String" />
 	</model>
 </model-hints>

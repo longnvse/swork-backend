@@ -1,10 +1,10 @@
 create table SW_Project (
 	uuid_ VARCHAR(75) null,
+	externalReferenceCode VARCHAR(75) null,
 	projectId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
 	accountId LONG,
-	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
 	modifiedId LONG,
@@ -20,4 +20,12 @@ create table SW_Project (
 	actualStart DATE null,
 	progressType VARCHAR(75) null,
 	businessId LONG
+);
+
+create table SW_ProjectMember (
+	projectMemberId LONG not null primary key,
+	projectId LONG,
+	memberId LONG,
+	memberType VARCHAR(75) null,
+	type_ VARCHAR(75) null
 );

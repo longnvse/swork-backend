@@ -12,7 +12,8 @@
             name="ProjectEntry"
             remote-service="false"
             table="SW_Project"
-            uuid="true">
+            uuid="true"
+            external-reference-code="true">
 
         <!-- PK fields -->
 
@@ -26,7 +27,6 @@
 
         <column name="companyId" type="long"/>
         <column name="accountId" type="long"/>
-        <column name="userName" type="String"/>
         <column name="createDate" type="Date"/>
         <column name="modifiedDate" type="Date"/>
         <column name="modifiedId" type="long"/>
@@ -60,6 +60,27 @@
 
         <finder name="B_" return-type="Collection">
             <finder-column name="businessId"/>
+        </finder>
+    </entity>
+
+    <entity local-service="true"
+            name="ProjectMemberEntry"
+            table="SW_ProjectMember"
+            external-reference-code="false"
+            remote-service="false"
+            uuid="false">
+
+        <!-- PK fields -->
+
+        <column name="projectMemberId" primary="true" type="long"/>
+
+        <column name="projectId" type="long"/>
+        <column name="memberId" type="long"/>
+        <column name="memberType" type="String"/>
+        <column name="type" type="String"/>
+
+        <finder name="P_" return-type="Collection">
+            <finder-column name="projectId"/>
         </finder>
     </entity>
 </service-builder>
