@@ -1,6 +1,7 @@
 dependencies {
 	compile project(":modules:core:project-service:project-service-api")
 	compile project(":modules:auth:account-service:account-service-api")
+	compile project(":modules:common:common-util")
 
 	compileOnly group: "com.liferay.portal", name: "release.portal.api", version: "7.4.3.13-ga13"
 

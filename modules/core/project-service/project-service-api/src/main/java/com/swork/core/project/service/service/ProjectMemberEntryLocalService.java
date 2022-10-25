@@ -208,7 +208,8 @@ public interface ProjectMemberEntryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ProjectMemberEntry fetchProjectMemberEntry(long projectMemberId);
 
-	public List<ProjectMemberEntry> findByProjectId(long projectId);
+	public List<ProjectMemberEntry> findByP_MT_T(
+		long projectId, String memberType, String type);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();

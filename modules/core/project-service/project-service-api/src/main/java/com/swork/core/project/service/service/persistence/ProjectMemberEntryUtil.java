@@ -123,6 +123,213 @@ public class ProjectMemberEntryUtil {
 	}
 
 	/**
+	 * Returns all the project member entries where projectId = &#63; and memberType = &#63; and type = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param memberType the member type
+	 * @param type the type
+	 * @return the matching project member entries
+	 */
+	public static List<ProjectMemberEntry> findByP_T_MT(
+		long projectId, String memberType, String type) {
+
+		return getPersistence().findByP_T_MT(projectId, memberType, type);
+	}
+
+	/**
+	 * Returns a range of all the project member entries where projectId = &#63; and memberType = &#63; and type = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProjectMemberEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param memberType the member type
+	 * @param type the type
+	 * @param start the lower bound of the range of project member entries
+	 * @param end the upper bound of the range of project member entries (not inclusive)
+	 * @return the range of matching project member entries
+	 */
+	public static List<ProjectMemberEntry> findByP_T_MT(
+		long projectId, String memberType, String type, int start, int end) {
+
+		return getPersistence().findByP_T_MT(
+			projectId, memberType, type, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the project member entries where projectId = &#63; and memberType = &#63; and type = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProjectMemberEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param memberType the member type
+	 * @param type the type
+	 * @param start the lower bound of the range of project member entries
+	 * @param end the upper bound of the range of project member entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching project member entries
+	 */
+	public static List<ProjectMemberEntry> findByP_T_MT(
+		long projectId, String memberType, String type, int start, int end,
+		OrderByComparator<ProjectMemberEntry> orderByComparator) {
+
+		return getPersistence().findByP_T_MT(
+			projectId, memberType, type, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the project member entries where projectId = &#63; and memberType = &#63; and type = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProjectMemberEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param memberType the member type
+	 * @param type the type
+	 * @param start the lower bound of the range of project member entries
+	 * @param end the upper bound of the range of project member entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching project member entries
+	 */
+	public static List<ProjectMemberEntry> findByP_T_MT(
+		long projectId, String memberType, String type, int start, int end,
+		OrderByComparator<ProjectMemberEntry> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByP_T_MT(
+			projectId, memberType, type, start, end, orderByComparator,
+			useFinderCache);
+	}
+
+	/**
+	 * Returns the first project member entry in the ordered set where projectId = &#63; and memberType = &#63; and type = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param memberType the member type
+	 * @param type the type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching project member entry
+	 * @throws NoSuchProjectMemberEntryException if a matching project member entry could not be found
+	 */
+	public static ProjectMemberEntry findByP_T_MT_First(
+			long projectId, String memberType, String type,
+			OrderByComparator<ProjectMemberEntry> orderByComparator)
+		throws com.swork.core.project.service.exception.
+			NoSuchProjectMemberEntryException {
+
+		return getPersistence().findByP_T_MT_First(
+			projectId, memberType, type, orderByComparator);
+	}
+
+	/**
+	 * Returns the first project member entry in the ordered set where projectId = &#63; and memberType = &#63; and type = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param memberType the member type
+	 * @param type the type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching project member entry, or <code>null</code> if a matching project member entry could not be found
+	 */
+	public static ProjectMemberEntry fetchByP_T_MT_First(
+		long projectId, String memberType, String type,
+		OrderByComparator<ProjectMemberEntry> orderByComparator) {
+
+		return getPersistence().fetchByP_T_MT_First(
+			projectId, memberType, type, orderByComparator);
+	}
+
+	/**
+	 * Returns the last project member entry in the ordered set where projectId = &#63; and memberType = &#63; and type = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param memberType the member type
+	 * @param type the type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching project member entry
+	 * @throws NoSuchProjectMemberEntryException if a matching project member entry could not be found
+	 */
+	public static ProjectMemberEntry findByP_T_MT_Last(
+			long projectId, String memberType, String type,
+			OrderByComparator<ProjectMemberEntry> orderByComparator)
+		throws com.swork.core.project.service.exception.
+			NoSuchProjectMemberEntryException {
+
+		return getPersistence().findByP_T_MT_Last(
+			projectId, memberType, type, orderByComparator);
+	}
+
+	/**
+	 * Returns the last project member entry in the ordered set where projectId = &#63; and memberType = &#63; and type = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param memberType the member type
+	 * @param type the type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching project member entry, or <code>null</code> if a matching project member entry could not be found
+	 */
+	public static ProjectMemberEntry fetchByP_T_MT_Last(
+		long projectId, String memberType, String type,
+		OrderByComparator<ProjectMemberEntry> orderByComparator) {
+
+		return getPersistence().fetchByP_T_MT_Last(
+			projectId, memberType, type, orderByComparator);
+	}
+
+	/**
+	 * Returns the project member entries before and after the current project member entry in the ordered set where projectId = &#63; and memberType = &#63; and type = &#63;.
+	 *
+	 * @param projectMemberId the primary key of the current project member entry
+	 * @param projectId the project ID
+	 * @param memberType the member type
+	 * @param type the type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next project member entry
+	 * @throws NoSuchProjectMemberEntryException if a project member entry with the primary key could not be found
+	 */
+	public static ProjectMemberEntry[] findByP_T_MT_PrevAndNext(
+			long projectMemberId, long projectId, String memberType,
+			String type,
+			OrderByComparator<ProjectMemberEntry> orderByComparator)
+		throws com.swork.core.project.service.exception.
+			NoSuchProjectMemberEntryException {
+
+		return getPersistence().findByP_T_MT_PrevAndNext(
+			projectMemberId, projectId, memberType, type, orderByComparator);
+	}
+
+	/**
+	 * Removes all the project member entries where projectId = &#63; and memberType = &#63; and type = &#63; from the database.
+	 *
+	 * @param projectId the project ID
+	 * @param memberType the member type
+	 * @param type the type
+	 */
+	public static void removeByP_T_MT(
+		long projectId, String memberType, String type) {
+
+		getPersistence().removeByP_T_MT(projectId, memberType, type);
+	}
+
+	/**
+	 * Returns the number of project member entries where projectId = &#63; and memberType = &#63; and type = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param memberType the member type
+	 * @param type the type
+	 * @return the number of matching project member entries
+	 */
+	public static int countByP_T_MT(
+		long projectId, String memberType, String type) {
+
+		return getPersistence().countByP_T_MT(projectId, memberType, type);
+	}
+
+	/**
 	 * Returns all the project member entries where projectId = &#63;.
 	 *
 	 * @param projectId the project ID

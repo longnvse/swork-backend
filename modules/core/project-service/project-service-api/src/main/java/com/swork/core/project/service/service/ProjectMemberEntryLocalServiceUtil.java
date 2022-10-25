@@ -229,8 +229,10 @@ public class ProjectMemberEntryLocalServiceUtil {
 		return getService().fetchProjectMemberEntry(projectMemberId);
 	}
 
-	public static List<ProjectMemberEntry> findByProjectId(long projectId) {
-		return getService().findByProjectId(projectId);
+	public static List<ProjectMemberEntry> findByP_MT_T(
+		long projectId, String memberType, String type) {
+
+		return getService().findByP_MT_T(projectId, memberType, type);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery

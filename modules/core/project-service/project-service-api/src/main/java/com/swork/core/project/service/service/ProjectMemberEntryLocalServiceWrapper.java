@@ -258,10 +258,11 @@ public class ProjectMemberEntryLocalServiceWrapper
 
 	@Override
 	public java.util.List
-		<com.swork.core.project.service.model.ProjectMemberEntry>
-			findByProjectId(long projectId) {
+		<com.swork.core.project.service.model.ProjectMemberEntry> findByP_MT_T(
+			long projectId, String memberType, String type) {
 
-		return _projectMemberEntryLocalService.findByProjectId(projectId);
+		return _projectMemberEntryLocalService.findByP_MT_T(
+			projectId, memberType, type);
 	}
 
 	@Override

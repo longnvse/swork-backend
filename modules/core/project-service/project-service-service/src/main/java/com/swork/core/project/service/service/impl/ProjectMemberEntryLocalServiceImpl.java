@@ -48,8 +48,8 @@ public class ProjectMemberEntryLocalServiceImpl
         return addProjectMemberEntry(entry);
     }
 
-    public List<ProjectMemberEntry> findByProjectId(long projectId) {
-        return projectMemberEntryPersistence.findByP_(projectId);
+    public List<ProjectMemberEntry> findByP_MT_T(long projectId, String memberType, String type) {
+        return projectMemberEntryPersistence.findByP_T_MT(projectId, memberType, type);
     }
 
     public void deleteByProjectId(long projectId) {

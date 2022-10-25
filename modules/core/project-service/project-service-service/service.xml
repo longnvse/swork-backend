@@ -79,6 +79,12 @@
         <column name="memberType" type="String"/>
         <column name="type" type="String"/>
 
+        <finder name="P_T_MT" return-type="Collection">
+            <finder-column name="projectId"/>
+            <finder-column name="memberType"/>
+            <finder-column name="type"/>
+        </finder>
+
         <finder name="P_" return-type="Collection">
             <finder-column name="projectId"/>
         </finder>
