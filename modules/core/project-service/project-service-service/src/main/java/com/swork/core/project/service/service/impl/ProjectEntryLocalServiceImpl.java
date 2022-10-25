@@ -15,8 +15,13 @@
 package com.swork.core.project.service.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.swork.account.service.model.AccountEntry;
+import com.swork.core.project.service.model.ProjectEntry;
 import com.swork.core.project.service.service.base.ProjectEntryLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
+
+import java.util.Date;
 
 /**
  * @author Brian Wing Shun Chan
@@ -28,4 +33,34 @@ import org.osgi.service.component.annotations.Component;
 public class ProjectEntryLocalServiceImpl
         extends ProjectEntryLocalServiceBaseImpl {
 
+    private void createModifierAudit(long businessId,
+                                     long creatorId,
+                                     ProjectEntry entry,
+                                     Date current,
+                                     AccountEntry account,
+                                     ServiceContext serviceContext) {
+
+        entry.setBusinessId(businessId);
+        entry.setGroupId(serviceContext.getScopeGroupId());
+        entry.setCompanyId(serviceContext.getCompanyId());
+        entry.setCreateDate(serviceContext.getCreateDate(current));
+        entry.setAccountId(account.getAccountId());
+
+        updateModifierAudit(creatorId, entry, current, account, serviceContext);
+    }
+
+    private void updateModifierAudit(long modifiedId,
+                                     ProjectEntry entry,
+                                     Date current,
+                                     AccountEntry account,
+                                     ServiceContext serviceContext) {
+
+        if (account != null) {
+            entry.setUserName(account.getUsername());
+        }
+
+        entry.setModifiedDate(serviceContext.getModifiedDate(current));
+        entry.setModifiedId(serviceContext.getUserId());
+        entry.setModifiedId(modifiedId);
+    }
 }
