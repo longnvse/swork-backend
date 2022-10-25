@@ -1,0 +1,4 @@
+Bundle-Name: common-util
+Bundle-SymbolicName: com.swork.common.util
+Bundle-Version: 1.0.0
+Export-Package: com.swork.common.util.api
