@@ -24,6 +24,20 @@ components:
         password:
           type: string
           readOnly: true
+
+    AccountPermision:
+      description: AccountPermision model
+      properties:
+        id:
+          format: int64
+          type: integer
+        permisionId:
+          format: int64
+          type: integer
+        accountId:
+          format: int64
+          type: integer
+
 info:
   description: "AccountRest REST API"
   license:
@@ -165,6 +179,91 @@ paths:
         204:
           description:
             "Deleted an Account"
+          content:
+            application/json: { }
+            application/xml: { }
+
+  "/account_permisions":
+    get:
+      tags: [ "AccountPermision" ]
+      description:
+        Retrieves the AccountPermision. Results can be paginated, filtered, searched, and sorted.
+      operationId: getAccountPermisionsPage
+      parameters:
+        - in: query
+          name: filter
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: sort
+          schema:
+            type: string
+      responses:
+        200:
+          description: The data returned
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/AccountPermision"
+                type: array
+            application/xml:
+              schema:
+                items:
+                  $ref: "#/components/schemas/AccountPermision"
+                type: array
+    post:
+      tags: [ "AccountPermision" ]
+      description: Create a new AccountPermision
+      operationId: postAccountPermision
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccountPermision"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/AccountPermision"
+      responses:
+        201:
+          description:
+            "Created an Account"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountPermision"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/AccountPermision"
+
+  "/account_permisions/{accountPermisionId}":
+    delete:
+      tags: [ "AccountPermision" ]
+      description: Delete an accountPermision
+      operationId: deleteAccountPermision
+      parameters:
+        - in: path
+          name: accountPermisionId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        204:
+          description:
+            "Deleted an AccountPermision"
           content:
             application/json: { }
             application/xml: { }

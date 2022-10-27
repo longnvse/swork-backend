@@ -19,4 +19,27 @@
 		<field name="departmentId" type="Long" />
 		<field name="businessId" type="Long" />
 	</model>
+	<model name="com.swork.account.service.model.AccountPermisionEntry">
+		<field name="uuid" type="String" />
+		<field name="externalReferenceCode" type="String" />
+		<field name="id" type="long" />
+		<field name="companyId" type="long" />
+		<field name="permisionId" type="long" />
+		<field name="accountId" type="long" />
+	</model>
+	<model name="com.swork.account.service.model.PermisionDetailEntry">
+		<field name="uuid" type="String" />
+		<field name="externalReferenceCode" type="String" />
+		<field name="id" type="long" />
+		<field name="companyId" type="long" />
+		<field name="permisionId" type="long" />
+		<field name="actionCode" type="String" />
+	</model>
+	<model name="com.swork.account.service.model.PermisionEntry">
+		<field name="uuid" type="String" />
+		<field name="externalReferenceCode" type="String" />
+		<field name="id" type="long" />
+		<field name="companyId" type="long" />
+		<field name="name" type="String" />
+	</model>
 </model-hints>

@@ -10,6 +10,8 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 
 import com.swork.account.rest.dto.v1_0.Account;
+import com.swork.account.rest.dto.v1_0.AccountPermision;
+import com.swork.account.rest.resource.v1_0.AccountPermisionResource;
 import com.swork.account.rest.resource.v1_0.AccountResource;
 
 import java.util.function.BiFunction;
@@ -37,6 +39,14 @@ public class Mutation {
 
 		_accountResourceComponentServiceObjects =
 			accountResourceComponentServiceObjects;
+	}
+
+	public static void setAccountPermisionResourceComponentServiceObjects(
+		ComponentServiceObjects<AccountPermisionResource>
+			accountPermisionResourceComponentServiceObjects) {
+
+		_accountPermisionResourceComponentServiceObjects =
+			accountPermisionResourceComponentServiceObjects;
 	}
 
 	@GraphQLField(description = "Create a new Account")
@@ -112,6 +122,62 @@ public class Mutation {
 				callbackURL, object));
 	}
 
+	@GraphQLField(description = "Create a new AccountPermision")
+	public AccountPermision createAccountPermision(
+			@GraphQLName("accountPermision") AccountPermision accountPermision)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_accountPermisionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountPermisionResource ->
+				accountPermisionResource.postAccountPermision(
+					accountPermision));
+	}
+
+	@GraphQLField
+	public Response createAccountPermisionBatch(
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_accountPermisionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountPermisionResource ->
+				accountPermisionResource.postAccountPermisionBatch(
+					callbackURL, object));
+	}
+
+	@GraphQLField(description = "Delete an accountPermision")
+	public boolean deleteAccountPermision(
+			@GraphQLName("accountPermisionId") Long accountPermisionId)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountPermisionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountPermisionResource ->
+				accountPermisionResource.deleteAccountPermision(
+					accountPermisionId));
+
+		return true;
+	}
+
+	@GraphQLField
+	public Response deleteAccountPermisionBatch(
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_accountPermisionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountPermisionResource ->
+				accountPermisionResource.deleteAccountPermisionBatch(
+					callbackURL, object));
+	}
+
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
 			_applyComponentServiceObjects(
 				ComponentServiceObjects<T> componentServiceObjects,
@@ -163,8 +229,26 @@ public class Mutation {
 		accountResource.setRoleLocalService(_roleLocalService);
 	}
 
+	private void _populateResourceContext(
+			AccountPermisionResource accountPermisionResource)
+		throws Exception {
+
+		accountPermisionResource.setContextAcceptLanguage(_acceptLanguage);
+		accountPermisionResource.setContextCompany(_company);
+		accountPermisionResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		accountPermisionResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		accountPermisionResource.setContextUriInfo(_uriInfo);
+		accountPermisionResource.setContextUser(_user);
+		accountPermisionResource.setGroupLocalService(_groupLocalService);
+		accountPermisionResource.setRoleLocalService(_roleLocalService);
+	}
+
 	private static ComponentServiceObjects<AccountResource>
 		_accountResourceComponentServiceObjects;
+	private static ComponentServiceObjects<AccountPermisionResource>
+		_accountPermisionResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
 	private com.liferay.portal.kernel.model.Company _company;
