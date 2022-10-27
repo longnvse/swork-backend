@@ -12,9 +12,13 @@ import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.util.SearchUtil;
 import com.swork.account.rest.dto.v1_0.Account;
+import com.swork.account.rest.dto.v1_0.AccountPermision;
 import com.swork.account.rest.internal.mapper.AccountMapper;
+import com.swork.account.rest.internal.mapper.AccountPermisionMapper;
 import com.swork.account.service.model.AccountEntry;
+import com.swork.account.service.model.AccountPermisionEntry;
 import com.swork.account.service.service.AccountEntryLocalService;
+import com.swork.account.service.service.AccountPermisionEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -102,8 +106,17 @@ public class AccountService {
         return mapper.mapDTOFromEntry(entry);
     }
 
+
+
+
+
     @Reference
     private AccountMapper mapper;
     @Reference
     private AccountEntryLocalService accountEntryLocalService;
+
+    @Reference
+    private AccountPermisionMapper accountPermisionMapper;
+    @Reference
+    private AccountPermisionEntryLocalService accountPermisionEntryLocalService;
 }

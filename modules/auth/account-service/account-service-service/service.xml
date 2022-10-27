@@ -49,4 +49,66 @@
         </finder>
 
     </entity>
+    <entity
+            local-service="true"
+            name="AccountPermisionEntry"
+            table="SW_AcccountPermision"
+            remote-service="false"
+            external-reference-code="true"
+            uuid="true">
+
+        <!-- PK fields -->
+
+        <column name="id" primary="true" type="long"/>
+
+        <!-- Group instance -->
+
+        <column name="companyId" type="long"/>
+
+        <!-- Other fields -->
+
+        <column name="permisionId" type="long"/>
+        <column name="accountId" type="long"/>
+    </entity>
+    <entity
+            local-service="true"
+            name="PermisionEntry"
+            table="SW_Permision"
+            remote-service="false"
+            external-reference-code="true"
+            uuid="true">
+
+        <!-- PK fields -->
+
+        <column name="id" primary="true" type="long"/>
+
+        <!-- Group instance -->
+
+        <column name="companyId" type="long"/>
+
+        <!-- Other fields -->
+
+        <column name="name" type="String"/>
+    </entity>
+    <entity
+            local-service="true"
+            name="PermisionDetailEntry"
+            table="SW_PermisionDetail"
+            remote-service="false"
+            external-reference-code="true"
+            uuid="true">
+
+        <!-- PK fields -->
+
+        <column name="id" primary="true" type="long"/>
+
+        <!-- Group instance -->
+
+        <column name="companyId" type="long"/>
+
+        <!-- Other fields -->
+
+        <column name="permisionId" type="long"/>
+        <column name="actionCode" type="String"/>
+    </entity>
 </service-builder>

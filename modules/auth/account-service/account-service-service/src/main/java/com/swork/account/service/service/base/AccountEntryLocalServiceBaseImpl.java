@@ -49,6 +49,9 @@ import com.swork.account.service.model.AccountEntry;
 import com.swork.account.service.service.AccountEntryLocalService;
 import com.swork.account.service.service.AccountEntryLocalServiceUtil;
 import com.swork.account.service.service.persistence.AccountEntryPersistence;
+import com.swork.account.service.service.persistence.AccountPermisionEntryPersistence;
+import com.swork.account.service.service.persistence.PermisionDetailEntryPersistence;
+import com.swork.account.service.service.persistence.PermisionEntryPersistence;
 
 import java.io.Serializable;
 
@@ -638,6 +641,15 @@ public abstract class AccountEntryLocalServiceBaseImpl
 
 	@Reference
 	protected AccountEntryPersistence accountEntryPersistence;
+
+	@Reference
+	protected AccountPermisionEntryPersistence accountPermisionEntryPersistence;
+
+	@Reference
+	protected PermisionDetailEntryPersistence permisionDetailEntryPersistence;
+
+	@Reference
+	protected PermisionEntryPersistence permisionEntryPersistence;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService

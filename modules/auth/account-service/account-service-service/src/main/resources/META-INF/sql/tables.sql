@@ -1,3 +1,12 @@
+create table SW_AcccountPermision (
+	uuid_ VARCHAR(75) null,
+	externalReferenceCode VARCHAR(75) null,
+	id_ LONG not null primary key,
+	companyId LONG,
+	permisionId LONG,
+	accountId LONG
+);
+
 create table SW_AccountEntry (
 	uuid_ VARCHAR(75) null,
 	externalReferenceCode VARCHAR(75) null,
@@ -15,4 +24,21 @@ create table SW_AccountEntry (
 	address VARCHAR(75) null,
 	departmentId LONG,
 	businessId LONG
+);
+
+create table SW_Permision (
+	uuid_ VARCHAR(75) null,
+	externalReferenceCode VARCHAR(75) null,
+	id_ LONG not null primary key,
+	companyId LONG,
+	name VARCHAR(75) null
+);
+
+create table SW_PermisionDetail (
+	uuid_ VARCHAR(75) null,
+	externalReferenceCode VARCHAR(75) null,
+	id_ LONG not null primary key,
+	companyId LONG,
+	permisionId LONG,
+	actionCode VARCHAR(75) null
 );

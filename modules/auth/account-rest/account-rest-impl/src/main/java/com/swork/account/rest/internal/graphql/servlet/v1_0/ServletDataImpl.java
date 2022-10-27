@@ -4,6 +4,7 @@ import com.liferay.portal.vulcan.graphql.servlet.ServletData;
 
 import com.swork.account.rest.internal.graphql.mutation.v1_0.Mutation;
 import com.swork.account.rest.internal.graphql.query.v1_0.Query;
+import com.swork.account.rest.resource.v1_0.AccountPermisionResource;
 import com.swork.account.rest.resource.v1_0.AccountResource;
 
 import javax.annotation.Generated;
@@ -27,9 +28,13 @@ public class ServletDataImpl implements ServletData {
 	public void activate(BundleContext bundleContext) {
 		Mutation.setAccountResourceComponentServiceObjects(
 			_accountResourceComponentServiceObjects);
+		Mutation.setAccountPermisionResourceComponentServiceObjects(
+			_accountPermisionResourceComponentServiceObjects);
 
 		Query.setAccountResourceComponentServiceObjects(
 			_accountResourceComponentServiceObjects);
+		Query.setAccountPermisionResourceComponentServiceObjects(
+			_accountPermisionResourceComponentServiceObjects);
 	}
 
 	@Override
@@ -50,5 +55,9 @@ public class ServletDataImpl implements ServletData {
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<AccountResource>
 		_accountResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<AccountPermisionResource>
+		_accountPermisionResourceComponentServiceObjects;
 
 }
