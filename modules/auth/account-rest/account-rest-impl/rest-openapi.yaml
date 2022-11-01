@@ -18,12 +18,16 @@ components:
         email:
           type: string
         phoneNumber:
-          type: integer
+          type: string
         address:
           type: string
         password:
           type: string
           readOnly: true
+        actionCode:
+          type: array
+          items:
+            type: string
 
     AccountPermision:
       description: AccountPermision model

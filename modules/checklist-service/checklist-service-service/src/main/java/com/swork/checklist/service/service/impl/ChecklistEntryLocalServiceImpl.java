@@ -22,7 +22,6 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.swork.checklist.service.mapper.model.ChecklistMapperModel;
 import com.swork.checklist.service.model.ChecklistEntry;
-import com.swork.checklist.service.model.ChecklistHandlerEntry;
 import com.swork.checklist.service.service.ChecklistHandlerEntryLocalService;
 import com.swork.checklist.service.service.base.ChecklistEntryLocalServiceBaseImpl;
 

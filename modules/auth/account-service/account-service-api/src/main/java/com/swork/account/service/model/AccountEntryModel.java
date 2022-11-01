@@ -230,14 +230,15 @@ public interface AccountEntryModel
 	 *
 	 * @return the phone number of this account entry
 	 */
-	public Integer getPhoneNumber();
+	@AutoEscape
+	public String getPhoneNumber();
 
 	/**
 	 * Sets the phone number of this account entry.
 	 *
 	 * @param phoneNumber the phone number of this account entry
 	 */
-	public void setPhoneNumber(Integer phoneNumber);
+	public void setPhoneNumber(String phoneNumber);
 
 	/**
 	 * Returns the email of this account entry.

@@ -45,6 +45,30 @@ public class AccountSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (account.getActionCode() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actionCode\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < account.getActionCode().length; i++) {
+				sb.append("\"");
+
+				sb.append(_escape(account.getActionCode()[i]));
+
+				sb.append("\"");
+
+				if ((i + 1) < account.getActionCode().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (account.getAddress() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -132,7 +156,11 @@ public class AccountSerDes {
 
 			sb.append("\"phoneNumber\": ");
 
-			sb.append(account.getPhoneNumber());
+			sb.append("\"");
+
+			sb.append(_escape(account.getPhoneNumber()));
+
+			sb.append("\"");
 		}
 
 		if (account.getUsername() != null) {
@@ -169,6 +197,13 @@ public class AccountSerDes {
 
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (account.getActionCode() == null) {
+			map.put("actionCode", null);
+		}
+		else {
+			map.put("actionCode", String.valueOf(account.getActionCode()));
+		}
 
 		if (account.getAddress() == null) {
 			map.put("address", null);
@@ -248,7 +283,13 @@ public class AccountSerDes {
 			Account account, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "address")) {
+			if (Objects.equals(jsonParserFieldName, "actionCode")) {
+				if (jsonParserFieldValue != null) {
+					account.setActionCode(
+						toStrings((Object[])jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "address")) {
 				if (jsonParserFieldValue != null) {
 					account.setAddress((String)jsonParserFieldValue);
 				}
@@ -280,8 +321,7 @@ public class AccountSerDes {
 			}
 			else if (Objects.equals(jsonParserFieldName, "phoneNumber")) {
 				if (jsonParserFieldValue != null) {
-					account.setPhoneNumber(
-						Integer.valueOf((String)jsonParserFieldValue));
+					account.setPhoneNumber((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "username")) {

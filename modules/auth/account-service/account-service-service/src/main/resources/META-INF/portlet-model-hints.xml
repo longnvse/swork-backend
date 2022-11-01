@@ -13,7 +13,7 @@
 		<field name="username" type="String" />
 		<field name="password" type="String" />
 		<field name="fullName" type="String" />
-		<field name="phoneNumber" type="Integer" />
+		<field name="phoneNumber" type="String" />
 		<field name="email" type="String" />
 		<field name="address" type="String" />
 		<field name="departmentId" type="Long" />

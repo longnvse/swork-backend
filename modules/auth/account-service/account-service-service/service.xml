@@ -33,14 +33,16 @@
         <column name="username" type="String"/>
         <column name="password" type="String"/>
         <column name="fullName" type="String"/>
-        <column name="phoneNumber" type="Integer"/>
+        <column name="phoneNumber" type="String"/>
         <column name="email" type="String"/>
         <column name="address" type="String"/>
         <column name="departmentId" type="Long"/>
         <column name="businessId" type="Long"/>
 
         <!-- Finder methods -->
-
+        <finder name="AccountId" return-type="AccountEntry">
+            <finder-column name="accountId"/>
+        </finder>
         <finder name="Username" return-type="AccountEntry">
             <finder-column name="username"/>
         </finder>

@@ -132,7 +132,7 @@ public class AccountEntryWrapper
 			setFullName(fullName);
 		}
 
-		Integer phoneNumber = (Integer)attributes.get("phoneNumber");
+		String phoneNumber = (String)attributes.get("phoneNumber");
 
 		if (phoneNumber != null) {
 			setPhoneNumber(phoneNumber);
@@ -304,7 +304,7 @@ public class AccountEntryWrapper
 	 * @return the phone number of this account entry
 	 */
 	@Override
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return model.getPhoneNumber();
 	}
 
@@ -479,7 +479,7 @@ public class AccountEntryWrapper
 	 * @param phoneNumber the phone number of this account entry
 	 */
 	@Override
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		model.setPhoneNumber(phoneNumber);
 	}
 

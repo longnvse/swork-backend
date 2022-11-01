@@ -179,6 +179,7 @@ public abstract class BaseAccountResourceTestCase {
 		account.setEmail(regex);
 		account.setFullName(regex);
 		account.setPassword(regex);
+		account.setPhoneNumber(regex);
 		account.setUsername(regex);
 
 		String json = AccountSerDes.toJSON(account);
@@ -191,6 +192,7 @@ public abstract class BaseAccountResourceTestCase {
 		Assert.assertEquals(regex, account.getEmail());
 		Assert.assertEquals(regex, account.getFullName());
 		Assert.assertEquals(regex, account.getPassword());
+		Assert.assertEquals(regex, account.getPhoneNumber());
 		Assert.assertEquals(regex, account.getUsername());
 	}
 
@@ -710,6 +712,14 @@ public abstract class BaseAccountResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("actionCode", additionalAssertFieldName)) {
+				if (account.getActionCode() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("address", additionalAssertFieldName)) {
 				if (account.getAddress() == null) {
 					valid = false;
@@ -855,6 +865,16 @@ public abstract class BaseAccountResourceTestCase {
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
+
+			if (Objects.equals("actionCode", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getActionCode(), account2.getActionCode())) {
+
+					return false;
+				}
+
+				continue;
+			}
 
 			if (Objects.equals("address", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
@@ -1031,6 +1051,11 @@ public abstract class BaseAccountResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("actionCode")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("address")) {
 			sb.append("'");
 			sb.append(String.valueOf(account.getAddress()));
@@ -1100,8 +1125,11 @@ public abstract class BaseAccountResourceTestCase {
 		}
 
 		if (entityFieldName.equals("phoneNumber")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
+			sb.append("'");
+			sb.append(String.valueOf(account.getPhoneNumber()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("username")) {
@@ -1166,7 +1194,8 @@ public abstract class BaseAccountResourceTestCase {
 				id = RandomTestUtil.randomLong();
 				password = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
-				phoneNumber = RandomTestUtil.randomInt();
+				phoneNumber = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				username = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 			}

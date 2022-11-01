@@ -532,6 +532,64 @@ public class AccountEntryUtil {
 	}
 
 	/**
+	 * Returns the account entry where accountId = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
+	 *
+	 * @param accountId the account ID
+	 * @return the matching account entry
+	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
+	 */
+	public static AccountEntry findByAccountId(long accountId)
+		throws com.swork.account.service.exception.NoSuchAccountEntryException {
+
+		return getPersistence().findByAccountId(accountId);
+	}
+
+	/**
+	 * Returns the account entry where accountId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param accountId the account ID
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	public static AccountEntry fetchByAccountId(long accountId) {
+		return getPersistence().fetchByAccountId(accountId);
+	}
+
+	/**
+	 * Returns the account entry where accountId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param accountId the account ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	public static AccountEntry fetchByAccountId(
+		long accountId, boolean useFinderCache) {
+
+		return getPersistence().fetchByAccountId(accountId, useFinderCache);
+	}
+
+	/**
+	 * Removes the account entry where accountId = &#63; from the database.
+	 *
+	 * @param accountId the account ID
+	 * @return the account entry that was removed
+	 */
+	public static AccountEntry removeByAccountId(long accountId)
+		throws com.swork.account.service.exception.NoSuchAccountEntryException {
+
+		return getPersistence().removeByAccountId(accountId);
+	}
+
+	/**
+	 * Returns the number of account entries where accountId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @return the number of matching account entries
+	 */
+	public static int countByAccountId(long accountId) {
+		return getPersistence().countByAccountId(accountId);
+	}
+
+	/**
 	 * Returns the account entry where username = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
 	 *
 	 * @param username the username

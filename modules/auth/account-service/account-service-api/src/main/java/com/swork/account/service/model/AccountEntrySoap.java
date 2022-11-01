@@ -190,11 +190,11 @@ public class AccountEntrySoap implements Serializable {
 		_fullName = fullName;
 	}
 
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return _phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		_phoneNumber = phoneNumber;
 	}
 
@@ -241,7 +241,7 @@ public class AccountEntrySoap implements Serializable {
 	private String _username;
 	private String _password;
 	private String _fullName;
-	private Integer _phoneNumber;
+	private String _phoneNumber;
 	private String _email;
 	private String _address;
 	private Long _departmentId;

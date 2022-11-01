@@ -17,6 +17,8 @@ import com.swork.account.rest.dto.v1_0.PermissionDetail;
 import com.swork.account.rest.internal.mapper.AccountMapper;
 import com.swork.account.rest.internal.mapper.AccountPermisionMapper;
 import com.swork.account.rest.internal.mapper.PermissionDetailMapper;
+import com.swork.account.service.exception.NoSuchAccountEntryException;
+import com.swork.account.service.mapper.model.AccountMapperModel;
 import com.swork.account.service.model.AccountEntry;
 import com.swork.account.service.model.AccountPermisionEntry;
 import com.swork.account.service.model.PermissionDetailEntry;
@@ -118,10 +120,11 @@ public class AccountService {
         return Page.of(permissionDetails, Pagination.of(1, permissionDetails.size()), permissionDetails.size());
     }
 
+    public Account getById(long id) throws NoSuchAccountEntryException {
+        AccountEntry accountEntry=accountEntryLocalService.getById(id);
+        return mapper.mapDTOFromEntry(accountEntry);
 
-
-
-
+    }
     @Reference
     private AccountMapper mapper;
     @Reference
@@ -129,10 +132,6 @@ public class AccountService {
     @Reference
     private AccountEntryLocalService accountEntryLocalService;
 
-    @Reference
-    private AccountPermisionMapper accountPermisionMapper;
-    @Reference
-    private AccountPermisionEntryLocalService accountPermisionEntryLocalService;
     @Reference
     private PermissionDetailEntryLocalService permissionDetailEntryLocalService;
 }

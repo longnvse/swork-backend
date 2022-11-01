@@ -1459,6 +1459,219 @@ public class AccountEntryPersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"accountEntry.companyId = ?";
 
+	private FinderPath _finderPathFetchByAccountId;
+	private FinderPath _finderPathCountByAccountId;
+
+	/**
+	 * Returns the account entry where accountId = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
+	 *
+	 * @param accountId the account ID
+	 * @return the matching account entry
+	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
+	 */
+	@Override
+	public AccountEntry findByAccountId(long accountId)
+		throws NoSuchAccountEntryException {
+
+		AccountEntry accountEntry = fetchByAccountId(accountId);
+
+		if (accountEntry == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("accountId=");
+			sb.append(accountId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchAccountEntryException(sb.toString());
+		}
+
+		return accountEntry;
+	}
+
+	/**
+	 * Returns the account entry where accountId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param accountId the account ID
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	@Override
+	public AccountEntry fetchByAccountId(long accountId) {
+		return fetchByAccountId(accountId, true);
+	}
+
+	/**
+	 * Returns the account entry where accountId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param accountId the account ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	@Override
+	public AccountEntry fetchByAccountId(
+		long accountId, boolean useFinderCache) {
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {accountId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByAccountId, finderArgs);
+		}
+
+		if (result instanceof AccountEntry) {
+			AccountEntry accountEntry = (AccountEntry)result;
+
+			if (accountId != accountEntry.getAccountId()) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_ACCOUNTENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_ACCOUNTID_ACCOUNTID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(accountId);
+
+				List<AccountEntry> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByAccountId, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {accountId};
+							}
+
+							_log.warn(
+								"AccountEntryPersistenceImpl.fetchByAccountId(long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					AccountEntry accountEntry = list.get(0);
+
+					result = accountEntry;
+
+					cacheResult(accountEntry);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (AccountEntry)result;
+		}
+	}
+
+	/**
+	 * Removes the account entry where accountId = &#63; from the database.
+	 *
+	 * @param accountId the account ID
+	 * @return the account entry that was removed
+	 */
+	@Override
+	public AccountEntry removeByAccountId(long accountId)
+		throws NoSuchAccountEntryException {
+
+		AccountEntry accountEntry = findByAccountId(accountId);
+
+		return remove(accountEntry);
+	}
+
+	/**
+	 * Returns the number of account entries where accountId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @return the number of matching account entries
+	 */
+	@Override
+	public int countByAccountId(long accountId) {
+		FinderPath finderPath = _finderPathCountByAccountId;
+
+		Object[] finderArgs = new Object[] {accountId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_ACCOUNTENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_ACCOUNTID_ACCOUNTID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(accountId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_ACCOUNTID_ACCOUNTID_2 =
+		"accountEntry.accountId = ?";
+
 	private FinderPath _finderPathFetchByUsername;
 	private FinderPath _finderPathCountByUsername;
 
@@ -2244,6 +2457,10 @@ public class AccountEntryPersistenceImpl
 			accountEntry);
 
 		finderCache.putResult(
+			_finderPathFetchByAccountId,
+			new Object[] {accountEntry.getAccountId()}, accountEntry);
+
+		finderCache.putResult(
 			_finderPathFetchByUsername,
 			new Object[] {accountEntry.getUsername()}, accountEntry);
 
@@ -2338,6 +2555,13 @@ public class AccountEntryPersistenceImpl
 		finderCache.putResult(_finderPathCountByUUID_G, args, Long.valueOf(1));
 		finderCache.putResult(
 			_finderPathFetchByUUID_G, args, accountEntryModelImpl);
+
+		args = new Object[] {accountEntryModelImpl.getAccountId()};
+
+		finderCache.putResult(
+			_finderPathCountByAccountId, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByAccountId, args, accountEntryModelImpl);
 
 		args = new Object[] {accountEntryModelImpl.getUsername()};
 
@@ -2876,6 +3100,16 @@ public class AccountEntryPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
 			new String[] {String.class.getName(), Long.class.getName()},
 			new String[] {"uuid_", "companyId"}, false);
+
+		_finderPathFetchByAccountId = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByAccountId",
+			new String[] {Long.class.getName()}, new String[] {"accountId"},
+			true);
+
+		_finderPathCountByAccountId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByAccountId",
+			new String[] {Long.class.getName()}, new String[] {"accountId"},
+			false);
 
 		_finderPathFetchByUsername = new FinderPath(
 			FINDER_CLASS_NAME_ENTITY, "fetchByUsername",

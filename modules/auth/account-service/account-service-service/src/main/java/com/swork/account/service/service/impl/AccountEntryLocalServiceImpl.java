@@ -20,11 +20,18 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
+import com.swork.account.service.exception.NoSuchAccountEntryException;
+import com.swork.account.service.mapper.model.AccountMapperModel;
 import com.swork.account.service.model.AccountEntry;
+import com.swork.account.service.model.PermissionDetailEntry;
+import com.swork.account.service.service.PermisionDetailEntryLocalService;
+import com.swork.account.service.service.PermissionDetailEntryLocalService;
 import com.swork.account.service.service.base.AccountEntryLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Brian Wing Shun Chan
@@ -42,7 +49,7 @@ public class AccountEntryLocalServiceImpl
                                         String password,
                                         String fullName,
                                         String email,
-                                        Integer phoneNumber,
+                                        String phoneNumber,
                                         String address,
                                         ServiceContext serviceContext) throws PwdEncryptorException {
         AccountEntry entry =
@@ -71,7 +78,7 @@ public class AccountEntryLocalServiceImpl
                                            long accountId,
                                            String fullName,
                                            String email,
-                                           Integer phoneNumber,
+                                           String phoneNumber,
                                            String address,
                                            ServiceContext serviceContext) {
         AccountEntry entry = fetchAccountEntry(accountId);
@@ -114,9 +121,15 @@ public class AccountEntryLocalServiceImpl
         updateModifierAudit(entry, current, serviceContext);
     }
 
+    public AccountEntry getById(long accountId) throws NoSuchAccountEntryException {
+        return accountEntryPersistence.findByAccountId(accountId);
+    }
+
     private void updateModifierAudit(AccountEntry entry,
                                      Date current,
                                      ServiceContext serviceContext) {
         entry.setModifiedDate(serviceContext.getModifiedDate(current));
     }
+    @Reference
+    PermissionDetailEntryLocalService permissionDetailEntryLocalService;
 }

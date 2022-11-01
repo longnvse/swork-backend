@@ -53,7 +53,7 @@ public class AccountEntryLocalServiceWrapper
 	@Override
 	public com.swork.account.service.model.AccountEntry addAccountEntry(
 			long creatorId, String username, String password, String fullName,
-			String email, Integer phoneNumber, String address,
+			String email, String phoneNumber, String address,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PwdEncryptorException {
 
@@ -417,6 +417,13 @@ public class AccountEntryLocalServiceWrapper
 	}
 
 	@Override
+	public com.swork.account.service.model.AccountEntry getById(long accountId)
+		throws com.swork.account.service.exception.NoSuchAccountEntryException {
+
+		return _accountEntryLocalService.getById(accountId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext
@@ -474,7 +481,7 @@ public class AccountEntryLocalServiceWrapper
 	@Override
 	public com.swork.account.service.model.AccountEntry updateAccountEntry(
 		long creatorId, long accountId, String fullName, String email,
-		Integer phoneNumber, String address,
+		String phoneNumber, String address,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _accountEntryLocalService.updateAccountEntry(

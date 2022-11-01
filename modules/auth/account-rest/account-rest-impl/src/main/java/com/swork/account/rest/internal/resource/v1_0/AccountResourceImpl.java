@@ -68,7 +68,7 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
 
     @Override
     public Account getAccount(Long accountId) throws Exception {
-        return service.getAccount(accountId);
+        return service.getById(accountId);
     }
 
     @Override

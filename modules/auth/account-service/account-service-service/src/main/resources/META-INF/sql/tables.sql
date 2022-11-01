@@ -19,7 +19,7 @@ create table SW_AccountEntry (
 	username VARCHAR(75) null,
 	password_ VARCHAR(75) null,
 	fullName VARCHAR(75) null,
-	phoneNumber INTEGER,
+	phoneNumber VARCHAR(75) null,
 	email VARCHAR(75) null,
 	address VARCHAR(75) null,
 	departmentId LONG,

@@ -62,7 +62,7 @@ public class AccountEntryLocalServiceUtil {
 
 	public static AccountEntry addAccountEntry(
 			long creatorId, String username, String password, String fullName,
-			String email, Integer phoneNumber, String address,
+			String email, String phoneNumber, String address,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PwdEncryptorException {
 
@@ -369,6 +369,12 @@ public class AccountEntryLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static AccountEntry getById(long accountId)
+		throws com.swork.account.service.exception.NoSuchAccountEntryException {
+
+		return getService().getById(accountId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext
@@ -418,7 +424,7 @@ public class AccountEntryLocalServiceUtil {
 
 	public static AccountEntry updateAccountEntry(
 		long creatorId, long accountId, String fullName, String email,
-		Integer phoneNumber, String address,
+		String phoneNumber, String address,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().updateAccountEntry(

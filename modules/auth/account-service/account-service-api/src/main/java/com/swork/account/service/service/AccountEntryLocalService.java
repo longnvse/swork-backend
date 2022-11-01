@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import com.swork.account.service.exception.NoSuchAccountEntryException;
 import com.swork.account.service.model.AccountEntry;
 
 import java.io.Serializable;
@@ -83,7 +84,7 @@ public interface AccountEntryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public AccountEntry addAccountEntry(
 			long creatorId, String username, String password, String fullName,
-			String email, Integer phoneNumber, String address,
+			String email, String phoneNumber, String address,
 			ServiceContext serviceContext)
 		throws PwdEncryptorException;
 
@@ -333,6 +334,10 @@ public interface AccountEntryLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public AccountEntry getById(long accountId)
+		throws NoSuchAccountEntryException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
 		PortletDataContext portletDataContext);
 
@@ -370,6 +375,6 @@ public interface AccountEntryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public AccountEntry updateAccountEntry(
 		long creatorId, long accountId, String fullName, String email,
-		Integer phoneNumber, String address, ServiceContext serviceContext);
+		String phoneNumber, String address, ServiceContext serviceContext);
 
 }

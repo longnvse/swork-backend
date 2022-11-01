@@ -21,6 +21,27 @@ public class Account implements Cloneable, Serializable {
 		return AccountSerDes.toDTO(json);
 	}
 
+	public String[] getActionCode() {
+		return actionCode;
+	}
+
+	public void setActionCode(String[] actionCode) {
+		this.actionCode = actionCode;
+	}
+
+	public void setActionCode(
+		UnsafeSupplier<String[], Exception> actionCodeUnsafeSupplier) {
+
+		try {
+			actionCode = actionCodeUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String[] actionCode;
+
 	public String getAddress() {
 		return address;
 	}
@@ -145,16 +166,16 @@ public class Account implements Cloneable, Serializable {
 
 	protected String password;
 
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
 	public void setPhoneNumber(
-		UnsafeSupplier<Integer, Exception> phoneNumberUnsafeSupplier) {
+		UnsafeSupplier<String, Exception> phoneNumberUnsafeSupplier) {
 
 		try {
 			phoneNumber = phoneNumberUnsafeSupplier.get();
@@ -164,7 +185,7 @@ public class Account implements Cloneable, Serializable {
 		}
 	}
 
-	protected Integer phoneNumber;
+	protected String phoneNumber;
 
 	public String getUsername() {
 		return username;

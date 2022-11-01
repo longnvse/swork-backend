@@ -390,6 +390,51 @@ public interface AccountEntryPersistence extends BasePersistence<AccountEntry> {
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
+	 * Returns the account entry where accountId = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
+	 *
+	 * @param accountId the account ID
+	 * @return the matching account entry
+	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
+	 */
+	public AccountEntry findByAccountId(long accountId)
+		throws NoSuchAccountEntryException;
+
+	/**
+	 * Returns the account entry where accountId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param accountId the account ID
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	public AccountEntry fetchByAccountId(long accountId);
+
+	/**
+	 * Returns the account entry where accountId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param accountId the account ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	public AccountEntry fetchByAccountId(
+		long accountId, boolean useFinderCache);
+
+	/**
+	 * Removes the account entry where accountId = &#63; from the database.
+	 *
+	 * @param accountId the account ID
+	 * @return the account entry that was removed
+	 */
+	public AccountEntry removeByAccountId(long accountId)
+		throws NoSuchAccountEntryException;
+
+	/**
+	 * Returns the number of account entries where accountId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @return the number of matching account entries
+	 */
+	public int countByAccountId(long accountId);
+
+	/**
 	 * Returns the account entry where username = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
 	 *
 	 * @param username the username

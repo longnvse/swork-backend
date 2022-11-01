@@ -16,6 +16,8 @@ package com.swork.account.service.service.impl;
 
 import com.liferay.portal.aop.AopService;
 
+import com.swork.account.service.model.AccountPermisionEntry;
+import com.swork.account.service.model.AccountPermissionEntry;
 import com.swork.account.service.model.PermissionDetailEntry;
 import com.swork.account.service.service.AccountPermissionEntryLocalService;
 import com.swork.account.service.service.base.PermissionDetailEntryLocalServiceBaseImpl;
@@ -35,7 +37,9 @@ import java.util.List;
 public class PermissionDetailEntryLocalServiceImpl
 	extends PermissionDetailEntryLocalServiceBaseImpl {
 	public List<PermissionDetailEntry> getByAccountId(long accountId){
-		long permissionId=accountPermissionEntryLocalService.getByAccountId(accountId).getPermissionId();
+		AccountPermissionEntry entry =accountPermissionEntryLocalService.getByAccountId(accountId);
+		System.out.print("xxx"+entry.toString());
+		long permissionId=entry.getPermissionId();
 		return permissionDetailEntryPersistence.findByPermissionId(permissionId);
 	}
 	@Reference

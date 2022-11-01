@@ -46,6 +46,34 @@ public class Account implements Serializable {
 	}
 
 	@Schema
+	public String[] getActionCode() {
+		return actionCode;
+	}
+
+	public void setActionCode(String[] actionCode) {
+		this.actionCode = actionCode;
+	}
+
+	@JsonIgnore
+	public void setActionCode(
+		UnsafeSupplier<String[], Exception> actionCodeUnsafeSupplier) {
+
+		try {
+			actionCode = actionCodeUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String[] actionCode;
+
+	@Schema
 	public String getAddress() {
 		return address;
 	}
@@ -212,17 +240,17 @@ public class Account implements Serializable {
 	protected String password;
 
 	@Schema
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
 	@JsonIgnore
 	public void setPhoneNumber(
-		UnsafeSupplier<Integer, Exception> phoneNumberUnsafeSupplier) {
+		UnsafeSupplier<String, Exception> phoneNumberUnsafeSupplier) {
 
 		try {
 			phoneNumber = phoneNumberUnsafeSupplier.get();
@@ -237,7 +265,7 @@ public class Account implements Serializable {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Integer phoneNumber;
+	protected String phoneNumber;
 
 	@Schema
 	public String getUsername() {
@@ -296,6 +324,30 @@ public class Account implements Serializable {
 
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (actionCode != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actionCode\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < actionCode.length; i++) {
+				sb.append("\"");
+
+				sb.append(_escape(actionCode[i]));
+
+				sb.append("\"");
+
+				if ((i + 1) < actionCode.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
 
 		if (address != null) {
 			if (sb.length() > 1) {
@@ -384,7 +436,11 @@ public class Account implements Serializable {
 
 			sb.append("\"phoneNumber\": ");
 
-			sb.append(phoneNumber);
+			sb.append("\"");
+
+			sb.append(_escape(phoneNumber));
+
+			sb.append("\"");
 		}
 
 		if (username != null) {

@@ -75,7 +75,7 @@ public class AccountEntryModelImpl
 		{"companyId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"creatorId", Types.BIGINT},
 		{"username", Types.VARCHAR}, {"password_", Types.VARCHAR},
-		{"fullName", Types.VARCHAR}, {"phoneNumber", Types.INTEGER},
+		{"fullName", Types.VARCHAR}, {"phoneNumber", Types.VARCHAR},
 		{"email", Types.VARCHAR}, {"address", Types.VARCHAR},
 		{"departmentId", Types.BIGINT}, {"businessId", Types.BIGINT}
 	};
@@ -95,7 +95,7 @@ public class AccountEntryModelImpl
 		TABLE_COLUMNS_MAP.put("username", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("password_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("fullName", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("phoneNumber", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("phoneNumber", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("email", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("address", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("departmentId", Types.BIGINT);
@@ -103,7 +103,7 @@ public class AccountEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_AccountEntry (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,accountId LONG not null primary key,groupId LONG,companyId LONG,createDate DATE null,modifiedDate DATE null,creatorId LONG,username VARCHAR(75) null,password_ VARCHAR(75) null,fullName VARCHAR(75) null,phoneNumber INTEGER,email VARCHAR(75) null,address VARCHAR(75) null,departmentId LONG,businessId LONG)";
+		"create table SW_AccountEntry (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,accountId LONG not null primary key,groupId LONG,companyId LONG,createDate DATE null,modifiedDate DATE null,creatorId LONG,username VARCHAR(75) null,password_ VARCHAR(75) null,fullName VARCHAR(75) null,phoneNumber VARCHAR(75) null,email VARCHAR(75) null,address VARCHAR(75) null,departmentId LONG,businessId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_AccountEntry";
 
@@ -123,44 +123,43 @@ public class AccountEntryModelImpl
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long COMPANYID_COLUMN_BITMASK = 1L;
+	public static final long ACCOUNTID_COLUMN_BITMASK = 1L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long EMAIL_COLUMN_BITMASK = 2L;
+	public static final long COMPANYID_COLUMN_BITMASK = 2L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long EXTERNALREFERENCECODE_COLUMN_BITMASK = 4L;
+	public static final long EMAIL_COLUMN_BITMASK = 4L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long GROUPID_COLUMN_BITMASK = 8L;
+	public static final long EXTERNALREFERENCECODE_COLUMN_BITMASK = 8L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long USERNAME_COLUMN_BITMASK = 16L;
+	public static final long GROUPID_COLUMN_BITMASK = 16L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long UUID_COLUMN_BITMASK = 32L;
+	public static final long USERNAME_COLUMN_BITMASK = 32L;
 
 	/**
-	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
-	 *		#getColumnBitmask(String)}
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long ACCOUNTID_COLUMN_BITMASK = 64L;
+	public static final long UUID_COLUMN_BITMASK = 64L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -350,7 +349,7 @@ public class AccountEntryModelImpl
 			"phoneNumber", AccountEntry::getPhoneNumber);
 		attributeSetterBiConsumers.put(
 			"phoneNumber",
-			(BiConsumer<AccountEntry, Integer>)AccountEntry::setPhoneNumber);
+			(BiConsumer<AccountEntry, String>)AccountEntry::setPhoneNumber);
 		attributeGetterFunctions.put("email", AccountEntry::getEmail);
 		attributeSetterBiConsumers.put(
 			"email", (BiConsumer<AccountEntry, String>)AccountEntry::setEmail);
@@ -442,6 +441,16 @@ public class AccountEntryModelImpl
 		}
 
 		_accountId = accountId;
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public long getOriginalAccountId() {
+		return GetterUtil.getLong(
+			this.<Long>getColumnOriginalValue("accountId"));
 	}
 
 	@Override
@@ -606,12 +615,17 @@ public class AccountEntryModelImpl
 	}
 
 	@Override
-	public Integer getPhoneNumber() {
-		return _phoneNumber;
+	public String getPhoneNumber() {
+		if (_phoneNumber == null) {
+			return "";
+		}
+		else {
+			return _phoneNumber;
+		}
 	}
 
 	@Override
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
@@ -804,7 +818,7 @@ public class AccountEntryModelImpl
 		accountEntryImpl.setFullName(
 			this.<String>getColumnOriginalValue("fullName"));
 		accountEntryImpl.setPhoneNumber(
-			this.<Integer>getColumnOriginalValue("phoneNumber"));
+			this.<String>getColumnOriginalValue("phoneNumber"));
 		accountEntryImpl.setEmail(this.<String>getColumnOriginalValue("email"));
 		accountEntryImpl.setAddress(
 			this.<String>getColumnOriginalValue("address"));
@@ -960,10 +974,12 @@ public class AccountEntryModelImpl
 			accountEntryCacheModel.fullName = null;
 		}
 
-		Integer phoneNumber = getPhoneNumber();
+		accountEntryCacheModel.phoneNumber = getPhoneNumber();
 
-		if (phoneNumber != null) {
-			accountEntryCacheModel.phoneNumber = phoneNumber;
+		String phoneNumber = accountEntryCacheModel.phoneNumber;
+
+		if ((phoneNumber != null) && (phoneNumber.length() == 0)) {
+			accountEntryCacheModel.phoneNumber = null;
 		}
 
 		accountEntryCacheModel.email = getEmail();
@@ -1096,7 +1112,7 @@ public class AccountEntryModelImpl
 	private String _username;
 	private String _password;
 	private String _fullName;
-	private Integer _phoneNumber;
+	private String _phoneNumber;
 	private String _email;
 	private String _address;
 	private Long _departmentId;

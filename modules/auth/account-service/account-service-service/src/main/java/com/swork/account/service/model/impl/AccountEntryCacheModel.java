@@ -161,7 +161,12 @@ public class AccountEntryCacheModel
 			accountEntryImpl.setFullName(fullName);
 		}
 
-		accountEntryImpl.setPhoneNumber(phoneNumber);
+		if (phoneNumber == null) {
+			accountEntryImpl.setPhoneNumber("");
+		}
+		else {
+			accountEntryImpl.setPhoneNumber(phoneNumber);
+		}
 
 		if (email == null) {
 			accountEntryImpl.setEmail("");
@@ -202,8 +207,7 @@ public class AccountEntryCacheModel
 		username = objectInput.readUTF();
 		password = objectInput.readUTF();
 		fullName = objectInput.readUTF();
-
-		phoneNumber = objectInput.readInt();
+		phoneNumber = objectInput.readUTF();
 		email = objectInput.readUTF();
 		address = objectInput.readUTF();
 
@@ -259,7 +263,12 @@ public class AccountEntryCacheModel
 			objectOutput.writeUTF(fullName);
 		}
 
-		objectOutput.writeInt(phoneNumber);
+		if (phoneNumber == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(phoneNumber);
+		}
 
 		if (email == null) {
 			objectOutput.writeUTF("");
@@ -291,7 +300,7 @@ public class AccountEntryCacheModel
 	public String username;
 	public String password;
 	public String fullName;
-	public int phoneNumber;
+	public String phoneNumber;
 	public String email;
 	public String address;
 	public long departmentId;
