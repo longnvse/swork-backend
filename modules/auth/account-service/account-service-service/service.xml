@@ -51,8 +51,8 @@
     </entity>
     <entity
             local-service="true"
-            name="AccountPermisionEntry"
-            table="SW_AcccountPermision"
+            name="AccountPermissionEntry"
+            table="SW_AccountPermission"
             remote-service="false"
             external-reference-code="true"
             uuid="true">
@@ -67,13 +67,18 @@
 
         <!-- Other fields -->
 
-        <column name="permisionId" type="long"/>
+        <column name="permissionId" type="long"/>
         <column name="accountId" type="long"/>
+
+        <!-- name la ten ham finder de tim va tao-->
+        <finder name="AccountId" return-type="AccountPermissionEntry">
+            <finder-column name="accountId"/>
+        </finder>
     </entity>
     <entity
             local-service="true"
-            name="PermisionEntry"
-            table="SW_Permision"
+            name="PermissionEntry"
+            table="SW_Permission"
             remote-service="false"
             external-reference-code="true"
             uuid="true">
@@ -92,8 +97,8 @@
     </entity>
     <entity
             local-service="true"
-            name="PermisionDetailEntry"
-            table="SW_PermisionDetail"
+            name="PermissionDetailEntry"
+            table="SW_PermissionDetail"
             remote-service="false"
             external-reference-code="true"
             uuid="true">
@@ -108,7 +113,12 @@
 
         <!-- Other fields -->
 
-        <column name="permisionId" type="long"/>
+        <column name="permissionId" type="long"/>
         <column name="actionCode" type="String"/>
+
+        <!-- name la ten ham finder de tim va tao-->
+        <finder name="PermissionId" return-type="Collection">
+            <finder-column name="permissionId"/>
+        </finder>
     </entity>
 </service-builder>

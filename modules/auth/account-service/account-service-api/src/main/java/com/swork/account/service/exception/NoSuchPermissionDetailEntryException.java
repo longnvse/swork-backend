@@ -11,22 +11,28 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+package com.swork.account.service.exception;
 
-package com.swork.account.service.service.impl;
-
-import com.liferay.portal.aop.AopService;
-
-import com.swork.account.service.service.base.PermisionDetailEntryLocalServiceBaseImpl;
-
-import org.osgi.service.component.annotations.Component;
+import com.liferay.portal.kernel.exception.NoSuchModelException;
 
 /**
  * @author Brian Wing Shun Chan
  */
-@Component(
-	property = "model.class.name=com.swork.account.service.model.PermisionDetailEntry",
-	service = AopService.class
-)
-public class PermisionDetailEntryLocalServiceImpl
-	extends PermisionDetailEntryLocalServiceBaseImpl {
+public class NoSuchPermissionDetailEntryException extends NoSuchModelException {
+
+	public NoSuchPermissionDetailEntryException() {
+	}
+
+	public NoSuchPermissionDetailEntryException(String msg) {
+		super(msg);
+	}
+
+	public NoSuchPermissionDetailEntryException(String msg, Throwable throwable) {
+		super(msg, throwable);
+	}
+
+	public NoSuchPermissionDetailEntryException(Throwable throwable) {
+		super(throwable);
+	}
+
 }

@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.role.RoleConstants;
 import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
@@ -37,6 +38,7 @@ import com.swork.account.rest.client.dto.v1_0.Account;
 import com.swork.account.rest.client.http.HttpInvoker;
 import com.swork.account.rest.client.pagination.Page;
 import com.swork.account.rest.client.pagination.Pagination;
+import com.swork.account.rest.client.permission.Permission;
 import com.swork.account.rest.client.resource.v1_0.AccountResource;
 import com.swork.account.rest.client.serdes.v1_0.AccountSerDes;
 
@@ -607,6 +609,23 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	protected Account testPutAccount_addAccount() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGetPermissionDetailById() throws Exception {
+		Account postAccount = testGetPermissionDetailById_addAccount();
+
+		Page<Permission> page = accountResource.getPermissionDetailById(
+			postAccount.getId(), RoleConstants.GUEST);
+
+		Assert.assertNotNull(page);
+	}
+
+	protected Account testGetPermissionDetailById_addAccount()
+		throws Exception {
+
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}

@@ -13,16 +13,22 @@ import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.util.SearchUtil;
 import com.swork.account.rest.dto.v1_0.Account;
 import com.swork.account.rest.dto.v1_0.AccountPermision;
+import com.swork.account.rest.dto.v1_0.PermissionDetail;
 import com.swork.account.rest.internal.mapper.AccountMapper;
 import com.swork.account.rest.internal.mapper.AccountPermisionMapper;
+import com.swork.account.rest.internal.mapper.PermissionDetailMapper;
 import com.swork.account.service.model.AccountEntry;
 import com.swork.account.service.model.AccountPermisionEntry;
+import com.swork.account.service.model.PermissionDetailEntry;
 import com.swork.account.service.service.AccountEntryLocalService;
 import com.swork.account.service.service.AccountPermisionEntryLocalService;
+import com.swork.account.service.service.PermisionDetailEntryLocalService;
+import com.swork.account.service.service.PermissionDetailEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import java.util.Collections;
+import java.util.List;
 
 @Component(immediate = true, service = AccountService.class)
 public class AccountService {
@@ -106,6 +112,12 @@ public class AccountService {
         return mapper.mapDTOFromEntry(entry);
     }
 
+    public Page<PermissionDetail> getAllPermissionDetail(long id){
+        List<PermissionDetailEntry> permissionDetailEntries= permissionDetailEntryLocalService.getByAccountId(id);
+        List<PermissionDetail> permissionDetails = permissionDetailMapper.mapDTOFromEntries(permissionDetailEntries);
+        return Page.of(permissionDetails, Pagination.of(1, permissionDetails.size()), permissionDetails.size());
+    }
+
 
 
 
@@ -113,10 +125,14 @@ public class AccountService {
     @Reference
     private AccountMapper mapper;
     @Reference
+    private PermissionDetailMapper permissionDetailMapper;
+    @Reference
     private AccountEntryLocalService accountEntryLocalService;
 
     @Reference
     private AccountPermisionMapper accountPermisionMapper;
     @Reference
     private AccountPermisionEntryLocalService accountPermisionEntryLocalService;
+    @Reference
+    private PermissionDetailEntryLocalService permissionDetailEntryLocalService;
 }

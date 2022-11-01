@@ -8,6 +8,7 @@ import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.swork.account.rest.dto.v1_0.Account;
+import com.swork.account.rest.dto.v1_0.PermissionDetail;
 import com.swork.account.rest.internal.odata.v1_0.AccountEntityModel;
 import com.swork.account.rest.internal.service.AccountService;
 import com.swork.account.rest.resource.v1_0.AccountResource;
@@ -28,6 +29,11 @@ import javax.ws.rs.core.MultivaluedMap;
 )
 public class AccountResourceImpl extends BaseAccountResourceImpl {
     private final EntityModel entityModel = new AccountEntityModel();
+
+    @Override
+    public Page<PermissionDetail> getPermissionDetailById(Long id) throws Exception {
+        return service.getAllPermissionDetail(id);
+    }
 
     @Override
     public EntityModel getEntityModel(MultivaluedMap multivaluedMap) {

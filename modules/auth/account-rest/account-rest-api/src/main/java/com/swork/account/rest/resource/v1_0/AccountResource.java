@@ -13,6 +13,7 @@ import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import com.swork.account.rest.dto.v1_0.Account;
+import com.swork.account.rest.dto.v1_0.PermissionDetail;
 
 import java.util.Collections;
 import java.util.List;
@@ -64,6 +65,9 @@ public interface AccountResource {
 	public Account putAccount(Long accountId, Account account) throws Exception;
 
 	public Response putAccountBatch(String callbackURL, Object object)
+		throws Exception;
+
+	public Page<PermissionDetail> getPermissionDetailById(Long id)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

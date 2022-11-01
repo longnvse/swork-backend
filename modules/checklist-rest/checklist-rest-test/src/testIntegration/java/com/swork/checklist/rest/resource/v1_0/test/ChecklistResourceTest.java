@@ -10,5 +10,5 @@ import org.junit.runner.RunWith;
  */
 @Ignore
 @RunWith(Arquillian.class)
-public class CheckListResourceTest extends BaseCheckListResourceTestCase {
+public class ChecklistResourceTest extends BaseChecklistResourceTestCase {
 }

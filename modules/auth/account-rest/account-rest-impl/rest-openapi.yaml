@@ -38,6 +38,18 @@ components:
           format: int64
           type: integer
 
+    PermissionDetail:
+      description: AccountPermission model
+      properties:
+        id:
+          format: int64
+          type: integer
+        permissionId:
+          format: int64
+          type: integer
+        actionCode:
+          type: string
+
 info:
   description: "AccountRest REST API"
   license:
@@ -164,6 +176,9 @@ paths:
             application/xml:
               schema:
                 $ref: "#/components/schemas/Account"
+
+
+
     delete:
       tags: [ "Account" ]
       description: Delete an account
@@ -182,6 +197,32 @@ paths:
           content:
             application/json: { }
             application/xml: { }
+
+  "/get-action-code/{id}":
+    get:
+      operationId: getPermissionDetailById
+      tags: [ "Account" ]
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: The data returned
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/PermissionDetail"
+                type: array
+            application/xml:
+              schema:
+                items:
+                  $ref: "#/components/schemas/PermissionDetail"
+                type: array
 
   "/account_permisions":
     get:
@@ -267,3 +308,5 @@ paths:
           content:
             application/json: { }
             application/xml: { }
+
+

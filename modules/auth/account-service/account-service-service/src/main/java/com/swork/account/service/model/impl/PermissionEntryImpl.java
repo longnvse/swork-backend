@@ -12,21 +12,10 @@
  * details.
  */
 
-package com.swork.account.service.service.impl;
-
-import com.liferay.portal.aop.AopService;
-
-import com.swork.account.service.service.base.PermisionEntryLocalServiceBaseImpl;
-
-import org.osgi.service.component.annotations.Component;
+package com.swork.account.service.model.impl;
 
 /**
  * @author Brian Wing Shun Chan
  */
-@Component(
-	property = "model.class.name=com.swork.account.service.model.PermisionEntry",
-	service = AopService.class
-)
-public class PermisionEntryLocalServiceImpl
-	extends PermisionEntryLocalServiceBaseImpl {
+public class PermissionEntryImpl extends PermissionEntryBaseImpl {
 }
