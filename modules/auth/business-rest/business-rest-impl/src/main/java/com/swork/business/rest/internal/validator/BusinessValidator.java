@@ -87,7 +87,7 @@ public class BusinessValidator {
 
         if (customerEntry != null) return;
 
-        throw new SW_NoSuchEntryException("Đơn vị không tồn tại");
+        throw new SW_NoSuchEntryException("Business Not found");
     }
 
     private void validatorNameIsExist(long businessId,

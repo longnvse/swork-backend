@@ -580,6 +580,25 @@ public abstract class BaseBusinessResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testApprovalBusiness() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Business business = testApprovalBusiness_addBusiness();
+
+		assertHttpResponseStatusCode(
+			204,
+			businessResource.approvalBusinessHttpResponse(
+				business.getId(), null));
+
+		assertHttpResponseStatusCode(
+			404, businessResource.approvalBusinessHttpResponse(0L, null));
+	}
+
+	protected Business testApprovalBusiness_addBusiness() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 
