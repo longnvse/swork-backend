@@ -23,7 +23,7 @@ components:
         fieldOperations:
           type: string
         status:
-          enum: [ pending, approved ]
+          enum: [ pending, active, inactive ]
           type: string
           readOnly: true
         logoId:
@@ -170,6 +170,30 @@ paths:
         204:
           description:
             "Deleted an Business"
+          content:
+            application/json: { }
+            application/xml: { }
+  "/business/approval/{businessId}":
+    put:
+      tags: [ "Business" ]
+      description: Update an Business
+      operationId: approvalBusiness
+      parameters:
+        - in: path
+          name: businessId
+          required: true
+          schema:
+            format: int64
+            type: integer
+        - in: query
+          name: status
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description:
+            "Updated status an Business"
           content:
             application/json: { }
             application/xml: { }
