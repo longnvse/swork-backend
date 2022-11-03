@@ -22,7 +22,6 @@ import com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.PwdEncryptorException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.PersistedModel;
 import com.liferay.portal.kernel.search.Indexable;
@@ -82,10 +81,9 @@ public interface AccountEntryLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public AccountEntry addAccountEntry(
-			long creatorId, String username, String password, String fullName,
-			String email, Integer phoneNumber, String address,
-			ServiceContext serviceContext)
-		throws PwdEncryptorException;
+		long creatorId, String username, String password, String fullName,
+		String email, Integer phoneNumber, String address,
+		ServiceContext serviceContext);
 
 	/**
 	 * Creates a new account entry with the primary key. Does not add the account entry to the database.

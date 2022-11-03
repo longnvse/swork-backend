@@ -1,5 +1,6 @@
 package com.swork.auth.login.rest.internal.validator;
 
+import com.liferay.portal.kernel.exception.PwdEncryptorException;
 import com.liferay.portal.kernel.util.Validator;
 import com.swork.account.service.model.AccountEntry;
 import com.swork.account.service.service.AccountEntryLocalService;
