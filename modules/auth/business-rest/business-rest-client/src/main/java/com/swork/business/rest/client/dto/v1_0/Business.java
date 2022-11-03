@@ -267,7 +267,7 @@ public class Business implements Cloneable, Serializable {
 
 	public static enum Status {
 
-		PENDING("pending"), APPROVED("approved");
+		PENDING("pending"), ACTIVE("active"), INACTIVE("inactive");
 
 		public static Status create(String value) {
 			for (Status status : values()) {

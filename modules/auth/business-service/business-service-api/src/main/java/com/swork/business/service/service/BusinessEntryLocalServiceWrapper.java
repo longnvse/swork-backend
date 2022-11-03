@@ -496,6 +496,15 @@ public class BusinessEntryLocalServiceWrapper
 	}
 
 	@Override
+	public com.swork.business.service.model.BusinessEntry updateStatus(
+		long creatorId, long businessId, String status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _businessEntryLocalService.updateStatus(
+			creatorId, businessId, status, serviceContext);
+	}
+
+	@Override
 	public BusinessEntryLocalService getWrappedService() {
 		return _businessEntryLocalService;
 	}

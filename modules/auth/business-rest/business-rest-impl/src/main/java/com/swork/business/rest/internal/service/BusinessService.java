@@ -63,6 +63,13 @@ public class BusinessService {
         localService.deleteBusinessEntry(businessId);
     }
 
+    public void approvalBusiness(long creatorId,
+                                 long businessId,
+                                 String status,
+                                 ServiceContext serviceContext) {
+        localService.updateStatus(creatorId, businessId, status, serviceContext);
+    }
+
 
     public Page<Business> getBusinessPages(String search,
                                            Filter filter,

@@ -434,6 +434,14 @@ public class BusinessEntryLocalServiceUtil {
 			modifiedId, businessId, model, serviceContext);
 	}
 
+	public static BusinessEntry updateStatus(
+		long creatorId, long businessId, String status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateStatus(
+			creatorId, businessId, status, serviceContext);
+	}
+
 	public static BusinessEntryLocalService getService() {
 		return _service;
 	}

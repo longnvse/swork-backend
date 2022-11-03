@@ -113,6 +113,21 @@ public class Mutation {
 				callbackURL, object));
 	}
 
+	@GraphQLField(description = "Update an Business")
+	public boolean approvalBusiness(
+			@GraphQLName("businessId") Long businessId,
+			@GraphQLName("status") String status)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_businessResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			businessResource -> businessResource.approvalBusiness(
+				businessId, status));
+
+		return true;
+	}
+
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
 			_applyComponentServiceObjects(
 				ComponentServiceObjects<T> componentServiceObjects,
