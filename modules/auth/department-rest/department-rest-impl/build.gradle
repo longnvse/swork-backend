@@ -1,6 +1,6 @@
 dependencies {
 	compile project(":modules:auth:department-rest:department-rest-api")
-
+	compile project(":modules:auth:department-service:department-service-api")
 	compile project(":modules:common:common-token-helper")
 	compile project(":modules:common:common-exception-helper")
 
