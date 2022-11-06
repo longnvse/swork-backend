@@ -38,6 +38,9 @@ import java.util.UUID;
 )
 public class BusinessEntryLocalServiceImpl
         extends BusinessEntryLocalServiceBaseImpl {
+
+    private static final String PENDING = "pending";
+
     @Indexable(type = IndexableType.REINDEX)
     public BusinessEntry addBusinessEntry(long creatorId,
                                           BusinessMapperModel model,
@@ -63,7 +66,7 @@ public class BusinessEntryLocalServiceImpl
         entry.setEmail(model.getEmail());
         entry.setBusinessAddress(model.getBusinessAddress());
         entry.setFieldOperations(model.getFieldOperations());
-
+        entry.setStatus(PENDING);
         return addBusinessEntry(entry);
     }
 
@@ -90,6 +93,23 @@ public class BusinessEntryLocalServiceImpl
         entry.setEmail(model.getEmail());
         entry.setBusinessAddress(model.getBusinessAddress());
         entry.setFieldOperations(model.getFieldOperations());
+        return updateBusinessEntry(entry);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public BusinessEntry updateStatus(long creatorId,
+                                      long businessId,
+                                      String status,
+                                      ServiceContext serviceContext) {
+        BusinessEntry entry = fetchBusinessEntry(businessId);
+
+        updateModifierAudit(
+                entry,
+                new Date(),
+                accountEntryLocalService.fetchAccountEntry(creatorId),
+                serviceContext);
+
+        entry.setStatus(status);
 
         return updateBusinessEntry(entry);
     }

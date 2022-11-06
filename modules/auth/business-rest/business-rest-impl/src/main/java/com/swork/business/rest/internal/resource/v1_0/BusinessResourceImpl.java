@@ -82,6 +82,18 @@ public class BusinessResourceImpl extends BaseBusinessResourceImpl {
         );
     }
 
+    @Override
+    public void approvalBusiness(Long businessId, String status) throws Exception {
+        validator.validatorBusinessIsExists(businessId);
+
+        service.approvalBusiness(
+                getUserToken().getAccountId(),
+                businessId,
+                status,
+                getServiceContext()
+        );
+    }
+
     public ServiceContext getServiceContext() {
 
         ServiceContext serviceContext = new ServiceContext();

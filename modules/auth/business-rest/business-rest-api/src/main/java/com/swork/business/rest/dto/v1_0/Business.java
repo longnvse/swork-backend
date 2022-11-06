@@ -509,7 +509,7 @@ public class Business implements Serializable {
 	@GraphQLName("Status")
 	public static enum Status {
 
-		PENDING("pending"), APPROVED("approved");
+		PENDING("pending"), ACTIVE("active"), INACTIVE("inactive");
 
 		@JsonCreator
 		public static Status create(String value) {

@@ -67,6 +67,9 @@ public interface BusinessResource {
 	public Response putBusinessBatch(String callbackURL, Object object)
 		throws Exception;
 
+	public void approvalBusiness(Long businessId, String status)
+		throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

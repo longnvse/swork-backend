@@ -374,4 +374,9 @@ public interface BusinessEntryLocalService
 		long modifiedId, long businessId, BusinessMapperModel model,
 		ServiceContext serviceContext);
 
+	@Indexable(type = IndexableType.REINDEX)
+	public BusinessEntry updateStatus(
+		long creatorId, long businessId, String status,
+		ServiceContext serviceContext);
+
 }
