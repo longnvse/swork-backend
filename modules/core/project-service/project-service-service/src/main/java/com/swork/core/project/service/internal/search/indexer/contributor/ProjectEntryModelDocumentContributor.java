@@ -84,8 +84,8 @@ public class ProjectEntryModelDocumentContributor
         document.addKeyword(SearchFields.PROJECT_PARTICIPATE_DEPARTMENT,
                 getMemberIdsByType(baseModel.getProjectId(), DEPARTMENT, PARTICIPATE));
 
-        document.addDate(SearchFields.ACTUAL_TIME, baseModel.getActualTime());
-        document.addDateSortable(SearchFields.ACTUAL_TIME, baseModel.getActualTime());
+        document.addDate(SearchFields.ACTUAL_TIME, baseModel.getActualEndDate());
+        document.addDateSortable(SearchFields.ACTUAL_TIME, baseModel.getActualEndDate());
 
         if (Validator.isNotNull(baseModel.getStartDate())) {
             cal.setTime(baseModel.getStartDate());
@@ -93,8 +93,8 @@ public class ProjectEntryModelDocumentContributor
             document.addNumberSortable(SearchFields.YEAR_START_DATE, Long.parseLong(String.valueOf(cal.get(Calendar.YEAR))));
         }
 
-        if (Validator.isNotNull(baseModel.getActualTime())) {
-            cal.setTime(baseModel.getActualTime());
+        if (Validator.isNotNull(baseModel.getActualEndDate())) {
+            cal.setTime(baseModel.getActualEndDate());
             document.addNumber(SearchFields.YEAR_ACTUAL_TIME, Long.parseLong(String.valueOf(cal.get(Calendar.YEAR))));
             document.addNumberSortable(SearchFields.YEAR_ACTUAL_TIME, Long.parseLong(String.valueOf(cal.get(Calendar.YEAR))));
         }
