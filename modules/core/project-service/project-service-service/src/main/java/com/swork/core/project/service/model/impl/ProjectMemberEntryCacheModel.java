@@ -61,7 +61,7 @@ public class ProjectMemberEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(11);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{projectMemberId=");
 		sb.append(projectMemberId);
@@ -71,6 +71,8 @@ public class ProjectMemberEntryCacheModel
 		sb.append(memberId);
 		sb.append(", memberType=");
 		sb.append(memberType);
+		sb.append(", memberReferenceCode=");
+		sb.append(memberReferenceCode);
 		sb.append(", type=");
 		sb.append(type);
 		sb.append("}");
@@ -94,6 +96,13 @@ public class ProjectMemberEntryCacheModel
 			projectMemberEntryImpl.setMemberType(memberType);
 		}
 
+		if (memberReferenceCode == null) {
+			projectMemberEntryImpl.setMemberReferenceCode("");
+		}
+		else {
+			projectMemberEntryImpl.setMemberReferenceCode(memberReferenceCode);
+		}
+
 		if (type == null) {
 			projectMemberEntryImpl.setType("");
 		}
@@ -114,6 +123,7 @@ public class ProjectMemberEntryCacheModel
 
 		memberId = objectInput.readLong();
 		memberType = objectInput.readUTF();
+		memberReferenceCode = objectInput.readUTF();
 		type = objectInput.readUTF();
 	}
 
@@ -132,6 +142,13 @@ public class ProjectMemberEntryCacheModel
 			objectOutput.writeUTF(memberType);
 		}
 
+		if (memberReferenceCode == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(memberReferenceCode);
+		}
+
 		if (type == null) {
 			objectOutput.writeUTF("");
 		}
@@ -144,6 +161,7 @@ public class ProjectMemberEntryCacheModel
 	public long projectId;
 	public long memberId;
 	public String memberType;
+	public String memberReferenceCode;
 	public String type;
 
 }

@@ -36,6 +36,7 @@ public class ProjectMemberEntrySoap implements Serializable {
 		soapModel.setProjectId(model.getProjectId());
 		soapModel.setMemberId(model.getMemberId());
 		soapModel.setMemberType(model.getMemberType());
+		soapModel.setMemberReferenceCode(model.getMemberReferenceCode());
 		soapModel.setType(model.getType());
 
 		return soapModel;
@@ -131,6 +132,14 @@ public class ProjectMemberEntrySoap implements Serializable {
 		_memberType = memberType;
 	}
 
+	public String getMemberReferenceCode() {
+		return _memberReferenceCode;
+	}
+
+	public void setMemberReferenceCode(String memberReferenceCode) {
+		_memberReferenceCode = memberReferenceCode;
+	}
+
 	public String getType() {
 		return _type;
 	}
@@ -143,6 +152,7 @@ public class ProjectMemberEntrySoap implements Serializable {
 	private long _projectId;
 	private long _memberId;
 	private String _memberType;
+	private String _memberReferenceCode;
 	private String _type;
 
 }

@@ -17,6 +17,7 @@ package com.swork.core.project.service.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
+import com.swork.core.project.service.mapper.model.ProjectMemberMapperModel;
 import com.swork.core.project.service.model.ProjectMemberEntry;
 import com.swork.core.project.service.service.base.ProjectMemberEntryLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
@@ -35,14 +36,14 @@ public class ProjectMemberEntryLocalServiceImpl
 
     @Indexable(type = IndexableType.REINDEX)
     public ProjectMemberEntry addProjectMemberEntry(long projectId,
-                                                    long memberId,
-                                                    String memberType,
+                                                    ProjectMemberMapperModel model,
                                                     String type) {
         ProjectMemberEntry entry = createProjectMemberEntry(counterLocalService.increment(ProjectMemberEntry.class.getName()));
 
         entry.setProjectId(projectId);
-        entry.setMemberId(memberId);
-        entry.setMemberType(memberType);
+        entry.setMemberId(model.getMemberId());
+        entry.setMemberType(model.getMemberType());
+        entry.setMemberReferenceCode(model.getMemberReferenceCode());
         entry.setType(type);
 
         return addProjectMemberEntry(entry);
@@ -50,6 +51,10 @@ public class ProjectMemberEntryLocalServiceImpl
 
     public List<ProjectMemberEntry> findByP_MT_T(long projectId, String memberType, String type) {
         return projectMemberEntryPersistence.findByP_T_MT(projectId, memberType, type);
+    }
+
+    public List<ProjectMemberEntry> findByP_T(long projectId, String type) {
+        return projectMemberEntryPersistence.findByP_T_(projectId, type);
     }
 
     public void deleteByProjectId(long projectId) {

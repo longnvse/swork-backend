@@ -68,10 +68,10 @@ public class ProjectEntryTable extends BaseTable<ProjectEntryTable> {
 		"status", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ProjectEntryTable, Integer> progress = createColumn(
 		"progress", Integer.class, Types.INTEGER, Column.FLAG_DEFAULT);
-	public final Column<ProjectEntryTable, Date> actualTime = createColumn(
-		"actualTime", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
-	public final Column<ProjectEntryTable, Date> actualStart = createColumn(
-		"actualStart", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
+	public final Column<ProjectEntryTable, Date> actualStartDate = createColumn(
+		"actualStartDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
+	public final Column<ProjectEntryTable, Date> actualEndDate = createColumn(
+		"actualEndDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<ProjectEntryTable, String> progressType = createColumn(
 		"progressType", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ProjectEntryTable, Long> businessId = createColumn(

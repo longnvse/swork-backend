@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import com.swork.core.project.service.mapper.model.ProjectMemberMapperModel;
 import com.swork.core.project.service.model.ProjectMemberEntry;
 
 import java.io.Serializable;
@@ -64,7 +65,7 @@ public interface ProjectMemberEntryLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public ProjectMemberEntry addProjectMemberEntry(
-		long projectId, long memberId, String memberType, String type);
+		long projectId, ProjectMemberMapperModel model, String type);
 
 	/**
 	 * Adds the project member entry to the database. Also notifies the appropriate model listeners.
@@ -210,6 +211,8 @@ public interface ProjectMemberEntryLocalService
 
 	public List<ProjectMemberEntry> findByP_MT_T(
 		long projectId, String memberType, String type);
+
+	public List<ProjectMemberEntry> findByP_T(long projectId, String type);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();

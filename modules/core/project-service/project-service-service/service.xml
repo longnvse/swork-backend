@@ -41,8 +41,8 @@
         <column name="description" type="String"/>
         <column name="status" type="String"/>
         <column name="progress" type="Integer"/>
-        <column name="actualTime" type="Date"/>
-        <column name="actualStart" type="Date"/>
+        <column name="actualStartDate" type="Date"/>
+        <column name="actualEndDate" type="Date"/>
         <column name="progressType" type="String"/>
         <column name="businessId" type="long"/>
 
@@ -77,11 +77,17 @@
         <column name="projectId" type="long"/>
         <column name="memberId" type="long"/>
         <column name="memberType" type="String"/>
+        <column name="memberReferenceCode" type="String"/>
         <column name="type" type="String"/>
 
         <finder name="P_T_MT" return-type="Collection">
             <finder-column name="projectId"/>
             <finder-column name="memberType"/>
+            <finder-column name="type"/>
+        </finder>
+
+        <finder name="P_T_" return-type="Collection">
+            <finder-column name="projectId"/>
             <finder-column name="type"/>
         </finder>
 

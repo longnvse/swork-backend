@@ -1,19 +1,10 @@
 package com.swork.core.project.service.mapper.model;
 
 public class ProjectMemberMapperModel {
-
-    private long projectId;
     private String memberType;
     private long memberId;
-    private String type;
+    private String memberReferenceCode;
 
-    public long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(long projectId) {
-        this.projectId = projectId;
-    }
 
     public String getMemberType() {
         return memberType;
@@ -31,11 +22,11 @@ public class ProjectMemberMapperModel {
         this.memberId = memberId;
     }
 
-    public String getType() {
-        return type;
+    public String getMemberReferenceCode() {
+        return memberReferenceCode;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setMemberReferenceCode(String memberReferenceCode) {
+        this.memberReferenceCode = memberReferenceCode;
     }
 }

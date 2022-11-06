@@ -19,8 +19,8 @@
 		<field name="description" type="String" />
 		<field name="status" type="String" />
 		<field name="progress" type="Integer" />
-		<field name="actualTime" type="Date" />
-		<field name="actualStart" type="Date" />
+		<field name="actualStartDate" type="Date" />
+		<field name="actualEndDate" type="Date" />
 		<field name="progressType" type="String" />
 		<field name="businessId" type="long" />
 	</model>
@@ -29,6 +29,7 @@
 		<field name="projectId" type="long" />
 		<field name="memberId" type="long" />
 		<field name="memberType" type="String" />
+		<field name="memberReferenceCode" type="String" />
 		<field name="type" type="String" />
 	</model>
 </model-hints>

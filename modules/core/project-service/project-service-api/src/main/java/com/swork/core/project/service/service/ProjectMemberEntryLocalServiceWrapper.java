@@ -36,10 +36,13 @@ public class ProjectMemberEntryLocalServiceWrapper
 	@Override
 	public com.swork.core.project.service.model.ProjectMemberEntry
 		addProjectMemberEntry(
-			long projectId, long memberId, String memberType, String type) {
+			long projectId,
+			com.swork.core.project.service.mapper.model.ProjectMemberMapperModel
+				model,
+			String type) {
 
 		return _projectMemberEntryLocalService.addProjectMemberEntry(
-			projectId, memberId, memberType, type);
+			projectId, model, type);
 	}
 
 	/**
@@ -263,6 +266,14 @@ public class ProjectMemberEntryLocalServiceWrapper
 
 		return _projectMemberEntryLocalService.findByP_MT_T(
 			projectId, memberType, type);
+	}
+
+	@Override
+	public java.util.List
+		<com.swork.core.project.service.model.ProjectMemberEntry> findByP_T(
+			long projectId, String type) {
+
+		return _projectMemberEntryLocalService.findByP_T(projectId, type);
 	}
 
 	@Override

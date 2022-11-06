@@ -50,8 +50,8 @@ public class ProjectEntrySoap implements Serializable {
 		soapModel.setDescription(model.getDescription());
 		soapModel.setStatus(model.getStatus());
 		soapModel.setProgress(model.getProgress());
-		soapModel.setActualTime(model.getActualTime());
-		soapModel.setActualStart(model.getActualStart());
+		soapModel.setActualStartDate(model.getActualStartDate());
+		soapModel.setActualEndDate(model.getActualEndDate());
 		soapModel.setProgressType(model.getProgressType());
 		soapModel.setBusinessId(model.getBusinessId());
 
@@ -243,20 +243,20 @@ public class ProjectEntrySoap implements Serializable {
 		_progress = progress;
 	}
 
-	public Date getActualTime() {
-		return _actualTime;
+	public Date getActualStartDate() {
+		return _actualStartDate;
 	}
 
-	public void setActualTime(Date actualTime) {
-		_actualTime = actualTime;
+	public void setActualStartDate(Date actualStartDate) {
+		_actualStartDate = actualStartDate;
 	}
 
-	public Date getActualStart() {
-		return _actualStart;
+	public Date getActualEndDate() {
+		return _actualEndDate;
 	}
 
-	public void setActualStart(Date actualStart) {
-		_actualStart = actualStart;
+	public void setActualEndDate(Date actualEndDate) {
+		_actualEndDate = actualEndDate;
 	}
 
 	public String getProgressType() {
@@ -292,8 +292,8 @@ public class ProjectEntrySoap implements Serializable {
 	private String _description;
 	private String _status;
 	private Integer _progress;
-	private Date _actualTime;
-	private Date _actualStart;
+	private Date _actualStartDate;
+	private Date _actualEndDate;
 	private String _progressType;
 	private long _businessId;
 

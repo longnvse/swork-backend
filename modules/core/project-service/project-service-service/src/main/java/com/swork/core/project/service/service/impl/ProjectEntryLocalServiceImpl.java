@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.swork.core.project.service.constant.Type;
 import com.swork.core.project.service.mapper.model.ProjectMapperModel;
 import com.swork.core.project.service.model.ProjectEntry;
 import com.swork.core.project.service.service.ProjectMemberEntryLocalService;
@@ -109,25 +110,22 @@ public class ProjectEntryLocalServiceImpl
                 .forEach(manage -> projectMemberEntryLocalService
                         .addProjectMemberEntry(
                                 projectId,
-                                manage.getMemberId(),
-                                manage.getMemberType(),
-                                manage.getType()));
+                                manage,
+                                Type.MANAGE.getValue()));
 
         model.getHandles()
                 .forEach(handle -> projectMemberEntryLocalService
                         .addProjectMemberEntry(
                                 projectId,
-                                handle.getMemberId(),
-                                handle.getMemberType(),
-                                handle.getType()));
+                                handle,
+                                Type.HANDLE.getValue()));
 
         model.getParticipates()
                 .forEach(participate -> projectMemberEntryLocalService
                         .addProjectMemberEntry(
                                 projectId,
-                                participate.getMemberId(),
-                                participate.getMemberType(),
-                                participate.getType()));
+                                participate,
+                                Type.PARTICIPATE.getValue()));
 
     }
 
@@ -149,9 +147,9 @@ public class ProjectEntryLocalServiceImpl
 
         entry.setStatus(status);
         if (status.equals(DOING))
-            entry.setActualStart(new Date());
+            entry.setActualStartDate(new Date());
         else if (status.equals(APPROVED))
-            entry.setActualTime(new Date());
+            entry.setActualEndDate(new Date());
 
         return updateProjectEntry(entry);
     }
@@ -178,8 +176,8 @@ public class ProjectEntryLocalServiceImpl
         entry.setEndDate(model.getEndDate());
         entry.setStatus(model.getStatus());
         entry.setProgress(model.getProgress());
-        entry.setActualStart(model.getActualStart());
-        entry.setActualTime(model.getActualTime());
+        entry.setActualEndDate(model.getActualEndDate());
+        entry.setActualStartDate(model.getActualStartDate());
         entry.setProgressType(model.getProgressType());
     }
 

@@ -210,6 +210,161 @@ public interface ProjectMemberEntryPersistence
 	public int countByP_T_MT(long projectId, String memberType, String type);
 
 	/**
+	 * Returns all the project member entries where projectId = &#63; and type = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param type the type
+	 * @return the matching project member entries
+	 */
+	public java.util.List<ProjectMemberEntry> findByP_T_(
+		long projectId, String type);
+
+	/**
+	 * Returns a range of all the project member entries where projectId = &#63; and type = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProjectMemberEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param type the type
+	 * @param start the lower bound of the range of project member entries
+	 * @param end the upper bound of the range of project member entries (not inclusive)
+	 * @return the range of matching project member entries
+	 */
+	public java.util.List<ProjectMemberEntry> findByP_T_(
+		long projectId, String type, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the project member entries where projectId = &#63; and type = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProjectMemberEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param type the type
+	 * @param start the lower bound of the range of project member entries
+	 * @param end the upper bound of the range of project member entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching project member entries
+	 */
+	public java.util.List<ProjectMemberEntry> findByP_T_(
+		long projectId, String type, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<ProjectMemberEntry>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the project member entries where projectId = &#63; and type = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProjectMemberEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param type the type
+	 * @param start the lower bound of the range of project member entries
+	 * @param end the upper bound of the range of project member entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching project member entries
+	 */
+	public java.util.List<ProjectMemberEntry> findByP_T_(
+		long projectId, String type, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<ProjectMemberEntry>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first project member entry in the ordered set where projectId = &#63; and type = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param type the type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching project member entry
+	 * @throws NoSuchProjectMemberEntryException if a matching project member entry could not be found
+	 */
+	public ProjectMemberEntry findByP_T__First(
+			long projectId, String type,
+			com.liferay.portal.kernel.util.OrderByComparator<ProjectMemberEntry>
+				orderByComparator)
+		throws NoSuchProjectMemberEntryException;
+
+	/**
+	 * Returns the first project member entry in the ordered set where projectId = &#63; and type = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param type the type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching project member entry, or <code>null</code> if a matching project member entry could not be found
+	 */
+	public ProjectMemberEntry fetchByP_T__First(
+		long projectId, String type,
+		com.liferay.portal.kernel.util.OrderByComparator<ProjectMemberEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the last project member entry in the ordered set where projectId = &#63; and type = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param type the type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching project member entry
+	 * @throws NoSuchProjectMemberEntryException if a matching project member entry could not be found
+	 */
+	public ProjectMemberEntry findByP_T__Last(
+			long projectId, String type,
+			com.liferay.portal.kernel.util.OrderByComparator<ProjectMemberEntry>
+				orderByComparator)
+		throws NoSuchProjectMemberEntryException;
+
+	/**
+	 * Returns the last project member entry in the ordered set where projectId = &#63; and type = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param type the type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching project member entry, or <code>null</code> if a matching project member entry could not be found
+	 */
+	public ProjectMemberEntry fetchByP_T__Last(
+		long projectId, String type,
+		com.liferay.portal.kernel.util.OrderByComparator<ProjectMemberEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the project member entries before and after the current project member entry in the ordered set where projectId = &#63; and type = &#63;.
+	 *
+	 * @param projectMemberId the primary key of the current project member entry
+	 * @param projectId the project ID
+	 * @param type the type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next project member entry
+	 * @throws NoSuchProjectMemberEntryException if a project member entry with the primary key could not be found
+	 */
+	public ProjectMemberEntry[] findByP_T__PrevAndNext(
+			long projectMemberId, long projectId, String type,
+			com.liferay.portal.kernel.util.OrderByComparator<ProjectMemberEntry>
+				orderByComparator)
+		throws NoSuchProjectMemberEntryException;
+
+	/**
+	 * Removes all the project member entries where projectId = &#63; and type = &#63; from the database.
+	 *
+	 * @param projectId the project ID
+	 * @param type the type
+	 */
+	public void removeByP_T_(long projectId, String type);
+
+	/**
+	 * Returns the number of project member entries where projectId = &#63; and type = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param type the type
+	 * @return the number of matching project member entries
+	 */
+	public int countByP_T_(long projectId, String type);
+
+	/**
 	 * Returns all the project member entries where projectId = &#63;.
 	 *
 	 * @param projectId the project ID

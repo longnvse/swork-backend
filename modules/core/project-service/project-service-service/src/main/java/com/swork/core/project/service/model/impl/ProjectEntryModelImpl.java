@@ -78,8 +78,8 @@ public class ProjectEntryModelImpl
 		{"code_", Types.VARCHAR}, {"startDate", Types.TIMESTAMP},
 		{"endDate", Types.TIMESTAMP}, {"budget", Types.BIGINT},
 		{"description", Types.VARCHAR}, {"status", Types.VARCHAR},
-		{"progress", Types.INTEGER}, {"actualTime", Types.TIMESTAMP},
-		{"actualStart", Types.TIMESTAMP}, {"progressType", Types.VARCHAR},
+		{"progress", Types.INTEGER}, {"actualStartDate", Types.TIMESTAMP},
+		{"actualEndDate", Types.TIMESTAMP}, {"progressType", Types.VARCHAR},
 		{"businessId", Types.BIGINT}
 	};
 
@@ -104,14 +104,14 @@ public class ProjectEntryModelImpl
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("status", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("progress", Types.INTEGER);
-		TABLE_COLUMNS_MAP.put("actualTime", Types.TIMESTAMP);
-		TABLE_COLUMNS_MAP.put("actualStart", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("actualStartDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("actualEndDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("progressType", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("businessId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_Project (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,projectId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedDate DATE null,modifiedId LONG,name VARCHAR(75) null,code_ VARCHAR(75) null,startDate DATE null,endDate DATE null,budget LONG,description VARCHAR(75) null,status VARCHAR(75) null,progress INTEGER,actualTime DATE null,actualStart DATE null,progressType VARCHAR(75) null,businessId LONG)";
+		"create table SW_Project (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,projectId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedDate DATE null,modifiedId LONG,name VARCHAR(75) null,code_ VARCHAR(75) null,startDate DATE null,endDate DATE null,budget LONG,description VARCHAR(75) null,status VARCHAR(75) null,progress INTEGER,actualStartDate DATE null,actualEndDate DATE null,progressType VARCHAR(75) null,businessId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_Project";
 
@@ -382,15 +382,16 @@ public class ProjectEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"progress",
 			(BiConsumer<ProjectEntry, Integer>)ProjectEntry::setProgress);
-		attributeGetterFunctions.put("actualTime", ProjectEntry::getActualTime);
-		attributeSetterBiConsumers.put(
-			"actualTime",
-			(BiConsumer<ProjectEntry, Date>)ProjectEntry::setActualTime);
 		attributeGetterFunctions.put(
-			"actualStart", ProjectEntry::getActualStart);
+			"actualStartDate", ProjectEntry::getActualStartDate);
 		attributeSetterBiConsumers.put(
-			"actualStart",
-			(BiConsumer<ProjectEntry, Date>)ProjectEntry::setActualStart);
+			"actualStartDate",
+			(BiConsumer<ProjectEntry, Date>)ProjectEntry::setActualStartDate);
+		attributeGetterFunctions.put(
+			"actualEndDate", ProjectEntry::getActualEndDate);
+		attributeSetterBiConsumers.put(
+			"actualEndDate",
+			(BiConsumer<ProjectEntry, Date>)ProjectEntry::setActualEndDate);
 		attributeGetterFunctions.put(
 			"progressType", ProjectEntry::getProgressType);
 		attributeSetterBiConsumers.put(
@@ -737,31 +738,31 @@ public class ProjectEntryModelImpl
 	}
 
 	@Override
-	public Date getActualTime() {
-		return _actualTime;
+	public Date getActualStartDate() {
+		return _actualStartDate;
 	}
 
 	@Override
-	public void setActualTime(Date actualTime) {
+	public void setActualStartDate(Date actualStartDate) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_actualTime = actualTime;
+		_actualStartDate = actualStartDate;
 	}
 
 	@Override
-	public Date getActualStart() {
-		return _actualStart;
+	public Date getActualEndDate() {
+		return _actualEndDate;
 	}
 
 	@Override
-	public void setActualStart(Date actualStart) {
+	public void setActualEndDate(Date actualEndDate) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_actualStart = actualStart;
+		_actualEndDate = actualEndDate;
 	}
 
 	@Override
@@ -886,8 +887,8 @@ public class ProjectEntryModelImpl
 		projectEntryImpl.setDescription(getDescription());
 		projectEntryImpl.setStatus(getStatus());
 		projectEntryImpl.setProgress(getProgress());
-		projectEntryImpl.setActualTime(getActualTime());
-		projectEntryImpl.setActualStart(getActualStart());
+		projectEntryImpl.setActualStartDate(getActualStartDate());
+		projectEntryImpl.setActualEndDate(getActualEndDate());
 		projectEntryImpl.setProgressType(getProgressType());
 		projectEntryImpl.setBusinessId(getBusinessId());
 
@@ -930,10 +931,10 @@ public class ProjectEntryModelImpl
 			this.<String>getColumnOriginalValue("status"));
 		projectEntryImpl.setProgress(
 			this.<Integer>getColumnOriginalValue("progress"));
-		projectEntryImpl.setActualTime(
-			this.<Date>getColumnOriginalValue("actualTime"));
-		projectEntryImpl.setActualStart(
-			this.<Date>getColumnOriginalValue("actualStart"));
+		projectEntryImpl.setActualStartDate(
+			this.<Date>getColumnOriginalValue("actualStartDate"));
+		projectEntryImpl.setActualEndDate(
+			this.<Date>getColumnOriginalValue("actualEndDate"));
 		projectEntryImpl.setProgressType(
 			this.<String>getColumnOriginalValue("progressType"));
 		projectEntryImpl.setBusinessId(
@@ -1122,22 +1123,22 @@ public class ProjectEntryModelImpl
 			projectEntryCacheModel.progress = progress;
 		}
 
-		Date actualTime = getActualTime();
+		Date actualStartDate = getActualStartDate();
 
-		if (actualTime != null) {
-			projectEntryCacheModel.actualTime = actualTime.getTime();
+		if (actualStartDate != null) {
+			projectEntryCacheModel.actualStartDate = actualStartDate.getTime();
 		}
 		else {
-			projectEntryCacheModel.actualTime = Long.MIN_VALUE;
+			projectEntryCacheModel.actualStartDate = Long.MIN_VALUE;
 		}
 
-		Date actualStart = getActualStart();
+		Date actualEndDate = getActualEndDate();
 
-		if (actualStart != null) {
-			projectEntryCacheModel.actualStart = actualStart.getTime();
+		if (actualEndDate != null) {
+			projectEntryCacheModel.actualEndDate = actualEndDate.getTime();
 		}
 		else {
-			projectEntryCacheModel.actualStart = Long.MIN_VALUE;
+			projectEntryCacheModel.actualEndDate = Long.MIN_VALUE;
 		}
 
 		projectEntryCacheModel.progressType = getProgressType();
@@ -1258,8 +1259,8 @@ public class ProjectEntryModelImpl
 	private String _description;
 	private String _status;
 	private Integer _progress;
-	private Date _actualTime;
-	private Date _actualStart;
+	private Date _actualStartDate;
+	private Date _actualEndDate;
 	private String _progressType;
 	private long _businessId;
 
@@ -1310,8 +1311,8 @@ public class ProjectEntryModelImpl
 		_columnOriginalValues.put("description", _description);
 		_columnOriginalValues.put("status", _status);
 		_columnOriginalValues.put("progress", _progress);
-		_columnOriginalValues.put("actualTime", _actualTime);
-		_columnOriginalValues.put("actualStart", _actualStart);
+		_columnOriginalValues.put("actualStartDate", _actualStartDate);
+		_columnOriginalValues.put("actualEndDate", _actualEndDate);
 		_columnOriginalValues.put("progressType", _progressType);
 		_columnOriginalValues.put("businessId", _businessId);
 	}
@@ -1372,9 +1373,9 @@ public class ProjectEntryModelImpl
 
 		columnBitmasks.put("progress", 65536L);
 
-		columnBitmasks.put("actualTime", 131072L);
+		columnBitmasks.put("actualStartDate", 131072L);
 
-		columnBitmasks.put("actualStart", 262144L);
+		columnBitmasks.put("actualEndDate", 262144L);
 
 		columnBitmasks.put("progressType", 524288L);
 

@@ -71,7 +71,7 @@ public class ProjectMemberEntryModelImpl
 	public static final Object[][] TABLE_COLUMNS = {
 		{"projectMemberId", Types.BIGINT}, {"projectId", Types.BIGINT},
 		{"memberId", Types.BIGINT}, {"memberType", Types.VARCHAR},
-		{"type_", Types.VARCHAR}
+		{"memberReferenceCode", Types.VARCHAR}, {"type_", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -82,11 +82,12 @@ public class ProjectMemberEntryModelImpl
 		TABLE_COLUMNS_MAP.put("projectId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("memberId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("memberType", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("memberReferenceCode", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("type_", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_ProjectMember (projectMemberId LONG not null primary key,projectId LONG,memberId LONG,memberType VARCHAR(75) null,type_ VARCHAR(75) null)";
+		"create table SW_ProjectMember (projectMemberId LONG not null primary key,projectId LONG,memberId LONG,memberType VARCHAR(75) null,memberReferenceCode VARCHAR(75) null,type_ VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_ProjectMember";
 
@@ -292,6 +293,12 @@ public class ProjectMemberEntryModelImpl
 			"memberType",
 			(BiConsumer<ProjectMemberEntry, String>)
 				ProjectMemberEntry::setMemberType);
+		attributeGetterFunctions.put(
+			"memberReferenceCode", ProjectMemberEntry::getMemberReferenceCode);
+		attributeSetterBiConsumers.put(
+			"memberReferenceCode",
+			(BiConsumer<ProjectMemberEntry, String>)
+				ProjectMemberEntry::setMemberReferenceCode);
 		attributeGetterFunctions.put("type", ProjectMemberEntry::getType);
 		attributeSetterBiConsumers.put(
 			"type",
@@ -385,6 +392,25 @@ public class ProjectMemberEntryModelImpl
 	}
 
 	@Override
+	public String getMemberReferenceCode() {
+		if (_memberReferenceCode == null) {
+			return "";
+		}
+		else {
+			return _memberReferenceCode;
+		}
+	}
+
+	@Override
+	public void setMemberReferenceCode(String memberReferenceCode) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_memberReferenceCode = memberReferenceCode;
+	}
+
+	@Override
 	public String getType() {
 		if (_type == null) {
 			return "";
@@ -473,6 +499,7 @@ public class ProjectMemberEntryModelImpl
 		projectMemberEntryImpl.setProjectId(getProjectId());
 		projectMemberEntryImpl.setMemberId(getMemberId());
 		projectMemberEntryImpl.setMemberType(getMemberType());
+		projectMemberEntryImpl.setMemberReferenceCode(getMemberReferenceCode());
 		projectMemberEntryImpl.setType(getType());
 
 		projectMemberEntryImpl.resetOriginalValues();
@@ -493,6 +520,8 @@ public class ProjectMemberEntryModelImpl
 			this.<Long>getColumnOriginalValue("memberId"));
 		projectMemberEntryImpl.setMemberType(
 			this.<String>getColumnOriginalValue("memberType"));
+		projectMemberEntryImpl.setMemberReferenceCode(
+			this.<String>getColumnOriginalValue("memberReferenceCode"));
 		projectMemberEntryImpl.setType(
 			this.<String>getColumnOriginalValue("type_"));
 
@@ -583,6 +612,18 @@ public class ProjectMemberEntryModelImpl
 
 		if ((memberType != null) && (memberType.length() == 0)) {
 			projectMemberEntryCacheModel.memberType = null;
+		}
+
+		projectMemberEntryCacheModel.memberReferenceCode =
+			getMemberReferenceCode();
+
+		String memberReferenceCode =
+			projectMemberEntryCacheModel.memberReferenceCode;
+
+		if ((memberReferenceCode != null) &&
+			(memberReferenceCode.length() == 0)) {
+
+			projectMemberEntryCacheModel.memberReferenceCode = null;
 		}
 
 		projectMemberEntryCacheModel.type = getType();
@@ -688,6 +729,7 @@ public class ProjectMemberEntryModelImpl
 	private long _projectId;
 	private long _memberId;
 	private String _memberType;
+	private String _memberReferenceCode;
 	private String _type;
 
 	public <T> T getColumnValue(String columnName) {
@@ -723,6 +765,7 @@ public class ProjectMemberEntryModelImpl
 		_columnOriginalValues.put("projectId", _projectId);
 		_columnOriginalValues.put("memberId", _memberId);
 		_columnOriginalValues.put("memberType", _memberType);
+		_columnOriginalValues.put("memberReferenceCode", _memberReferenceCode);
 		_columnOriginalValues.put("type_", _type);
 	}
 
@@ -755,7 +798,9 @@ public class ProjectMemberEntryModelImpl
 
 		columnBitmasks.put("memberType", 8L);
 
-		columnBitmasks.put("type_", 16L);
+		columnBitmasks.put("memberReferenceCode", 16L);
+
+		columnBitmasks.put("type_", 32L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

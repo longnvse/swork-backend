@@ -99,10 +99,10 @@ public class ProjectEntryCacheModel
 		sb.append(status);
 		sb.append(", progress=");
 		sb.append(progress);
-		sb.append(", actualTime=");
-		sb.append(actualTime);
-		sb.append(", actualStart=");
-		sb.append(actualStart);
+		sb.append(", actualStartDate=");
+		sb.append(actualStartDate);
+		sb.append(", actualEndDate=");
+		sb.append(actualEndDate);
 		sb.append(", progressType=");
 		sb.append(progressType);
 		sb.append(", businessId=");
@@ -197,18 +197,18 @@ public class ProjectEntryCacheModel
 
 		projectEntryImpl.setProgress(progress);
 
-		if (actualTime == Long.MIN_VALUE) {
-			projectEntryImpl.setActualTime(null);
+		if (actualStartDate == Long.MIN_VALUE) {
+			projectEntryImpl.setActualStartDate(null);
 		}
 		else {
-			projectEntryImpl.setActualTime(new Date(actualTime));
+			projectEntryImpl.setActualStartDate(new Date(actualStartDate));
 		}
 
-		if (actualStart == Long.MIN_VALUE) {
-			projectEntryImpl.setActualStart(null);
+		if (actualEndDate == Long.MIN_VALUE) {
+			projectEntryImpl.setActualEndDate(null);
 		}
 		else {
-			projectEntryImpl.setActualStart(new Date(actualStart));
+			projectEntryImpl.setActualEndDate(new Date(actualEndDate));
 		}
 
 		if (progressType == null) {
@@ -251,8 +251,8 @@ public class ProjectEntryCacheModel
 		status = objectInput.readUTF();
 
 		progress = objectInput.readInt();
-		actualTime = objectInput.readLong();
-		actualStart = objectInput.readLong();
+		actualStartDate = objectInput.readLong();
+		actualEndDate = objectInput.readLong();
 		progressType = objectInput.readUTF();
 
 		businessId = objectInput.readLong();
@@ -320,8 +320,8 @@ public class ProjectEntryCacheModel
 		}
 
 		objectOutput.writeInt(progress);
-		objectOutput.writeLong(actualTime);
-		objectOutput.writeLong(actualStart);
+		objectOutput.writeLong(actualStartDate);
+		objectOutput.writeLong(actualEndDate);
 
 		if (progressType == null) {
 			objectOutput.writeUTF("");
@@ -350,8 +350,8 @@ public class ProjectEntryCacheModel
 	public String description;
 	public String status;
 	public int progress;
-	public long actualTime;
-	public long actualStart;
+	public long actualStartDate;
+	public long actualEndDate;
 	public String progressType;
 	public long businessId;
 

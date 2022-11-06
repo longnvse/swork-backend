@@ -42,6 +42,10 @@ public class ProjectMemberEntryTable
 	public final Column<ProjectMemberEntryTable, String> memberType =
 		createColumn(
 			"memberType", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ProjectMemberEntryTable, String> memberReferenceCode =
+		createColumn(
+			"memberReferenceCode", String.class, Types.VARCHAR,
+			Column.FLAG_DEFAULT);
 	public final Column<ProjectMemberEntryTable, String> type = createColumn(
 		"type_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 

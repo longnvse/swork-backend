@@ -16,8 +16,8 @@ create table SW_Project (
 	description VARCHAR(75) null,
 	status VARCHAR(75) null,
 	progress INTEGER,
-	actualTime DATE null,
-	actualStart DATE null,
+	actualStartDate DATE null,
+	actualEndDate DATE null,
 	progressType VARCHAR(75) null,
 	businessId LONG
 );
@@ -27,5 +27,6 @@ create table SW_ProjectMember (
 	projectId LONG,
 	memberId LONG,
 	memberType VARCHAR(75) null,
+	memberReferenceCode VARCHAR(75) null,
 	type_ VARCHAR(75) null
 );

@@ -111,6 +111,21 @@ public interface ProjectMemberEntryModel extends BaseModel<ProjectMemberEntry> {
 	public void setMemberType(String memberType);
 
 	/**
+	 * Returns the member reference code of this project member entry.
+	 *
+	 * @return the member reference code of this project member entry
+	 */
+	@AutoEscape
+	public String getMemberReferenceCode();
+
+	/**
+	 * Sets the member reference code of this project member entry.
+	 *
+	 * @param memberReferenceCode the member reference code of this project member entry
+	 */
+	public void setMemberReferenceCode(String memberReferenceCode);
+
+	/**
 	 * Returns the type of this project member entry.
 	 *
 	 * @return the type of this project member entry

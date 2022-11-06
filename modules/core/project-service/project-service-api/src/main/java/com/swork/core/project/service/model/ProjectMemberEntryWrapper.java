@@ -45,6 +45,7 @@ public class ProjectMemberEntryWrapper
 		attributes.put("projectId", getProjectId());
 		attributes.put("memberId", getMemberId());
 		attributes.put("memberType", getMemberType());
+		attributes.put("memberReferenceCode", getMemberReferenceCode());
 		attributes.put("type", getType());
 
 		return attributes;
@@ -76,6 +77,13 @@ public class ProjectMemberEntryWrapper
 			setMemberType(memberType);
 		}
 
+		String memberReferenceCode = (String)attributes.get(
+			"memberReferenceCode");
+
+		if (memberReferenceCode != null) {
+			setMemberReferenceCode(memberReferenceCode);
+		}
+
 		String type = (String)attributes.get("type");
 
 		if (type != null) {
@@ -96,6 +104,16 @@ public class ProjectMemberEntryWrapper
 	@Override
 	public long getMemberId() {
 		return model.getMemberId();
+	}
+
+	/**
+	 * Returns the member reference code of this project member entry.
+	 *
+	 * @return the member reference code of this project member entry
+	 */
+	@Override
+	public String getMemberReferenceCode() {
+		return model.getMemberReferenceCode();
 	}
 
 	/**
@@ -161,6 +179,16 @@ public class ProjectMemberEntryWrapper
 	@Override
 	public void setMemberId(long memberId) {
 		model.setMemberId(memberId);
+	}
+
+	/**
+	 * Sets the member reference code of this project member entry.
+	 *
+	 * @param memberReferenceCode the member reference code of this project member entry
+	 */
+	@Override
+	public void setMemberReferenceCode(String memberReferenceCode) {
+		model.setMemberReferenceCode(memberReferenceCode);
 	}
 
 	/**

@@ -46,10 +46,12 @@ public class ProjectMemberEntryLocalServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.swork.core.project.service.service.impl.ProjectMemberEntryLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static ProjectMemberEntry addProjectMemberEntry(
-		long projectId, long memberId, String memberType, String type) {
+		long projectId,
+		com.swork.core.project.service.mapper.model.ProjectMemberMapperModel
+			model,
+		String type) {
 
-		return getService().addProjectMemberEntry(
-			projectId, memberId, memberType, type);
+		return getService().addProjectMemberEntry(projectId, model, type);
 	}
 
 	/**
@@ -233,6 +235,12 @@ public class ProjectMemberEntryLocalServiceUtil {
 		long projectId, String memberType, String type) {
 
 		return getService().findByP_MT_T(projectId, memberType, type);
+	}
+
+	public static List<ProjectMemberEntry> findByP_T(
+		long projectId, String type) {
+
+		return getService().findByP_T(projectId, type);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery

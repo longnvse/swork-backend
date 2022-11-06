@@ -311,32 +311,32 @@ public interface ProjectEntryModel
 	public void setProgress(Integer progress);
 
 	/**
-	 * Returns the actual time of this project entry.
+	 * Returns the actual start date of this project entry.
 	 *
-	 * @return the actual time of this project entry
+	 * @return the actual start date of this project entry
 	 */
-	public Date getActualTime();
+	public Date getActualStartDate();
 
 	/**
-	 * Sets the actual time of this project entry.
+	 * Sets the actual start date of this project entry.
 	 *
-	 * @param actualTime the actual time of this project entry
+	 * @param actualStartDate the actual start date of this project entry
 	 */
-	public void setActualTime(Date actualTime);
+	public void setActualStartDate(Date actualStartDate);
 
 	/**
-	 * Returns the actual start of this project entry.
+	 * Returns the actual end date of this project entry.
 	 *
-	 * @return the actual start of this project entry
+	 * @return the actual end date of this project entry
 	 */
-	public Date getActualStart();
+	public Date getActualEndDate();
 
 	/**
-	 * Sets the actual start of this project entry.
+	 * Sets the actual end date of this project entry.
 	 *
-	 * @param actualStart the actual start of this project entry
+	 * @param actualEndDate the actual end date of this project entry
 	 */
-	public void setActualStart(Date actualStart);
+	public void setActualEndDate(Date actualEndDate);
 
 	/**
 	 * Returns the progress type of this project entry.

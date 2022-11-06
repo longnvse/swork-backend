@@ -12,8 +12,8 @@ public class ProjectMapperModel {
     private String description;
     private String status;
     private Integer progress;
-    private Date actualTime;
-    private Date actualStart;
+    private Date actualStartDate;
+    private Date actualEndDate;
     private String progressType;
     private ProjectMembersMapperModel manages;
     private ProjectMembersMapperModel handles;
@@ -91,21 +91,21 @@ public class ProjectMapperModel {
         this.progress = progress;
     }
 
-    public Date getActualTime() {
-        return actualTime;
+    public Date getActualStartDate() {
+        return actualStartDate;
     }
 
-    public void setActualTime(Date actualTime) {
-        this.actualTime = actualTime;
+    public void setActualStartDate(Date actualStartDate) {
+        this.actualStartDate = actualStartDate;
     }
 
 
-    public Date getActualStart() {
-        return actualStart;
+    public Date getActualEndDate() {
+        return actualEndDate;
     }
 
-    public void setActualStart(Date actualStart) {
-        this.actualStart = actualStart;
+    public void setActualEndDate(Date actualEndDate) {
+        this.actualEndDate = actualEndDate;
     }
 
     public String getProgressType() {

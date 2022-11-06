@@ -60,8 +60,8 @@ public class ProjectEntryWrapper
 		attributes.put("description", getDescription());
 		attributes.put("status", getStatus());
 		attributes.put("progress", getProgress());
-		attributes.put("actualTime", getActualTime());
-		attributes.put("actualStart", getActualStart());
+		attributes.put("actualStartDate", getActualStartDate());
+		attributes.put("actualEndDate", getActualEndDate());
 		attributes.put("progressType", getProgressType());
 		attributes.put("businessId", getBusinessId());
 
@@ -173,16 +173,16 @@ public class ProjectEntryWrapper
 			setProgress(progress);
 		}
 
-		Date actualTime = (Date)attributes.get("actualTime");
+		Date actualStartDate = (Date)attributes.get("actualStartDate");
 
-		if (actualTime != null) {
-			setActualTime(actualTime);
+		if (actualStartDate != null) {
+			setActualStartDate(actualStartDate);
 		}
 
-		Date actualStart = (Date)attributes.get("actualStart");
+		Date actualEndDate = (Date)attributes.get("actualEndDate");
 
-		if (actualStart != null) {
-			setActualStart(actualStart);
+		if (actualEndDate != null) {
+			setActualEndDate(actualEndDate);
 		}
 
 		String progressType = (String)attributes.get("progressType");
@@ -214,23 +214,23 @@ public class ProjectEntryWrapper
 	}
 
 	/**
-	 * Returns the actual start of this project entry.
+	 * Returns the actual end date of this project entry.
 	 *
-	 * @return the actual start of this project entry
+	 * @return the actual end date of this project entry
 	 */
 	@Override
-	public Date getActualStart() {
-		return model.getActualStart();
+	public Date getActualEndDate() {
+		return model.getActualEndDate();
 	}
 
 	/**
-	 * Returns the actual time of this project entry.
+	 * Returns the actual start date of this project entry.
 	 *
-	 * @return the actual time of this project entry
+	 * @return the actual start date of this project entry
 	 */
 	@Override
-	public Date getActualTime() {
-		return model.getActualTime();
+	public Date getActualStartDate() {
+		return model.getActualStartDate();
 	}
 
 	/**
@@ -439,23 +439,23 @@ public class ProjectEntryWrapper
 	}
 
 	/**
-	 * Sets the actual start of this project entry.
+	 * Sets the actual end date of this project entry.
 	 *
-	 * @param actualStart the actual start of this project entry
+	 * @param actualEndDate the actual end date of this project entry
 	 */
 	@Override
-	public void setActualStart(Date actualStart) {
-		model.setActualStart(actualStart);
+	public void setActualEndDate(Date actualEndDate) {
+		model.setActualEndDate(actualEndDate);
 	}
 
 	/**
-	 * Sets the actual time of this project entry.
+	 * Sets the actual start date of this project entry.
 	 *
-	 * @param actualTime the actual time of this project entry
+	 * @param actualStartDate the actual start date of this project entry
 	 */
 	@Override
-	public void setActualTime(Date actualTime) {
-		model.setActualTime(actualTime);
+	public void setActualStartDate(Date actualStartDate) {
+		model.setActualStartDate(actualStartDate);
 	}
 
 	/**
