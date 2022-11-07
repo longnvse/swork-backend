@@ -1,0 +1,5 @@
+Bundle-Name: phase-rest-test
+Bundle-SymbolicName: com.swork.core.phase.rest.test
+Bundle-Version: 1.0.0
+-includeresource: com.swork.core.phase.rest.client.jar=../phase-rest-client/build/libs/com.swork.core.phase.rest.client-1.0.0.jar;lib:=true
+-provider-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}
