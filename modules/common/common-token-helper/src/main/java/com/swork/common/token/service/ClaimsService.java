@@ -5,7 +5,6 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.swork.account.service.model.AccountEntry;
 import com.swork.account.service.service.AccountEntryLocalService;
-import com.swork.common.token.model.AccountTokenModel;
 import com.swork.common.token.util.ClaimsKeys;
 import io.jsonwebtoken.Claims;
 import org.osgi.service.component.annotations.Component;
@@ -30,19 +29,10 @@ public class ClaimsService {
             claims.put(ClaimsKeys.ACCOUNT_ID, entry.getAccountId());
             claims.put(ClaimsKeys.EMAIL, entry.getEmail());
             claims.put(ClaimsKeys.FULL_NAME, entry.getFullName());
+            claims.put(ClaimsKeys.BUSINESS_ID, entry.getBusinessId());
         }
 
         return claims;
-    }
-
-    private AccountTokenModel buildAccountTokenModel(AccountEntry accountEntry) {
-        AccountTokenModel accountToken = new AccountTokenModel();
-
-        long accountId = accountEntry.getAccountId();
-
-        accountToken.setAccountId(accountId);
-
-        return accountToken;
     }
 
     @Reference
