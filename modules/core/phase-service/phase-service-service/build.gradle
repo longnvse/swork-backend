@@ -1,13 +1,12 @@
 dependencies {
-	compile project(":modules:core:project-service:project-service-api")
+	compile project(":modules:core:phase-service:phase-service-api")
 	compile project(":modules:common:common-util")
 
 	compileOnly group: "com.liferay.portal", name: "release.portal.api", version: "7.4.3.13-ga13"
-
 }
 
 buildService {
-	apiDir = "../project-service-api/src/main/java"
+	apiDir = "../phase-service-api/src/main/java"
 }
 
-group = "com.swork.core.project.service"
+group = "com.swork.core.phase.service"
