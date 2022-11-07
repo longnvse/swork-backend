@@ -15,7 +15,6 @@
 package com.swork.account.service.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.exception.PwdEncryptorException;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -44,7 +43,7 @@ public class AccountEntryLocalServiceImpl
                                         String email,
                                         Integer phoneNumber,
                                         String address,
-                                        ServiceContext serviceContext) throws PwdEncryptorException {
+                                        ServiceContext serviceContext) {
         AccountEntry entry =
                 createAccountEntry(counterLocalService.increment(AccountEntry.class.getName()));
 
