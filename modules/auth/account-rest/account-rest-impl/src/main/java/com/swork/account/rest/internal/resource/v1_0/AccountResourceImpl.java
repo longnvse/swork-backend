@@ -46,7 +46,7 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
     }
 
     @Override
-    public Account postAccount(Account account) throws Exception {
+    public Account postAccount(Account account) {
         return service.addAccount(
                 getUserToken().getAccountId(),
                 getUserToken().getBusinessId(),

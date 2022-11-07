@@ -57,7 +57,7 @@ public class AccountService {
     public Account addAccount(long creatorId,
                               long businessId,
                               Account account,
-                              ServiceContext serviceContext) throws PortalException {
+                              ServiceContext serviceContext) {
 
         AccountEntry entry =
                 accountEntryLocalService.addAccountEntry(

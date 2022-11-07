@@ -1,5 +1,6 @@
 package com.swork.auth.login.rest.internal.resource.v1_0;
 
+import com.liferay.portal.kernel.exception.PwdEncryptorException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.swork.auth.login.rest.dto.v1_0.Credential;
 import com.swork.auth.login.rest.dto.v1_0.CredentialRefresh;
@@ -25,7 +26,7 @@ public class LoginResourceImpl extends BaseLoginResourceImpl {
     public static final String USER_AGENT = "User-Agent";
 
     @Override
-    public Credential postCredential(Credential credential) throws SW_UnAuthorizationException, SW_FieldRequiredException {
+    public Credential postCredential(Credential credential) throws SW_UnAuthorizationException, SW_FieldRequiredException, PwdEncryptorException {
         validator.validatorForLogin(
                 credential.getUsername(),
                 credential.getPassword());
