@@ -69,9 +69,8 @@ public class ProjectEntryLocalServiceUtil {
 	}
 
 	public static ProjectEntry approvalProject(
-			long creatorId, long projectId, String status,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws PortalException {
+		long creatorId, long projectId, String status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().approvalProject(
 			creatorId, projectId, status, serviceContext);
@@ -414,6 +413,42 @@ public class ProjectEntryLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getProjectEntryByUuidAndGroupId(uuid, groupId);
+	}
+
+	public static ProjectEntry updateActualDate(
+		long creatorId, long projectId, java.util.Date actualStartDate,
+		java.util.Date actualEndDate,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateActualDate(
+			creatorId, projectId, actualStartDate, actualEndDate,
+			serviceContext);
+	}
+
+	public static ProjectEntry updateDate(
+		long creatorId, long projectId, java.util.Date startDate,
+		java.util.Date endDate,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateDate(
+			creatorId, projectId, startDate, endDate, serviceContext);
+	}
+
+	public static ProjectEntry updateDescription(
+		long creatorId, long projectId, String description,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateDescription(
+			creatorId, projectId, description, serviceContext);
+	}
+
+	public static ProjectEntry updateMember(
+		long creatorId, long projectId,
+		com.swork.core.project.service.mapper.model.ProjectMapperModel model,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateMember(
+			creatorId, projectId, model, serviceContext);
 	}
 
 	public static ProjectEntry updateProject(

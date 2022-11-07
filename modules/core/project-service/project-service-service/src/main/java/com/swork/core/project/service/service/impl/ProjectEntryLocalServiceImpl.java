@@ -99,10 +99,11 @@ public class ProjectEntryLocalServiceImpl
 
         setProjectData(entry, model);
 
+        projectMemberEntryLocalService.deleteByProjectId(projectId);
+
         addMember(projectId, model);
 
         return addProjectEntry(entry);
-
     }
 
     private void addMember(long projectId, ProjectMapperModel model) {
@@ -133,9 +134,9 @@ public class ProjectEntryLocalServiceImpl
     public ProjectEntry approvalProject(long creatorId,
                                         long projectId,
                                         String status,
-                                        ServiceContext serviceContext) throws PortalException {
+                                        ServiceContext serviceContext) {
 
-        ProjectEntry entry = getProjectEntry(projectId);
+        ProjectEntry entry = fetchProjectEntry(projectId);
 
         Date currentDate = new Date();
 
@@ -150,6 +151,96 @@ public class ProjectEntryLocalServiceImpl
             entry.setActualStartDate(new Date());
         else if (status.equals(APPROVED))
             entry.setActualEndDate(new Date());
+
+        return updateProjectEntry(entry);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public ProjectEntry updateDescription(long creatorId,
+                                          long projectId,
+                                          String description,
+                                          ServiceContext serviceContext) {
+
+        ProjectEntry entry = fetchProjectEntry(projectId);
+
+        Date currentDate = new Date();
+
+        updateModifierAudit(
+                creatorId,
+                entry,
+                currentDate,
+                serviceContext);
+
+        entry.setDescription(description);
+
+        return updateProjectEntry(entry);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public ProjectEntry updateDate(long creatorId,
+                                   long projectId,
+                                   Date startDate,
+                                   Date endDate,
+                                   ServiceContext serviceContext) {
+
+        ProjectEntry entry = fetchProjectEntry(projectId);
+
+        Date currentDate = new Date();
+
+        updateModifierAudit(
+                creatorId,
+                entry,
+                currentDate,
+                serviceContext);
+
+        entry.setStartDate(startDate);
+        entry.setEndDate(endDate);
+
+        return updateProjectEntry(entry);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public ProjectEntry updateActualDate(long creatorId,
+                                         long projectId,
+                                         Date actualStartDate,
+                                         Date actualEndDate,
+                                         ServiceContext serviceContext) {
+
+        ProjectEntry entry = fetchProjectEntry(projectId);
+
+        Date currentDate = new Date();
+
+        updateModifierAudit(
+                creatorId,
+                entry,
+                currentDate,
+                serviceContext);
+
+        entry.setActualStartDate(actualStartDate);
+        entry.setActualEndDate(actualEndDate);
+
+        return updateProjectEntry(entry);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public ProjectEntry updateMember(long creatorId,
+                                     long projectId,
+                                     ProjectMapperModel model,
+                                     ServiceContext serviceContext) {
+
+        ProjectEntry entry = fetchProjectEntry(projectId);
+
+        Date currentDate = new Date();
+
+        updateModifierAudit(
+                creatorId,
+                entry,
+                currentDate,
+                serviceContext);
+
+        projectMemberEntryLocalService.deleteByProjectId(projectId);
+
+        addMember(projectId, model);
 
         return updateProjectEntry(entry);
     }

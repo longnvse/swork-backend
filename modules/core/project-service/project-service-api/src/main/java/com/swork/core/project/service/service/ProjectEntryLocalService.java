@@ -39,6 +39,7 @@ import com.swork.core.project.service.model.ProjectEntry;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -90,9 +91,8 @@ public interface ProjectEntryLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public ProjectEntry approvalProject(
-			long creatorId, long projectId, String status,
-			ServiceContext serviceContext)
-		throws PortalException;
+		long creatorId, long projectId, String status,
+		ServiceContext serviceContext);
 
 	/**
 	 * @throws PortalException
@@ -365,6 +365,26 @@ public interface ProjectEntryLocalService
 	public ProjectEntry getProjectEntryByUuidAndGroupId(
 			String uuid, long groupId)
 		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public ProjectEntry updateActualDate(
+		long creatorId, long projectId, Date actualStartDate,
+		Date actualEndDate, ServiceContext serviceContext);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public ProjectEntry updateDate(
+		long creatorId, long projectId, Date startDate, Date endDate,
+		ServiceContext serviceContext);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public ProjectEntry updateDescription(
+		long creatorId, long projectId, String description,
+		ServiceContext serviceContext);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public ProjectEntry updateMember(
+		long creatorId, long projectId, ProjectMapperModel model,
+		ServiceContext serviceContext);
 
 	@Indexable(type = IndexableType.REINDEX)
 	@Transactional(

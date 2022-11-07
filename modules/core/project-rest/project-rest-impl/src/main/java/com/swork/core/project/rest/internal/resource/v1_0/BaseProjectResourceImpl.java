@@ -361,7 +361,7 @@ public abstract class BaseProjectResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/project-rest/v1.0/projects/approval/{projectId}' -d $'{"actualEndDate": ___, "actualStartDate": ___, "budget": ___, "code": ___, "description": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "manages": ___, "name": ___, "participates": ___, "progressType": ___, "startDate": ___, "unit": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/project-rest/v1.0/projects/approval/{projectId}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Approval a Project")
 	@io.swagger.v3.oas.annotations.Parameters(
@@ -369,13 +369,16 @@ public abstract class BaseProjectResourceImpl
 			@io.swagger.v3.oas.annotations.Parameter(
 				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
 				name = "projectId"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "status"
 			)
 		}
 	)
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Project")}
 	)
-	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path("/projects/approval/{projectId}")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
@@ -385,14 +388,17 @@ public abstract class BaseProjectResourceImpl
 			@javax.validation.constraints.NotNull
 			@javax.ws.rs.PathParam("projectId")
 			Long projectId,
-			Project project)
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.QueryParam("status")
+			String status)
 		throws Exception {
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/project-rest/v1.0/projects/description/{projectId}' -d $'{"actualEndDate": ___, "actualStartDate": ___, "budget": ___, "code": ___, "description": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "manages": ___, "name": ___, "participates": ___, "progressType": ___, "startDate": ___, "unit": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/project-rest/v1.0/projects/description/{projectId}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Approval a Project")
 	@io.swagger.v3.oas.annotations.Parameters(
@@ -400,13 +406,16 @@ public abstract class BaseProjectResourceImpl
 			@io.swagger.v3.oas.annotations.Parameter(
 				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
 				name = "projectId"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "description"
 			)
 		}
 	)
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Project")}
 	)
-	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path("/projects/description/{projectId}")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
@@ -416,14 +425,17 @@ public abstract class BaseProjectResourceImpl
 			@javax.validation.constraints.NotNull
 			@javax.ws.rs.PathParam("projectId")
 			Long projectId,
-			Project project)
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.QueryParam("description")
+			String description)
 		throws Exception {
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/project-rest/v1.0/projects/date/{projectId}' -d $'{"actualEndDate": ___, "actualStartDate": ___, "budget": ___, "code": ___, "description": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "manages": ___, "name": ___, "participates": ___, "progressType": ___, "startDate": ___, "unit": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/project-rest/v1.0/projects/date/{projectId}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Approval a Project")
 	@io.swagger.v3.oas.annotations.Parameters(
@@ -431,13 +443,20 @@ public abstract class BaseProjectResourceImpl
 			@io.swagger.v3.oas.annotations.Parameter(
 				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
 				name = "projectId"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "startDate"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "endDate"
 			)
 		}
 	)
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Project")}
 	)
-	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path("/projects/date/{projectId}")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
@@ -447,14 +466,21 @@ public abstract class BaseProjectResourceImpl
 			@javax.validation.constraints.NotNull
 			@javax.ws.rs.PathParam("projectId")
 			Long projectId,
-			Project project)
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.QueryParam("startDate")
+			java.util.Date startDate,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.QueryParam("endDate")
+			java.util.Date endDate)
 		throws Exception {
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/project-rest/v1.0/projects/actual-date/{projectId}' -d $'{"actualEndDate": ___, "actualStartDate": ___, "budget": ___, "code": ___, "description": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "manages": ___, "name": ___, "participates": ___, "progressType": ___, "startDate": ___, "unit": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/project-rest/v1.0/projects/actual-date/{projectId}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Approval a Project")
 	@io.swagger.v3.oas.annotations.Parameters(
@@ -462,13 +488,20 @@ public abstract class BaseProjectResourceImpl
 			@io.swagger.v3.oas.annotations.Parameter(
 				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
 				name = "projectId"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "actualStartDate"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "actualEndDate"
 			)
 		}
 	)
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Project")}
 	)
-	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path("/projects/actual-date/{projectId}")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
@@ -478,7 +511,14 @@ public abstract class BaseProjectResourceImpl
 			@javax.validation.constraints.NotNull
 			@javax.ws.rs.PathParam("projectId")
 			Long projectId,
-			Project project)
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.QueryParam("actualStartDate")
+			java.util.Date actualStartDate,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.QueryParam("actualEndDate")
+			java.util.Date actualEndDate)
 		throws Exception {
 	}
 

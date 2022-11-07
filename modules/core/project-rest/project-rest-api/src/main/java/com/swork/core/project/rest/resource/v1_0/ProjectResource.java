@@ -15,6 +15,7 @@ import com.liferay.portal.vulcan.pagination.Pagination;
 import com.swork.core.project.rest.dto.v1_0.Project;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -67,16 +68,16 @@ public interface ProjectResource {
 	public Response putProjectBatch(String callbackURL, Object object)
 		throws Exception;
 
-	public void approvalProject(Long projectId, Project project)
+	public void approvalProject(Long projectId, String status) throws Exception;
+
+	public void updateDescriptionProject(Long projectId, String description)
 		throws Exception;
 
-	public void updateDescriptionProject(Long projectId, Project project)
+	public void updateDateProject(Long projectId, Date startDate, Date endDate)
 		throws Exception;
 
-	public void updateDateProject(Long projectId, Project project)
-		throws Exception;
-
-	public void updateActualDateProject(Long projectId, Project project)
+	public void updateActualDateProject(
+			Long projectId, Date actualStartDate, Date actualEndDate)
 		throws Exception;
 
 	public void updateMemberProject(Long projectId, Project project)

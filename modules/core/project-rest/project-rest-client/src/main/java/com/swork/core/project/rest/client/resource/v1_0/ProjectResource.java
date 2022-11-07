@@ -7,6 +7,9 @@ import com.swork.core.project.rest.client.pagination.Pagination;
 import com.swork.core.project.rest.client.problem.Problem;
 import com.swork.core.project.rest.client.serdes.v1_0.ProjectSerDes;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -78,32 +81,35 @@ public interface ProjectResource {
 			String callbackURL, Object object)
 		throws Exception;
 
-	public void approvalProject(Long projectId, Project project)
-		throws Exception;
+	public void approvalProject(Long projectId, String status) throws Exception;
 
 	public HttpInvoker.HttpResponse approvalProjectHttpResponse(
-			Long projectId, Project project)
+			Long projectId, String status)
 		throws Exception;
 
-	public void updateDescriptionProject(Long projectId, Project project)
+	public void updateDescriptionProject(Long projectId, String description)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse updateDescriptionProjectHttpResponse(
-			Long projectId, Project project)
+			Long projectId, String description)
 		throws Exception;
 
-	public void updateDateProject(Long projectId, Project project)
+	public void updateDateProject(
+			Long projectId, java.util.Date startDate, java.util.Date endDate)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse updateDateProjectHttpResponse(
-			Long projectId, Project project)
+			Long projectId, java.util.Date startDate, java.util.Date endDate)
 		throws Exception;
 
-	public void updateActualDateProject(Long projectId, Project project)
+	public void updateActualDateProject(
+			Long projectId, java.util.Date actualStartDate,
+			java.util.Date actualEndDate)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse updateActualDateProjectHttpResponse(
-			Long projectId, Project project)
+			Long projectId, java.util.Date actualStartDate,
+			java.util.Date actualEndDate)
 		throws Exception;
 
 	public void updateMemberProject(Long projectId, Project project)
@@ -830,11 +836,11 @@ public interface ProjectResource {
 			return httpInvoker.invoke();
 		}
 
-		public void approvalProject(Long projectId, Project project)
+		public void approvalProject(Long projectId, String status)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = approvalProjectHttpResponse(
-				projectId, project);
+				projectId, status);
 
 			String content = httpResponse.getContent();
 
@@ -874,12 +880,12 @@ public interface ProjectResource {
 		}
 
 		public HttpInvoker.HttpResponse approvalProjectHttpResponse(
-				Long projectId, Project project)
+				Long projectId, String status)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(project.toString(), "application/json");
+			httpInvoker.body(status.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -900,6 +906,10 @@ public interface ProjectResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
+			if (status != null) {
+				httpInvoker.parameter("status", String.valueOf(status));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -913,11 +923,11 @@ public interface ProjectResource {
 			return httpInvoker.invoke();
 		}
 
-		public void updateDescriptionProject(Long projectId, Project project)
+		public void updateDescriptionProject(Long projectId, String description)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				updateDescriptionProjectHttpResponse(projectId, project);
+				updateDescriptionProjectHttpResponse(projectId, description);
 
 			String content = httpResponse.getContent();
 
@@ -957,12 +967,12 @@ public interface ProjectResource {
 		}
 
 		public HttpInvoker.HttpResponse updateDescriptionProjectHttpResponse(
-				Long projectId, Project project)
+				Long projectId, String description)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(project.toString(), "application/json");
+			httpInvoker.body(description.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -983,6 +993,11 @@ public interface ProjectResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
+			if (description != null) {
+				httpInvoker.parameter(
+					"description", String.valueOf(description));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -996,11 +1011,13 @@ public interface ProjectResource {
 			return httpInvoker.invoke();
 		}
 
-		public void updateDateProject(Long projectId, Project project)
+		public void updateDateProject(
+				Long projectId, java.util.Date startDate,
+				java.util.Date endDate)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				updateDateProjectHttpResponse(projectId, project);
+				updateDateProjectHttpResponse(projectId, startDate, endDate);
 
 			String content = httpResponse.getContent();
 
@@ -1040,12 +1057,13 @@ public interface ProjectResource {
 		}
 
 		public HttpInvoker.HttpResponse updateDateProjectHttpResponse(
-				Long projectId, Project project)
+				Long projectId, java.util.Date startDate,
+				java.util.Date endDate)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(project.toString(), "application/json");
+			httpInvoker.body(endDate.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -1066,6 +1084,19 @@ public interface ProjectResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
+			DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+			if (startDate != null) {
+				httpInvoker.parameter(
+					"startDate", liferayToJSONDateFormat.format(startDate));
+			}
+
+			if (endDate != null) {
+				httpInvoker.parameter(
+					"endDate", liferayToJSONDateFormat.format(endDate));
+			}
+
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
@@ -1079,11 +1110,14 @@ public interface ProjectResource {
 			return httpInvoker.invoke();
 		}
 
-		public void updateActualDateProject(Long projectId, Project project)
+		public void updateActualDateProject(
+				Long projectId, java.util.Date actualStartDate,
+				java.util.Date actualEndDate)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				updateActualDateProjectHttpResponse(projectId, project);
+				updateActualDateProjectHttpResponse(
+					projectId, actualStartDate, actualEndDate);
 
 			String content = httpResponse.getContent();
 
@@ -1123,12 +1157,13 @@ public interface ProjectResource {
 		}
 
 		public HttpInvoker.HttpResponse updateActualDateProjectHttpResponse(
-				Long projectId, Project project)
+				Long projectId, java.util.Date actualStartDate,
+				java.util.Date actualEndDate)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(project.toString(), "application/json");
+			httpInvoker.body(actualEndDate.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -1148,6 +1183,21 @@ public interface ProjectResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+			if (actualStartDate != null) {
+				httpInvoker.parameter(
+					"actualStartDate",
+					liferayToJSONDateFormat.format(actualStartDate));
+			}
+
+			if (actualEndDate != null) {
+				httpInvoker.parameter(
+					"actualEndDate",
+					liferayToJSONDateFormat.format(actualEndDate));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +

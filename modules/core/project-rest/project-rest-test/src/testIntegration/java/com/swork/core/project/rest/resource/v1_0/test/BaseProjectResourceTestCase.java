@@ -621,11 +621,10 @@ public abstract class BaseProjectResourceTestCase {
 
 		assertHttpResponseStatusCode(
 			204,
-			projectResource.approvalProjectHttpResponse(
-				project.getId(), project));
+			projectResource.approvalProjectHttpResponse(project.getId(), null));
 
 		assertHttpResponseStatusCode(
-			404, projectResource.approvalProjectHttpResponse(0L, project));
+			404, projectResource.approvalProjectHttpResponse(0L, null));
 	}
 
 	protected Project testApprovalProject_addProject() throws Exception {
@@ -641,11 +640,11 @@ public abstract class BaseProjectResourceTestCase {
 		assertHttpResponseStatusCode(
 			204,
 			projectResource.updateDescriptionProjectHttpResponse(
-				project.getId(), project));
+				project.getId(), null));
 
 		assertHttpResponseStatusCode(
 			404,
-			projectResource.updateDescriptionProjectHttpResponse(0L, project));
+			projectResource.updateDescriptionProjectHttpResponse(0L, null));
 	}
 
 	protected Project testUpdateDescriptionProject_addProject()
@@ -663,10 +662,10 @@ public abstract class BaseProjectResourceTestCase {
 		assertHttpResponseStatusCode(
 			204,
 			projectResource.updateDateProjectHttpResponse(
-				project.getId(), project));
+				project.getId(), null, null));
 
 		assertHttpResponseStatusCode(
-			404, projectResource.updateDateProjectHttpResponse(0L, project));
+			404, projectResource.updateDateProjectHttpResponse(0L, null, null));
 	}
 
 	protected Project testUpdateDateProject_addProject() throws Exception {
@@ -682,11 +681,12 @@ public abstract class BaseProjectResourceTestCase {
 		assertHttpResponseStatusCode(
 			204,
 			projectResource.updateActualDateProjectHttpResponse(
-				project.getId(), project));
+				project.getId(), null, null));
 
 		assertHttpResponseStatusCode(
 			404,
-			projectResource.updateActualDateProjectHttpResponse(0L, project));
+			projectResource.updateActualDateProjectHttpResponse(
+				0L, null, null));
 	}
 
 	protected Project testUpdateActualDateProject_addProject()

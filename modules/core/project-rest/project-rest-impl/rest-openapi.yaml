@@ -261,14 +261,12 @@ paths:
           schema:
             format: int64
             type: integer
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Project"
-          application/xml:
-            schema:
-              $ref: "#/components/schemas/Project"
+        - in: query
+          name: status
+          required: true
+          schema:
+            type: string
+            enum: [ approved, denied, inactive, pending, doing ]
       responses:
         204:
           description:
@@ -288,14 +286,11 @@ paths:
           schema:
             format: int64
             type: integer
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Project"
-          application/xml:
-            schema:
-              $ref: "#/components/schemas/Project"
+        - in: query
+          name: description
+          required: true
+          schema:
+            type: string
       responses:
         204:
           description:
@@ -315,14 +310,18 @@ paths:
           schema:
             format: int64
             type: integer
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Project"
-          application/xml:
-            schema:
-              $ref: "#/components/schemas/Project"
+        - in: query
+          name: startDate
+          required: true
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: endDate
+          required: true
+          schema:
+            type: string
+            format: date
       responses:
         204:
           description:
@@ -342,14 +341,18 @@ paths:
           schema:
             format: int64
             type: integer
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Project"
-          application/xml:
-            schema:
-              $ref: "#/components/schemas/Project"
+        - in: query
+          name: actualStartDate
+          required: true
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: actualEndDate
+          required: true
+          schema:
+            type: string
+            format: date
       responses:
         204:
           description:

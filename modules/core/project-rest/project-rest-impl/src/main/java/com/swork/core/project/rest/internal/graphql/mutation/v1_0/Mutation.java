@@ -12,6 +12,7 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 import com.swork.core.project.rest.dto.v1_0.Project;
 import com.swork.core.project.rest.resource.v1_0.ProjectResource;
 
+import java.util.Date;
 import java.util.function.BiFunction;
 
 import javax.annotation.Generated;
@@ -115,14 +116,14 @@ public class Mutation {
 	@GraphQLField(description = "Approval a Project")
 	public boolean approvalProject(
 			@GraphQLName("projectId") Long projectId,
-			@GraphQLName("project") Project project)
+			@GraphQLName("status") String status)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_projectResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			projectResource -> projectResource.approvalProject(
-				projectId, project));
+				projectId, status));
 
 		return true;
 	}
@@ -130,14 +131,14 @@ public class Mutation {
 	@GraphQLField(description = "Approval a Project")
 	public boolean updateDescriptionProject(
 			@GraphQLName("projectId") Long projectId,
-			@GraphQLName("project") Project project)
+			@GraphQLName("description") String description)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_projectResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			projectResource -> projectResource.updateDescriptionProject(
-				projectId, project));
+				projectId, description));
 
 		return true;
 	}
@@ -145,14 +146,15 @@ public class Mutation {
 	@GraphQLField(description = "Approval a Project")
 	public boolean updateDateProject(
 			@GraphQLName("projectId") Long projectId,
-			@GraphQLName("project") Project project)
+			@GraphQLName("startDate") Date startDate,
+			@GraphQLName("endDate") Date endDate)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_projectResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			projectResource -> projectResource.updateDateProject(
-				projectId, project));
+				projectId, startDate, endDate));
 
 		return true;
 	}
@@ -160,14 +162,15 @@ public class Mutation {
 	@GraphQLField(description = "Approval a Project")
 	public boolean updateActualDateProject(
 			@GraphQLName("projectId") Long projectId,
-			@GraphQLName("project") Project project)
+			@GraphQLName("actualStartDate") Date actualStartDate,
+			@GraphQLName("actualEndDate") Date actualEndDate)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_projectResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			projectResource -> projectResource.updateActualDateProject(
-				projectId, project));
+				projectId, actualStartDate, actualEndDate));
 
 		return true;
 	}

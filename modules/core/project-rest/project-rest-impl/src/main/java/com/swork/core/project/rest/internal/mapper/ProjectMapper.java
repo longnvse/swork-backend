@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 public class ProjectMapper {
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
-    public ProjectMapperModel mapProjectFromDTO(long companyId, Project from) {
+    public ProjectMapperModel mapModelFromDTO(long companyId, Project from) {
 
         ProjectMapperModel to = new ProjectMapperModel();
 

@@ -62,9 +62,8 @@ public class ProjectEntryLocalServiceWrapper
 
 	@Override
 	public com.swork.core.project.service.model.ProjectEntry approvalProject(
-			long creatorId, long projectId, String status,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		long creatorId, long projectId, String status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _projectEntryLocalService.approvalProject(
 			creatorId, projectId, status, serviceContext);
@@ -474,6 +473,46 @@ public class ProjectEntryLocalServiceWrapper
 
 		return _projectEntryLocalService.getProjectEntryByUuidAndGroupId(
 			uuid, groupId);
+	}
+
+	@Override
+	public com.swork.core.project.service.model.ProjectEntry updateActualDate(
+		long creatorId, long projectId, java.util.Date actualStartDate,
+		java.util.Date actualEndDate,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _projectEntryLocalService.updateActualDate(
+			creatorId, projectId, actualStartDate, actualEndDate,
+			serviceContext);
+	}
+
+	@Override
+	public com.swork.core.project.service.model.ProjectEntry updateDate(
+		long creatorId, long projectId, java.util.Date startDate,
+		java.util.Date endDate,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _projectEntryLocalService.updateDate(
+			creatorId, projectId, startDate, endDate, serviceContext);
+	}
+
+	@Override
+	public com.swork.core.project.service.model.ProjectEntry updateDescription(
+		long creatorId, long projectId, String description,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _projectEntryLocalService.updateDescription(
+			creatorId, projectId, description, serviceContext);
+	}
+
+	@Override
+	public com.swork.core.project.service.model.ProjectEntry updateMember(
+		long creatorId, long projectId,
+		com.swork.core.project.service.mapper.model.ProjectMapperModel model,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _projectEntryLocalService.updateMember(
+			creatorId, projectId, model, serviceContext);
 	}
 
 	@Override
