@@ -52,10 +52,9 @@ public class AccountEntryLocalServiceWrapper
 
 	@Override
 	public com.swork.account.service.model.AccountEntry addAccountEntry(
-			long creatorId, String username, String password, String fullName,
-			String email, Integer phoneNumber, String address,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PwdEncryptorException {
+		long creatorId, String username, String password, String fullName,
+		String email, Integer phoneNumber, String address,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _accountEntryLocalService.addAccountEntry(
 			creatorId, username, password, fullName, email, phoneNumber,
