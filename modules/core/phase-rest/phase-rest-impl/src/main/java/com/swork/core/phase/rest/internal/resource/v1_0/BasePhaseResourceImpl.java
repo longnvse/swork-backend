@@ -71,6 +71,14 @@ public abstract class BasePhaseResourceImpl
 			),
 			@io.swagger.v3.oas.annotations.Parameter(
 				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "startDate"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "endDate"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
 				name = "search"
 			),
 			@io.swagger.v3.oas.annotations.Parameter(
@@ -103,6 +111,12 @@ public abstract class BasePhaseResourceImpl
 			@javax.validation.constraints.NotNull
 			@javax.ws.rs.PathParam("projectId")
 			Long projectId,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.ws.rs.QueryParam("startDate")
+			java.util.Date startDate,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.ws.rs.QueryParam("endDate")
+			java.util.Date endDate,
 			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
 			@javax.ws.rs.QueryParam("search")
 			String search,
@@ -425,8 +439,10 @@ public abstract class BasePhaseResourceImpl
 		throws Exception {
 
 		return getPhasesPage(
-			Long.parseLong((String)parameters.get("projectId")), search, filter,
-			pagination, sorts);
+			Long.parseLong((String)parameters.get("projectId")),
+			new java.util.Date((String)parameters.get("startDate")),
+			new java.util.Date((String)parameters.get("endDate")), search,
+			filter, pagination, sorts);
 	}
 
 	@Override

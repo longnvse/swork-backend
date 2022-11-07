@@ -110,6 +110,16 @@ paths:
             type: integer
             format: int64
         - in: query
+          name: startDate
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: endDate
+          schema:
+            type: string
+            format: date
+        - in: query
           name: filter
           schema:
             type: string

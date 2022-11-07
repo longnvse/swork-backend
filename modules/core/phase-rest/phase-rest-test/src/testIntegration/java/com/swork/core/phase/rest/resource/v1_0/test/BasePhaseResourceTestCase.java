@@ -195,7 +195,8 @@ public abstract class BasePhaseResourceTestCase {
 		Long irrelevantProjectId = testGetPhasesPage_getIrrelevantProjectId();
 
 		Page<Phase> page = phaseResource.getPhasesPage(
-			projectId, null, null, Pagination.of(1, 10), null);
+			projectId, RandomTestUtil.nextDate(), RandomTestUtil.nextDate(),
+			null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 
@@ -204,7 +205,8 @@ public abstract class BasePhaseResourceTestCase {
 				irrelevantProjectId, randomIrrelevantPhase());
 
 			page = phaseResource.getPhasesPage(
-				irrelevantProjectId, null, null, Pagination.of(1, 2), null);
+				irrelevantProjectId, null, null, null, null,
+				Pagination.of(1, 2), null);
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -218,7 +220,7 @@ public abstract class BasePhaseResourceTestCase {
 		Phase phase2 = testGetPhasesPage_addPhase(projectId, randomPhase());
 
 		page = phaseResource.getPhasesPage(
-			projectId, null, null, Pagination.of(1, 10), null);
+			projectId, null, null, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -248,7 +250,7 @@ public abstract class BasePhaseResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Phase> page = phaseResource.getPhasesPage(
-				projectId, null,
+				projectId, null, null, null,
 				getFilterString(entityField, "between", phase1),
 				Pagination.of(1, 2), null);
 
@@ -276,8 +278,9 @@ public abstract class BasePhaseResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Phase> page = phaseResource.getPhasesPage(
-				projectId, null, getFilterString(entityField, "eq", phase1),
-				Pagination.of(1, 2), null);
+				projectId, null, null, null,
+				getFilterString(entityField, "eq", phase1), Pagination.of(1, 2),
+				null);
 
 			assertEquals(
 				Collections.singletonList(phase1),
@@ -296,14 +299,14 @@ public abstract class BasePhaseResourceTestCase {
 		Phase phase3 = testGetPhasesPage_addPhase(projectId, randomPhase());
 
 		Page<Phase> page1 = phaseResource.getPhasesPage(
-			projectId, null, null, Pagination.of(1, 2), null);
+			projectId, null, null, null, null, Pagination.of(1, 2), null);
 
 		List<Phase> phases1 = (List<Phase>)page1.getItems();
 
 		Assert.assertEquals(phases1.toString(), 2, phases1.size());
 
 		Page<Phase> page2 = phaseResource.getPhasesPage(
-			projectId, null, null, Pagination.of(2, 2), null);
+			projectId, null, null, null, null, Pagination.of(2, 2), null);
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -312,7 +315,7 @@ public abstract class BasePhaseResourceTestCase {
 		Assert.assertEquals(phases2.toString(), 1, phases2.size());
 
 		Page<Phase> page3 = phaseResource.getPhasesPage(
-			projectId, null, null, Pagination.of(1, 3), null);
+			projectId, null, null, null, null, Pagination.of(1, 3), null);
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(phase1, phase2, phase3),
@@ -418,14 +421,14 @@ public abstract class BasePhaseResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Phase> ascPage = phaseResource.getPhasesPage(
-				projectId, null, null, Pagination.of(1, 2),
+				projectId, null, null, null, null, Pagination.of(1, 2),
 				entityField.getName() + ":asc");
 
 			assertEquals(
 				Arrays.asList(phase1, phase2), (List<Phase>)ascPage.getItems());
 
 			Page<Phase> descPage = phaseResource.getPhasesPage(
-				projectId, null, null, Pagination.of(1, 2),
+				projectId, null, null, null, null, Pagination.of(1, 2),
 				entityField.getName() + ":desc");
 
 			assertEquals(

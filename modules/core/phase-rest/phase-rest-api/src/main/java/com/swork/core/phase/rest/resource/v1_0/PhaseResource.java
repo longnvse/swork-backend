@@ -15,6 +15,7 @@ import com.liferay.portal.vulcan.pagination.Pagination;
 import com.swork.core.phase.rest.dto.v1_0.Phase;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -46,8 +47,8 @@ public interface PhaseResource {
 	}
 
 	public Page<Phase> getPhasesPage(
-			Long projectId, String search, Filter filter, Pagination pagination,
-			Sort[] sorts)
+			Long projectId, Date startDate, Date endDate, String search,
+			Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
 	public void postPhase(Long projectId, Phase phase) throws Exception;

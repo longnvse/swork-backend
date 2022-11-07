@@ -7,6 +7,9 @@ import com.swork.core.phase.rest.client.pagination.Pagination;
 import com.swork.core.phase.rest.client.problem.Problem;
 import com.swork.core.phase.rest.client.serdes.v1_0.PhaseSerDes;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -27,13 +30,15 @@ public interface PhaseResource {
 	}
 
 	public Page<Phase> getPhasesPage(
-			Long projectId, String search, String filterString,
-			Pagination pagination, String sortString)
+			Long projectId, java.util.Date startDate, java.util.Date endDate,
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getPhasesPageHttpResponse(
-			Long projectId, String search, String filterString,
-			Pagination pagination, String sortString)
+			Long projectId, java.util.Date startDate, java.util.Date endDate,
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public void postPhase(Long projectId, Phase phase) throws Exception;
@@ -152,12 +157,14 @@ public interface PhaseResource {
 	public static class PhaseResourceImpl implements PhaseResource {
 
 		public Page<Phase> getPhasesPage(
-				Long projectId, String search, String filterString,
+				Long projectId, java.util.Date startDate,
+				java.util.Date endDate, String search, String filterString,
 				Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = getPhasesPageHttpResponse(
-				projectId, search, filterString, pagination, sortString);
+				projectId, startDate, endDate, search, filterString, pagination,
+				sortString);
 
 			String content = httpResponse.getContent();
 
@@ -197,7 +204,8 @@ public interface PhaseResource {
 		}
 
 		public HttpInvoker.HttpResponse getPhasesPageHttpResponse(
-				Long projectId, String search, String filterString,
+				Long projectId, java.util.Date startDate,
+				java.util.Date endDate, String search, String filterString,
 				Pagination pagination, String sortString)
 			throws Exception {
 
@@ -221,6 +229,19 @@ public interface PhaseResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+			if (startDate != null) {
+				httpInvoker.parameter(
+					"startDate", liferayToJSONDateFormat.format(startDate));
+			}
+
+			if (endDate != null) {
+				httpInvoker.parameter(
+					"endDate", liferayToJSONDateFormat.format(endDate));
+			}
 
 			if (search != null) {
 				httpInvoker.parameter("search", String.valueOf(search));

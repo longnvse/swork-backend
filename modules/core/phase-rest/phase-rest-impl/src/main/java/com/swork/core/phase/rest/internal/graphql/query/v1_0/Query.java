@@ -17,6 +17,7 @@ import com.swork.core.phase.rest.dto.v1_0.Phase;
 import com.swork.core.phase.rest.dto.v1_0.PhaseManage;
 import com.swork.core.phase.rest.resource.v1_0.PhaseResource;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.function.BiFunction;
 
@@ -47,13 +48,15 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {phases(filter: ___, page: ___, pageSize: ___, projectId: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {phases(endDate: ___, filter: ___, page: ___, pageSize: ___, projectId: ___, search: ___, sorts: ___, startDate: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(
 		description = "Retrieves the Phase. Results can be paginated, filtered, searched, and sorted."
 	)
 	public PhasePage phases(
 			@GraphQLName("projectId") Long projectId,
+			@GraphQLName("startDate") Date startDate,
+			@GraphQLName("endDate") Date endDate,
 			@GraphQLName("search") String search,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
@@ -66,7 +69,7 @@ public class Query {
 			this::_populateResourceContext,
 			phaseResource -> new PhasePage(
 				phaseResource.getPhasesPage(
-					projectId, search,
+					projectId, startDate, endDate, search,
 					_filterBiFunction.apply(phaseResource, filterString),
 					Pagination.of(page, pageSize),
 					_sortsBiFunction.apply(phaseResource, sortsString))));
