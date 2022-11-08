@@ -25,6 +25,7 @@ public class UserListener extends BaseModelListener<User> {
 
         accountEntryLocalService.addAccountEntry(
                 GetterUtil.DEFAULT_LONG,
+                GetterUtil.DEFAULT_LONG,
                 model.getScreenName(),
                 model.getPasswordUnencrypted(),
                 "Super Admin",

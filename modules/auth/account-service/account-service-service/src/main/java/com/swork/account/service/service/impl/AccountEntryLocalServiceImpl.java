@@ -37,6 +37,7 @@ public class AccountEntryLocalServiceImpl
 
     @Indexable(type = IndexableType.REINDEX)
     public AccountEntry addAccountEntry(long creatorId,
+                                        long businessId,
                                         String username,
                                         String password,
                                         String fullName,
@@ -60,6 +61,7 @@ public class AccountEntryLocalServiceImpl
         entry.setEmail(email);
         entry.setPhoneNumber(phoneNumber);
         entry.setAddress(address);
+        entry.setBusinessId(businessId);
 
         return addAccountEntry(entry);
 

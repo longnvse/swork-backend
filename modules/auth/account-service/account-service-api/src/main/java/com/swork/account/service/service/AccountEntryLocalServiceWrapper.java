@@ -52,13 +52,13 @@ public class AccountEntryLocalServiceWrapper
 
 	@Override
 	public com.swork.account.service.model.AccountEntry addAccountEntry(
-		long creatorId, String username, String password, String fullName,
-		String email, Integer phoneNumber, String address,
+		long creatorId, long businessId, String username, String password,
+		String fullName, String email, Integer phoneNumber, String address,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _accountEntryLocalService.addAccountEntry(
-			creatorId, username, password, fullName, email, phoneNumber,
-			address, serviceContext);
+			creatorId, businessId, username, password, fullName, email,
+			phoneNumber, address, serviceContext);
 	}
 
 	/**

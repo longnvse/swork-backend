@@ -1,0 +1,389 @@
+components:
+  schemas:
+    Project:
+      description: Project Model
+      properties:
+        id:
+          format: int64
+          type: integer
+          readOnly: true
+        externalReferenceCode:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        budget:
+          format: int64
+          type: integer
+        description:
+          type: string
+        startDate:
+          format: date
+          type: string
+        endDate:
+          format: date
+          type: string
+        unit:
+          type: string
+        status:
+          enum: [ approved, denied, inactive, pending, doing ]
+          readOnly: true
+        progress:
+          type: integer
+          readOnly: true
+        manages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Manage"
+        handles:
+          type: array
+          items:
+            $ref: "#/components/schemas/Handle"
+        participates:
+          type: array
+          items:
+            $ref: "#/components/schemas/Participate"
+        actualStartDate:
+          format: date
+          type: string
+        actualEndDate:
+          format: date
+          type: string
+        progressType:
+          type: string
+    Manage:
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        memberId:
+          type: integer
+          format: int64
+        memberName:
+          type: string
+          readOnly: true
+    Handle:
+      description: Project Handles
+      properties:
+        id:
+          format: int64
+          type: integer
+          readOnly: true
+        memberReferenceCode:
+          type: string
+        memberId:
+          type: integer
+          format: int64
+        memberName:
+          type: string
+          readOnly: true
+        memberType:
+          enum: [ account, department ]
+          readOnly: true
+    Participate:
+      description: Project Participates
+      properties:
+        id:
+          format: int64
+          type: integer
+          readOnly: true
+        memberReferenceCode:
+          type: string
+        memberId:
+          type: integer
+          format: int64
+        memberName:
+          type: string
+          readOnly: true
+        memberType:
+          enum: [ account, department ]
+          readOnly: true
+info:
+  description: "ProjectRest REST API"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  title: "ProjectRest"
+  version: v1.0
+openapi: 3.0.1
+
+paths:
+  "/projects":
+    post:
+      tags: [ "Project" ]
+      description: Create a new Project
+      operationId: postProject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Project"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Project"
+      responses:
+        200:
+          description:
+            "Project detail"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Project"
+    get:
+      tags: [ "Project" ]
+      description:
+        Retrieves the Project. Results can be paginated, filtered, searched, and sorted.
+      operationId: getProjectsPage
+      parameters:
+        - in: query
+          name: type
+          schema:
+            type: string
+        - in: query
+          name: filter
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: sort
+          schema:
+            type: string
+      responses:
+        200:
+          description: The data returned
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Project"
+                type: array
+            application/xml:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Project"
+                type: array
+  "/projects/{projectId}":
+    put:
+      tags: [ "Project" ]
+      description: Update a Project
+      operationId: putProject
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Project"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Project"
+      responses:
+        200:
+          description:
+            "Project detail"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Project"
+    get:
+      tags: [ "Project" ]
+      description: Get an Project
+      operationId: getProject
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        200:
+          description:
+            "Project detail"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Project"
+    delete:
+      tags: [ "Project" ]
+      description: Delete an Project
+      operationId: deleteProject
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        204:
+          description:
+            "Project was deleted"
+          content:
+            application/json: { }
+            application/xml: { }
+  "/projects/approval/{projectId}":
+    put:
+      tags: [ "Project" ]
+      description: Approval a Project
+      operationId: approvalProject
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            format: int64
+            type: integer
+        - in: query
+          name: status
+          required: true
+          schema:
+            type: string
+            enum: [ approved, denied, inactive, pending, doing ]
+      responses:
+        204:
+          description:
+            "Project was approval"
+          content:
+            application/json: { }
+            application/xml: { }
+  "/projects/description/{projectId}":
+    put:
+      tags: [ "Project" ]
+      description: Approval a Project
+      operationId: updateDescriptionProject
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            format: int64
+            type: integer
+        - in: query
+          name: description
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description:
+            "Project was updated"
+          content:
+            application/json: { }
+            application/xml: { }
+  "/projects/date/{projectId}":
+    put:
+      tags: [ "Project" ]
+      description: Approval a Project
+      operationId: updateDateProject
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            format: int64
+            type: integer
+        - in: query
+          name: startDate
+          required: true
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: endDate
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        204:
+          description:
+            "Project was updated"
+          content:
+            application/json: { }
+            application/xml: { }
+  "/projects/actual-date/{projectId}":
+    put:
+      tags: [ "Project" ]
+      description: Approval a Project
+      operationId: updateActualDateProject
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            format: int64
+            type: integer
+        - in: query
+          name: actualStartDate
+          required: true
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: actualEndDate
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        204:
+          description:
+            "Project was updated"
+          content:
+            application/json: { }
+            application/xml: { }
+  "/projects/member/{projectId}":
+    put:
+      tags: [ "Project" ]
+      description: Approval a Project
+      operationId: updateMemberProject
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Project"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Project"
+      responses:
+        204:
+          description:
+            "Project was updated"
+          content:
+            application/json: { }
+            application/xml: { }

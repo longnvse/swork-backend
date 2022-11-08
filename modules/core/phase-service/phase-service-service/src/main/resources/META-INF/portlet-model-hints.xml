@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.swork.core.phase.service.model.PhaseEntry">
+		<field name="uuid" type="String" />
+		<field name="externalReferenceCode" type="String" />
+		<field name="phaseId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="creatorId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="businessId" type="long" />
+		<field name="modifiedId" type="long" />
+		<field name="phaseName" type="String">
+			<hint name="max-length">100</hint>
+		</field>
+		<field name="startDate" type="Date" />
+		<field name="endDate" type="Date" />
+		<field name="status" type="String" />
+		<field name="description" type="String">
+			<hint name="max-length">500</hint>
+		</field>
+		<field name="progress" type="long" />
+		<field name="projectId" type="long" />
+	</model>
+	<model name="com.swork.core.phase.service.model.PhaseManageEntry">
+		<field name="phaseManageId" type="long" />
+		<field name="phaseId" type="long" />
+		<field name="accountId" type="long" />
+	</model>
+</model-hints>

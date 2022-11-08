@@ -61,13 +61,13 @@ public class AccountEntryLocalServiceUtil {
 	}
 
 	public static AccountEntry addAccountEntry(
-		long creatorId, String username, String password, String fullName,
-		String email, Integer phoneNumber, String address,
+		long creatorId, long businessId, String username, String password,
+		String fullName, String email, Integer phoneNumber, String address,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().addAccountEntry(
-			creatorId, username, password, fullName, email, phoneNumber,
-			address, serviceContext);
+			creatorId, businessId, username, password, fullName, email,
+			phoneNumber, address, serviceContext);
 	}
 
 	/**

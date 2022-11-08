@@ -1,0 +1,3 @@
+Bundle-Name: phase-rest-client
+Bundle-SymbolicName: com.swork.core.phase.rest.client
+Bundle-Version: 1.0.0

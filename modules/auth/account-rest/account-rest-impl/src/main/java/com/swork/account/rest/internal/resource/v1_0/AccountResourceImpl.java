@@ -48,8 +48,8 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
     @Override
     public Account postAccount(Account account) {
         return service.addAccount(
-//                getUserToken().getAccountId(),
-                0L,
+                getUserToken().getAccountId(),
+                getUserToken().getBusinessId(),
                 account,
                 getServiceContext()
         );
@@ -68,8 +68,7 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
     @Override
     public Account putAccount(Long accountId, Account account) {
         return service.updateAccount(
-//                getUserToken().getAccountId(),
-                0L,
+                getUserToken().getAccountId(),
                 accountId,
                 account,
                 getServiceContext()
