@@ -55,6 +55,7 @@ public class AccountEntryWrapper
 		attributes.put("password", getPassword());
 		attributes.put("fullName", getFullName());
 		attributes.put("phoneNumber", getPhoneNumber());
+		attributes.put("dateOfBirth", getDateOfBirth());
 		attributes.put("email", getEmail());
 		attributes.put("address", getAddress());
 		attributes.put("departmentId", getDepartmentId());
@@ -132,10 +133,16 @@ public class AccountEntryWrapper
 			setFullName(fullName);
 		}
 
-		Integer phoneNumber = (Integer)attributes.get("phoneNumber");
+		String phoneNumber = (String)attributes.get("phoneNumber");
 
 		if (phoneNumber != null) {
 			setPhoneNumber(phoneNumber);
+		}
+
+		Date dateOfBirth = (Date)attributes.get("dateOfBirth");
+
+		if (dateOfBirth != null) {
+			setDateOfBirth(dateOfBirth);
 		}
 
 		String email = (String)attributes.get("email");
@@ -229,6 +236,16 @@ public class AccountEntryWrapper
 	}
 
 	/**
+	 * Returns the date of birth of this account entry.
+	 *
+	 * @return the date of birth of this account entry
+	 */
+	@Override
+	public Date getDateOfBirth() {
+		return model.getDateOfBirth();
+	}
+
+	/**
 	 * Returns the department ID of this account entry.
 	 *
 	 * @return the department ID of this account entry
@@ -304,7 +321,7 @@ public class AccountEntryWrapper
 	 * @return the phone number of this account entry
 	 */
 	@Override
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return model.getPhoneNumber();
 	}
 
@@ -404,6 +421,16 @@ public class AccountEntryWrapper
 	}
 
 	/**
+	 * Sets the date of birth of this account entry.
+	 *
+	 * @param dateOfBirth the date of birth of this account entry
+	 */
+	@Override
+	public void setDateOfBirth(Date dateOfBirth) {
+		model.setDateOfBirth(dateOfBirth);
+	}
+
+	/**
 	 * Sets the department ID of this account entry.
 	 *
 	 * @param departmentId the department ID of this account entry
@@ -479,7 +506,7 @@ public class AccountEntryWrapper
 	 * @param phoneNumber the phone number of this account entry
 	 */
 	@Override
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		model.setPhoneNumber(phoneNumber);
 	}
 

@@ -94,7 +94,7 @@ public abstract class BaseBusinessResourceImpl
 	@javax.ws.rs.Path("/business")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
-	public Page<Business> getbusinessPage(
+	public Page<Business> getBusinessPage(
 			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
 			@javax.ws.rs.QueryParam("search")
 			String search,
@@ -109,7 +109,7 @@ public abstract class BaseBusinessResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/swork/business-rest/v1.0/business' -d $'{"businessAddress": ___, "customerName": ___, "email": ___, "fieldOperations": ___, "name": ___, "phoneNumber": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/swork/business-rest/v1.0/business' -d $'{"businessAddress": ___, "customerName": ___, "email": ___, "fieldOperations": ___, "name": ___, "phoneNumber": ___, "userAdmin": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
 		description = "Create a new Business"
@@ -277,7 +277,7 @@ public abstract class BaseBusinessResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/business-rest/v1.0/business/{businessId}' -d $'{"businessAddress": ___, "customerName": ___, "email": ___, "fieldOperations": ___, "name": ___, "phoneNumber": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/business-rest/v1.0/business/{businessId}' -d $'{"businessAddress": ___, "customerName": ___, "email": ___, "fieldOperations": ___, "name": ___, "phoneNumber": ___, "userAdmin": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Update an Business")
 	@io.swagger.v3.oas.annotations.Parameters(

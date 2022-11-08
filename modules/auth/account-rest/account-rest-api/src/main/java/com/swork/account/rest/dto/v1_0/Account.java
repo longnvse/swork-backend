@@ -102,6 +102,34 @@ public class Account implements Serializable {
 	protected Date createDate;
 
 	@Schema
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	@JsonIgnore
+	public void setDateOfBirth(
+		UnsafeSupplier<Date, Exception> dateOfBirthUnsafeSupplier) {
+
+		try {
+			dateOfBirth = dateOfBirthUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Date dateOfBirth;
+
+	@Schema
 	public String getEmail() {
 		return email;
 	}
@@ -212,17 +240,17 @@ public class Account implements Serializable {
 	protected String password;
 
 	@Schema
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
 	@JsonIgnore
 	public void setPhoneNumber(
-		UnsafeSupplier<Integer, Exception> phoneNumberUnsafeSupplier) {
+		UnsafeSupplier<String, Exception> phoneNumberUnsafeSupplier) {
 
 		try {
 			phoneNumber = phoneNumberUnsafeSupplier.get();
@@ -237,7 +265,7 @@ public class Account implements Serializable {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Integer phoneNumber;
+	protected String phoneNumber;
 
 	@Schema
 	public String getUsername() {
@@ -325,6 +353,20 @@ public class Account implements Serializable {
 			sb.append("\"");
 		}
 
+		if (dateOfBirth != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"dateOfBirth\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(dateOfBirth));
+
+			sb.append("\"");
+		}
+
 		if (email != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -384,7 +426,11 @@ public class Account implements Serializable {
 
 			sb.append("\"phoneNumber\": ");
 
-			sb.append(phoneNumber);
+			sb.append("\"");
+
+			sb.append(_escape(phoneNumber));
+
+			sb.append("\"");
 		}
 
 		if (username != null) {

@@ -331,6 +331,34 @@ public class Business implements Serializable {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Status status;
 
+	@Schema
+	public String getUserAdmin() {
+		return userAdmin;
+	}
+
+	public void setUserAdmin(String userAdmin) {
+		this.userAdmin = userAdmin;
+	}
+
+	@JsonIgnore
+	public void setUserAdmin(
+		UnsafeSupplier<String, Exception> userAdminUnsafeSupplier) {
+
+		try {
+			userAdmin = userAdminUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String userAdmin;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -490,6 +518,20 @@ public class Business implements Serializable {
 			sb.append("\"");
 
 			sb.append(status);
+
+			sb.append("\"");
+		}
+
+		if (userAdmin != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"userAdmin\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(userAdmin));
 
 			sb.append("\"");
 		}

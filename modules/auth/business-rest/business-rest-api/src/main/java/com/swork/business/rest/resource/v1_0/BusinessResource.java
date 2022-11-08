@@ -45,7 +45,7 @@ public interface BusinessResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<Business> getbusinessPage(
+	public Page<Business> getBusinessPage(
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 

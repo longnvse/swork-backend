@@ -62,7 +62,7 @@ public class Query {
 			_businessResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			businessResource -> new BusinessPage(
-				businessResource.getbusinessPage(
+				businessResource.getBusinessPage(
 					search,
 					_filterBiFunction.apply(businessResource, filterString),
 					Pagination.of(page, pageSize),
@@ -72,7 +72,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {business(businessId: ___){externalReferenceCode, id, name, customerName, email, phoneNumber, businessAddress, fieldOperations, status, logoId}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {business(businessId: ___){externalReferenceCode, id, name, customerName, email, phoneNumber, businessAddress, fieldOperations, status, logoId, userAdmin}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Get an Business")
 	public Business business(@GraphQLName("businessId") Long businessId)

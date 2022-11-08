@@ -33,7 +33,8 @@
         <column name="username" type="String"/>
         <column name="password" type="String"/>
         <column name="fullName" type="String"/>
-        <column name="phoneNumber" type="Integer"/>
+        <column name="phoneNumber" type="String"/>
+        <column name="dateOfBirth" type="Date"/>
         <column name="email" type="String"/>
         <column name="address" type="String"/>
         <column name="departmentId" type="Long"/>
@@ -46,6 +47,9 @@
         </finder>
         <finder name="Email" return-type="AccountEntry">
             <finder-column name="email"/>
+        </finder>
+        <finder name="Phone" return-type="AccountEntry">
+            <finder-column name="phoneNumber"/>
         </finder>
 
     </entity>

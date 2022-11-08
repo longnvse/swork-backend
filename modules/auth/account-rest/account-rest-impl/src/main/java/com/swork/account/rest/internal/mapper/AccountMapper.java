@@ -17,6 +17,7 @@ public class AccountMapper {
         to.setPhoneNumber(from.getPhoneNumber());
         to.setAddress(from.getAddress());
         to.setPassword(from.getPassword());
+        to.setDateOfBirth(from.getDateOfBirth());
 
         return to;
     }

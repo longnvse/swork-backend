@@ -181,6 +181,7 @@ public abstract class BaseBusinessResourceTestCase {
 		business.setLogoId(regex);
 		business.setName(regex);
 		business.setPhoneNumber(regex);
+		business.setUserAdmin(regex);
 
 		String json = BusinessSerDes.toJSON(business);
 
@@ -196,20 +197,21 @@ public abstract class BaseBusinessResourceTestCase {
 		Assert.assertEquals(regex, business.getLogoId());
 		Assert.assertEquals(regex, business.getName());
 		Assert.assertEquals(regex, business.getPhoneNumber());
+		Assert.assertEquals(regex, business.getUserAdmin());
 	}
 
 	@Test
-	public void testGetbusinessPage() throws Exception {
-		Page<Business> page = businessResource.getbusinessPage(
+	public void testGetBusinessPage() throws Exception {
+		Page<Business> page = businessResource.getBusinessPage(
 			null, null, Pagination.of(1, 10), null);
 
 		long totalCount = page.getTotalCount();
 
-		Business business1 = testGetbusinessPage_addBusiness(randomBusiness());
+		Business business1 = testGetBusinessPage_addBusiness(randomBusiness());
 
-		Business business2 = testGetbusinessPage_addBusiness(randomBusiness());
+		Business business2 = testGetBusinessPage_addBusiness(randomBusiness());
 
-		page = businessResource.getbusinessPage(
+		page = businessResource.getBusinessPage(
 			null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(totalCount + 2, page.getTotalCount());
@@ -224,7 +226,7 @@ public abstract class BaseBusinessResourceTestCase {
 	}
 
 	@Test
-	public void testGetbusinessPageWithFilterDateTimeEquals() throws Exception {
+	public void testGetBusinessPageWithFilterDateTimeEquals() throws Exception {
 		List<EntityField> entityFields = getEntityFields(
 			EntityField.Type.DATE_TIME);
 
@@ -234,10 +236,10 @@ public abstract class BaseBusinessResourceTestCase {
 
 		Business business1 = randomBusiness();
 
-		business1 = testGetbusinessPage_addBusiness(business1);
+		business1 = testGetBusinessPage_addBusiness(business1);
 
 		for (EntityField entityField : entityFields) {
-			Page<Business> page = businessResource.getbusinessPage(
+			Page<Business> page = businessResource.getBusinessPage(
 				null, getFilterString(entityField, "between", business1),
 				Pagination.of(1, 2), null);
 
@@ -248,7 +250,7 @@ public abstract class BaseBusinessResourceTestCase {
 	}
 
 	@Test
-	public void testGetbusinessPageWithFilterStringEquals() throws Exception {
+	public void testGetBusinessPageWithFilterStringEquals() throws Exception {
 		List<EntityField> entityFields = getEntityFields(
 			EntityField.Type.STRING);
 
@@ -256,13 +258,13 @@ public abstract class BaseBusinessResourceTestCase {
 			return;
 		}
 
-		Business business1 = testGetbusinessPage_addBusiness(randomBusiness());
+		Business business1 = testGetBusinessPage_addBusiness(randomBusiness());
 
 		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Business business2 = testGetbusinessPage_addBusiness(randomBusiness());
+		Business business2 = testGetBusinessPage_addBusiness(randomBusiness());
 
 		for (EntityField entityField : entityFields) {
-			Page<Business> page = businessResource.getbusinessPage(
+			Page<Business> page = businessResource.getBusinessPage(
 				null, getFilterString(entityField, "eq", business1),
 				Pagination.of(1, 2), null);
 
@@ -273,19 +275,19 @@ public abstract class BaseBusinessResourceTestCase {
 	}
 
 	@Test
-	public void testGetbusinessPageWithPagination() throws Exception {
-		Page<Business> totalPage = businessResource.getbusinessPage(
+	public void testGetBusinessPageWithPagination() throws Exception {
+		Page<Business> totalPage = businessResource.getBusinessPage(
 			null, null, null, null);
 
 		int totalCount = GetterUtil.getInteger(totalPage.getTotalCount());
 
-		Business business1 = testGetbusinessPage_addBusiness(randomBusiness());
+		Business business1 = testGetBusinessPage_addBusiness(randomBusiness());
 
-		Business business2 = testGetbusinessPage_addBusiness(randomBusiness());
+		Business business2 = testGetBusinessPage_addBusiness(randomBusiness());
 
-		Business business3 = testGetbusinessPage_addBusiness(randomBusiness());
+		Business business3 = testGetBusinessPage_addBusiness(randomBusiness());
 
-		Page<Business> page1 = businessResource.getbusinessPage(
+		Page<Business> page1 = businessResource.getBusinessPage(
 			null, null, Pagination.of(1, totalCount + 2), null);
 
 		List<Business> businesses1 = (List<Business>)page1.getItems();
@@ -293,7 +295,7 @@ public abstract class BaseBusinessResourceTestCase {
 		Assert.assertEquals(
 			businesses1.toString(), totalCount + 2, businesses1.size());
 
-		Page<Business> page2 = businessResource.getbusinessPage(
+		Page<Business> page2 = businessResource.getBusinessPage(
 			null, null, Pagination.of(2, totalCount + 2), null);
 
 		Assert.assertEquals(totalCount + 3, page2.getTotalCount());
@@ -302,7 +304,7 @@ public abstract class BaseBusinessResourceTestCase {
 
 		Assert.assertEquals(businesses2.toString(), 1, businesses2.size());
 
-		Page<Business> page3 = businessResource.getbusinessPage(
+		Page<Business> page3 = businessResource.getBusinessPage(
 			null, null, Pagination.of(1, totalCount + 3), null);
 
 		assertContains(business1, (List<Business>)page3.getItems());
@@ -311,8 +313,8 @@ public abstract class BaseBusinessResourceTestCase {
 	}
 
 	@Test
-	public void testGetbusinessPageWithSortDateTime() throws Exception {
-		testGetbusinessPageWithSort(
+	public void testGetBusinessPageWithSortDateTime() throws Exception {
+		testGetBusinessPageWithSort(
 			EntityField.Type.DATE_TIME,
 			(entityField, business1, business2) -> {
 				BeanUtils.setProperty(
@@ -322,8 +324,8 @@ public abstract class BaseBusinessResourceTestCase {
 	}
 
 	@Test
-	public void testGetbusinessPageWithSortInteger() throws Exception {
-		testGetbusinessPageWithSort(
+	public void testGetBusinessPageWithSortInteger() throws Exception {
+		testGetBusinessPageWithSort(
 			EntityField.Type.INTEGER,
 			(entityField, business1, business2) -> {
 				BeanUtils.setProperty(business1, entityField.getName(), 0);
@@ -332,8 +334,8 @@ public abstract class BaseBusinessResourceTestCase {
 	}
 
 	@Test
-	public void testGetbusinessPageWithSortString() throws Exception {
-		testGetbusinessPageWithSort(
+	public void testGetBusinessPageWithSortString() throws Exception {
+		testGetBusinessPageWithSort(
 			EntityField.Type.STRING,
 			(entityField, business1, business2) -> {
 				Class<?> clazz = business1.getClass();
@@ -382,7 +384,7 @@ public abstract class BaseBusinessResourceTestCase {
 			});
 	}
 
-	protected void testGetbusinessPageWithSort(
+	protected void testGetBusinessPageWithSort(
 			EntityField.Type type,
 			UnsafeTriConsumer<EntityField, Business, Business, Exception>
 				unsafeTriConsumer)
@@ -401,12 +403,12 @@ public abstract class BaseBusinessResourceTestCase {
 			unsafeTriConsumer.accept(entityField, business1, business2);
 		}
 
-		business1 = testGetbusinessPage_addBusiness(business1);
+		business1 = testGetBusinessPage_addBusiness(business1);
 
-		business2 = testGetbusinessPage_addBusiness(business2);
+		business2 = testGetBusinessPage_addBusiness(business2);
 
 		for (EntityField entityField : entityFields) {
-			Page<Business> ascPage = businessResource.getbusinessPage(
+			Page<Business> ascPage = businessResource.getBusinessPage(
 				null, null, Pagination.of(1, 2),
 				entityField.getName() + ":asc");
 
@@ -414,7 +416,7 @@ public abstract class BaseBusinessResourceTestCase {
 				Arrays.asList(business1, business2),
 				(List<Business>)ascPage.getItems());
 
-			Page<Business> descPage = businessResource.getbusinessPage(
+			Page<Business> descPage = businessResource.getBusinessPage(
 				null, null, Pagination.of(1, 2),
 				entityField.getName() + ":desc");
 
@@ -424,7 +426,7 @@ public abstract class BaseBusinessResourceTestCase {
 		}
 	}
 
-	protected Business testGetbusinessPage_addBusiness(Business business)
+	protected Business testGetBusinessPage_addBusiness(Business business)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -756,6 +758,14 @@ public abstract class BaseBusinessResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("userAdmin", additionalAssertFieldName)) {
+				if (business.getUserAdmin() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -951,6 +961,16 @@ public abstract class BaseBusinessResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("userAdmin", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						business1.getUserAdmin(), business2.getUserAdmin())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -1122,6 +1142,14 @@ public abstract class BaseBusinessResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("userAdmin")) {
+			sb.append("'");
+			sb.append(String.valueOf(business.getUserAdmin()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		throw new IllegalArgumentException(
 			"Invalid entity field " + entityFieldName);
 	}
@@ -1181,6 +1209,8 @@ public abstract class BaseBusinessResourceTestCase {
 				logoId = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				phoneNumber = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				userAdmin = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 			}
 		};
