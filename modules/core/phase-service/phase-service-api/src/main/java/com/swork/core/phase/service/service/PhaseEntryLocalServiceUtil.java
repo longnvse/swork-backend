@@ -46,12 +46,12 @@ public class PhaseEntryLocalServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.swork.core.phase.service.service.impl.PhaseEntryLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static PhaseEntry addPhase(
-		long customerId, long creatorId,
+		long businessId, long creatorId,
 		com.swork.core.phase.service.mapper.model.PhaseMapperModel model,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().addPhase(
-			customerId, creatorId, model, serviceContext);
+			businessId, creatorId, model, serviceContext);
 	}
 
 	/**
@@ -257,9 +257,9 @@ public class PhaseEntryLocalServiceUtil {
 	}
 
 	public static List<PhaseEntry> findByProjectId(
-		long customerId, long projectId) {
+		long businessId, long projectId) {
 
-		return getService().findByProjectId(customerId, projectId);
+		return getService().findByProjectId(businessId, projectId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
@@ -269,9 +269,9 @@ public class PhaseEntryLocalServiceUtil {
 	}
 
 	public static PhaseEntry getByPhaseName(
-		long customerId, long projectId, String phaseName) {
+		long businessId, long projectId, String phaseName) {
 
-		return getService().getByPhaseName(customerId, projectId, phaseName);
+		return getService().getByPhaseName(businessId, projectId, phaseName);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
@@ -408,13 +408,12 @@ public class PhaseEntryLocalServiceUtil {
 
 	public static PhaseEntry updatePhase(
 			long creatorId, long phaseId,
-			com.swork.core.phase.service.mapper.model.PhaseMapperModel
-				phaseMapperModel,
+			com.swork.core.phase.service.mapper.model.PhaseMapperModel model,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().updatePhase(
-			creatorId, phaseId, phaseMapperModel, serviceContext);
+			creatorId, phaseId, model, serviceContext);
 	}
 
 	/**

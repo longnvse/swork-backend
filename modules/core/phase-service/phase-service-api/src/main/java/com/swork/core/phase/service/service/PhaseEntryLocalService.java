@@ -39,7 +39,6 @@ import com.swork.core.phase.service.model.PhaseEntry;
 
 import java.io.Serializable;
 
-import java.util.*;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -73,7 +72,7 @@ public interface PhaseEntryLocalService
 		rollbackFor = {PortalException.class, SystemException.class}
 	)
 	public PhaseEntry addPhase(
-		long customerId, long creatorId, PhaseMapperModel model,
+		long businessId, long creatorId, PhaseMapperModel model,
 		ServiceContext serviceContext);
 
 	/**
@@ -243,14 +242,14 @@ public interface PhaseEntryLocalService
 	public PhaseEntry fetchPhaseEntryByUuidAndGroupId(
 		String uuid, long groupId);
 
-	public List<PhaseEntry> findByProjectId(long customerId, long projectId);
+	public List<PhaseEntry> findByProjectId(long businessId, long projectId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PhaseEntry getByPhaseName(
-		long customerId, long projectId, String phaseName);
+		long businessId, long projectId, String phaseName);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
@@ -363,7 +362,7 @@ public interface PhaseEntryLocalService
 		rollbackFor = {PortalException.class, SystemException.class}
 	)
 	public PhaseEntry updatePhase(
-			long creatorId, long phaseId, PhaseMapperModel phaseMapperModel,
+			long creatorId, long phaseId, PhaseMapperModel model,
 			ServiceContext serviceContext)
 		throws PortalException;
 

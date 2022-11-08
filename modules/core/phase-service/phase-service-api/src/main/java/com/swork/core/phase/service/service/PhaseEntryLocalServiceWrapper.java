@@ -34,12 +34,12 @@ public class PhaseEntryLocalServiceWrapper
 
 	@Override
 	public com.swork.core.phase.service.model.PhaseEntry addPhase(
-		long customerId, long creatorId,
+		long businessId, long creatorId,
 		com.swork.core.phase.service.mapper.model.PhaseMapperModel model,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _phaseEntryLocalService.addPhase(
-			customerId, creatorId, model, serviceContext);
+			businessId, creatorId, model, serviceContext);
 	}
 
 	/**
@@ -285,9 +285,9 @@ public class PhaseEntryLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.swork.core.phase.service.model.PhaseEntry>
-		findByProjectId(long customerId, long projectId) {
+		findByProjectId(long businessId, long projectId) {
 
-		return _phaseEntryLocalService.findByProjectId(customerId, projectId);
+		return _phaseEntryLocalService.findByProjectId(businessId, projectId);
 	}
 
 	@Override
@@ -299,10 +299,10 @@ public class PhaseEntryLocalServiceWrapper
 
 	@Override
 	public com.swork.core.phase.service.model.PhaseEntry getByPhaseName(
-		long customerId, long projectId, String phaseName) {
+		long businessId, long projectId, String phaseName) {
 
 		return _phaseEntryLocalService.getByPhaseName(
-			customerId, projectId, phaseName);
+			businessId, projectId, phaseName);
 	}
 
 	@Override
@@ -461,13 +461,12 @@ public class PhaseEntryLocalServiceWrapper
 	@Override
 	public com.swork.core.phase.service.model.PhaseEntry updatePhase(
 			long creatorId, long phaseId,
-			com.swork.core.phase.service.mapper.model.PhaseMapperModel
-				phaseMapperModel,
+			com.swork.core.phase.service.mapper.model.PhaseMapperModel model,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _phaseEntryLocalService.updatePhase(
-			creatorId, phaseId, phaseMapperModel, serviceContext);
+			creatorId, phaseId, model, serviceContext);
 	}
 
 	/**
