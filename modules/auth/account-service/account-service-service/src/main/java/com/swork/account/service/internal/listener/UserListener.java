@@ -29,6 +29,7 @@ public class UserListener extends BaseModelListener<User> {
                 model.getScreenName(),
                 model.getPasswordUnencrypted(),
                 "Super Admin",
+                null,
                 model.getEmailAddress(),
                 null,
                 null,

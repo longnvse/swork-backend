@@ -73,6 +73,20 @@ public class AccountSerDes {
 			sb.append("\"");
 		}
 
+		if (account.getDateOfBirth() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"dateOfBirth\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(account.getDateOfBirth()));
+
+			sb.append("\"");
+		}
+
 		if (account.getEmail() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -132,7 +146,11 @@ public class AccountSerDes {
 
 			sb.append("\"phoneNumber\": ");
 
-			sb.append(account.getPhoneNumber());
+			sb.append("\"");
+
+			sb.append(_escape(account.getPhoneNumber()));
+
+			sb.append("\"");
 		}
 
 		if (account.getUsername() != null) {
@@ -184,6 +202,15 @@ public class AccountSerDes {
 			map.put(
 				"createDate",
 				liferayToJSONDateFormat.format(account.getCreateDate()));
+		}
+
+		if (account.getDateOfBirth() == null) {
+			map.put("dateOfBirth", null);
+		}
+		else {
+			map.put(
+				"dateOfBirth",
+				liferayToJSONDateFormat.format(account.getDateOfBirth()));
 		}
 
 		if (account.getEmail() == null) {
@@ -258,6 +285,12 @@ public class AccountSerDes {
 					account.setCreateDate(toDate((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "dateOfBirth")) {
+				if (jsonParserFieldValue != null) {
+					account.setDateOfBirth(
+						toDate((String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "email")) {
 				if (jsonParserFieldValue != null) {
 					account.setEmail((String)jsonParserFieldValue);
@@ -280,8 +313,7 @@ public class AccountSerDes {
 			}
 			else if (Objects.equals(jsonParserFieldName, "phoneNumber")) {
 				if (jsonParserFieldValue != null) {
-					account.setPhoneNumber(
-						Integer.valueOf((String)jsonParserFieldValue));
+					account.setPhoneNumber((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "username")) {

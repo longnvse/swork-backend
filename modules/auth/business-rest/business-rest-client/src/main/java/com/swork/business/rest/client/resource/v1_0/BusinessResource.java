@@ -26,12 +26,12 @@ public interface BusinessResource {
 		return new Builder();
 	}
 
-	public Page<Business> getbusinessPage(
+	public Page<Business> getBusinessPage(
 			String search, String filterString, Pagination pagination,
 			String sortString)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse getbusinessPageHttpResponse(
+	public HttpInvoker.HttpResponse getBusinessPageHttpResponse(
 			String search, String filterString, Pagination pagination,
 			String sortString)
 		throws Exception;
@@ -157,12 +157,12 @@ public interface BusinessResource {
 
 	public static class BusinessResourceImpl implements BusinessResource {
 
-		public Page<Business> getbusinessPage(
+		public Page<Business> getBusinessPage(
 				String search, String filterString, Pagination pagination,
 				String sortString)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse = getbusinessPageHttpResponse(
+			HttpInvoker.HttpResponse httpResponse = getBusinessPageHttpResponse(
 				search, filterString, pagination, sortString);
 
 			String content = httpResponse.getContent();
@@ -202,7 +202,7 @@ public interface BusinessResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getbusinessPageHttpResponse(
+		public HttpInvoker.HttpResponse getBusinessPageHttpResponse(
 				String search, String filterString, Pagination pagination,
 				String sortString)
 			throws Exception {

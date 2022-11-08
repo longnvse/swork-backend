@@ -234,6 +234,27 @@ public class Business implements Cloneable, Serializable {
 
 	protected Status status;
 
+	public String getUserAdmin() {
+		return userAdmin;
+	}
+
+	public void setUserAdmin(String userAdmin) {
+		this.userAdmin = userAdmin;
+	}
+
+	public void setUserAdmin(
+		UnsafeSupplier<String, Exception> userAdminUnsafeSupplier) {
+
+		try {
+			userAdmin = userAdminUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String userAdmin;
+
 	@Override
 	public Business clone() throws CloneNotSupportedException {
 		return (Business)super.clone();

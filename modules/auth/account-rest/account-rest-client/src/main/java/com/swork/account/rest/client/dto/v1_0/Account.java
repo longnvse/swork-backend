@@ -63,6 +63,27 @@ public class Account implements Cloneable, Serializable {
 
 	protected Date createDate;
 
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public void setDateOfBirth(
+		UnsafeSupplier<Date, Exception> dateOfBirthUnsafeSupplier) {
+
+		try {
+			dateOfBirth = dateOfBirthUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date dateOfBirth;
+
 	public String getEmail() {
 		return email;
 	}
@@ -145,16 +166,16 @@ public class Account implements Cloneable, Serializable {
 
 	protected String password;
 
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
 	public void setPhoneNumber(
-		UnsafeSupplier<Integer, Exception> phoneNumberUnsafeSupplier) {
+		UnsafeSupplier<String, Exception> phoneNumberUnsafeSupplier) {
 
 		try {
 			phoneNumber = phoneNumberUnsafeSupplier.get();
@@ -164,7 +185,7 @@ public class Account implements Cloneable, Serializable {
 		}
 	}
 
-	protected Integer phoneNumber;
+	protected String phoneNumber;
 
 	public String getUsername() {
 		return username;

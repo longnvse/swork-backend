@@ -41,8 +41,9 @@ public class AccountEntryLocalServiceImpl
                                         String username,
                                         String password,
                                         String fullName,
+                                        Date dateOfBirth,
                                         String email,
-                                        Integer phoneNumber,
+                                        String phoneNumber,
                                         String address,
                                         ServiceContext serviceContext) {
         AccountEntry entry =
@@ -58,6 +59,7 @@ public class AccountEntryLocalServiceImpl
         entry.setUsername(username);
         entry.setPassword(password);
         entry.setFullName(fullName);
+        entry.setDateOfBirth(dateOfBirth);
         entry.setEmail(email);
         entry.setPhoneNumber(phoneNumber);
         entry.setAddress(address);
@@ -71,8 +73,9 @@ public class AccountEntryLocalServiceImpl
     public AccountEntry updateAccountEntry(long creatorId,
                                            long accountId,
                                            String fullName,
+                                           Date dateOfBirth,
                                            String email,
-                                           Integer phoneNumber,
+                                           String phoneNumber,
                                            String address,
                                            ServiceContext serviceContext) {
         AccountEntry entry = fetchAccountEntry(accountId);
@@ -87,6 +90,7 @@ public class AccountEntryLocalServiceImpl
         entry.setEmail(email);
         entry.setPhoneNumber(phoneNumber);
         entry.setAddress(address);
+        entry.setDateOfBirth(dateOfBirth);
 
         return updateAccountEntry(entry);
     }
@@ -99,6 +103,14 @@ public class AccountEntryLocalServiceImpl
         }
 
         return accountEntryPersistence.fetchByEmail(username);
+    }
+
+    public AccountEntry findByEmail(String email) {
+        return accountEntryPersistence.fetchByEmail(email);
+    }
+
+    public AccountEntry findByPhone(String phoneNumber) {
+        return accountEntryPersistence.fetchByPhone(phoneNumber);
     }
 
 

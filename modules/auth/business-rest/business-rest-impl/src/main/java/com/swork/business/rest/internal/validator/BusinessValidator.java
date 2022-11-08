@@ -1,11 +1,15 @@
 package com.swork.business.rest.internal.validator;
 
 import com.liferay.portal.kernel.util.Validator;
-import com.swork.account.service.service.AccountEntryLocalService;
 import com.swork.business.rest.dto.v1_0.Business;
+import com.swork.business.rest.internal.service.LanguageService;
+import com.swork.business.rest.internal.util.LanguageKeys;
 import com.swork.business.service.model.BusinessEntry;
 import com.swork.business.service.service.BusinessEntryLocalService;
-import com.swork.common.exception.model.*;
+import com.swork.common.exception.model.SW_DataInputException;
+import com.swork.common.exception.model.SW_FieldDuplicateException;
+import com.swork.common.exception.model.SW_FieldRequiredException;
+import com.swork.common.exception.model.SW_NoSuchEntryException;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -22,10 +26,10 @@ public class BusinessValidator {
     public static final String VALID_PHONE_NUMBER_REGEX = "^\\(?([0-9]{3})\\)?([ .-]?)([0-9]{3})\\2([0-9]{4})$";
 
 
-    public void validatorForPostBusiness(Business business) throws SW_DataInputException, SW_FieldRequiredException, SW_FieldDuplicateException, SW_NameDuplicateException {
+    public void validatorForPostBusiness(Business business) throws SW_DataInputException,
+            SW_FieldRequiredException, SW_FieldDuplicateException {
         validatorFieldsForUpdateBusiness(business);
 
-        validatorNameIsExist(business.getName());
         validatorEmailIsExist(business.getEmail());
         validatorPhoneNumberIsExist(business.getPhoneNumber());
     }
@@ -36,16 +40,12 @@ public class BusinessValidator {
             SW_DataInputException,
             SW_FieldDuplicateException,
             SW_FieldRequiredException,
-            SW_NoSuchEntryException,
-            SW_NameDuplicateException {
+            SW_NoSuchEntryException {
 
         validatorBusinessIsExists(businessId);
 
         validatorFieldsForUpdateBusiness(business);
 
-        validatorNameIsExist(
-                businessId,
-                business.getName());
         validatorEmailIsExist(
                 businessId,
                 business.getEmail());
@@ -62,23 +62,23 @@ public class BusinessValidator {
 
         validatorRegexField(business.getEmail(),
                 VALID_EMAIL_ADDRESS_REGEX,
-                "Email không đúng định dạng");
+                languageService.getMessage(LanguageKeys.EMAIL_INVALID));
         validatorRegexField(business.getPhoneNumber(),
                 VALID_PHONE_NUMBER_REGEX,
-                "Số điện thoại không đúng định dạng");
+                languageService.getMessage(LanguageKeys.PHONE_INVALID));
     }
 
     private void validateRequireField(Business business) throws SW_FieldRequiredException {
         isNotPopulated(
-                business.getName(), "Vui lòng nhập tên đơn vị");
+                business.getName(), languageService.getMessage(LanguageKeys.NAME_REQUIRED));
         isNotPopulated(
-                business.getPhoneNumber(), "Vui lòng nhập số điện thoại");
+                business.getPhoneNumber(), languageService.getMessage(LanguageKeys.PHONE_REQUIRED));
         isNotPopulated(
-                business.getBusinessAddress(), "Vui lòng nhập địa chỉ đơn vị");
+                business.getBusinessAddress(), languageService.getMessage(LanguageKeys.ADDRESS_REQUIRED));
         isNotPopulated(
-                business.getFieldOperations(), "Vui lòng nhập lĩnh vực hoạt động");
+                business.getFieldOperations(), languageService.getMessage(LanguageKeys.FIELD_OPERATIONS_REQUIRED));
         isNotPopulated(
-                business.getEmail(), "Vui lòng nhập email");
+                business.getEmail(), languageService.getMessage(LanguageKeys.EMAIL_REQUIRED));
     }
 
     public void validatorBusinessIsExists(long businessId) throws SW_NoSuchEntryException {
@@ -87,16 +87,7 @@ public class BusinessValidator {
 
         if (customerEntry != null) return;
 
-        throw new SW_NoSuchEntryException("Business Not found");
-    }
-
-    private void validatorNameIsExist(long businessId,
-                                      String value) throws SW_NameDuplicateException {
-        BusinessEntry entry = localService.fetchBusinessEntry(businessId);
-
-        if (entry.getName().equals(value)) return;
-
-        validatorNameIsExist(value);
+        throw new SW_NoSuchEntryException(languageService.getMessage(LanguageKeys.BUSINESS_NOT_FOUND));
     }
 
     private void validatorEmailIsExist(long customerId,
@@ -116,25 +107,18 @@ public class BusinessValidator {
         validatorPhoneNumberIsExist(value);
     }
 
-    private void validatorNameIsExist(String value) throws SW_NameDuplicateException {
-        BusinessEntry customerEntry = localService.findByName(value);
-
-        if (Validator.isNull(customerEntry)) return;
-        throw new SW_NameDuplicateException("Tên đã được sử dụng");
-    }
-
     private void validatorEmailIsExist(String value) throws SW_FieldDuplicateException {
         BusinessEntry customerEntry = localService.findByEmail(value);
 
         if (Validator.isNull(customerEntry)) return;
-        throw new SW_FieldDuplicateException("Email đã được đăng ký cho đơn vị khác!");
+        throw new SW_FieldDuplicateException(languageService.getMessage(LanguageKeys.EMAIL_WAS_USED));
     }
 
     private void validatorPhoneNumberIsExist(String value) throws SW_FieldDuplicateException {
         BusinessEntry customerEntry = localService.findByPhoneNumber(value);
 
         if (Validator.isNull(customerEntry)) return;
-        throw new SW_FieldDuplicateException("Số điện thoại đã được đăng ký cho đơn vị khác!");
+        throw new SW_FieldDuplicateException(languageService.getMessage(LanguageKeys.PHONE_WAS_USED));
     }
 
     private void validatorRegexField(String value,
@@ -158,8 +142,7 @@ public class BusinessValidator {
     }
 
     @Reference
-    BusinessEntryLocalService localService;
-
+    LanguageService languageService;
     @Reference
-    AccountEntryLocalService accountEntryLocalService;
+    BusinessEntryLocalService localService;
 }

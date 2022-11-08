@@ -1,5 +1,6 @@
 dependencies {
 	compile project(":modules:auth:account-service:account-service-api")
+	compileOnly group: 'javax.mail', name: 'mail', version: '1.4'
 
 	compileOnly group: "com.liferay.portal", name: "release.portal.api", version: "7.4.3.13-ga13"
 }

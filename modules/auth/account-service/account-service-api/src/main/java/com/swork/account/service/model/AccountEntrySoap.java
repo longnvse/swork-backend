@@ -45,6 +45,7 @@ public class AccountEntrySoap implements Serializable {
 		soapModel.setPassword(model.getPassword());
 		soapModel.setFullName(model.getFullName());
 		soapModel.setPhoneNumber(model.getPhoneNumber());
+		soapModel.setDateOfBirth(model.getDateOfBirth());
 		soapModel.setEmail(model.getEmail());
 		soapModel.setAddress(model.getAddress());
 		soapModel.setDepartmentId(model.getDepartmentId());
@@ -190,12 +191,20 @@ public class AccountEntrySoap implements Serializable {
 		_fullName = fullName;
 	}
 
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return _phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		_phoneNumber = phoneNumber;
+	}
+
+	public Date getDateOfBirth() {
+		return _dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		_dateOfBirth = dateOfBirth;
 	}
 
 	public String getEmail() {
@@ -241,7 +250,8 @@ public class AccountEntrySoap implements Serializable {
 	private String _username;
 	private String _password;
 	private String _fullName;
-	private Integer _phoneNumber;
+	private String _phoneNumber;
+	private Date _dateOfBirth;
 	private String _email;
 	private String _address;
 	private Long _departmentId;

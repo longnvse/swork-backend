@@ -1,15 +1,18 @@
 package com.swork.business.rest.internal.service;
 
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.PwdGenerator;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.util.SearchUtil;
+import com.swork.account.service.service.AccountEntryLocalService;
 import com.swork.business.rest.dto.v1_0.Business;
 import com.swork.business.rest.internal.mapper.BusinessMapper;
 import com.swork.business.service.mapper.model.BusinessMapperModel;
@@ -24,14 +27,28 @@ import java.util.Collections;
 public class BusinessService {
 
     public Business postBusiness(long creatorId,
-                                 Business customer,
+                                 Business business,
                                  ServiceContext serviceContext) {
 
-        BusinessMapperModel customerMapperModel = mapper.mapMapperModelFromDTO(customer);
+        BusinessMapperModel customerMapperModel = mapper.mapMapperModelFromDTO(business);
 
-        BusinessEntry customerEntry = localService.addBusinessEntry(creatorId, customerMapperModel, serviceContext);
+        BusinessEntry businessEntry = localService.addBusinessEntry(creatorId, customerMapperModel, serviceContext);
 
-        return mapper.mapDTOFromEntry(customerEntry);
+        accountEntryLocalService.addAccountEntry(
+                creatorId,
+                businessEntry.getBusinessId(),
+                StringPool.BLANK,
+                PwdGenerator.getPassword(12),
+                "Admin",
+                null,
+                businessEntry.getEmail(),
+                businessEntry.getPhoneNumber(),
+                businessEntry.getBusinessAddress(),
+                serviceContext
+        );
+
+
+        return mapper.mapDTOFromEntry(businessEntry);
     }
 
     public Business putBusiness(
@@ -42,21 +59,21 @@ public class BusinessService {
 
         BusinessMapperModel customerMapperModel = mapper.mapMapperModelFromDTO(business);
 
-        BusinessEntry customerEntry = localService.
+        BusinessEntry businessEntry = localService.
                 updateBusinessEntry(
                         modifiedId,
                         businessId,
                         customerMapperModel,
                         serviceContext);
 
-        return mapper.mapDTOFromEntry(customerEntry);
+        return mapper.mapDTOFromEntry(businessEntry);
     }
 
     public Business getBusiness(long businessId) throws PortalException {
 
-        BusinessEntry customerEntry = localService.getBusinessEntry(businessId);
+        BusinessEntry businessEntry = localService.getBusinessEntry(businessId);
 
-        return mapper.mapDTOFromEntry(customerEntry);
+        return mapper.mapDTOFromEntry(businessEntry);
     }
 
     public void deleteBusiness(long businessId) throws PortalException {
@@ -110,4 +127,7 @@ public class BusinessService {
 
     @Reference
     private BusinessMapper mapper;
+
+    @Reference
+    private AccountEntryLocalService accountEntryLocalService;
 }

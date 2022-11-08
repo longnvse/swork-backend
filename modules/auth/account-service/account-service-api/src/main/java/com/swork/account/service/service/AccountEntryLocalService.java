@@ -38,6 +38,7 @@ import com.swork.account.service.model.AccountEntry;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -82,8 +83,8 @@ public interface AccountEntryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public AccountEntry addAccountEntry(
 		long creatorId, long businessId, String username, String password,
-		String fullName, String email, Integer phoneNumber, String address,
-		ServiceContext serviceContext);
+		String fullName, Date dateOfBirth, String email, String phoneNumber,
+		String address, ServiceContext serviceContext);
 
 	/**
 	 * Creates a new account entry with the primary key. Does not add the account entry to the database.
@@ -240,6 +241,10 @@ public interface AccountEntryLocalService
 	public AccountEntry fetchAccountEntryByUuidAndGroupId(
 		String uuid, long groupId);
 
+	public AccountEntry findByEmail(String email);
+
+	public AccountEntry findByPhone(String phoneNumber);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public AccountEntry getAccount(String username);
 
@@ -367,7 +372,8 @@ public interface AccountEntryLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public AccountEntry updateAccountEntry(
-		long creatorId, long accountId, String fullName, String email,
-		Integer phoneNumber, String address, ServiceContext serviceContext);
+		long creatorId, long accountId, String fullName, Date dateOfBirth,
+		String email, String phoneNumber, String address,
+		ServiceContext serviceContext);
 
 }

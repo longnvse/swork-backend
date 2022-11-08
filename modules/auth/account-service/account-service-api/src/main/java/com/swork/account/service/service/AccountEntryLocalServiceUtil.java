@@ -62,12 +62,13 @@ public class AccountEntryLocalServiceUtil {
 
 	public static AccountEntry addAccountEntry(
 		long creatorId, long businessId, String username, String password,
-		String fullName, String email, Integer phoneNumber, String address,
+		String fullName, java.util.Date dateOfBirth, String email,
+		String phoneNumber, String address,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().addAccountEntry(
-			creatorId, businessId, username, password, fullName, email,
-			phoneNumber, address, serviceContext);
+			creatorId, businessId, username, password, fullName, dateOfBirth,
+			email, phoneNumber, address, serviceContext);
 	}
 
 	/**
@@ -258,6 +259,14 @@ public class AccountEntryLocalServiceUtil {
 		return getService().fetchAccountEntryByUuidAndGroupId(uuid, groupId);
 	}
 
+	public static AccountEntry findByEmail(String email) {
+		return getService().findByEmail(email);
+	}
+
+	public static AccountEntry findByPhone(String phoneNumber) {
+		return getService().findByPhone(phoneNumber);
+	}
+
 	public static AccountEntry getAccount(String username) {
 		return getService().getAccount(username);
 	}
@@ -416,13 +425,14 @@ public class AccountEntryLocalServiceUtil {
 	}
 
 	public static AccountEntry updateAccountEntry(
-		long creatorId, long accountId, String fullName, String email,
-		Integer phoneNumber, String address,
+		long creatorId, long accountId, String fullName,
+		java.util.Date dateOfBirth, String email, String phoneNumber,
+		String address,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().updateAccountEntry(
-			creatorId, accountId, fullName, email, phoneNumber, address,
-			serviceContext);
+			creatorId, accountId, fullName, dateOfBirth, email, phoneNumber,
+			address, serviceContext);
 	}
 
 	public static AccountEntryLocalService getService() {

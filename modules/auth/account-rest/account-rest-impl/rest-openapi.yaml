@@ -15,10 +15,13 @@ components:
           type: string
         fullName:
           type: string
+        dateOfBirth:
+          type: string
+          format: date
         email:
           type: string
         phoneNumber:
-          type: integer
+          type: string
         address:
           type: string
         password:

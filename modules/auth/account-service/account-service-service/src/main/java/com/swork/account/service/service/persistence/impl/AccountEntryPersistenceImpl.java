@@ -1940,6 +1940,247 @@ public class AccountEntryPersistenceImpl
 	private static final String _FINDER_COLUMN_EMAIL_EMAIL_3 =
 		"(accountEntry.email IS NULL OR accountEntry.email = '')";
 
+	private FinderPath _finderPathFetchByPhone;
+	private FinderPath _finderPathCountByPhone;
+
+	/**
+	 * Returns the account entry where phoneNumber = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the matching account entry
+	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
+	 */
+	@Override
+	public AccountEntry findByPhone(String phoneNumber)
+		throws NoSuchAccountEntryException {
+
+		AccountEntry accountEntry = fetchByPhone(phoneNumber);
+
+		if (accountEntry == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("phoneNumber=");
+			sb.append(phoneNumber);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchAccountEntryException(sb.toString());
+		}
+
+		return accountEntry;
+	}
+
+	/**
+	 * Returns the account entry where phoneNumber = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	@Override
+	public AccountEntry fetchByPhone(String phoneNumber) {
+		return fetchByPhone(phoneNumber, true);
+	}
+
+	/**
+	 * Returns the account entry where phoneNumber = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param phoneNumber the phone number
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	@Override
+	public AccountEntry fetchByPhone(
+		String phoneNumber, boolean useFinderCache) {
+
+		phoneNumber = Objects.toString(phoneNumber, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {phoneNumber};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(_finderPathFetchByPhone, finderArgs);
+		}
+
+		if (result instanceof AccountEntry) {
+			AccountEntry accountEntry = (AccountEntry)result;
+
+			if (!Objects.equals(phoneNumber, accountEntry.getPhoneNumber())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_ACCOUNTENTRY_WHERE);
+
+			boolean bindPhoneNumber = false;
+
+			if (phoneNumber.isEmpty()) {
+				sb.append(_FINDER_COLUMN_PHONE_PHONENUMBER_3);
+			}
+			else {
+				bindPhoneNumber = true;
+
+				sb.append(_FINDER_COLUMN_PHONE_PHONENUMBER_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindPhoneNumber) {
+					queryPos.add(phoneNumber);
+				}
+
+				List<AccountEntry> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByPhone, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {phoneNumber};
+							}
+
+							_log.warn(
+								"AccountEntryPersistenceImpl.fetchByPhone(String, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					AccountEntry accountEntry = list.get(0);
+
+					result = accountEntry;
+
+					cacheResult(accountEntry);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (AccountEntry)result;
+		}
+	}
+
+	/**
+	 * Removes the account entry where phoneNumber = &#63; from the database.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the account entry that was removed
+	 */
+	@Override
+	public AccountEntry removeByPhone(String phoneNumber)
+		throws NoSuchAccountEntryException {
+
+		AccountEntry accountEntry = findByPhone(phoneNumber);
+
+		return remove(accountEntry);
+	}
+
+	/**
+	 * Returns the number of account entries where phoneNumber = &#63;.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the number of matching account entries
+	 */
+	@Override
+	public int countByPhone(String phoneNumber) {
+		phoneNumber = Objects.toString(phoneNumber, "");
+
+		FinderPath finderPath = _finderPathCountByPhone;
+
+		Object[] finderArgs = new Object[] {phoneNumber};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_ACCOUNTENTRY_WHERE);
+
+			boolean bindPhoneNumber = false;
+
+			if (phoneNumber.isEmpty()) {
+				sb.append(_FINDER_COLUMN_PHONE_PHONENUMBER_3);
+			}
+			else {
+				bindPhoneNumber = true;
+
+				sb.append(_FINDER_COLUMN_PHONE_PHONENUMBER_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindPhoneNumber) {
+					queryPos.add(phoneNumber);
+				}
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_PHONE_PHONENUMBER_2 =
+		"accountEntry.phoneNumber = ?";
+
+	private static final String _FINDER_COLUMN_PHONE_PHONENUMBER_3 =
+		"(accountEntry.phoneNumber IS NULL OR accountEntry.phoneNumber = '')";
+
 	private FinderPath _finderPathFetchByC_ERC;
 	private FinderPath _finderPathCountByC_ERC;
 
@@ -2252,6 +2493,10 @@ public class AccountEntryPersistenceImpl
 			accountEntry);
 
 		finderCache.putResult(
+			_finderPathFetchByPhone,
+			new Object[] {accountEntry.getPhoneNumber()}, accountEntry);
+
+		finderCache.putResult(
 			_finderPathFetchByC_ERC,
 			new Object[] {
 				accountEntry.getCompanyId(),
@@ -2351,6 +2596,12 @@ public class AccountEntryPersistenceImpl
 		finderCache.putResult(_finderPathCountByEmail, args, Long.valueOf(1));
 		finderCache.putResult(
 			_finderPathFetchByEmail, args, accountEntryModelImpl);
+
+		args = new Object[] {accountEntryModelImpl.getPhoneNumber()};
+
+		finderCache.putResult(_finderPathCountByPhone, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByPhone, args, accountEntryModelImpl);
 
 		args = new Object[] {
 			accountEntryModelImpl.getCompanyId(),
@@ -2895,6 +3146,16 @@ public class AccountEntryPersistenceImpl
 		_finderPathCountByEmail = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByEmail",
 			new String[] {String.class.getName()}, new String[] {"email"},
+			false);
+
+		_finderPathFetchByPhone = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByPhone",
+			new String[] {String.class.getName()}, new String[] {"phoneNumber"},
+			true);
+
+		_finderPathCountByPhone = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByPhone",
+			new String[] {String.class.getName()}, new String[] {"phoneNumber"},
 			false);
 
 		_finderPathFetchByC_ERC = new FinderPath(

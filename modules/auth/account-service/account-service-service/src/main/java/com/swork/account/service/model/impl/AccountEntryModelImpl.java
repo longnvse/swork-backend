@@ -75,9 +75,10 @@ public class AccountEntryModelImpl
 		{"companyId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"creatorId", Types.BIGINT},
 		{"username", Types.VARCHAR}, {"password_", Types.VARCHAR},
-		{"fullName", Types.VARCHAR}, {"phoneNumber", Types.INTEGER},
-		{"email", Types.VARCHAR}, {"address", Types.VARCHAR},
-		{"departmentId", Types.BIGINT}, {"businessId", Types.BIGINT}
+		{"fullName", Types.VARCHAR}, {"phoneNumber", Types.VARCHAR},
+		{"dateOfBirth", Types.TIMESTAMP}, {"email", Types.VARCHAR},
+		{"address", Types.VARCHAR}, {"departmentId", Types.BIGINT},
+		{"businessId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -95,7 +96,8 @@ public class AccountEntryModelImpl
 		TABLE_COLUMNS_MAP.put("username", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("password_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("fullName", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("phoneNumber", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("phoneNumber", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("dateOfBirth", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("email", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("address", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("departmentId", Types.BIGINT);
@@ -103,7 +105,7 @@ public class AccountEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_AccountEntry (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,accountId LONG not null primary key,groupId LONG,companyId LONG,createDate DATE null,modifiedDate DATE null,creatorId LONG,username VARCHAR(75) null,password_ VARCHAR(75) null,fullName VARCHAR(75) null,phoneNumber INTEGER,email VARCHAR(75) null,address VARCHAR(75) null,departmentId LONG,businessId LONG)";
+		"create table SW_AccountEntry (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,accountId LONG not null primary key,groupId LONG,companyId LONG,createDate DATE null,modifiedDate DATE null,creatorId LONG,username VARCHAR(75) null,password_ VARCHAR(75) null,fullName VARCHAR(75) null,phoneNumber VARCHAR(75) null,dateOfBirth DATE null,email VARCHAR(75) null,address VARCHAR(75) null,departmentId LONG,businessId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_AccountEntry";
 
@@ -147,20 +149,26 @@ public class AccountEntryModelImpl
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long USERNAME_COLUMN_BITMASK = 16L;
+	public static final long PHONENUMBER_COLUMN_BITMASK = 16L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long UUID_COLUMN_BITMASK = 32L;
+	public static final long USERNAME_COLUMN_BITMASK = 32L;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
+	public static final long UUID_COLUMN_BITMASK = 64L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *		#getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long ACCOUNTID_COLUMN_BITMASK = 64L;
+	public static final long ACCOUNTID_COLUMN_BITMASK = 128L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -350,7 +358,12 @@ public class AccountEntryModelImpl
 			"phoneNumber", AccountEntry::getPhoneNumber);
 		attributeSetterBiConsumers.put(
 			"phoneNumber",
-			(BiConsumer<AccountEntry, Integer>)AccountEntry::setPhoneNumber);
+			(BiConsumer<AccountEntry, String>)AccountEntry::setPhoneNumber);
+		attributeGetterFunctions.put(
+			"dateOfBirth", AccountEntry::getDateOfBirth);
+		attributeSetterBiConsumers.put(
+			"dateOfBirth",
+			(BiConsumer<AccountEntry, Date>)AccountEntry::setDateOfBirth);
 		attributeGetterFunctions.put("email", AccountEntry::getEmail);
 		attributeSetterBiConsumers.put(
 			"email", (BiConsumer<AccountEntry, String>)AccountEntry::setEmail);
@@ -606,17 +619,45 @@ public class AccountEntryModelImpl
 	}
 
 	@Override
-	public Integer getPhoneNumber() {
-		return _phoneNumber;
+	public String getPhoneNumber() {
+		if (_phoneNumber == null) {
+			return "";
+		}
+		else {
+			return _phoneNumber;
+		}
 	}
 
 	@Override
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
 		_phoneNumber = phoneNumber;
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public String getOriginalPhoneNumber() {
+		return getColumnOriginalValue("phoneNumber");
+	}
+
+	@Override
+	public Date getDateOfBirth() {
+		return _dateOfBirth;
+	}
+
+	@Override
+	public void setDateOfBirth(Date dateOfBirth) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_dateOfBirth = dateOfBirth;
 	}
 
 	@Override
@@ -768,6 +809,7 @@ public class AccountEntryModelImpl
 		accountEntryImpl.setPassword(getPassword());
 		accountEntryImpl.setFullName(getFullName());
 		accountEntryImpl.setPhoneNumber(getPhoneNumber());
+		accountEntryImpl.setDateOfBirth(getDateOfBirth());
 		accountEntryImpl.setEmail(getEmail());
 		accountEntryImpl.setAddress(getAddress());
 		accountEntryImpl.setDepartmentId(getDepartmentId());
@@ -804,7 +846,9 @@ public class AccountEntryModelImpl
 		accountEntryImpl.setFullName(
 			this.<String>getColumnOriginalValue("fullName"));
 		accountEntryImpl.setPhoneNumber(
-			this.<Integer>getColumnOriginalValue("phoneNumber"));
+			this.<String>getColumnOriginalValue("phoneNumber"));
+		accountEntryImpl.setDateOfBirth(
+			this.<Date>getColumnOriginalValue("dateOfBirth"));
 		accountEntryImpl.setEmail(this.<String>getColumnOriginalValue("email"));
 		accountEntryImpl.setAddress(
 			this.<String>getColumnOriginalValue("address"));
@@ -960,10 +1004,21 @@ public class AccountEntryModelImpl
 			accountEntryCacheModel.fullName = null;
 		}
 
-		Integer phoneNumber = getPhoneNumber();
+		accountEntryCacheModel.phoneNumber = getPhoneNumber();
 
-		if (phoneNumber != null) {
-			accountEntryCacheModel.phoneNumber = phoneNumber;
+		String phoneNumber = accountEntryCacheModel.phoneNumber;
+
+		if ((phoneNumber != null) && (phoneNumber.length() == 0)) {
+			accountEntryCacheModel.phoneNumber = null;
+		}
+
+		Date dateOfBirth = getDateOfBirth();
+
+		if (dateOfBirth != null) {
+			accountEntryCacheModel.dateOfBirth = dateOfBirth.getTime();
+		}
+		else {
+			accountEntryCacheModel.dateOfBirth = Long.MIN_VALUE;
 		}
 
 		accountEntryCacheModel.email = getEmail();
@@ -1096,7 +1151,8 @@ public class AccountEntryModelImpl
 	private String _username;
 	private String _password;
 	private String _fullName;
-	private Integer _phoneNumber;
+	private String _phoneNumber;
+	private Date _dateOfBirth;
 	private String _email;
 	private String _address;
 	private Long _departmentId;
@@ -1144,6 +1200,7 @@ public class AccountEntryModelImpl
 		_columnOriginalValues.put("password_", _password);
 		_columnOriginalValues.put("fullName", _fullName);
 		_columnOriginalValues.put("phoneNumber", _phoneNumber);
+		_columnOriginalValues.put("dateOfBirth", _dateOfBirth);
 		_columnOriginalValues.put("email", _email);
 		_columnOriginalValues.put("address", _address);
 		_columnOriginalValues.put("departmentId", _departmentId);
@@ -1196,13 +1253,15 @@ public class AccountEntryModelImpl
 
 		columnBitmasks.put("phoneNumber", 2048L);
 
-		columnBitmasks.put("email", 4096L);
+		columnBitmasks.put("dateOfBirth", 4096L);
 
-		columnBitmasks.put("address", 8192L);
+		columnBitmasks.put("email", 8192L);
 
-		columnBitmasks.put("departmentId", 16384L);
+		columnBitmasks.put("address", 16384L);
 
-		columnBitmasks.put("businessId", 32768L);
+		columnBitmasks.put("departmentId", 32768L);
+
+		columnBitmasks.put("businessId", 65536L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

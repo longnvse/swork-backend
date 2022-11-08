@@ -177,6 +177,7 @@ public abstract class BaseAccountResourceTestCase {
 		account.setEmail(regex);
 		account.setFullName(regex);
 		account.setPassword(regex);
+		account.setPhoneNumber(regex);
 		account.setUsername(regex);
 
 		String json = AccountSerDes.toJSON(account);
@@ -189,6 +190,7 @@ public abstract class BaseAccountResourceTestCase {
 		Assert.assertEquals(regex, account.getEmail());
 		Assert.assertEquals(regex, account.getFullName());
 		Assert.assertEquals(regex, account.getPassword());
+		Assert.assertEquals(regex, account.getPhoneNumber());
 		Assert.assertEquals(regex, account.getUsername());
 	}
 
@@ -707,6 +709,14 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("dateOfBirth", additionalAssertFieldName)) {
+				if (account.getDateOfBirth() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("email", additionalAssertFieldName)) {
 				if (account.getEmail() == null) {
 					valid = false;
@@ -850,6 +860,16 @@ public abstract class BaseAccountResourceTestCase {
 			if (Objects.equals("createDate", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getCreateDate(), account2.getCreateDate())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("dateOfBirth", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getDateOfBirth(), account2.getDateOfBirth())) {
 
 					return false;
 				}
@@ -1051,6 +1071,37 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("dateOfBirth")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(account.getDateOfBirth(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(account.getDateOfBirth(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(_dateFormat.format(account.getDateOfBirth()));
+			}
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("email")) {
 			sb.append("'");
 			sb.append(String.valueOf(account.getEmail()));
@@ -1081,8 +1132,11 @@ public abstract class BaseAccountResourceTestCase {
 		}
 
 		if (entityFieldName.equals("phoneNumber")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
+			sb.append("'");
+			sb.append(String.valueOf(account.getPhoneNumber()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("username")) {
@@ -1139,6 +1193,7 @@ public abstract class BaseAccountResourceTestCase {
 			{
 				address = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				createDate = RandomTestUtil.nextDate();
+				dateOfBirth = RandomTestUtil.nextDate();
 				email =
 					StringUtil.toLowerCase(RandomTestUtil.randomString()) +
 						"@liferay.com";
@@ -1147,7 +1202,8 @@ public abstract class BaseAccountResourceTestCase {
 				id = RandomTestUtil.randomLong();
 				password = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
-				phoneNumber = RandomTestUtil.randomInt();
+				phoneNumber = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				username = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 			}

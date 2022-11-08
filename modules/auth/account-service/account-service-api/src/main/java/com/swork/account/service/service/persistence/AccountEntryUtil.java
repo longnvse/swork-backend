@@ -648,6 +648,64 @@ public class AccountEntryUtil {
 	}
 
 	/**
+	 * Returns the account entry where phoneNumber = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the matching account entry
+	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
+	 */
+	public static AccountEntry findByPhone(String phoneNumber)
+		throws com.swork.account.service.exception.NoSuchAccountEntryException {
+
+		return getPersistence().findByPhone(phoneNumber);
+	}
+
+	/**
+	 * Returns the account entry where phoneNumber = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	public static AccountEntry fetchByPhone(String phoneNumber) {
+		return getPersistence().fetchByPhone(phoneNumber);
+	}
+
+	/**
+	 * Returns the account entry where phoneNumber = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param phoneNumber the phone number
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	public static AccountEntry fetchByPhone(
+		String phoneNumber, boolean useFinderCache) {
+
+		return getPersistence().fetchByPhone(phoneNumber, useFinderCache);
+	}
+
+	/**
+	 * Removes the account entry where phoneNumber = &#63; from the database.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the account entry that was removed
+	 */
+	public static AccountEntry removeByPhone(String phoneNumber)
+		throws com.swork.account.service.exception.NoSuchAccountEntryException {
+
+		return getPersistence().removeByPhone(phoneNumber);
+	}
+
+	/**
+	 * Returns the number of account entries where phoneNumber = &#63;.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the number of matching account entries
+	 */
+	public static int countByPhone(String phoneNumber) {
+		return getPersistence().countByPhone(phoneNumber);
+	}
+
+	/**
 	 * Returns the account entry where companyId = &#63; and externalReferenceCode = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
 	 *
 	 * @param companyId the company ID
