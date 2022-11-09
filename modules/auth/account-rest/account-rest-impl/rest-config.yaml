@@ -1,7 +1,7 @@
 apiDir: "../account-rest-api/src/main/java"
 apiPackagePath: "com.swork.account.rest"
 application:
-    baseURI: "/account-rest"
+    baseURI: "/swork/account-rest"
     className: "AccountRestApplication"
     name: "AccountRest"
 author: "Long Hip"

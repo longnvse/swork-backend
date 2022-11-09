@@ -50,6 +50,7 @@ public class AccountEntryLocalServiceImpl
                 createAccountEntry(counterLocalService.increment(AccountEntry.class.getName()));
 
         createModifierAudit(
+                businessId,
                 creatorId,
                 entry,
                 new Date(),
@@ -114,7 +115,8 @@ public class AccountEntryLocalServiceImpl
     }
 
 
-    private void createModifierAudit(long creatorId,
+    private void createModifierAudit(long businessId,
+                                     long creatorId,
                                      AccountEntry entry,
                                      Date current,
                                      ServiceContext serviceContext) {
@@ -123,6 +125,7 @@ public class AccountEntryLocalServiceImpl
         entry.setCompanyId(serviceContext.getCompanyId());
         entry.setCreateDate(serviceContext.getCreateDate(current));
         entry.setCreatorId(creatorId);
+        entry.setBusinessId(businessId);
 
         updateModifierAudit(entry, current, serviceContext);
     }

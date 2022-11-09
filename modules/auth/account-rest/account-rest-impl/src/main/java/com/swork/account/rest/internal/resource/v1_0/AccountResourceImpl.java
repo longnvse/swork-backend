@@ -42,6 +42,7 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
     @Override
     public Page<Account> getAccountsPage(String search, Filter filter, Pagination pagination, Sort[] sorts) throws Exception {
         return service.getAccountsPage(
+                getUserToken().getBusinessId(),
                 search,
                 filter,
                 pagination,
