@@ -1,6 +1,7 @@
 package com.swork.auth.login.rest.internal.validator;
 
 import com.liferay.portal.kernel.util.Validator;
+import com.swork.account.rest.dto.v1_0.Account;
 import com.swork.account.service.model.AccountEntry;
 import com.swork.account.service.service.AccountEntryLocalService;
 import com.swork.auth.login.rest.internal.service.LanguageService;
@@ -24,6 +25,12 @@ public class TokenValidator {
         isNotPopulated(username, LanguageKeys.USERNAME_REQUIRED);
         isNotPopulated(password, LanguageKeys.PASSWORD_REQUIRED);
 
+        validateForPassword(username, password);
+        validateForStatus(username);
+    }
+
+    private void validateForPassword(String username,
+                                     String password) throws SW_UnAuthorizationException {
         AccountEntry entry = accountEntryLocalService.getAccount(username);
 
         if (Validator.isNotNull(entry) && entry.getPassword().equals(password)) {
@@ -31,6 +38,16 @@ public class TokenValidator {
         }
 
         throw new SW_UnAuthorizationException(languageService.getMessage(LanguageKeys.LOGIN_FAILED));
+    }
+
+    private void validateForStatus(String username) throws SW_UnAuthorizationException {
+        AccountEntry entry = accountEntryLocalService.getAccount(username);
+
+        if (Account.Status.ACTIVE.getValue().equals(entry.getStatus())) {
+            return;
+        }
+
+        throw new SW_UnAuthorizationException(languageService.getMessage(LanguageKeys.ACCOUNT_INACTIVE));
     }
 
     public void validatorRefreshToken(String refreshToken) throws SW_TokenExpiredException {
