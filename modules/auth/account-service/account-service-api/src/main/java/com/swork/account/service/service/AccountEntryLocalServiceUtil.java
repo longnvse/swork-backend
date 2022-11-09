@@ -435,6 +435,13 @@ public class AccountEntryLocalServiceUtil {
 			address, serviceContext);
 	}
 
+	public static AccountEntry updateStatus(
+		long accountId, String status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateStatus(accountId, status, serviceContext);
+	}
+
 	public static AccountEntryLocalService getService() {
 		return _service;
 	}

@@ -66,6 +66,8 @@ public interface AccountResource {
 	public Response putAccountBatch(String callbackURL, Object object)
 		throws Exception;
 
+	public void approvalAccount(Long accountId, String status) throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

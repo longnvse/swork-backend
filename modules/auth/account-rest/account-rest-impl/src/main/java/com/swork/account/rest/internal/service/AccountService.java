@@ -40,10 +40,14 @@ public class AccountService {
                     TermFilter businessIdFilter =
                             new TermFilter(SearchFields.BUSINESS_ID, String.valueOf(businessId));
 
+                    TermFilter creatorIdFilter =
+                            new TermFilter(SearchFields.CREATOR_ID, String.valueOf(GetterUtil.DEFAULT_LONG));
+
                     BooleanFilter booleanFilter =
                             booleanQuery.getPreBooleanFilter();
 
                     booleanFilter.add(businessIdFilter, BooleanClauseOccur.MUST);
+                    booleanFilter.add(creatorIdFilter, BooleanClauseOccur.MUST_NOT);
                 },
                 filter,
                 AccountEntry.class.getName(),
@@ -116,6 +120,10 @@ public class AccountService {
                 accountEntryLocalService.getAccountEntry(accountId);
 
         return mapper.mapDTOFromEntry(entry);
+    }
+
+    public void approvalAccount(long accountId, String status, ServiceContext serviceContext) {
+        accountEntryLocalService.updateStatus(accountId, status, serviceContext);
     }
 
     @Reference

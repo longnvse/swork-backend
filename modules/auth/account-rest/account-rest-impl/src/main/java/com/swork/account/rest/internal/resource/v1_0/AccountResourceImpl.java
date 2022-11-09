@@ -65,7 +65,7 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
 
     @Override
     public void deleteAccount(Long accountId) throws PortalException {
-        validator.validatorAccountIsExists(accountId);
+        validator.validateForDelete(accountId);
 
         service.deleteAccount(accountId);
     }
@@ -79,7 +79,7 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
 
     @Override
     public Account putAccount(Long accountId, Account account) throws SW_DataInputException, SW_NoSuchEntryException, SW_FieldDuplicateException, SW_FieldRequiredException {
-        validator.validatorForPutAccount(accountId,account);
+        validator.validatorForPutAccount(accountId, account);
 
         return service.updateAccount(
                 getUserToken().getAccountId(),
@@ -87,6 +87,13 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
                 account,
                 getServiceContext()
         );
+    }
+
+    @Override
+    public void approvalAccount(Long accountId, String status) throws Exception {
+        validator.validatorAccountIsExists(accountId);
+
+        service.approvalAccount(accountId, status, getServiceContext());
     }
 
     public ServiceContext getServiceContext() {

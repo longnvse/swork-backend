@@ -498,6 +498,15 @@ public class AccountEntryLocalServiceWrapper
 	}
 
 	@Override
+	public com.swork.account.service.model.AccountEntry updateStatus(
+		long accountId, String status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _accountEntryLocalService.updateStatus(
+			accountId, status, serviceContext);
+	}
+
+	@Override
 	public AccountEntryLocalService getWrappedService() {
 		return _accountEntryLocalService;
 	}

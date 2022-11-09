@@ -7,5 +7,6 @@ public class SearchFields {
             "indexer.class.name=com.swork.account.service.model.AccountEntry";
     public static final String FULL_NAME = "fullName";
     public static final String BUSINESS_ID = "businessId";
+    public static final String CREATOR_ID = "creatorId";
 
 }

@@ -35,7 +35,7 @@ public class BusinessService {
         BusinessEntry businessEntry = localService.addBusinessEntry(creatorId, customerMapperModel, serviceContext);
 
         accountEntryLocalService.addAccountEntry(
-                creatorId,
+                GetterUtil.DEFAULT_LONG,
                 businessEntry.getBusinessId(),
                 StringPool.BLANK,
                 PwdGenerator.getPassword(12),
