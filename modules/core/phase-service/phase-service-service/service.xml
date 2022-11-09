@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN"
+        "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder
+        dependency-injector="ds"
+        auto-namespace-tables="false"
+        package-path="com.swork.core.phase.service">
+    <namespace>SW_PHASE</namespace>
+    <!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
+    <entity
+            local-service="true"
+            name="PhaseEntry"
+            table="SW_Phase"
+            remote-service="false"
+            uuid="true"
+            external-reference-code="true"
+    >
+
+        <!-- PK fields -->
+
+        <column name="phaseId" primary="true" type="long"/>
+
+        <!-- Group instance -->
+
+        <column name="groupId" type="long"/>
+
+        <!-- Audit fields -->
+
+        <column name="companyId" type="long"/>
+        <column name="creatorId" type="long"/>
+        <column name="createDate" type="Date"/>
+        <column name="modifiedDate" type="Date"/>
+        <column name="businessId" type="long"/>
+        <column name="modifiedId" type="long"/>
+
+        <!-- Other fields -->
+
+        <column name="phaseName" type="String"/>
+        <column name="startDate" type="Date"/>
+        <column name="endDate" type="Date"/>
+        <column name="status" type="String"/>
+        <column name="description" type="String"/>
+        <column name="progress" type="long"/>
+        <column name="projectId" type="long"/>
+
+        <finder name="P_" return-type="Collection">
+            <finder-column name="businessId"/>
+            <finder-column name="projectId"/>
+        </finder>
+
+        <finder name="B_P_N" return-type="PhaseEntry">
+            <finder-column name="businessId"/>
+            <finder-column name="projectId"/>
+            <finder-column name="phaseName"/>
+        </finder>
+
+    </entity>
+
+    <entity local-service="true"
+            name="PhaseManageEntry"
+            table="SW_PhaseManage"
+            external-reference-code="false"
+            remote-service="false"
+            uuid="false">
+
+        <!-- PK fields -->
+
+        <column name="phaseManageId" primary="true" type="long"/>
+
+        <column name="phaseId" type="long"/>
+        <column name="accountId" type="long"/>
+
+        <finder name="P_" return-type="Collection">
+            <finder-column name="phaseId"/>
+        </finder>
+    </entity>
+</service-builder>

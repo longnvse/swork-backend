@@ -10,7 +10,12 @@ import com.liferay.portal.vulcan.pagination.Pagination;
 import com.swork.account.rest.dto.v1_0.Account;
 import com.swork.account.rest.internal.odata.v1_0.AccountEntityModel;
 import com.swork.account.rest.internal.service.AccountService;
+import com.swork.account.rest.internal.validator.AccountValidator;
 import com.swork.account.rest.resource.v1_0.AccountResource;
+import com.swork.common.exception.model.SW_DataInputException;
+import com.swork.common.exception.model.SW_FieldDuplicateException;
+import com.swork.common.exception.model.SW_FieldRequiredException;
+import com.swork.common.exception.model.SW_NoSuchEntryException;
 import com.swork.common.token.helper.api.CommonTokenHelper;
 import com.swork.common.token.model.UserTokenModel;
 import org.osgi.service.component.annotations.Component;
@@ -46,10 +51,12 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
     }
 
     @Override
-    public Account postAccount(Account account) {
+    public Account postAccount(Account account) throws SW_DataInputException, SW_FieldDuplicateException, SW_FieldRequiredException {
+        validator.validatorForPostAccount(account);
+
         return service.addAccount(
-//                getUserToken().getAccountId(),
-                0L,
+                getUserToken().getAccountId(),
+                getUserToken().getBusinessId(),
                 account,
                 getServiceContext()
         );
@@ -57,19 +64,24 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
 
     @Override
     public void deleteAccount(Long accountId) throws PortalException {
+        validator.validatorAccountIsExists(accountId);
+
         service.deleteAccount(accountId);
     }
 
     @Override
     public Account getAccount(Long accountId) throws Exception {
+        validator.validatorAccountIsExists(accountId);
+
         return service.getAccount(accountId);
     }
 
     @Override
-    public Account putAccount(Long accountId, Account account) {
+    public Account putAccount(Long accountId, Account account) throws SW_DataInputException, SW_NoSuchEntryException, SW_FieldDuplicateException, SW_FieldRequiredException {
+        validator.validatorForPutAccount(accountId,account);
+
         return service.updateAccount(
-//                getUserToken().getAccountId(),
-                0L,
+                getUserToken().getAccountId(),
                 accountId,
                 account,
                 getServiceContext()
@@ -94,5 +106,8 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
 
     @Reference
     private AccountService service;
+
+    @Reference
+    private AccountValidator validator;
 
 }

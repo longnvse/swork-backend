@@ -175,6 +175,20 @@ public class BusinessSerDes {
 			sb.append("\"");
 		}
 
+		if (business.getUserAdmin() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"userAdmin\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(business.getUserAdmin()));
+
+			sb.append("\"");
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -269,6 +283,13 @@ public class BusinessSerDes {
 			map.put("status", String.valueOf(business.getStatus()));
 		}
 
+		if (business.getUserAdmin() == null) {
+			map.put("userAdmin", null);
+		}
+		else {
+			map.put("userAdmin", String.valueOf(business.getUserAdmin()));
+		}
+
 		return map;
 	}
 
@@ -341,6 +362,11 @@ public class BusinessSerDes {
 				if (jsonParserFieldValue != null) {
 					business.setStatus(
 						Business.Status.create((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "userAdmin")) {
+				if (jsonParserFieldValue != null) {
+					business.setUserAdmin((String)jsonParserFieldValue);
 				}
 			}
 		}

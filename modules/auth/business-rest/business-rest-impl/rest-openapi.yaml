@@ -29,6 +29,8 @@ components:
         logoId:
           type: string
           readOnly: true
+        userAdmin:
+          type: string
 info:
   description: "BusinessRest REST API"
   license:
@@ -43,7 +45,7 @@ paths:
       tags: [ "Business" ]
       description:
         Retrieves the business. Results can be paginated, filtered, searched, and sorted.
-      operationId: getbusinessPage
+      operationId: getBusinessPage
       parameters:
         - in: query
           name: filter

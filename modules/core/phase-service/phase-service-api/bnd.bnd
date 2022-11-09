@@ -1,0 +1,11 @@
+Bundle-Name: phase-service-api
+Bundle-SymbolicName: com.swork.core.phase.service.api
+Bundle-Version: 1.0.0
+Export-Package: \
+    	com.swork.core.phase.service.exception,\
+    	com.swork.core.phase.service.model,\
+    	com.swork.core.phase.service.service,\
+    	com.swork.core.phase.service.service.persistence,\
+    	com.swork.core.phase.service.mapper.model
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../phase-service-service/service.xml

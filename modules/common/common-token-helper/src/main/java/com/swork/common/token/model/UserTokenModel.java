@@ -5,7 +5,7 @@ public class UserTokenModel {
     private String fullName;
     private String email;
     private long accountId;
-    private AccountTokenModel account;
+    private long businessId;
 
     public String getUsername() {
         return username;
@@ -31,19 +31,19 @@ public class UserTokenModel {
         this.email = email;
     }
 
-    public AccountTokenModel getAccount() {
-        return account;
-    }
-
-    public void setAccount(AccountTokenModel account) {
-        this.account = account;
-    }
-
     public long getAccountId() {
         return accountId;
     }
 
     public void setAccountId(long accountId) {
         this.accountId = accountId;
+    }
+
+    public long getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(long businessId) {
+        this.businessId = businessId;
     }
 }

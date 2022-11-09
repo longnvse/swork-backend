@@ -35,7 +35,7 @@ public class BusinessResourceImpl extends BaseBusinessResourceImpl {
     }
 
     @Override
-    public Page<Business> getbusinessPage(String search, Filter filter, Pagination pagination, Sort[] sorts) throws Exception {
+    public Page<Business> getBusinessPage(String search, Filter filter, Pagination pagination, Sort[] sorts) throws Exception {
         return service.getBusinessPages(
                 search,
                 filter,

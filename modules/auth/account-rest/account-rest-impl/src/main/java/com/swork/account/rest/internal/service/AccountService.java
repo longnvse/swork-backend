@@ -54,15 +54,18 @@ public class AccountService {
     }
 
     public Account addAccount(long creatorId,
+                              long businessId,
                               Account account,
                               ServiceContext serviceContext) {
 
         AccountEntry entry =
                 accountEntryLocalService.addAccountEntry(
                         creatorId,
+                        businessId,
                         account.getUsername(),
-                        PwdGenerator.getPassword(12, PwdGenerator.KEY3, PwdGenerator.KEY1),
+                        PwdGenerator.getPassword(12),
                         account.getFullName(),
+                        account.getDateOfBirth(),
                         account.getEmail(),
                         account.getPhoneNumber(),
                         account.getAddress(),
@@ -85,6 +88,7 @@ public class AccountService {
                         creatorId,
                         accountId,
                         account.getFullName(),
+                        account.getDateOfBirth(),
                         account.getEmail(),
                         account.getPhoneNumber(),
                         account.getAddress(),

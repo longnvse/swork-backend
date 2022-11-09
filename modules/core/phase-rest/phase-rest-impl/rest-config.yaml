@@ -1,0 +1,9 @@
+apiDir: "../phase-rest-api/src/main/java"
+apiPackagePath: "com.swork.core.phase.rest"
+application:
+    baseURI: "/swork/phase-rest"
+    className: "PhaseRestApplication"
+    name: "PhaseRest"
+author: "Long Hip"
+clientDir: "../phase-rest-client/src/main/java"
+testDir: "../phase-rest-test/src/testIntegration/java"

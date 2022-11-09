@@ -25,9 +25,9 @@ public class BusinessEntryKeywordQueryContributor implements KeywordQueryContrib
 
         queryHelper.addSearchTerm(
                 booleanQuery, searchContext, SearchField.FIELD_OPERATIONS, false);
-
         queryHelper.addSearchTerm(
-                booleanQuery, searchContext, SearchField.NAME, true
-        );
+                booleanQuery, searchContext, SearchField.NAME, true);
+        queryHelper.addSearchTerm(
+                booleanQuery, searchContext, SearchField.BUSINESS_ADDRESS, false);
     }
 }

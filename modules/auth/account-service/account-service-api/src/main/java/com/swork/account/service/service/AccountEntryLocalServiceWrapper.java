@@ -52,13 +52,14 @@ public class AccountEntryLocalServiceWrapper
 
 	@Override
 	public com.swork.account.service.model.AccountEntry addAccountEntry(
-		long creatorId, String username, String password, String fullName,
-		String email, Integer phoneNumber, String address,
+		long creatorId, long businessId, String username, String password,
+		String fullName, java.util.Date dateOfBirth, String email,
+		String phoneNumber, String address,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _accountEntryLocalService.addAccountEntry(
-			creatorId, username, password, fullName, email, phoneNumber,
-			address, serviceContext);
+			creatorId, businessId, username, password, fullName, dateOfBirth,
+			email, phoneNumber, address, serviceContext);
 	}
 
 	/**
@@ -287,6 +288,20 @@ public class AccountEntryLocalServiceWrapper
 	}
 
 	@Override
+	public com.swork.account.service.model.AccountEntry findByEmail(
+		String email) {
+
+		return _accountEntryLocalService.findByEmail(email);
+	}
+
+	@Override
+	public com.swork.account.service.model.AccountEntry findByPhone(
+		String phoneNumber) {
+
+		return _accountEntryLocalService.findByPhone(phoneNumber);
+	}
+
+	@Override
 	public com.swork.account.service.model.AccountEntry getAccount(
 		String username) {
 
@@ -472,13 +487,14 @@ public class AccountEntryLocalServiceWrapper
 
 	@Override
 	public com.swork.account.service.model.AccountEntry updateAccountEntry(
-		long creatorId, long accountId, String fullName, String email,
-		Integer phoneNumber, String address,
+		long creatorId, long accountId, String fullName,
+		java.util.Date dateOfBirth, String email, String phoneNumber,
+		String address,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _accountEntryLocalService.updateAccountEntry(
-			creatorId, accountId, fullName, email, phoneNumber, address,
-			serviceContext);
+			creatorId, accountId, fullName, dateOfBirth, email, phoneNumber,
+			address, serviceContext);
 	}
 
 	@Override

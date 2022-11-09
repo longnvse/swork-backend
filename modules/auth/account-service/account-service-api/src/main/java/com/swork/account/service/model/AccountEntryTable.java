@@ -56,8 +56,10 @@ public class AccountEntryTable extends BaseTable<AccountEntryTable> {
 		"password_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<AccountEntryTable, String> fullName = createColumn(
 		"fullName", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<AccountEntryTable, Integer> phoneNumber = createColumn(
-		"phoneNumber", Integer.class, Types.INTEGER, Column.FLAG_DEFAULT);
+	public final Column<AccountEntryTable, String> phoneNumber = createColumn(
+		"phoneNumber", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<AccountEntryTable, Date> dateOfBirth = createColumn(
+		"dateOfBirth", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<AccountEntryTable, String> email = createColumn(
 		"email", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<AccountEntryTable, String> address = createColumn(

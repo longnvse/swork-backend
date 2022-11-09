@@ -63,7 +63,7 @@ public class AccountEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(33);
+		StringBundler sb = new StringBundler(35);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -89,6 +89,8 @@ public class AccountEntryCacheModel
 		sb.append(fullName);
 		sb.append(", phoneNumber=");
 		sb.append(phoneNumber);
+		sb.append(", dateOfBirth=");
+		sb.append(dateOfBirth);
 		sb.append(", email=");
 		sb.append(email);
 		sb.append(", address=");
@@ -161,7 +163,19 @@ public class AccountEntryCacheModel
 			accountEntryImpl.setFullName(fullName);
 		}
 
-		accountEntryImpl.setPhoneNumber(phoneNumber);
+		if (phoneNumber == null) {
+			accountEntryImpl.setPhoneNumber("");
+		}
+		else {
+			accountEntryImpl.setPhoneNumber(phoneNumber);
+		}
+
+		if (dateOfBirth == Long.MIN_VALUE) {
+			accountEntryImpl.setDateOfBirth(null);
+		}
+		else {
+			accountEntryImpl.setDateOfBirth(new Date(dateOfBirth));
+		}
 
 		if (email == null) {
 			accountEntryImpl.setEmail("");
@@ -202,8 +216,8 @@ public class AccountEntryCacheModel
 		username = objectInput.readUTF();
 		password = objectInput.readUTF();
 		fullName = objectInput.readUTF();
-
-		phoneNumber = objectInput.readInt();
+		phoneNumber = objectInput.readUTF();
+		dateOfBirth = objectInput.readLong();
 		email = objectInput.readUTF();
 		address = objectInput.readUTF();
 
@@ -259,7 +273,14 @@ public class AccountEntryCacheModel
 			objectOutput.writeUTF(fullName);
 		}
 
-		objectOutput.writeInt(phoneNumber);
+		if (phoneNumber == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(phoneNumber);
+		}
+
+		objectOutput.writeLong(dateOfBirth);
 
 		if (email == null) {
 			objectOutput.writeUTF("");
@@ -291,7 +312,8 @@ public class AccountEntryCacheModel
 	public String username;
 	public String password;
 	public String fullName;
-	public int phoneNumber;
+	public String phoneNumber;
+	public long dateOfBirth;
 	public String email;
 	public String address;
 	public long departmentId;
