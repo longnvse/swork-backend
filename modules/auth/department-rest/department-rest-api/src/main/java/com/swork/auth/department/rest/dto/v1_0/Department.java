@@ -42,6 +42,34 @@ public class Department implements Serializable {
 	}
 
 	@Schema
+	public Long[] getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Long[] accounts) {
+		this.accounts = accounts;
+	}
+
+	@JsonIgnore
+	public void setAccounts(
+		UnsafeSupplier<Long[], Exception> accountsUnsafeSupplier) {
+
+		try {
+			accounts = accountsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long[] accounts;
+
+	@Schema
 	public Long getBusinessId() {
 		return businessId;
 	}
@@ -147,6 +175,26 @@ public class Department implements Serializable {
 		StringBundler sb = new StringBundler();
 
 		sb.append("{");
+
+		if (accounts != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"accounts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < accounts.length; i++) {
+				sb.append(accounts[i]);
+
+				if ((i + 1) < accounts.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
 
 		if (businessId != null) {
 			if (sb.length() > 1) {

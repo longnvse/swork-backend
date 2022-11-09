@@ -39,6 +39,26 @@ public class DepartmentSerDes {
 
 		sb.append("{");
 
+		if (department.getAccounts() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"accounts\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < department.getAccounts().length; i++) {
+				sb.append(department.getAccounts()[i]);
+
+				if ((i + 1) < department.getAccounts().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (department.getBusinessId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -91,6 +111,13 @@ public class DepartmentSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (department.getAccounts() == null) {
+			map.put("accounts", null);
+		}
+		else {
+			map.put("accounts", String.valueOf(department.getAccounts()));
+		}
+
 		if (department.getBusinessId() == null) {
 			map.put("businessId", null);
 		}
@@ -133,7 +160,13 @@ public class DepartmentSerDes {
 			Department department, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "businessId")) {
+			if (Objects.equals(jsonParserFieldName, "accounts")) {
+				if (jsonParserFieldValue != null) {
+					department.setAccounts(
+						toLongs((Object[])jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "businessId")) {
 				if (jsonParserFieldValue != null) {
 					department.setBusinessId(
 						Long.valueOf((String)jsonParserFieldValue));

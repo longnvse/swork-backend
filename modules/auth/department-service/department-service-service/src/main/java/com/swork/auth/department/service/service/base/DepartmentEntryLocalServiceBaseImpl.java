@@ -48,6 +48,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.swork.auth.department.service.model.DepartmentEntry;
 import com.swork.auth.department.service.service.DepartmentEntryLocalService;
 import com.swork.auth.department.service.service.DepartmentEntryLocalServiceUtil;
+import com.swork.auth.department.service.service.persistence.DepartmentAccountEntryPersistence;
 import com.swork.auth.department.service.service.persistence.DepartmentEntryPersistence;
 
 import java.io.Serializable;
@@ -642,6 +643,10 @@ public abstract class DepartmentEntryLocalServiceBaseImpl
 			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
+
+	@Reference
+	protected DepartmentAccountEntryPersistence
+		departmentAccountEntryPersistence;
 
 	protected DepartmentEntryLocalService departmentEntryLocalService;
 

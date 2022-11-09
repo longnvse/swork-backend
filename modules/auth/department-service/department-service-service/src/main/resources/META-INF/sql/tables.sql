@@ -11,3 +11,13 @@ create table SW_Department (
 	businessId LONG,
 	name VARCHAR(75) null
 );
+
+create table SW_DepartmentAccount (
+	uuid_ VARCHAR(75) null,
+	externalReferenceCode VARCHAR(75) null,
+	departmentAccountId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	departmentId LONG,
+	accountId LONG
+);

@@ -238,7 +238,8 @@ public interface DepartmentResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/department-rest/v1.0/departments");
+					_builder._port +
+						"/o/swork/department-rest/v1.0/departments");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -318,7 +319,8 @@ public interface DepartmentResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/department-rest/v1.0/departments");
+					_builder._port +
+						"/o/swork/department-rest/v1.0/departments");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -393,7 +395,7 @@ public interface DepartmentResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/department-rest/v1.0/departments/batch");
+						"/o/swork/department-rest/v1.0/departments/batch");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -469,7 +471,7 @@ public interface DepartmentResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/department-rest/v1.0/departments/{id}");
+						"/o/swork/department-rest/v1.0/departments/{id}");
 
 			httpInvoker.path("id", id);
 
@@ -547,7 +549,7 @@ public interface DepartmentResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/department-rest/v1.0/departments/batch");
+						"/o/swork/department-rest/v1.0/departments/batch");
 
 			httpInvoker.path("id", id);
 
@@ -624,7 +626,7 @@ public interface DepartmentResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/department-rest/v1.0/departments/{id}");
+						"/o/swork/department-rest/v1.0/departments/{id}");
 
 			httpInvoker.path("id", id);
 
@@ -707,7 +709,7 @@ public interface DepartmentResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/department-rest/v1.0/departments/{id}");
+						"/o/swork/department-rest/v1.0/departments/{id}");
 
 			httpInvoker.path("id", id);
 

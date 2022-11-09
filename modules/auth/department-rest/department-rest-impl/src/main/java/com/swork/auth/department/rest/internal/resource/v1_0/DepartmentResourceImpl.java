@@ -7,6 +7,7 @@ import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.swork.auth.department.rest.dto.v1_0.Department;
 import com.swork.auth.department.rest.internal.service.DepartmentService;
+import com.swork.auth.department.rest.internal.validator.DepartmentValidator;
 import com.swork.auth.department.rest.resource.v1_0.DepartmentResource;
 
 import com.swork.common.token.helper.api.CommonTokenHelper;
@@ -25,27 +26,31 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class DepartmentResourceImpl extends BaseDepartmentResourceImpl {
 	@Override
 	public Page<Department> getDepartmentPages(String search, Filter filter, Pagination pagination, Sort[] sorts) throws Exception {
-		return super.getDepartmentPages(search, filter, pagination, sorts);
+		return service.getDepartmentsPage(search,filter,pagination,sorts,getServiceContext());
 	}
 
 	@Override
 	public Department postDepartment(Department department) throws Exception {
+		validator.validatorForPostBusiness(department);
 		return service.postDepartment(getUserToken().getAccountId(),department,getServiceContext());
 	}
 
 	@Override
 	public void deleteDepartment(Long id) throws Exception {
+		validator.validatorDepartmentIsExists(id);
 		service.deleteById(id);
 	}
 
 	@Override
 	public Department getById(Long id) throws Exception {
+		validator.validatorDepartmentIsExists(id);
 		return service.geById(id);
 	}
 
 	@Override
 	public Department updateDepartment(Long id, Department department) throws Exception {
-		return service.updateDepartment(id,department,getServiceContext());
+		validator.validatorFieldsForUpdateDepartment(id,department);
+		return service.updateDepartment(getUserToken().getAccountId(),id,department,getServiceContext());
 	}
 
 	public ServiceContext getServiceContext() {
@@ -59,10 +64,16 @@ public class DepartmentResourceImpl extends BaseDepartmentResourceImpl {
 
 	private UserTokenModel getUserToken() {
 		return tokenHelper.getUserToken(contextHttpServletRequest);
+//		getUserToken().
+					//account //department //business
 	}
 
 	@Reference
 	private CommonTokenHelper tokenHelper;
+
+	@Reference
+	private DepartmentValidator validator;
+
 
 	@Reference
 	DepartmentService service;

@@ -39,7 +39,7 @@ public class ServletDataImpl implements ServletData {
 
 	@Override
 	public String getPath() {
-		return "/department-rest-graphql/v1_0";
+		return "/swork/department-rest-graphql/v1_0";
 	}
 
 	@Override

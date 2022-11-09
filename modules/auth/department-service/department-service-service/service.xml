@@ -37,5 +37,33 @@
         </finder>
 
     </entity>
+    <entity local-service="true"
+            name="DepartmentAccountEntry"
+            table="SW_DepartmentAccount"
+            remote-service="false"
+            external-reference-code="true"
+            uuid="true">
+
+        <!-- PK fields -->
+
+        <column name="departmentAccountId" primary="true" type="long"/>
+
+        <!-- Group instance -->
+
+        <column name="groupId" type="long"/>
+
+        <!-- Audit fields -->
+
+        <column name="companyId" type="long"/>
+
+        <!-- Other fields -->
+        <column name="departmentId" type="long"/>
+        <column name="accountId" type="long"/>
+
+        <finder name="DepartmentId" return-type="Collection">
+            <finder-column name="departmentId"/>
+        </finder>
+    </entity>
+
 
 </service-builder>

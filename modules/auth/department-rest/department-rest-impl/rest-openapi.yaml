@@ -11,8 +11,11 @@ components:
           format: int64
         name:
           type: string
-
-
+        accounts:
+          type: array
+          items:
+            type: integer
+            format: int64
 info:
   description: "DepartmentRest REST API"
   license:
@@ -64,8 +67,6 @@ paths:
                 items:
                   $ref: "#/components/schemas/Department"
                 type: array
-
-
     post:
       operationId: postDepartment
       tags: [ "Department" ]
@@ -152,3 +153,4 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Department'
+

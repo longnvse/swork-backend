@@ -20,6 +20,27 @@ public class Department implements Cloneable, Serializable {
 		return DepartmentSerDes.toDTO(json);
 	}
 
+	public Long[] getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Long[] accounts) {
+		this.accounts = accounts;
+	}
+
+	public void setAccounts(
+		UnsafeSupplier<Long[], Exception> accountsUnsafeSupplier) {
+
+		try {
+			accounts = accountsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long[] accounts;
+
 	public Long getBusinessId() {
 		return businessId;
 	}

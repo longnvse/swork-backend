@@ -55,11 +55,13 @@ public class DepartmentEntryLocalServiceWrapper
 	@Override
 	public com.swork.auth.department.service.model.DepartmentEntry
 		addDepartmentEntry(
-			long accountId, long businessId, String name,
+			long creatorID,
+			com.swork.auth.department.service.mapper.model.DepartmentMapperModel
+				model,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _departmentEntryLocalService.addDepartmentEntry(
-			accountId, businessId, name, serviceContext);
+			creatorID, model, serviceContext);
 	}
 
 	/**
@@ -84,14 +86,6 @@ public class DepartmentEntryLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _departmentEntryLocalService.createPersistedModel(primaryKeyObj);
-	}
-
-	@Override
-	public void deleteByID(long id)
-		throws com.swork.auth.department.service.exception.
-			NoSuchDepartmentEntryException {
-
-		_departmentEntryLocalService.deleteByID(id);
 	}
 
 	/**
@@ -507,11 +501,13 @@ public class DepartmentEntryLocalServiceWrapper
 	@Override
 	public com.swork.auth.department.service.model.DepartmentEntry
 		updateDepartmentEntry(
-			long accountId, long departmentId, long businessId, String name,
+			long modifiedId, long departmentId,
+			com.swork.auth.department.service.mapper.model.DepartmentMapperModel
+				model,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _departmentEntryLocalService.updateDepartmentEntry(
-			accountId, departmentId, businessId, name, serviceContext);
+			modifiedId, departmentId, model, serviceContext);
 	}
 
 	@Override

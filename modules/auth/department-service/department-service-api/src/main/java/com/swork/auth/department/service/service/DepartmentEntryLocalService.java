@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
 import com.swork.auth.department.service.exception.NoSuchDepartmentEntryException;
+import com.swork.auth.department.service.mapper.model.DepartmentMapperModel;
 import com.swork.auth.department.service.model.DepartmentEntry;
 
 import java.io.Serializable;
@@ -80,8 +81,9 @@ public interface DepartmentEntryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public DepartmentEntry addDepartmentEntry(DepartmentEntry departmentEntry);
 
+	@Indexable(type = IndexableType.REINDEX)
 	public DepartmentEntry addDepartmentEntry(
-		long accountId, long businessId, String name,
+		long creatorID, DepartmentMapperModel model,
 		ServiceContext serviceContext);
 
 	/**
@@ -98,8 +100,6 @@ public interface DepartmentEntryLocalService
 	 */
 	public PersistedModel createPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
-
-	public void deleteByID(long id) throws NoSuchDepartmentEntryException;
 
 	/**
 	 * Deletes the department entry from the database. Also notifies the appropriate model listeners.
@@ -372,8 +372,9 @@ public interface DepartmentEntryLocalService
 	public DepartmentEntry updateDepartmentEntry(
 		DepartmentEntry departmentEntry);
 
+	@Indexable(type = IndexableType.REINDEX)
 	public DepartmentEntry updateDepartmentEntry(
-		long accountId, long departmentId, long businessId, String name,
+		long modifiedId, long departmentId, DepartmentMapperModel model,
 		ServiceContext serviceContext);
 
 }
