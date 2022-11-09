@@ -82,7 +82,7 @@ public interface DepartmentEntryLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public DepartmentEntry addDepartmentEntry(
-		long creatorID, DepartmentMapperModel model,
+		long businessId, long creatorId, DepartmentMapperModel model,
 		ServiceContext serviceContext);
 
 	/**

@@ -655,14 +655,6 @@ public abstract class BaseDepartmentResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("businessId", additionalAssertFieldName)) {
-				if (department.getBusinessId() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (department.getName() == null) {
 					valid = false;
@@ -764,17 +756,6 @@ public abstract class BaseDepartmentResourceTestCase {
 			if (Objects.equals("accounts", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						department1.getAccounts(), department2.getAccounts())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("businessId", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						department1.getBusinessId(),
-						department2.getBusinessId())) {
 
 					return false;
 				}
@@ -904,11 +885,6 @@ public abstract class BaseDepartmentResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("businessId")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
 		if (entityFieldName.equals("id")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -966,7 +942,6 @@ public abstract class BaseDepartmentResourceTestCase {
 	protected Department randomDepartment() throws Exception {
 		return new Department() {
 			{
-				businessId = RandomTestUtil.randomLong();
 				id = RandomTestUtil.randomLong();
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 			}

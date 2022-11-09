@@ -376,4 +376,8 @@ public interface AccountEntryLocalService
 		String email, String phoneNumber, String address,
 		ServiceContext serviceContext);
 
+	@Indexable(type = IndexableType.REINDEX)
+	public AccountEntry updateStatus(
+		long accountId, String status, ServiceContext serviceContext);
+
 }

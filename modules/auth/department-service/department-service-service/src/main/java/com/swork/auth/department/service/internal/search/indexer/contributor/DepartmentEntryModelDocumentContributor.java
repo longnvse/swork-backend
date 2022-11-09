@@ -18,10 +18,6 @@ public class DepartmentEntryModelDocumentContributor implements ModelDocumentCon
         document.addText(SearchField.NAME, baseModel.getName());
         document.addKeywordSortable(SearchField.NAME, baseModel.getName());
 
-//        document.addNumber(SearchField.BUSINESS_ID, baseModel.getBusinessId());
-//        document.addKeywordSortable(SearchField.BUSINESS_ID, baseModel.getBusinessId());
-
-
-
+        document.addNumber(SearchField.BUSINESS_ID, baseModel.getBusinessId());
     }
 }

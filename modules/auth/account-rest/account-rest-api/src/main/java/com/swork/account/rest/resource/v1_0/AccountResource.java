@@ -32,7 +32,7 @@ import org.osgi.annotation.versioning.ProviderType;
 /**
  * To access this resource, run:
  *
- *     curl -u your@email.com:yourpassword -D - http://localhost:8080/o/account-rest/v1.0
+ *     curl -u your@email.com:yourpassword -D - http://localhost:8080/o/swork/account-rest/v1.0
  *
  * @author Long Hip
  * @generated
@@ -65,6 +65,8 @@ public interface AccountResource {
 
 	public Response putAccountBatch(String callbackURL, Object object)
 		throws Exception;
+
+	public void approvalAccount(Long accountId, String status) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

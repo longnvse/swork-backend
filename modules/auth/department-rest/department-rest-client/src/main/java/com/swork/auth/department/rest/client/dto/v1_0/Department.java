@@ -41,27 +41,6 @@ public class Department implements Cloneable, Serializable {
 
 	protected Long[] accounts;
 
-	public Long getBusinessId() {
-		return businessId;
-	}
-
-	public void setBusinessId(Long businessId) {
-		this.businessId = businessId;
-	}
-
-	public void setBusinessId(
-		UnsafeSupplier<Long, Exception> businessIdUnsafeSupplier) {
-
-		try {
-			businessId = businessIdUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected Long businessId;
-
 	public Long getId() {
 		return id;
 	}

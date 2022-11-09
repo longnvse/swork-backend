@@ -34,7 +34,6 @@ import java.util.Date;
 )
 public class AccountEntryLocalServiceImpl
         extends AccountEntryLocalServiceBaseImpl {
-
     @Indexable(type = IndexableType.REINDEX)
     public AccountEntry addAccountEntry(long creatorId,
                                         long businessId,
@@ -50,6 +49,7 @@ public class AccountEntryLocalServiceImpl
                 createAccountEntry(counterLocalService.increment(AccountEntry.class.getName()));
 
         createModifierAudit(
+                businessId,
                 creatorId,
                 entry,
                 new Date(),
@@ -63,7 +63,7 @@ public class AccountEntryLocalServiceImpl
         entry.setEmail(email);
         entry.setPhoneNumber(phoneNumber);
         entry.setAddress(address);
-        entry.setBusinessId(businessId);
+        entry.setStatus("active");
 
         return addAccountEntry(entry);
 
@@ -105,6 +105,17 @@ public class AccountEntryLocalServiceImpl
         return accountEntryPersistence.fetchByEmail(username);
     }
 
+    @Indexable(type = IndexableType.REINDEX)
+    public AccountEntry updateStatus(long accountId, String status, ServiceContext serviceContext) {
+        AccountEntry entry = fetchAccountEntry(accountId);
+
+        updateModifierAudit(entry, new Date(), serviceContext);
+
+        entry.setStatus(status);
+
+        return updateAccountEntry(entry);
+    }
+
     public AccountEntry findByEmail(String email) {
         return accountEntryPersistence.fetchByEmail(email);
     }
@@ -114,7 +125,8 @@ public class AccountEntryLocalServiceImpl
     }
 
 
-    private void createModifierAudit(long creatorId,
+    private void createModifierAudit(long businessId,
+                                     long creatorId,
                                      AccountEntry entry,
                                      Date current,
                                      ServiceContext serviceContext) {
@@ -123,6 +135,7 @@ public class AccountEntryLocalServiceImpl
         entry.setCompanyId(serviceContext.getCompanyId());
         entry.setCreateDate(serviceContext.getCreateDate(current));
         entry.setCreatorId(creatorId);
+        entry.setBusinessId(businessId);
 
         updateModifierAudit(entry, current, serviceContext);
     }

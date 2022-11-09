@@ -1,26 +1,25 @@
 package com.swork.auth.department.rest.internal.service;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.ParseException;
-
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.BooleanFilter;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.search.filter.TermFilter;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.util.SearchUtil;
-import com.swork.account.service.model.AccountEntry;
 import com.swork.auth.department.rest.dto.v1_0.Department;
 import com.swork.auth.department.rest.internal.mapper.DepartmentMapper;
+import com.swork.auth.department.service.constant.SearchField;
 import com.swork.auth.department.service.mapper.model.DepartmentMapperModel;
 import com.swork.auth.department.service.model.DepartmentEntry;
 import com.swork.auth.department.service.service.DepartmentAccountEntryLocalService;
 import com.swork.auth.department.service.service.DepartmentEntryLocalService;
-import com.swork.common.token.helper.api.CommonTokenHelper;
-import com.swork.common.token.model.UserTokenModel;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -35,15 +34,23 @@ public class DepartmentService {
         return Page.of(departments, Pagination.of(1, departments.size()), departments.size());
     }
 
-    public Page<Department> getDepartmentsPage(String search,
-                                           Filter filter,
-                                           Pagination pagination,
-                                           Sort[] sorts,
-                                           ServiceContext serviceContext) throws Exception {
+    public Page<Department> getDepartmentsPage(long businessId,
+                                               String search,
+                                               Filter filter,
+                                               Pagination pagination,
+                                               Sort[] sorts,
+                                               ServiceContext serviceContext) throws Exception {
 
         return SearchUtil.search(
                 Collections.emptyMap(),
                 booleanQuery -> {
+                    TermFilter businessIdFilter =
+                            new TermFilter(SearchField.BUSINESS_ID, String.valueOf(businessId));
+
+                    BooleanFilter booleanFilter =
+                            booleanQuery.getPreBooleanFilter();
+
+                    booleanFilter.add(businessIdFilter, BooleanClauseOccur.MUST);
                 },
                 filter,
                 DepartmentEntry.class.getName(),
@@ -61,20 +68,22 @@ public class DepartmentService {
                 },
                 sorts,
                 document -> {
-                    long businessId = GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK));
+                    long departmentId = GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK));
 
                     return mapper.mapDTOFromEntry(
-                            departmentEntryLocalService.getDepartmentEntry(businessId));
+                            departmentEntryLocalService.getDepartmentEntry(departmentId));
                 }
         );
     }
 
 
-    public Department postDepartment(long creatorId,
+    public Department postDepartment(long businessId,
+                                     long creatorId,
                                      Department department,
-                                     ServiceContext serviceContext) throws ParseException {
-        DepartmentMapperModel model=mapper.mapMapperModelFromDTO(department);
-        DepartmentEntry departmentEntry = departmentEntryLocalService.addDepartmentEntry(creatorId, model, serviceContext);
+                                     ServiceContext serviceContext) {
+        DepartmentMapperModel model = mapper.mapMapperModelFromDTO(department);
+        DepartmentEntry departmentEntry =
+                departmentEntryLocalService.addDepartmentEntry(businessId, creatorId, model, serviceContext);
         return mapper.mapDTOFromEntry(departmentEntry);
     }
 

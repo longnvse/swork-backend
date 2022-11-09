@@ -78,6 +78,12 @@ public interface AccountResource {
 			String callbackURL, Object object)
 		throws Exception;
 
+	public void approvalAccount(Long accountId, String status) throws Exception;
+
+	public HttpInvoker.HttpResponse approvalAccountHttpResponse(
+			Long accountId, String status)
+		throws Exception;
+
 	public static class Builder {
 
 		public Builder authentication(String login, String password) {
@@ -241,7 +247,7 @@ public interface AccountResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/account-rest/v1.0/accounts");
+					_builder._port + "/o/swork/account-rest/v1.0/accounts");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -318,7 +324,7 @@ public interface AccountResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/account-rest/v1.0/accounts");
+					_builder._port + "/o/swork/account-rest/v1.0/accounts");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -392,7 +398,8 @@ public interface AccountResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/account-rest/v1.0/accounts/batch");
+					_builder._port +
+						"/o/swork/account-rest/v1.0/accounts/batch");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -469,7 +476,7 @@ public interface AccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/account-rest/v1.0/accounts/{accountId}");
+						"/o/swork/account-rest/v1.0/accounts/{accountId}");
 
 			httpInvoker.path("accountId", accountId);
 
@@ -545,7 +552,8 @@ public interface AccountResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/account-rest/v1.0/accounts/batch");
+					_builder._port +
+						"/o/swork/account-rest/v1.0/accounts/batch");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -621,7 +629,7 @@ public interface AccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/account-rest/v1.0/accounts/{accountId}");
+						"/o/swork/account-rest/v1.0/accounts/{accountId}");
 
 			httpInvoker.path("accountId", accountId);
 
@@ -704,7 +712,7 @@ public interface AccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/account-rest/v1.0/accounts/{accountId}");
+						"/o/swork/account-rest/v1.0/accounts/{accountId}");
 
 			httpInvoker.path("accountId", accountId);
 
@@ -780,7 +788,95 @@ public interface AccountResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/account-rest/v1.0/accounts/batch");
+					_builder._port +
+						"/o/swork/account-rest/v1.0/accounts/batch");
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void approvalAccount(Long accountId, String status)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse = approvalAccountHttpResponse(
+				accountId, status);
+
+			String content = httpResponse.getContent();
+
+			if ((httpResponse.getStatusCode() / 100) != 2) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response content: " + content);
+				_logger.log(
+					Level.WARNING,
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.log(
+					Level.WARNING,
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+			else {
+				_logger.fine("HTTP response content: " + content);
+				_logger.fine(
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.fine(
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+			}
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse approvalAccountHttpResponse(
+				Long accountId, String status)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(status.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (status != null) {
+				httpInvoker.parameter("status", String.valueOf(status));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/swork/account-rest/v1.0/accounts/approval/{accountId}");
+
+			httpInvoker.path("accountId", accountId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

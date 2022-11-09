@@ -9,7 +9,6 @@ import com.swork.auth.department.rest.dto.v1_0.Department;
 import com.swork.auth.department.rest.internal.service.DepartmentService;
 import com.swork.auth.department.rest.internal.validator.DepartmentValidator;
 import com.swork.auth.department.rest.resource.v1_0.DepartmentResource;
-
 import com.swork.common.token.helper.api.CommonTokenHelper;
 import com.swork.common.token.model.UserTokenModel;
 import org.osgi.service.component.annotations.Component;
@@ -26,13 +25,23 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class DepartmentResourceImpl extends BaseDepartmentResourceImpl {
 	@Override
 	public Page<Department> getDepartmentPages(String search, Filter filter, Pagination pagination, Sort[] sorts) throws Exception {
-		return service.getDepartmentsPage(search,filter,pagination,sorts,getServiceContext());
+		return service.getDepartmentsPage(
+				getUserToken().getBusinessId(),
+				search,
+				filter,
+				pagination,
+				sorts,
+				getServiceContext());
 	}
 
 	@Override
 	public Department postDepartment(Department department) throws Exception {
 		validator.validatorForPostBusiness(department);
-		return service.postDepartment(getUserToken().getAccountId(),department,getServiceContext());
+		return service.postDepartment(
+				getUserToken().getBusinessId(),
+				getUserToken().getAccountId(),
+				department,
+				getServiceContext());
 	}
 
 	@Override

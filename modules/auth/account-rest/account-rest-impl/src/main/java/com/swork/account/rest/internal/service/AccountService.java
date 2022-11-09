@@ -1,9 +1,12 @@
 package com.swork.account.rest.internal.service;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.BooleanFilter;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.search.filter.TermFilter;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PwdGenerator;
@@ -13,16 +16,19 @@ import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.util.SearchUtil;
 import com.swork.account.rest.dto.v1_0.Account;
 import com.swork.account.rest.internal.mapper.AccountMapper;
+import com.swork.account.service.constant.SearchFields;
 import com.swork.account.service.model.AccountEntry;
 import com.swork.account.service.service.AccountEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import java.util.Collections;
+
 @Component(immediate = true, service = AccountService.class)
 public class AccountService {
 
-    public Page<Account> getAccountsPage(String search,
+    public Page<Account> getAccountsPage(long businessId,
+                                         String search,
                                          Filter filter,
                                          Pagination pagination,
                                          Sort[] sorts,
@@ -31,6 +37,17 @@ public class AccountService {
         return SearchUtil.search(
                 Collections.emptyMap(),
                 booleanQuery -> {
+                    TermFilter businessIdFilter =
+                            new TermFilter(SearchFields.BUSINESS_ID, String.valueOf(businessId));
+
+                    TermFilter creatorIdFilter =
+                            new TermFilter(SearchFields.CREATOR_ID, String.valueOf(GetterUtil.DEFAULT_LONG));
+
+                    BooleanFilter booleanFilter =
+                            booleanQuery.getPreBooleanFilter();
+
+                    booleanFilter.add(businessIdFilter, BooleanClauseOccur.MUST);
+                    booleanFilter.add(creatorIdFilter, BooleanClauseOccur.MUST_NOT);
                 },
                 filter,
                 AccountEntry.class.getName(),
@@ -103,6 +120,10 @@ public class AccountService {
                 accountEntryLocalService.getAccountEntry(accountId);
 
         return mapper.mapDTOFromEntry(entry);
+    }
+
+    public void approvalAccount(long accountId, String status, ServiceContext serviceContext) {
+        accountEntryLocalService.updateStatus(accountId, status, serviceContext);
     }
 
     @Reference

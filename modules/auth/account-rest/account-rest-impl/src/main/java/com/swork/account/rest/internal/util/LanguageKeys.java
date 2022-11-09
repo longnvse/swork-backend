@@ -8,5 +8,6 @@ public class LanguageKeys {
     public static final String PHONE_WAS_USED = "phone.was.used";
     public static final String PHONE_INVALID = "phone.invalid";
     public static final String ACCOUNT_NOT_FOUND = "account.not.found";
+    public static final String ACCOUNT_ACTIVE_CANNOT_DELETE = "account.active.cannot.delete";
 
 }

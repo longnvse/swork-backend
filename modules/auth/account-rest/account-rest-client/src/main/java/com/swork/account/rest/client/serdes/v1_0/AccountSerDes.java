@@ -153,6 +153,20 @@ public class AccountSerDes {
 			sb.append("\"");
 		}
 
+		if (account.getStatus() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"status\": ");
+
+			sb.append("\"");
+
+			sb.append(account.getStatus());
+
+			sb.append("\"");
+		}
+
 		if (account.getUsername() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -248,6 +262,13 @@ public class AccountSerDes {
 			map.put("phoneNumber", String.valueOf(account.getPhoneNumber()));
 		}
 
+		if (account.getStatus() == null) {
+			map.put("status", null);
+		}
+		else {
+			map.put("status", String.valueOf(account.getStatus()));
+		}
+
 		if (account.getUsername() == null) {
 			map.put("username", null);
 		}
@@ -314,6 +335,12 @@ public class AccountSerDes {
 			else if (Objects.equals(jsonParserFieldName, "phoneNumber")) {
 				if (jsonParserFieldValue != null) {
 					account.setPhoneNumber((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "status")) {
+				if (jsonParserFieldValue != null) {
+					account.setStatus(
+						Account.Status.create((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "username")) {

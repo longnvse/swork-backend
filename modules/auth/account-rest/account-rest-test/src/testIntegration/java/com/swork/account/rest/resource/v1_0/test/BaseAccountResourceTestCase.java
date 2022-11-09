@@ -613,6 +613,24 @@ public abstract class BaseAccountResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testApprovalAccount() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Account account = testApprovalAccount_addAccount();
+
+		assertHttpResponseStatusCode(
+			204,
+			accountResource.approvalAccountHttpResponse(account.getId(), null));
+
+		assertHttpResponseStatusCode(
+			404, accountResource.approvalAccountHttpResponse(0L, null));
+	}
+
+	protected Account testApprovalAccount_addAccount() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 
@@ -743,6 +761,14 @@ public abstract class BaseAccountResourceTestCase {
 
 			if (Objects.equals("phoneNumber", additionalAssertFieldName)) {
 				if (account.getPhoneNumber() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("status", additionalAssertFieldName)) {
+				if (account.getStatus() == null) {
 					valid = false;
 				}
 
@@ -918,6 +944,16 @@ public abstract class BaseAccountResourceTestCase {
 			if (Objects.equals("phoneNumber", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getPhoneNumber(), account2.getPhoneNumber())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("status", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getStatus(), account2.getStatus())) {
 
 					return false;
 				}
@@ -1137,6 +1173,11 @@ public abstract class BaseAccountResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("status")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("username")) {

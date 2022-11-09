@@ -299,6 +299,21 @@ public interface AccountEntryModel
 	public void setDepartmentId(Long departmentId);
 
 	/**
+	 * Returns the status of this account entry.
+	 *
+	 * @return the status of this account entry
+	 */
+	@AutoEscape
+	public String getStatus();
+
+	/**
+	 * Sets the status of this account entry.
+	 *
+	 * @param status the status of this account entry
+	 */
+	public void setStatus(String status);
+
+	/**
 	 * Returns the business ID of this account entry.
 	 *
 	 * @return the business ID of this account entry

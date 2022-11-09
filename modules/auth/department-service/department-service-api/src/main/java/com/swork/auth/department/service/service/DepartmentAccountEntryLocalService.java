@@ -78,7 +78,7 @@ public interface DepartmentAccountEntryLocalService
 		DepartmentAccountEntry departmentAccountEntry);
 
 	public DepartmentAccountEntry addDepartmentAccountEntry(
-		long creatorId, long departmentId, long accountId, long companyId);
+		long departmentId, long accountId, long companyId);
 
 	/**
 	 * Creates a new department account entry with the primary key. Does not add the department account entry to the database.
