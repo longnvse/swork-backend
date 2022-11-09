@@ -63,13 +63,13 @@ public class DepartmentEntryLocalServiceUtil {
 	}
 
 	public static DepartmentEntry addDepartmentEntry(
-		long creatorID,
+		long businessId, long creatorId,
 		com.swork.auth.department.service.mapper.model.DepartmentMapperModel
 			model,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().addDepartmentEntry(
-			creatorID, model, serviceContext);
+			businessId, creatorId, model, serviceContext);
 	}
 
 	/**

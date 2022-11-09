@@ -15,11 +15,8 @@
 package com.swork.auth.department.service.service.impl;
 
 import com.liferay.portal.aop.AopService;
-
-import com.liferay.portal.kernel.service.ServiceContext;
 import com.swork.auth.department.service.model.DepartmentAccountEntry;
 import com.swork.auth.department.service.service.base.DepartmentAccountEntryLocalServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
 
 import java.util.Date;
@@ -35,14 +32,12 @@ import java.util.UUID;
 )
 public class DepartmentAccountEntryLocalServiceImpl
 	extends DepartmentAccountEntryLocalServiceBaseImpl {
-	public DepartmentAccountEntry addDepartmentAccountEntry(long creatorId,
+	public DepartmentAccountEntry addDepartmentAccountEntry(
 													 long departmentId,
 													 long accountId,
 													 long companyId) {
 
 		DepartmentAccountEntry entry = createDepartmentAccountEntry(counterLocalService.increment(DepartmentAccountEntry.class.getName()));
-
-		Date current = new Date();
 
 		entry.setExternalReferenceCode(UUID.randomUUID().toString());
 		entry.setCompanyId(companyId);

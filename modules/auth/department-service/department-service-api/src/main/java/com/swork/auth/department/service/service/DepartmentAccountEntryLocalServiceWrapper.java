@@ -57,10 +57,10 @@ public class DepartmentAccountEntryLocalServiceWrapper
 	@Override
 	public com.swork.auth.department.service.model.DepartmentAccountEntry
 		addDepartmentAccountEntry(
-			long creatorId, long departmentId, long accountId, long companyId) {
+			long departmentId, long accountId, long companyId) {
 
 		return _departmentAccountEntryLocalService.addDepartmentAccountEntry(
-			creatorId, departmentId, accountId, companyId);
+			departmentId, accountId, companyId);
 	}
 
 	/**

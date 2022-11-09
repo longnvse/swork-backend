@@ -55,13 +55,13 @@ public class DepartmentEntryLocalServiceWrapper
 	@Override
 	public com.swork.auth.department.service.model.DepartmentEntry
 		addDepartmentEntry(
-			long creatorID,
+			long businessId, long creatorId,
 			com.swork.auth.department.service.mapper.model.DepartmentMapperModel
 				model,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _departmentEntryLocalService.addDepartmentEntry(
-			creatorID, model, serviceContext);
+			businessId, creatorId, model, serviceContext);
 	}
 
 	/**
