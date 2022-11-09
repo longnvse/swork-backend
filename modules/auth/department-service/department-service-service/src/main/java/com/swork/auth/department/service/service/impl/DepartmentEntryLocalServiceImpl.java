@@ -15,15 +15,12 @@
 package com.swork.auth.department.service.service.impl;
 
 
-import com.liferay.account.model.AccountEntry;
-import com.liferay.account.service.AccountEntryLocalService;
 import com.liferay.portal.aop.AopService;
-
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.swork.auth.department.service.exception.NoSuchDepartmentEntryException;
+import com.liferay.portal.kernel.util.Validator;
 import com.swork.auth.department.service.mapper.model.DepartmentMapperModel;
 import com.swork.auth.department.service.model.DepartmentEntry;
 import com.swork.auth.department.service.service.DepartmentAccountEntryLocalService;
@@ -45,7 +42,8 @@ import java.util.UUID;
 public class DepartmentEntryLocalServiceImpl
         extends DepartmentEntryLocalServiceBaseImpl {
     @Indexable(type = IndexableType.REINDEX)
-    public DepartmentEntry addDepartmentEntry(long creatorID,
+    public DepartmentEntry addDepartmentEntry(long businessId,
+                                              long creatorId,
                                               DepartmentMapperModel model,
                                               ServiceContext serviceContext) {
 
@@ -54,16 +52,24 @@ public class DepartmentEntryLocalServiceImpl
         Date current = new Date();
 
         createModifierAudit(
-                creatorID,
+                businessId,
+                creatorId,
                 entry,
                 current,
                 serviceContext
         );
-        entry.setExternalReferenceCode(UUID.randomUUID().toString());
 
-        entry.setBusinessId(model.getBusinessId());
+        entry.setExternalReferenceCode(UUID.randomUUID().toString());
         entry.setName(model.getName());
-        Arrays.stream(model.getAccounts()).forEach(accountId -> departmentAccountEntryLocalService.addDepartmentAccountEntry(creatorID,entry.getDepartmentId(), accountId,serviceContext.getCompanyId()));
+
+        Arrays
+                .stream(model.getAccounts())
+                .forEach(accountId ->
+                        departmentAccountEntryLocalService.addDepartmentAccountEntry(
+                                entry.getDepartmentId(),
+                                accountId,
+                                serviceContext.getCompanyId()));
+
         return addDepartmentEntry(entry);
     }
 
@@ -82,13 +88,16 @@ public class DepartmentEntryLocalServiceImpl
                 current,
                 serviceContext
         );
-
-
-        entry.setBusinessId(model.getBusinessId());
         entry.setName(model.getName());
 
         departmentAccountEntryLocalService.deleteByDepartmentId(departmentId);
-        Arrays.stream(model.getAccounts()).forEach(accountId -> departmentAccountEntryLocalService.addDepartmentAccountEntry(modifiedId,entry.getDepartmentId(), accountId,serviceContext.getCompanyId()));
+        Arrays
+                .stream(model.getAccounts())
+                .forEach(accountId ->
+                        departmentAccountEntryLocalService.addDepartmentAccountEntry(
+                                entry.getDepartmentId(),
+                                accountId,
+                                serviceContext.getCompanyId()));
 
         return updateDepartmentEntry(entry);
     }
@@ -102,9 +111,8 @@ public class DepartmentEntryLocalServiceImpl
     }
 
 
-
-
-    private void createModifierAudit(long accountId,
+    private void createModifierAudit(long businessId,
+                                     long accountId,
                                      DepartmentEntry entry,
                                      Date current,
                                      ServiceContext serviceContext) {
@@ -113,6 +121,7 @@ public class DepartmentEntryLocalServiceImpl
         entry.setCompanyId(serviceContext.getCompanyId());
         entry.setCreateDate(serviceContext.getCreateDate(current));
         entry.setAccountId(accountId);
+        entry.setBusinessId(businessId);
 
         updateModifierAudit(accountId, entry, current, serviceContext);
     }

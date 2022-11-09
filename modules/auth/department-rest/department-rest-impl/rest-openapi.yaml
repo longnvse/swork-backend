@@ -6,9 +6,6 @@ components:
         id:
           type: integer
           format: int64
-        businessId:
-          type: integer
-          format: int64
         name:
           type: string
         accounts:
@@ -16,6 +13,7 @@ components:
           items:
             type: integer
             format: int64
+          default: []
 info:
   description: "DepartmentRest REST API"
   license:

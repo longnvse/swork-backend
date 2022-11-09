@@ -70,34 +70,6 @@ public class Department implements Serializable {
 	protected Long[] accounts;
 
 	@Schema
-	public Long getBusinessId() {
-		return businessId;
-	}
-
-	public void setBusinessId(Long businessId) {
-		this.businessId = businessId;
-	}
-
-	@JsonIgnore
-	public void setBusinessId(
-		UnsafeSupplier<Long, Exception> businessIdUnsafeSupplier) {
-
-		try {
-			businessId = businessIdUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Long businessId;
-
-	@Schema
 	public Long getId() {
 		return id;
 	}
@@ -194,16 +166,6 @@ public class Department implements Serializable {
 			}
 
 			sb.append("]");
-		}
-
-		if (businessId != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"businessId\": ");
-
-			sb.append(businessId);
 		}
 
 		if (id != null) {

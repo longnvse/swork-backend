@@ -63,10 +63,10 @@ public class DepartmentAccountEntryLocalServiceUtil {
 	}
 
 	public static DepartmentAccountEntry addDepartmentAccountEntry(
-		long creatorId, long departmentId, long accountId, long companyId) {
+		long departmentId, long accountId, long companyId) {
 
 		return getService().addDepartmentAccountEntry(
-			creatorId, departmentId, accountId, companyId);
+			departmentId, accountId, companyId);
 	}
 
 	/**

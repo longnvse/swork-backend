@@ -1,6 +1,5 @@
 package com.swork.auth.department.rest.internal.mapper;
 
-import com.swork.account.service.model.AccountEntry;
 import com.swork.auth.department.rest.dto.v1_0.Department;
 import com.swork.auth.department.service.mapper.model.DepartmentMapperModel;
 import com.swork.auth.department.service.model.DepartmentAccountEntry;
@@ -18,12 +17,20 @@ public class DepartmentMapper {
 
     public Department mapDTOFromEntry(DepartmentEntry from) {
         Department to = new Department();
+
         to.setId(from.getDepartmentId());
-        to.setBusinessId(from.getBusinessId());
         to.setName(from.getName());
 
-        List<DepartmentAccountEntry> departmentAccountEntries=departmentAccountEntryLocalService.getByDepartmentId(to.getId());
-        to.setAccounts(departmentAccountEntries.stream().mapToLong(DepartmentAccountEntryModel::getAccountId).boxed().toArray(Long[]::new));
+        List<DepartmentAccountEntry> departmentAccountEntries =
+                departmentAccountEntryLocalService.getByDepartmentId(from.getDepartmentId());
+
+        to.setAccounts(
+                departmentAccountEntries
+                        .stream()
+                        .mapToLong(DepartmentAccountEntryModel::getAccountId)
+                        .boxed()
+                        .toArray(Long[]::new));
+
         return to;
     }
 
@@ -37,7 +44,6 @@ public class DepartmentMapper {
     public DepartmentMapperModel mapMapperModelFromDTO(Department from) {
         DepartmentMapperModel to = new DepartmentMapperModel();
 
-        to.setBusinessId(from.getBusinessId());
         to.setName(from.getName());
 
         to.setAccounts(from.getAccounts());
@@ -46,6 +52,4 @@ public class DepartmentMapper {
 
     @Reference
     DepartmentAccountEntryLocalService departmentAccountEntryLocalService;
-
-
 }

@@ -59,16 +59,6 @@ public class DepartmentSerDes {
 			sb.append("]");
 		}
 
-		if (department.getBusinessId() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"businessId\": ");
-
-			sb.append(department.getBusinessId());
-		}
-
 		if (department.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -118,13 +108,6 @@ public class DepartmentSerDes {
 			map.put("accounts", String.valueOf(department.getAccounts()));
 		}
 
-		if (department.getBusinessId() == null) {
-			map.put("businessId", null);
-		}
-		else {
-			map.put("businessId", String.valueOf(department.getBusinessId()));
-		}
-
 		if (department.getId() == null) {
 			map.put("id", null);
 		}
@@ -164,12 +147,6 @@ public class DepartmentSerDes {
 				if (jsonParserFieldValue != null) {
 					department.setAccounts(
 						toLongs((Object[])jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "businessId")) {
-				if (jsonParserFieldValue != null) {
-					department.setBusinessId(
-						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {
