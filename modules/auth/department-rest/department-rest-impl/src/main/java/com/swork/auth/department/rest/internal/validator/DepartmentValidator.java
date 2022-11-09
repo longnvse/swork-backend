@@ -52,14 +52,14 @@ public class DepartmentValidator {
                 department.getName(), "Enter the name");
     }
 
-    private void validatorNameIsExist(String value) throws SW_NameDuplicateException, NoSuchDepartmentEntryException {
+    private void validatorNameIsExist(String value) throws SW_NameDuplicateException {
         DepartmentEntry departmentEntry = localService.findByName(value);
 
         if (Validator.isNull(departmentEntry)) return;
         throw new SW_NameDuplicateException("Name have been use");
     }
     private void validatorNameIsExist(long departmentId,
-                                      String value) throws SW_NameDuplicateException, NoSuchDepartmentEntryException, SW_FieldDuplicateException {
+                                      String value) throws SW_NameDuplicateException {
         DepartmentEntry entry = localService.fetchDepartmentEntry(departmentId);
 
         if (entry.getName().equals(value)) return;

@@ -296,9 +296,7 @@ public class DepartmentEntryLocalServiceWrapper
 
 	@Override
 	public com.swork.auth.department.service.model.DepartmentEntry findByName(
-			String name)
-		throws com.swork.auth.department.service.exception.
-			NoSuchDepartmentEntryException {
+		String name) {
 
 		return _departmentEntryLocalService.findByName(name);
 	}

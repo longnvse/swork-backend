@@ -97,8 +97,8 @@ public class DepartmentEntryLocalServiceImpl
         return departmentEntryLocalService.getDepartmentEntry(id);
     }
 
-    public DepartmentEntry findByName(String name) throws NoSuchDepartmentEntryException, NoSuchDepartmentEntryException {
-        return departmentEntryPersistence.findByName(name);
+    public DepartmentEntry findByName(String name) {
+        return departmentEntryPersistence.fetchByName(name);
     }
 
 

@@ -34,7 +34,6 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
-import com.swork.auth.department.service.exception.NoSuchDepartmentEntryException;
 import com.swork.auth.department.service.mapper.model.DepartmentMapperModel;
 import com.swork.auth.department.service.model.DepartmentEntry;
 
@@ -242,8 +241,7 @@ public interface DepartmentEntryLocalService
 	public DepartmentEntry fetchDepartmentEntryByUuidAndGroupId(
 		String uuid, long groupId);
 
-	public DepartmentEntry findByName(String name)
-		throws NoSuchDepartmentEntryException;
+	public DepartmentEntry findByName(String name);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();

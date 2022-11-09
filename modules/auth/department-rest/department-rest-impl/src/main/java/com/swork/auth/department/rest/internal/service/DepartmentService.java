@@ -94,17 +94,13 @@ public class DepartmentService {
                 model,
                 serviceContext
         );
-
         return mapper.mapDTOFromEntry(checklistEntry);
     }
-
 
     public Department geById(long id) throws PortalException {
         DepartmentEntry departmentEntry = departmentEntryLocalService.getDepartmentEntry(id);
         return mapper.mapDTOFromEntry(departmentEntry);
     }
-
-
 
 
     @Reference

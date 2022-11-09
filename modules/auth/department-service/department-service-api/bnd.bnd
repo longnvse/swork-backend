@@ -5,6 +5,7 @@ Export-Package:\
 	com.swork.auth.department.service.exception,\
 	com.swork.auth.department.service.model,\
 	com.swork.auth.department.service.service,\
-	com.swork.auth.department.service.service.persistence
+	com.swork.auth.department.service.service.persistence,\
+	com.swork.auth.department.service.mapper.model
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../department-service-service/service.xml

@@ -262,10 +262,7 @@ public class DepartmentEntryLocalServiceUtil {
 		return getService().fetchDepartmentEntryByUuidAndGroupId(uuid, groupId);
 	}
 
-	public static DepartmentEntry findByName(String name)
-		throws com.swork.auth.department.service.exception.
-			NoSuchDepartmentEntryException {
-
+	public static DepartmentEntry findByName(String name) {
 		return getService().findByName(name);
 	}
 
