@@ -1,0 +1,11 @@
+dependencies {
+	compile project(":modules:auth:department-service:department-service-api")
+	compileOnly group: "com.liferay.portal", name: "release.portal.api", version: "7.4.3.13-ga13"
+
+}
+
+buildService {
+	apiDir = "../department-service-api/src/main/java"
+}
+
+group = "com.swork.auth.department.service"

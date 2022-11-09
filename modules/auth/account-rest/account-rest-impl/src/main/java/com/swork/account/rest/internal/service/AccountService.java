@@ -19,7 +19,6 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import java.util.Collections;
-
 @Component(immediate = true, service = AccountService.class)
 public class AccountService {
 

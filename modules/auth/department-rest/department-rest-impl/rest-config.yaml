@@ -1,0 +1,9 @@
+apiDir: "../department-rest-api/src/main/java"
+apiPackagePath: "com.swork.auth.department.rest"
+application:
+    baseURI: "/swork/department-rest"
+    className: "DepartmentRestApplication"
+    name: "DepartmentRest"
+author: "Long Hip"
+clientDir: "../department-rest-client/src/main/java"
+testDir: "../department-rest-test/src/testIntegration/java"

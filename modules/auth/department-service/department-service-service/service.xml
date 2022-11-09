@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN"
+        "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder dependency-injector="ds" package-path="com.swork.auth.department.service">
+    <namespace>SW_DEPARTMENT</namespace>
+    <!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
+    <entity local-service="true"
+            name="DepartmentEntry"
+            table="SW_Department"
+            remote-service="false"
+            external-reference-code="true"
+            uuid="true">
+
+        <!-- PK fields -->
+
+        <column name="departmentId" primary="true" type="long"/>
+
+        <!-- Group instance -->
+
+        <column name="groupId" type="long"/>
+
+        <!-- Audit fields -->
+
+        <column name="companyId" type="long"/>
+        <column name="accountId" type="long"/>
+        <column name="createDate" type="Date"/>
+        <column name="modifiedId" type="long"/>
+        <column name="modifiedDate" type="Date"/>
+
+        <!-- Other fields -->
+        <column name="businessId" type="long"/>
+        <column name="name" type="String"/>
+
+        <finder name="Name" return-type="DepartmentEntry">
+            <finder-column name="name"/>
+        </finder>
+
+    </entity>
+    <entity local-service="true"
+            name="DepartmentAccountEntry"
+            table="SW_DepartmentAccount"
+            remote-service="false"
+            external-reference-code="true"
+            uuid="true">
+
+        <!-- PK fields -->
+
+        <column name="departmentAccountId" primary="true" type="long"/>
+
+        <!-- Group instance -->
+
+        <column name="groupId" type="long"/>
+
+        <!-- Audit fields -->
+
+        <column name="companyId" type="long"/>
+
+        <!-- Other fields -->
+        <column name="departmentId" type="long"/>
+        <column name="accountId" type="long"/>
+
+        <finder name="DepartmentId" return-type="Collection">
+            <finder-column name="departmentId"/>
+        </finder>
+    </entity>
+
+
+</service-builder>
