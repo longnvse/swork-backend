@@ -1,9 +1,10 @@
 package com.swork.auth.login.rest.internal.validator;
 
-import com.liferay.portal.kernel.exception.PwdEncryptorException;
 import com.liferay.portal.kernel.util.Validator;
 import com.swork.account.service.model.AccountEntry;
 import com.swork.account.service.service.AccountEntryLocalService;
+import com.swork.auth.login.rest.internal.service.LanguageService;
+import com.swork.auth.login.rest.internal.util.LanguageKeys;
 import com.swork.auth.login.service.model.TokenEntry;
 import com.swork.auth.login.service.service.TokenEntryLocalService;
 import com.swork.common.exception.model.SW_FieldRequiredException;
@@ -20,8 +21,8 @@ public class TokenValidator {
     public void validatorForLogin(String username,
                                   String password) throws SW_FieldRequiredException, SW_UnAuthorizationException {
 
-        isNotPopulated(username, "Vui lòng nhập tên người dùng");
-        isNotPopulated(password, "Vui lòng nhập mật khẩu");
+        isNotPopulated(username, LanguageKeys.USERNAME_REQUIRED);
+        isNotPopulated(password, LanguageKeys.PASSWORD_REQUIRED);
 
         AccountEntry entry = accountEntryLocalService.getAccount(username);
 
@@ -29,7 +30,7 @@ public class TokenValidator {
             return;
         }
 
-        throw new SW_UnAuthorizationException("Vui lòng nhập lại tên người dùng hoặc mật khẩu!");
+        throw new SW_UnAuthorizationException(languageService.getMessage(LanguageKeys.LOGIN_FAILED));
     }
 
     public void validatorRefreshToken(String refreshToken) throws SW_TokenExpiredException {
@@ -40,7 +41,7 @@ public class TokenValidator {
 
         if (Validator.isNull(entry) ||
                 entry.getExpiryDate().compareTo(now) < 0) {
-            throw new SW_TokenExpiredException("Vui lòng đăng nhập lại!");
+            throw new SW_TokenExpiredException(languageService.getMessage(LanguageKeys.LOGIN_AGAIN));
         }
     }
 
@@ -49,7 +50,7 @@ public class TokenValidator {
         TokenEntry entry = localService.getByRefreshToken(refreshToken);
 
         if (Validator.isNull(entry)) {
-            throw new SW_TokenExpiredException("Vui lòng đăng nhập lại!");
+            throw new SW_TokenExpiredException(languageService.getMessage(LanguageKeys.LOGIN_AGAIN));
         }
     }
 
@@ -57,7 +58,7 @@ public class TokenValidator {
                                 String errorMsgKey) throws SW_FieldRequiredException {
 
         if (null == value || value.trim().isEmpty()) {
-            throw new SW_FieldRequiredException(errorMsgKey);
+            throw new SW_FieldRequiredException(languageService.getMessage(errorMsgKey));
         }
     }
 
@@ -66,5 +67,8 @@ public class TokenValidator {
 
     @Reference
     private AccountEntryLocalService accountEntryLocalService;
+
+    @Reference
+    private LanguageService languageService;
 
 }

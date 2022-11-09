@@ -17,9 +17,9 @@ import java.util.ResourceBundle;
 public class LanguageService {
     private final String BASE_NAME = "content/Language";
 
-    public String getMessage(Locale locale, String key) {
+    public String getMessage( String key) {
         return LanguageUtil.get(
-                ResourceBundle.getBundle(BASE_NAME, locale), key);
+                ResourceBundle.getBundle(BASE_NAME), key);
 
     }
 }
