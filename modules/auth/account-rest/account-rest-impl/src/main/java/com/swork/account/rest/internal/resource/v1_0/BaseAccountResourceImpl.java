@@ -109,7 +109,7 @@ public abstract class BaseAccountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts' -d $'{"address": ___, "dateOfBirth": ___, "email": ___, "fullName": ___, "phoneNumber": ___, "username": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts' -d $'{"address": ___, "dateOfBirth": ___, "email": ___, "fullName": ___, "phoneNumber": ___, "status": ___, "username": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
 		description = "Create a new Account"
@@ -277,7 +277,7 @@ public abstract class BaseAccountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts/{accountId}' -d $'{"address": ___, "dateOfBirth": ___, "email": ___, "fullName": ___, "phoneNumber": ___, "username": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts/{accountId}' -d $'{"address": ___, "dateOfBirth": ___, "email": ___, "fullName": ___, "phoneNumber": ___, "status": ___, "username": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Update an Account")
 	@io.swagger.v3.oas.annotations.Parameters(
@@ -349,6 +349,43 @@ public abstract class BaseAccountResourceImpl
 			vulcanBatchEngineImportTaskResource.putImportTask(
 				Account.class.getName(), callbackURL, object)
 		).build();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts/approval/{accountId}'  -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Operation(description = "Update an Account")
+	@io.swagger.v3.oas.annotations.Parameters(
+		value = {
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
+				name = "accountId"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "status"
+			)
+		}
+	)
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Account")}
+	)
+	@javax.ws.rs.Path("/accounts/approval/{accountId}")
+	@javax.ws.rs.Produces({"application/json", "application/xml"})
+	@javax.ws.rs.PUT
+	@Override
+	public void approvalAccount(
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.PathParam("accountId")
+			Long accountId,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.QueryParam("status")
+			String status)
+		throws Exception {
 	}
 
 	@Override

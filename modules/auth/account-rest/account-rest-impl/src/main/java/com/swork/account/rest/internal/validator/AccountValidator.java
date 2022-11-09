@@ -6,10 +6,7 @@ import com.swork.account.rest.internal.service.LanguageService;
 import com.swork.account.rest.internal.util.LanguageKeys;
 import com.swork.account.service.model.AccountEntry;
 import com.swork.account.service.service.AccountEntryLocalService;
-import com.swork.common.exception.model.SW_DataInputException;
-import com.swork.common.exception.model.SW_FieldDuplicateException;
-import com.swork.common.exception.model.SW_FieldRequiredException;
-import com.swork.common.exception.model.SW_NoSuchEntryException;
+import com.swork.common.exception.model.*;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -51,6 +48,17 @@ public class AccountValidator {
         validatorPhoneNumberIsExist(
                 accountId,
                 account.getPhoneNumber());
+    }
+
+    public void validateForDelete(long accountId) throws SW_NoSuchEntryException, SW_BadRequestException {
+        validatorAccountIsExists(accountId);
+
+        AccountEntry entry = localService.fetchAccountEntry(accountId);
+        if (Account.Status.create(entry.getStatus()).equals(Account.Status.INACTIVE)) {
+            return;
+        }
+
+        throw new SW_BadRequestException(languageService.getMessage(LanguageKeys.ACCOUNT_ACTIVE_CANNOT_DELETE));
     }
 
     private void validatorFieldsForUpdateAccount(

@@ -20,6 +20,7 @@ public class AccountEntryModelDocumentContributor
     @Override
     public void contribute(Document document, AccountEntry baseModel) {
         document.addNumber(SearchFields.BUSINESS_ID, baseModel.getBusinessId());
+        document.addNumber(SearchFields.CREATOR_ID, baseModel.getCreatorId());
         document.addText(Field.USER_NAME, baseModel.getUsername());
         document.addText(SearchFields.FULL_NAME, baseModel.getFullName());
         document.addTextSortable(SearchFields.FULL_NAME, baseModel.getFullName());

@@ -34,7 +34,6 @@ import java.util.Date;
 )
 public class AccountEntryLocalServiceImpl
         extends AccountEntryLocalServiceBaseImpl {
-
     @Indexable(type = IndexableType.REINDEX)
     public AccountEntry addAccountEntry(long creatorId,
                                         long businessId,
@@ -64,7 +63,7 @@ public class AccountEntryLocalServiceImpl
         entry.setEmail(email);
         entry.setPhoneNumber(phoneNumber);
         entry.setAddress(address);
-        entry.setBusinessId(businessId);
+        entry.setStatus("active");
 
         return addAccountEntry(entry);
 
@@ -104,6 +103,17 @@ public class AccountEntryLocalServiceImpl
         }
 
         return accountEntryPersistence.fetchByEmail(username);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public AccountEntry updateStatus(long accountId, String status, ServiceContext serviceContext) {
+        AccountEntry entry = fetchAccountEntry(accountId);
+
+        updateModifierAudit(entry, new Date(), serviceContext);
+
+        entry.setStatus(status);
+
+        return updateAccountEntry(entry);
     }
 
     public AccountEntry findByEmail(String email) {

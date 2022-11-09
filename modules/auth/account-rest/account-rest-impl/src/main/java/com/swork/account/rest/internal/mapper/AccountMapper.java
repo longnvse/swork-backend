@@ -18,6 +18,7 @@ public class AccountMapper {
         to.setAddress(from.getAddress());
         to.setPassword(from.getPassword());
         to.setDateOfBirth(from.getDateOfBirth());
+        to.setStatus(Account.Status.create(from.getStatus()));
 
         return to;
     }
