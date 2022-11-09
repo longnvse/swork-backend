@@ -241,7 +241,7 @@ public interface AccountResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/account-rest/v1.0/accounts");
+					_builder._port + "/o/swork/account-rest/v1.0/accounts");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -318,7 +318,7 @@ public interface AccountResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/account-rest/v1.0/accounts");
+					_builder._port + "/o/swork/account-rest/v1.0/accounts");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -392,7 +392,8 @@ public interface AccountResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/account-rest/v1.0/accounts/batch");
+					_builder._port +
+						"/o/swork/account-rest/v1.0/accounts/batch");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -469,7 +470,7 @@ public interface AccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/account-rest/v1.0/accounts/{accountId}");
+						"/o/swork/account-rest/v1.0/accounts/{accountId}");
 
 			httpInvoker.path("accountId", accountId);
 
@@ -545,7 +546,8 @@ public interface AccountResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/account-rest/v1.0/accounts/batch");
+					_builder._port +
+						"/o/swork/account-rest/v1.0/accounts/batch");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -621,7 +623,7 @@ public interface AccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/account-rest/v1.0/accounts/{accountId}");
+						"/o/swork/account-rest/v1.0/accounts/{accountId}");
 
 			httpInvoker.path("accountId", accountId);
 
@@ -704,7 +706,7 @@ public interface AccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/account-rest/v1.0/accounts/{accountId}");
+						"/o/swork/account-rest/v1.0/accounts/{accountId}");
 
 			httpInvoker.path("accountId", accountId);
 
@@ -780,7 +782,8 @@ public interface AccountResource {
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + "/o/account-rest/v1.0/accounts/batch");
+					_builder._port +
+						"/o/swork/account-rest/v1.0/accounts/batch");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

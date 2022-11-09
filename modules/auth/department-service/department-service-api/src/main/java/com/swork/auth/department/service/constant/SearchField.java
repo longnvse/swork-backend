@@ -7,6 +7,5 @@ public class SearchField {
 
 
     public static final String NAME_STRING = "name_String";
-    public static final String BUSINESS_ID_STRING = "businessId_String";
 
 }

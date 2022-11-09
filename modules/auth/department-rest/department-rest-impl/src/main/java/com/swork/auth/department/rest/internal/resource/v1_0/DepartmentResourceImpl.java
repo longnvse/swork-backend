@@ -25,7 +25,13 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class DepartmentResourceImpl extends BaseDepartmentResourceImpl {
 	@Override
 	public Page<Department> getDepartmentPages(String search, Filter filter, Pagination pagination, Sort[] sorts) throws Exception {
-		return service.getDepartmentsPage(search,filter,pagination,sorts,getServiceContext());
+		return service.getDepartmentsPage(
+				getUserToken().getBusinessId(),
+				search,
+				filter,
+				pagination,
+				sorts,
+				getServiceContext());
 	}
 
 	@Override

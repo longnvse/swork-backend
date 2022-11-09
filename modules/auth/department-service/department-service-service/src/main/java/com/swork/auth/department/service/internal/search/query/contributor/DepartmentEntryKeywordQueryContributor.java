@@ -24,9 +24,6 @@ public class DepartmentEntryKeywordQueryContributor implements KeywordQueryContr
         SearchContext searchContext = keywordQueryContributorHelper.getSearchContext();
 
         queryHelper.addSearchTerm(
-                booleanQuery, searchContext, SearchField.BUSINESS_ID, false);
-
-        queryHelper.addSearchTerm(
                 booleanQuery, searchContext, SearchField.NAME, true
         );
     }

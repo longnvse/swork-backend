@@ -26,10 +26,10 @@ public class AccountEntryKeywordQueryContributor implements KeywordQueryContribu
                 keywordQueryContributorHelper.getSearchContext();
 
         queryHelper.addSearchTerm(
-                booleanQuery, searchContext, Field.NAME, true);
+                booleanQuery, searchContext, Field.NAME, false);
 
         queryHelper.addSearchTerm(
-                booleanQuery, searchContext, SearchFields.FULL_NAME, true);
+                booleanQuery, searchContext, SearchFields.FULL_NAME, false);
 
     }
 
