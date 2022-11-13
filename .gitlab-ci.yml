@@ -10,6 +10,7 @@ build & deploy:
   tags:
     - backend
   script:
+    - env
     - ./gradlew clean
     - ./gradlew buildProject
     - ./gradlew deploy
@@ -29,9 +30,11 @@ integration test:
   tags:
     - backend
   script:
+    - env
     - cp bundles/osgi/modules/* /opt/liferay/deploy
     - echo "${PORTAL_TEST_CONFIG}" > gradle.properties
     - ./gradlew testIntegration
+    - rm -f /opt/liferay/osgi/modules/*
   only:
     - merge_requests
 
@@ -40,6 +43,7 @@ jacoco report:
   tags:
     - backend
   script:
+    - env
     - ./gradlew test
     - ./gradlew dumpJacoco
     - ./gradlew jacocoCustomTestReport
