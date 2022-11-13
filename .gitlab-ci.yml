@@ -1,0 +1,99 @@
+image: jdk:11
+
+stages:
+  - Build & Deploy
+  - Test
+  - Deploy
+
+build & deploy:
+  stage: Build & Deploy
+  tags:
+    - backend
+  script:
+    - ./gradlew clean
+    - ./gradlew buildProject
+    - ./gradlew deploy
+  artifacts:
+    paths:
+      - bundles/osgi/modules
+    exclude:
+      - bundles/osgi/modules/*.test.jar
+      - bundles/osgi/modules/*.client.jar
+  only:
+    - develop
+    - master
+    - merge_requests
+
+integration test:
+  stage: Test
+  tags:
+    - backend
+  script:
+    - cp bundles/osgi/modules/* /opt/liferay/deploy
+    - echo "${PORTAL_TEST_CONFIG}" > gradle.properties
+    - ./gradlew testIntegration
+  only:
+    - merge_requests
+
+jacoco report:
+  stage: Test
+  tags:
+    - backend
+  script:
+    - ./gradlew test
+    - ./gradlew dumpJacoco
+    - ./gradlew jacocoCustomTestReport
+    - cat build/reports/jacoco/jacocoCustomTestReport/html/index.html | grep -o '<tfoot>.*</tfoot>'
+  coverage: '/Total.*?([0-9]{1,3})%/'
+  artifacts:
+    when: always
+    reports:
+      junit: build/reports/jacoco/**/jacoco*.xml
+  only:
+    - merge_request
+
+Deploy Test:
+  stage: Deploy
+  tags:
+    - backend
+  image: ubuntu
+  before_script:
+    - "command -v ssh-agent >/dev/null || ( apk add --update openssh )"
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $IPADDRESS_DEV >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - echo "Deploying to server"
+    - ssh -o StrictHostKeyChecking=no $SSH_USER@$IPADDRESS_DEV -p 22
+    - >-
+      rsync -avz --delete --progress -a -e "ssh -p 22" bundles/osgi/modules
+      $SSH_USER@$IPADDRESS_DEV:/opt/liferay/deploy
+    - echo "Deployed"
+  only:
+    - develop
+
+Deploy Prod:
+  stage: Deploy
+  tags:
+    - backend
+  image: ubuntu
+  before_script:
+    - "command -v ssh-agent >/dev/null || ( apk add --update openssh )"
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $IPADDRESS_PROD >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - echo "Deploying to server"
+    - ssh -o StrictHostKeyChecking=no $SSH_USER@$IPADDRESS_PROD -p 22
+    - >-
+      rsync -avz --delete --progress -a -e "ssh -p 22" bundles/osgi/modules
+      $SSH_USER@$IPADDRESS_DPROD:/opt/liferay/deploy
+    - echo "Deployed"
+  only:
+    - master
