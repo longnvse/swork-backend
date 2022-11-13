@@ -7,6 +7,9 @@ components:
           format: int64
           readOnly: true
           type: integer
+        externalReferenceCode:
+          type: string
+          readOnly: true
         createDate:
           type: string
           format: date

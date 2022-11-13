@@ -647,8 +647,8 @@ public abstract class BaseDepartmentResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
-			if (Objects.equals("accounts", additionalAssertFieldName)) {
-				if (department.getAccounts() == null) {
+			if (Objects.equals("members", additionalAssertFieldName)) {
+				if (department.getMembers() == null) {
 					valid = false;
 				}
 
@@ -753,9 +753,9 @@ public abstract class BaseDepartmentResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
-			if (Objects.equals("accounts", additionalAssertFieldName)) {
+			if (Objects.equals("id", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						department1.getAccounts(), department2.getAccounts())) {
+						department1.getId(), department2.getId())) {
 
 					return false;
 				}
@@ -763,9 +763,9 @@ public abstract class BaseDepartmentResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("id", additionalAssertFieldName)) {
+			if (Objects.equals("members", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						department1.getId(), department2.getId())) {
+						department1.getMembers(), department2.getMembers())) {
 
 					return false;
 				}
@@ -880,12 +880,12 @@ public abstract class BaseDepartmentResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
-		if (entityFieldName.equals("accounts")) {
+		if (entityFieldName.equals("id")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("id")) {
+		if (entityFieldName.equals("members")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}

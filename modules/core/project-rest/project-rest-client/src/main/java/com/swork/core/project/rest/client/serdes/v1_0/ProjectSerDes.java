@@ -281,20 +281,6 @@ public class ProjectSerDes {
 			sb.append("\"");
 		}
 
-		if (project.getUnit() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"unit\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(project.getUnit()));
-
-			sb.append("\"");
-		}
-
 		sb.append("}");
 
 		return sb.toString();
@@ -438,13 +424,6 @@ public class ProjectSerDes {
 			map.put("status", String.valueOf(project.getStatus()));
 		}
 
-		if (project.getUnit() == null) {
-			map.put("unit", null);
-		}
-		else {
-			map.put("unit", String.valueOf(project.getUnit()));
-		}
-
 		return map;
 	}
 
@@ -572,11 +551,6 @@ public class ProjectSerDes {
 				if (jsonParserFieldValue != null) {
 					project.setStatus(
 						Project.Status.create((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "unit")) {
-				if (jsonParserFieldValue != null) {
-					project.setUnit((String)jsonParserFieldValue);
 				}
 			}
 		}

@@ -44,7 +44,7 @@ public class ProjectHandleMapper {
     }
 
     public ProjectMembersMapperModel mapHandlesFromDTO(long companyId, Handle[] from) {
-        if (Validator.isNotNull(from)) {
+        if (Validator.isNull(from)) {
             return new ProjectMembersMapperModel();
         }
 
