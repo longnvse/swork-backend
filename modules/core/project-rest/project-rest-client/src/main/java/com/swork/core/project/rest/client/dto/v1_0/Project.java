@@ -359,25 +359,6 @@ public class Project implements Cloneable, Serializable {
 
 	protected Status status;
 
-	public String getUnit() {
-		return unit;
-	}
-
-	public void setUnit(String unit) {
-		this.unit = unit;
-	}
-
-	public void setUnit(UnsafeSupplier<String, Exception> unitUnsafeSupplier) {
-		try {
-			unit = unitUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String unit;
-
 	@Override
 	public Project clone() throws CloneNotSupportedException {
 		return (Project)super.clone();

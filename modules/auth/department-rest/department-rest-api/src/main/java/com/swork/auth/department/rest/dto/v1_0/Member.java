@@ -21,8 +21,6 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
-import javax.validation.Valid;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -30,17 +28,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName("Department")
+@GraphQLName("Member")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "Department")
-public class Department implements Serializable {
+@XmlRootElement(name = "Member")
+public class Member implements Serializable {
 
-	public static Department toDTO(String json) {
-		return ObjectMapperUtil.readValue(Department.class, json);
+	public static Member toDTO(String json) {
+		return ObjectMapperUtil.readValue(Member.class, json);
 	}
 
-	public static Department unsafeToDTO(String json) {
-		return ObjectMapperUtil.unsafeReadValue(Department.class, json);
+	public static Member unsafeToDTO(String json) {
+		return ObjectMapperUtil.unsafeReadValue(Member.class, json);
 	}
 
 	@Schema
@@ -70,21 +68,20 @@ public class Department implements Serializable {
 	protected Long id;
 
 	@Schema
-	@Valid
-	public Member[] getMembers() {
-		return members;
+	public Long getMemberId() {
+		return memberId;
 	}
 
-	public void setMembers(Member[] members) {
-		this.members = members;
+	public void setMemberId(Long memberId) {
+		this.memberId = memberId;
 	}
 
 	@JsonIgnore
-	public void setMembers(
-		UnsafeSupplier<Member[], Exception> membersUnsafeSupplier) {
+	public void setMemberId(
+		UnsafeSupplier<Long, Exception> memberIdUnsafeSupplier) {
 
 		try {
-			members = membersUnsafeSupplier.get();
+			memberId = memberIdUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -96,21 +93,23 @@ public class Department implements Serializable {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Member[] members;
+	protected Long memberId;
 
 	@Schema
-	public String getName() {
-		return name;
+	public String getMemberName() {
+		return memberName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 
 	@JsonIgnore
-	public void setName(UnsafeSupplier<String, Exception> nameUnsafeSupplier) {
+	public void setMemberName(
+		UnsafeSupplier<String, Exception> memberNameUnsafeSupplier) {
+
 		try {
-			name = nameUnsafeSupplier.get();
+			memberName = memberNameUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -121,8 +120,8 @@ public class Department implements Serializable {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String name;
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String memberName;
 
 	@Override
 	public boolean equals(Object object) {
@@ -130,13 +129,13 @@ public class Department implements Serializable {
 			return true;
 		}
 
-		if (!(object instanceof Department)) {
+		if (!(object instanceof Member)) {
 			return false;
 		}
 
-		Department department = (Department)object;
+		Member member = (Member)object;
 
-		return Objects.equals(toString(), department.toString());
+		return Objects.equals(toString(), member.toString());
 	}
 
 	@Override
@@ -161,36 +160,26 @@ public class Department implements Serializable {
 			sb.append(id);
 		}
 
-		if (members != null) {
+		if (memberId != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"members\": ");
+			sb.append("\"memberId\": ");
 
-			sb.append("[");
-
-			for (int i = 0; i < members.length; i++) {
-				sb.append(String.valueOf(members[i]));
-
-				if ((i + 1) < members.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
+			sb.append(memberId);
 		}
 
-		if (name != null) {
+		if (memberName != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"name\": ");
+			sb.append("\"memberName\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(name));
+			sb.append(_escape(memberName));
 
 			sb.append("\"");
 		}
@@ -202,7 +191,7 @@ public class Department implements Serializable {
 
 	@Schema(
 		accessMode = Schema.AccessMode.READ_ONLY,
-		defaultValue = "com.swork.auth.department.rest.dto.v1_0.Department",
+		defaultValue = "com.swork.auth.department.rest.dto.v1_0.Member",
 		name = "x-class-name"
 	)
 	public String xClassName;

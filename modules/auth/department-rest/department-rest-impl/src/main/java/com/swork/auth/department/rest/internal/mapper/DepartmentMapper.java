@@ -1,6 +1,7 @@
 package com.swork.auth.department.rest.internal.mapper;
 
 import com.swork.auth.department.rest.dto.v1_0.Department;
+import com.swork.auth.department.rest.dto.v1_0.Member;
 import com.swork.auth.department.service.mapper.model.DepartmentMapperModel;
 import com.swork.auth.department.service.model.DepartmentAccountEntry;
 import com.swork.auth.department.service.model.DepartmentAccountEntryModel;
@@ -9,6 +10,7 @@ import com.swork.auth.department.service.service.DepartmentAccountEntryLocalServ
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,12 +26,7 @@ public class DepartmentMapper {
         List<DepartmentAccountEntry> departmentAccountEntries =
                 departmentAccountEntryLocalService.getByDepartmentId(from.getDepartmentId());
 
-        to.setAccounts(
-                departmentAccountEntries
-                        .stream()
-                        .mapToLong(DepartmentAccountEntryModel::getAccountId)
-                        .boxed()
-                        .toArray(Long[]::new));
+        to.setMembers(memberMapper.mapDTOFromEntries(departmentAccountEntries));
 
         return to;
     }
@@ -46,10 +43,13 @@ public class DepartmentMapper {
 
         to.setName(from.getName());
 
-        to.setAccounts(from.getAccounts());
+        to.setAccounts(Arrays.stream(from.getMembers()).mapToLong(Member::getMemberId).boxed().toArray(Long[]::new));
         return to;
     }
 
     @Reference
     DepartmentAccountEntryLocalService departmentAccountEntryLocalService;
+
+    @Reference
+    MemberMapper memberMapper;
 }

@@ -24,6 +24,7 @@ import com.swork.account.service.service.base.AccountEntryLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * @author Brian Wing Shun Chan
@@ -136,6 +137,7 @@ public class AccountEntryLocalServiceImpl
         entry.setCreateDate(serviceContext.getCreateDate(current));
         entry.setCreatorId(creatorId);
         entry.setBusinessId(businessId);
+        entry.setExternalReferenceCode(UUID.randomUUID().toString());
 
         updateModifierAudit(entry, current, serviceContext);
     }

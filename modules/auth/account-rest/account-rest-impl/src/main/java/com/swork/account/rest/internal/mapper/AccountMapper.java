@@ -11,6 +11,7 @@ public class AccountMapper {
         Account to = new Account();
 
         to.setId(from.getAccountId());
+        to.setExternalReferenceCode(from.getExternalReferenceCode());
         to.setUsername(from.getUsername());
         to.setFullName(from.getFullName());
         to.setEmail(from.getEmail());

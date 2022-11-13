@@ -103,7 +103,7 @@ public class ProjectEntryLocalServiceImpl
 
         addMember(projectId, model);
 
-        return addProjectEntry(entry);
+        return updateProjectEntry(entry);
     }
 
     private void addMember(long projectId, ProjectMapperModel model) {

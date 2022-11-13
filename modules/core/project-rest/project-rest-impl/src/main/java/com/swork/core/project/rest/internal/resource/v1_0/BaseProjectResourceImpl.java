@@ -116,7 +116,7 @@ public abstract class BaseProjectResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/swork/project-rest/v1.0/projects' -d $'{"actualEndDate": ___, "actualStartDate": ___, "budget": ___, "code": ___, "description": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "manages": ___, "name": ___, "participates": ___, "progressType": ___, "startDate": ___, "unit": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/swork/project-rest/v1.0/projects' -d $'{"actualEndDate": ___, "actualStartDate": ___, "budget": ___, "code": ___, "description": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "manages": ___, "name": ___, "participates": ___, "progressType": ___, "startDate": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
 		description = "Create a new Project"
@@ -284,7 +284,7 @@ public abstract class BaseProjectResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/project-rest/v1.0/projects/{projectId}' -d $'{"actualEndDate": ___, "actualStartDate": ___, "budget": ___, "code": ___, "description": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "manages": ___, "name": ___, "participates": ___, "progressType": ___, "startDate": ___, "unit": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/project-rest/v1.0/projects/{projectId}' -d $'{"actualEndDate": ___, "actualStartDate": ___, "budget": ___, "code": ___, "description": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "manages": ___, "name": ___, "participates": ___, "progressType": ___, "startDate": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Update a Project")
 	@io.swagger.v3.oas.annotations.Parameters(
@@ -525,7 +525,7 @@ public abstract class BaseProjectResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/project-rest/v1.0/projects/member/{projectId}' -d $'{"actualEndDate": ___, "actualStartDate": ___, "budget": ___, "code": ___, "description": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "manages": ___, "name": ___, "participates": ___, "progressType": ___, "startDate": ___, "unit": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/project-rest/v1.0/projects/member/{projectId}' -d $'{"actualEndDate": ___, "actualStartDate": ___, "budget": ___, "code": ___, "description": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "manages": ___, "name": ___, "participates": ___, "progressType": ___, "startDate": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Approval a Project")
 	@io.swagger.v3.oas.annotations.Parameters(

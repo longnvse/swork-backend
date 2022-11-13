@@ -24,8 +24,6 @@ components:
         endDate:
           format: date
           type: string
-        unit:
-          type: string
         status:
           enum: [ approved, denied, inactive, pending, doing ]
           readOnly: true
