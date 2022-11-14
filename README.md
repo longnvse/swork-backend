@@ -1,5 +1,5 @@
 # swork-backend
-
+[![coverage report](https://gitlab.com/swork-fu/swork-backend/badges/main/coverage.svg)](https://gitlab.com/swork-fu/swork-backend/-/commits/main)
 
 
 ## Getting started
