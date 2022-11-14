@@ -98,7 +98,7 @@ paths:
                 $ref: '#/components/schemas/Department'
   "/departments/{id}":
     get:
-      operationId: getById
+      operationId: getDepartment
       tags: [ "Department" ]
       parameters:
         - name: id
@@ -134,7 +134,7 @@ paths:
             application/json: { }
             application/xml: { }
     put:
-      operationId: updateDepartment
+      operationId: putDepartment
       tags: [ "Department" ]
       parameters:
         - name: id
@@ -161,4 +161,3 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Department'
-

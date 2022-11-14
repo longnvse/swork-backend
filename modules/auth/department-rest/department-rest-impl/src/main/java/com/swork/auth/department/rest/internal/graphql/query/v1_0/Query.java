@@ -72,14 +72,14 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {byId(id: ___){id, name, members}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {department(id: ___){id, name, members}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public Department byId(@GraphQLName("id") Long id) throws Exception {
+	public Department department(@GraphQLName("id") Long id) throws Exception {
 		return _applyComponentServiceObjects(
 			_departmentResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			departmentResource -> departmentResource.getById(id));
+			departmentResource -> departmentResource.getDepartment(id));
 	}
 
 	@GraphQLName("DepartmentPage")

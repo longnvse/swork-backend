@@ -60,9 +60,13 @@ public interface DepartmentResource {
 			Long id, String callbackURL, Object object)
 		throws Exception;
 
-	public Department getById(Long id) throws Exception;
+	public Department getDepartment(Long id) throws Exception;
 
-	public Department updateDepartment(Long id, Department department)
+	public Department putDepartment(Long id, Department department)
+		throws Exception;
+
+	public Response putDepartmentBatch(
+			Long id, String callbackURL, Object object)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(
