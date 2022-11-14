@@ -99,8 +99,22 @@ public class Mutation {
 		return _applyComponentServiceObjects(
 			_departmentResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			departmentResource -> departmentResource.updateDepartment(
+			departmentResource -> departmentResource.putDepartment(
 				id, department));
+	}
+
+	@GraphQLField
+	public Response updateDepartmentBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_departmentResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			departmentResource -> departmentResource.putDepartmentBatch(
+				id, callbackURL, object));
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
