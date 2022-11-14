@@ -70,7 +70,7 @@ Deploy Test:
     - echo "Deploying to server"
     - ssh -o StrictHostKeyChecking=no $SSH_USER@$IPADDRESS_DEV -p 22
     - >-
-      rsync -avz --delete --progress -a -e "ssh -p 22" bundles/osgi/modules
+      rsync -avz --delete --progress -a -e "ssh -p 22" bundles/osgi/modules/com.swork.*
       $SSH_USER@$IPADDRESS_DEV:/opt/liferay/deploy
     - echo "Deployed"
   only:
@@ -93,7 +93,7 @@ Deploy Prod:
     - echo "Deploying to server"
     - ssh -o StrictHostKeyChecking=no $SSH_USER@$IPADDRESS_PROD -p 22
     - >-
-      rsync -avz --delete --progress -a -e "ssh -p 22" bundles/osgi/modules
+      rsync -avz --delete --progress -a -e "ssh -p 22" bundles/osgi/modules/com.swork.*
       $SSH_USER@$IPADDRESS_DPROD:/opt/liferay/deploy
     - echo "Deployed"
   only:
