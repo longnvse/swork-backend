@@ -1,6 +1,5 @@
 package com.swork.auth.department.rest.client.serdes.v1_0;
 
-import com.swork.auth.department.rest.client.dto.v1_0.Department;
 import com.swork.auth.department.rest.client.dto.v1_0.Member;
 import com.swork.auth.department.rest.client.json.BaseJSONParser;
 
@@ -9,7 +8,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.stream.Stream;
 
 import javax.annotation.Generated;
 
@@ -18,22 +16,22 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class DepartmentSerDes {
+public class MemberSerDes {
 
-	public static Department toDTO(String json) {
-		DepartmentJSONParser departmentJSONParser = new DepartmentJSONParser();
+	public static Member toDTO(String json) {
+		MemberJSONParser memberJSONParser = new MemberJSONParser();
 
-		return departmentJSONParser.parseToDTO(json);
+		return memberJSONParser.parseToDTO(json);
 	}
 
-	public static Department[] toDTOs(String json) {
-		DepartmentJSONParser departmentJSONParser = new DepartmentJSONParser();
+	public static Member[] toDTOs(String json) {
+		MemberJSONParser memberJSONParser = new MemberJSONParser();
 
-		return departmentJSONParser.parseToDTOs(json);
+		return memberJSONParser.parseToDTOs(json);
 	}
 
-	public static String toJSON(Department department) {
-		if (department == null) {
+	public static String toJSON(Member member) {
+		if (member == null) {
 			return "null";
 		}
 
@@ -41,46 +39,36 @@ public class DepartmentSerDes {
 
 		sb.append("{");
 
-		if (department.getId() != null) {
+		if (member.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"id\": ");
 
-			sb.append(department.getId());
+			sb.append(member.getId());
 		}
 
-		if (department.getMembers() != null) {
+		if (member.getMemberId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"members\": ");
+			sb.append("\"memberId\": ");
 
-			sb.append("[");
-
-			for (int i = 0; i < department.getMembers().length; i++) {
-				sb.append(String.valueOf(department.getMembers()[i]));
-
-				if ((i + 1) < department.getMembers().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
+			sb.append(member.getMemberId());
 		}
 
-		if (department.getName() != null) {
+		if (member.getMemberName() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"name\": ");
+			sb.append("\"memberName\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(department.getName()));
+			sb.append(_escape(member.getMemberName()));
 
 			sb.append("\"");
 		}
@@ -91,81 +79,73 @@ public class DepartmentSerDes {
 	}
 
 	public static Map<String, Object> toMap(String json) {
-		DepartmentJSONParser departmentJSONParser = new DepartmentJSONParser();
+		MemberJSONParser memberJSONParser = new MemberJSONParser();
 
-		return departmentJSONParser.parseToMap(json);
+		return memberJSONParser.parseToMap(json);
 	}
 
-	public static Map<String, String> toMap(Department department) {
-		if (department == null) {
+	public static Map<String, String> toMap(Member member) {
+		if (member == null) {
 			return null;
 		}
 
 		Map<String, String> map = new TreeMap<>();
 
-		if (department.getId() == null) {
+		if (member.getId() == null) {
 			map.put("id", null);
 		}
 		else {
-			map.put("id", String.valueOf(department.getId()));
+			map.put("id", String.valueOf(member.getId()));
 		}
 
-		if (department.getMembers() == null) {
-			map.put("members", null);
+		if (member.getMemberId() == null) {
+			map.put("memberId", null);
 		}
 		else {
-			map.put("members", String.valueOf(department.getMembers()));
+			map.put("memberId", String.valueOf(member.getMemberId()));
 		}
 
-		if (department.getName() == null) {
-			map.put("name", null);
+		if (member.getMemberName() == null) {
+			map.put("memberName", null);
 		}
 		else {
-			map.put("name", String.valueOf(department.getName()));
+			map.put("memberName", String.valueOf(member.getMemberName()));
 		}
 
 		return map;
 	}
 
-	public static class DepartmentJSONParser
-		extends BaseJSONParser<Department> {
+	public static class MemberJSONParser extends BaseJSONParser<Member> {
 
 		@Override
-		protected Department createDTO() {
-			return new Department();
+		protected Member createDTO() {
+			return new Member();
 		}
 
 		@Override
-		protected Department[] createDTOArray(int size) {
-			return new Department[size];
+		protected Member[] createDTOArray(int size) {
+			return new Member[size];
 		}
 
 		@Override
 		protected void setField(
-			Department department, String jsonParserFieldName,
+			Member member, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
 			if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
-					department.setId(
+					member.setId(Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "memberId")) {
+				if (jsonParserFieldValue != null) {
+					member.setMemberId(
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "members")) {
+			else if (Objects.equals(jsonParserFieldName, "memberName")) {
 				if (jsonParserFieldValue != null) {
-					department.setMembers(
-						Stream.of(
-							toStrings((Object[])jsonParserFieldValue)
-						).map(
-							object -> MemberSerDes.toDTO((String)object)
-						).toArray(
-							size -> new Member[size]
-						));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "name")) {
-				if (jsonParserFieldValue != null) {
-					department.setName((String)jsonParserFieldValue);
+					member.setMemberName((String)jsonParserFieldValue);
 				}
 			}
 		}

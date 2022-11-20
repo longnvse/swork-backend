@@ -101,6 +101,20 @@ public class AccountSerDes {
 			sb.append("\"");
 		}
 
+		if (account.getExternalReferenceCode() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"externalReferenceCode\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(account.getExternalReferenceCode()));
+
+			sb.append("\"");
+		}
+
 		if (account.getFullName() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -234,6 +248,15 @@ public class AccountSerDes {
 			map.put("email", String.valueOf(account.getEmail()));
 		}
 
+		if (account.getExternalReferenceCode() == null) {
+			map.put("externalReferenceCode", null);
+		}
+		else {
+			map.put(
+				"externalReferenceCode",
+				String.valueOf(account.getExternalReferenceCode()));
+		}
+
 		if (account.getFullName() == null) {
 			map.put("fullName", null);
 		}
@@ -315,6 +338,14 @@ public class AccountSerDes {
 			else if (Objects.equals(jsonParserFieldName, "email")) {
 				if (jsonParserFieldValue != null) {
 					account.setEmail((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "externalReferenceCode")) {
+
+				if (jsonParserFieldValue != null) {
+					account.setExternalReferenceCode(
+						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "fullName")) {

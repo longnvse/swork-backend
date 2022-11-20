@@ -505,32 +505,6 @@ public class Project implements Serializable {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Status status;
 
-	@Schema
-	public String getUnit() {
-		return unit;
-	}
-
-	public void setUnit(String unit) {
-		this.unit = unit;
-	}
-
-	@JsonIgnore
-	public void setUnit(UnsafeSupplier<String, Exception> unitUnsafeSupplier) {
-		try {
-			unit = unitUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String unit;
-
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -787,20 +761,6 @@ public class Project implements Serializable {
 			sb.append("\"");
 
 			sb.append(status);
-
-			sb.append("\"");
-		}
-
-		if (unit != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"unit\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(unit));
 
 			sb.append("\"");
 		}

@@ -8,12 +8,22 @@ components:
           format: int64
         name:
           type: string
-        accounts:
+        members:
           type: array
           items:
-            type: integer
-            format: int64
-          default: []
+            $ref: '#/components/schemas/Member'
+    Member:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        memberId:
+          type: integer
+          format: int64
+        memberName:
+          type: string
+          readOnly: true
 info:
   description: "DepartmentRest REST API"
   license:

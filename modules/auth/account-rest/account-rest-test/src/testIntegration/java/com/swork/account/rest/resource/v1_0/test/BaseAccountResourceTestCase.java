@@ -175,6 +175,7 @@ public abstract class BaseAccountResourceTestCase {
 
 		account.setAddress(regex);
 		account.setEmail(regex);
+		account.setExternalReferenceCode(regex);
 		account.setFullName(regex);
 		account.setPassword(regex);
 		account.setPhoneNumber(regex);
@@ -188,6 +189,7 @@ public abstract class BaseAccountResourceTestCase {
 
 		Assert.assertEquals(regex, account.getAddress());
 		Assert.assertEquals(regex, account.getEmail());
+		Assert.assertEquals(regex, account.getExternalReferenceCode());
 		Assert.assertEquals(regex, account.getFullName());
 		Assert.assertEquals(regex, account.getPassword());
 		Assert.assertEquals(regex, account.getPhoneNumber());
@@ -743,6 +745,16 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"externalReferenceCode", additionalAssertFieldName)) {
+
+				if (account.getExternalReferenceCode() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("fullName", additionalAssertFieldName)) {
 				if (account.getFullName() == null) {
 					valid = false;
@@ -906,6 +918,19 @@ public abstract class BaseAccountResourceTestCase {
 			if (Objects.equals("email", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getEmail(), account2.getEmail())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"externalReferenceCode", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						account1.getExternalReferenceCode(),
+						account2.getExternalReferenceCode())) {
 
 					return false;
 				}
@@ -1146,6 +1171,14 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("externalReferenceCode")) {
+			sb.append("'");
+			sb.append(String.valueOf(account.getExternalReferenceCode()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("fullName")) {
 			sb.append("'");
 			sb.append(String.valueOf(account.getFullName()));
@@ -1238,6 +1271,8 @@ public abstract class BaseAccountResourceTestCase {
 				email =
 					StringUtil.toLowerCase(RandomTestUtil.randomString()) +
 						"@liferay.com";
+				externalReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				fullName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
