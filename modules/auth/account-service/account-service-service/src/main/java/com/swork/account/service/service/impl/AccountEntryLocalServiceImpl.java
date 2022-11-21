@@ -14,11 +14,14 @@
 
 package com.swork.account.service.service.impl;
 
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.swork.account.service.constant.Role;
 import com.swork.account.service.model.AccountEntry;
 import com.swork.account.service.service.base.AccountEntryLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
@@ -64,10 +67,58 @@ public class AccountEntryLocalServiceImpl
         entry.setEmail(email);
         entry.setPhoneNumber(phoneNumber);
         entry.setAddress(address);
-        entry.setStatus("active");
-
+        entry.setRole(Role.USER.getValue());
         return addAccountEntry(entry);
 
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public AccountEntry addAccountAdmin(long creatorId,
+                                        long businessId,
+                                        String email,
+                                        String password,
+                                        ServiceContext serviceContext) {
+        AccountEntry entry =
+                createAccountEntry(counterLocalService.increment(AccountEntry.class.getName()));
+
+        createModifierAudit(
+                businessId,
+                creatorId,
+                entry,
+                new Date(),
+                serviceContext
+        );
+
+        entry.setFullName("Admin");
+        entry.setEmail(email);
+        entry.setPassword(password);
+        entry.setRole(Role.ADMIN.getValue());
+
+        return addAccountEntry(entry);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public AccountEntry addAccountSuperAdmin(String username,
+                                             String email,
+                                             String password,
+                                             ServiceContext serviceContext) {
+        AccountEntry entry =
+                createAccountEntry(counterLocalService.increment(AccountEntry.class.getName()));
+
+        createModifierAudit(
+                GetterUtil.DEFAULT_LONG,
+                GetterUtil.DEFAULT_LONG,
+                entry,
+                new Date(),
+                serviceContext
+        );
+
+        entry.setFullName("Admin");
+        entry.setEmail(email);
+        entry.setPassword(password);
+        entry.setRole(Role.SUPER_ADMIN.getValue());
+
+        return addAccountEntry(entry);
     }
 
     @Indexable(type = IndexableType.REINDEX)
@@ -118,11 +169,11 @@ public class AccountEntryLocalServiceImpl
     }
 
     public AccountEntry findByEmail(String email) {
-        return accountEntryPersistence.fetchByEmail(email);
+        return accountEntryPersistence.fetchByEmail(email.trim().replaceAll("\\s+", StringPool.BLANK));
     }
 
     public AccountEntry findByPhone(String phoneNumber) {
-        return accountEntryPersistence.fetchByPhone(phoneNumber);
+        return accountEntryPersistence.fetchByPhone(phoneNumber.trim().replaceAll("\\s+", StringPool.BLANK));
     }
 
 
@@ -138,6 +189,7 @@ public class AccountEntryLocalServiceImpl
         entry.setCreatorId(creatorId);
         entry.setBusinessId(businessId);
         entry.setExternalReferenceCode(UUID.randomUUID().toString());
+        entry.setStatus("active");
 
         updateModifierAudit(entry, current, serviceContext);
     }

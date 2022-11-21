@@ -19,6 +19,7 @@
 		<field name="address" type="String" />
 		<field name="departmentId" type="Long" />
 		<field name="status" type="String" />
+		<field name="role" type="String" />
 		<field name="businessId" type="Long" />
 	</model>
 </model-hints>

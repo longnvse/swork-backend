@@ -31,7 +31,7 @@ components:
           type: string
           readOnly: true
         status:
-          enum: [active, inactive]
+          enum: [ active, inactive ]
 info:
   description: "AccountRest REST API"
   license:

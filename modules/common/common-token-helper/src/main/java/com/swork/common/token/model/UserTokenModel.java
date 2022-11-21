@@ -4,8 +4,10 @@ public class UserTokenModel {
     private String username;
     private String fullName;
     private String email;
+    private String role;
     private long accountId;
     private long businessId;
+    private long[] departmentIds;
 
     public String getUsername() {
         return username;
@@ -31,6 +33,14 @@ public class UserTokenModel {
         this.email = email;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public long getAccountId() {
         return accountId;
     }
@@ -45,5 +55,13 @@ public class UserTokenModel {
 
     public void setBusinessId(long businessId) {
         this.businessId = businessId;
+    }
+
+    public long[] getDepartmentIds() {
+        return departmentIds;
+    }
+
+    public void setDepartmentIds(long[] departmentIds) {
+        this.departmentIds = departmentIds;
     }
 }

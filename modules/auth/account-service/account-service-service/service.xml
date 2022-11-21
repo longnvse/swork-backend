@@ -39,6 +39,7 @@
         <column name="address" type="String"/>
         <column name="departmentId" type="Long"/>
         <column name="status" type="String"/>
+        <column name="role" type="String"/>
         <column name="businessId" type="Long"/>
 
         <!-- Finder methods -->

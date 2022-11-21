@@ -1,6 +1,5 @@
 package com.swork.business.rest.internal.service;
 
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
@@ -34,16 +33,11 @@ public class BusinessService {
 
         BusinessEntry businessEntry = localService.addBusinessEntry(creatorId, customerMapperModel, serviceContext);
 
-        accountEntryLocalService.addAccountEntry(
-                GetterUtil.DEFAULT_LONG,
+        accountEntryLocalService.addAccountAdmin(
+                creatorId,
                 businessEntry.getBusinessId(),
-                StringPool.BLANK,
-                PwdGenerator.getPassword(12),
-                "Admin",
-                null,
                 businessEntry.getEmail(),
-                businessEntry.getPhoneNumber(),
-                businessEntry.getBusinessAddress(),
+                PwdGenerator.getPassword(12),
                 serviceContext
         );
 

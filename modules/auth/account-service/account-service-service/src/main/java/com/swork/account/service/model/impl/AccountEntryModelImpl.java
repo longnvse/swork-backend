@@ -78,7 +78,8 @@ public class AccountEntryModelImpl
 		{"fullName", Types.VARCHAR}, {"phoneNumber", Types.VARCHAR},
 		{"dateOfBirth", Types.TIMESTAMP}, {"email", Types.VARCHAR},
 		{"address", Types.VARCHAR}, {"departmentId", Types.BIGINT},
-		{"status", Types.VARCHAR}, {"businessId", Types.BIGINT}
+		{"status", Types.VARCHAR}, {"role_", Types.VARCHAR},
+		{"businessId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -102,11 +103,12 @@ public class AccountEntryModelImpl
 		TABLE_COLUMNS_MAP.put("address", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("departmentId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("status", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("role_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("businessId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_AccountEntry (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,accountId LONG not null primary key,groupId LONG,companyId LONG,createDate DATE null,modifiedDate DATE null,creatorId LONG,username VARCHAR(75) null,password_ VARCHAR(75) null,fullName VARCHAR(75) null,phoneNumber VARCHAR(75) null,dateOfBirth DATE null,email VARCHAR(75) null,address VARCHAR(75) null,departmentId LONG,status VARCHAR(75) null,businessId LONG)";
+		"create table SW_AccountEntry (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,accountId LONG not null primary key,groupId LONG,companyId LONG,createDate DATE null,modifiedDate DATE null,creatorId LONG,username VARCHAR(75) null,password_ VARCHAR(75) null,fullName VARCHAR(75) null,phoneNumber VARCHAR(75) null,dateOfBirth DATE null,email VARCHAR(75) null,address VARCHAR(75) null,departmentId LONG,status VARCHAR(75) null,role_ VARCHAR(75) null,businessId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_AccountEntry";
 
@@ -381,6 +383,9 @@ public class AccountEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"status",
 			(BiConsumer<AccountEntry, String>)AccountEntry::setStatus);
+		attributeGetterFunctions.put("role", AccountEntry::getRole);
+		attributeSetterBiConsumers.put(
+			"role", (BiConsumer<AccountEntry, String>)AccountEntry::setRole);
 		attributeGetterFunctions.put("businessId", AccountEntry::getBusinessId);
 		attributeSetterBiConsumers.put(
 			"businessId",
@@ -746,6 +751,25 @@ public class AccountEntryModelImpl
 	}
 
 	@Override
+	public String getRole() {
+		if (_role == null) {
+			return "";
+		}
+		else {
+			return _role;
+		}
+	}
+
+	@Override
+	public void setRole(String role) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_role = role;
+	}
+
+	@Override
 	public Long getBusinessId() {
 		return _businessId;
 	}
@@ -838,6 +862,7 @@ public class AccountEntryModelImpl
 		accountEntryImpl.setAddress(getAddress());
 		accountEntryImpl.setDepartmentId(getDepartmentId());
 		accountEntryImpl.setStatus(getStatus());
+		accountEntryImpl.setRole(getRole());
 		accountEntryImpl.setBusinessId(getBusinessId());
 
 		accountEntryImpl.resetOriginalValues();
@@ -881,6 +906,7 @@ public class AccountEntryModelImpl
 			this.<Long>getColumnOriginalValue("departmentId"));
 		accountEntryImpl.setStatus(
 			this.<String>getColumnOriginalValue("status"));
+		accountEntryImpl.setRole(this.<String>getColumnOriginalValue("role_"));
 		accountEntryImpl.setBusinessId(
 			this.<Long>getColumnOriginalValue("businessId"));
 
@@ -1078,6 +1104,14 @@ public class AccountEntryModelImpl
 			accountEntryCacheModel.status = null;
 		}
 
+		accountEntryCacheModel.role = getRole();
+
+		String role = accountEntryCacheModel.role;
+
+		if ((role != null) && (role.length() == 0)) {
+			accountEntryCacheModel.role = null;
+		}
+
 		Long businessId = getBusinessId();
 
 		if (businessId != null) {
@@ -1192,6 +1226,7 @@ public class AccountEntryModelImpl
 	private String _address;
 	private Long _departmentId;
 	private String _status;
+	private String _role;
 	private Long _businessId;
 
 	public <T> T getColumnValue(String columnName) {
@@ -1241,6 +1276,7 @@ public class AccountEntryModelImpl
 		_columnOriginalValues.put("address", _address);
 		_columnOriginalValues.put("departmentId", _departmentId);
 		_columnOriginalValues.put("status", _status);
+		_columnOriginalValues.put("role_", _role);
 		_columnOriginalValues.put("businessId", _businessId);
 	}
 
@@ -1251,6 +1287,7 @@ public class AccountEntryModelImpl
 
 		attributeNames.put("uuid_", "uuid");
 		attributeNames.put("password_", "password");
+		attributeNames.put("role_", "role");
 
 		_attributeNames = Collections.unmodifiableMap(attributeNames);
 	}
@@ -1300,7 +1337,9 @@ public class AccountEntryModelImpl
 
 		columnBitmasks.put("status", 65536L);
 
-		columnBitmasks.put("businessId", 131072L);
+		columnBitmasks.put("role_", 131072L);
+
+		columnBitmasks.put("businessId", 262144L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

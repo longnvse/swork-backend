@@ -66,6 +66,10 @@ public interface AccountEntryLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.swork.account.service.service.impl.AccountEntryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the account entry local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link AccountEntryLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	@Indexable(type = IndexableType.REINDEX)
+	public AccountEntry addAccountAdmin(
+		long creatorId, long businessId, String email, String password,
+		ServiceContext serviceContext);
 
 	/**
 	 * Adds the account entry to the database. Also notifies the appropriate model listeners.
@@ -85,6 +89,11 @@ public interface AccountEntryLocalService
 		long creatorId, long businessId, String username, String password,
 		String fullName, Date dateOfBirth, String email, String phoneNumber,
 		String address, ServiceContext serviceContext);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public AccountEntry addAccountSuperAdmin(
+		String username, String email, String password,
+		ServiceContext serviceContext);
 
 	/**
 	 * Creates a new account entry with the primary key. Does not add the account entry to the database.
