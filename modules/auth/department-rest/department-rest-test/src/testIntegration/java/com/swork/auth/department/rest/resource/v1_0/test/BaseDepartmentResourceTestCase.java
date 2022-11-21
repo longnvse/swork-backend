@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -455,6 +456,14 @@ public abstract class BaseDepartmentResourceTestCase {
 			204,
 			departmentResource.deleteDepartmentHttpResponse(
 				department.getId()));
+
+		assertHttpResponseStatusCode(
+			404,
+			departmentResource.getDepartmentHttpResponse(department.getId()));
+
+		assertHttpResponseStatusCode(
+			404,
+			departmentResource.getDepartmentHttpResponse(department.getId()));
 	}
 
 	protected Department testDeleteDepartment_addDepartment() throws Exception {
@@ -477,26 +486,40 @@ public abstract class BaseDepartmentResourceTestCase {
 							}
 						})),
 				"JSONObject/data", "Object/deleteDepartment"));
+
+		JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"department",
+					new HashMap<String, Object>() {
+						{
+							put("id", department.getId());
+						}
+					},
+					new GraphQLField("id"))),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray.length() > 0);
 	}
 
 	@Test
-	public void testGetById() throws Exception {
-		Department postDepartment = testGetById_addDepartment();
+	public void testGetDepartment() throws Exception {
+		Department postDepartment = testGetDepartment_addDepartment();
 
-		Department getDepartment = departmentResource.getById(
+		Department getDepartment = departmentResource.getDepartment(
 			postDepartment.getId());
 
 		assertEquals(postDepartment, getDepartment);
 		assertValid(getDepartment);
 	}
 
-	protected Department testGetById_addDepartment() throws Exception {
+	protected Department testGetDepartment_addDepartment() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testGraphQLGetById() throws Exception {
+	public void testGraphQLGetDepartment() throws Exception {
 		Department department = testGraphQLDepartment_addDepartment();
 
 		Assert.assertTrue(
@@ -506,18 +529,18 @@ public abstract class BaseDepartmentResourceTestCase {
 					JSONUtil.getValueAsString(
 						invokeGraphQLQuery(
 							new GraphQLField(
-								"byId",
+								"department",
 								new HashMap<String, Object>() {
 									{
 										put("id", department.getId());
 									}
 								},
 								getGraphQLFields())),
-						"JSONObject/data", "Object/byId"))));
+						"JSONObject/data", "Object/department"))));
 	}
 
 	@Test
-	public void testGraphQLGetByIdNotFound() throws Exception {
+	public void testGraphQLGetDepartmentNotFound() throws Exception {
 		Long irrelevantId = RandomTestUtil.randomLong();
 
 		Assert.assertEquals(
@@ -525,7 +548,7 @@ public abstract class BaseDepartmentResourceTestCase {
 			JSONUtil.getValueAsString(
 				invokeGraphQLQuery(
 					new GraphQLField(
-						"byId",
+						"department",
 						new HashMap<String, Object>() {
 							{
 								put("id", irrelevantId);
@@ -537,25 +560,25 @@ public abstract class BaseDepartmentResourceTestCase {
 	}
 
 	@Test
-	public void testUpdateDepartment() throws Exception {
-		Department postDepartment = testUpdateDepartment_addDepartment();
+	public void testPutDepartment() throws Exception {
+		Department postDepartment = testPutDepartment_addDepartment();
 
 		Department randomDepartment = randomDepartment();
 
-		Department putDepartment = departmentResource.updateDepartment(
+		Department putDepartment = departmentResource.putDepartment(
 			postDepartment.getId(), randomDepartment);
 
 		assertEquals(randomDepartment, putDepartment);
 		assertValid(putDepartment);
 
-		Department getDepartment = departmentResource.updateDepartment(
+		Department getDepartment = departmentResource.getDepartment(
 			putDepartment.getId());
 
 		assertEquals(randomDepartment, getDepartment);
 		assertValid(getDepartment);
 	}
 
-	protected Department testUpdateDepartment_addDepartment() throws Exception {
+	protected Department testPutDepartment_addDepartment() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
