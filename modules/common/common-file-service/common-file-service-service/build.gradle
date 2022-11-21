@@ -1,0 +1,11 @@
+dependencies {
+	compile project(":modules:common:common-file-service:common-file-service-api")
+
+	compileOnly group: "com.liferay.portal", name: "release.portal.api"
+}
+
+buildService {
+	apiDir = "../common-file-service-api/src/main/java"
+}
+
+group = "com.swork.common.file"

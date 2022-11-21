@@ -1,0 +1,22 @@
+create table SW_FileManager (
+	uuid_ VARCHAR(75) null,
+	externalReferenceCode VARCHAR(75) null,
+	id_ LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	customerId LONG,
+	creatorId LONG,
+	fileId LONG,
+	parentCode VARCHAR(75) null,
+	fileType VARCHAR(75) null,
+	type_ VARCHAR(75) null,
+	pkType VARCHAR(75) null,
+	fileName VARCHAR(75) null,
+	fileSize VARCHAR(75) null,
+	moduleId VARCHAR(75) null,
+	appId VARCHAR(75) null
+);
