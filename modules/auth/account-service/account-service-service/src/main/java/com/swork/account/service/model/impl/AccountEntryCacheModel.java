@@ -63,7 +63,7 @@ public class AccountEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(39);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -99,6 +99,8 @@ public class AccountEntryCacheModel
 		sb.append(departmentId);
 		sb.append(", status=");
 		sb.append(status);
+		sb.append(", role=");
+		sb.append(role);
 		sb.append(", businessId=");
 		sb.append(businessId);
 		sb.append("}");
@@ -202,6 +204,13 @@ public class AccountEntryCacheModel
 			accountEntryImpl.setStatus(status);
 		}
 
+		if (role == null) {
+			accountEntryImpl.setRole("");
+		}
+		else {
+			accountEntryImpl.setRole(role);
+		}
+
 		accountEntryImpl.setBusinessId(businessId);
 
 		accountEntryImpl.resetOriginalValues();
@@ -233,6 +242,7 @@ public class AccountEntryCacheModel
 
 		departmentId = objectInput.readLong();
 		status = objectInput.readUTF();
+		role = objectInput.readUTF();
 
 		businessId = objectInput.readLong();
 	}
@@ -316,6 +326,13 @@ public class AccountEntryCacheModel
 			objectOutput.writeUTF(status);
 		}
 
+		if (role == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(role);
+		}
+
 		objectOutput.writeLong(businessId);
 	}
 
@@ -336,6 +353,7 @@ public class AccountEntryCacheModel
 	public String address;
 	public long departmentId;
 	public String status;
+	public String role;
 	public long businessId;
 
 }

@@ -20,7 +20,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.util.Validator;
 import com.swork.auth.department.service.mapper.model.DepartmentMapperModel;
 import com.swork.auth.department.service.model.DepartmentEntry;
 import com.swork.auth.department.service.service.DepartmentAccountEntryLocalService;

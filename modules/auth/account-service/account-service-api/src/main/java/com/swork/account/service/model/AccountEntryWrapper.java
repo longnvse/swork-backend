@@ -60,6 +60,7 @@ public class AccountEntryWrapper
 		attributes.put("address", getAddress());
 		attributes.put("departmentId", getDepartmentId());
 		attributes.put("status", getStatus());
+		attributes.put("role", getRole());
 		attributes.put("businessId", getBusinessId());
 
 		return attributes;
@@ -168,6 +169,12 @@ public class AccountEntryWrapper
 
 		if (status != null) {
 			setStatus(status);
+		}
+
+		String role = (String)attributes.get("role");
+
+		if (role != null) {
+			setRole(role);
 		}
 
 		Long businessId = (Long)attributes.get("businessId");
@@ -340,6 +347,16 @@ public class AccountEntryWrapper
 	@Override
 	public long getPrimaryKey() {
 		return model.getPrimaryKey();
+	}
+
+	/**
+	 * Returns the role of this account entry.
+	 *
+	 * @return the role of this account entry
+	 */
+	@Override
+	public String getRole() {
+		return model.getRole();
 	}
 
 	/**
@@ -535,6 +552,16 @@ public class AccountEntryWrapper
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		model.setPrimaryKey(primaryKey);
+	}
+
+	/**
+	 * Sets the role of this account entry.
+	 *
+	 * @param role the role of this account entry
+	 */
+	@Override
+	public void setRole(String role) {
+		model.setRole(role);
 	}
 
 	/**

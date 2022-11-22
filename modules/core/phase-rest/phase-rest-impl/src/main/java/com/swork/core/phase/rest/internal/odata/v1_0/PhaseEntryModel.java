@@ -24,7 +24,7 @@ public class PhaseEntryModel implements EntityModel {
                         SearchFields.THU, locale -> Field.getSortableFieldName(SearchFields.THU)),
                 new StringEntityField(
                         SearchFields.CHI, locale -> Field.getSortableFieldName(SearchFields.CHI)),
-                new StringEntityField(
+               new StringEntityField(
                         Field.ENTRY_CLASS_PK,
                         locale -> Field.ENTRY_CLASS_PK)
         );

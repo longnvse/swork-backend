@@ -25,7 +25,7 @@ public class DepartmentMapperModel {
     }
 
     public Long[] getAccounts() {
-        return accounts;
+        return Validator.isNotNull(accounts) ? accounts : new Long[]{};
     }
 
     public void setAccounts(Long[] accounts) {

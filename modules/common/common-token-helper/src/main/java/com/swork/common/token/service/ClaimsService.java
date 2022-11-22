@@ -30,6 +30,7 @@ public class ClaimsService {
             claims.put(ClaimsKeys.EMAIL, entry.getEmail());
             claims.put(ClaimsKeys.FULL_NAME, entry.getFullName());
             claims.put(ClaimsKeys.BUSINESS_ID, entry.getBusinessId());
+            claims.put(ClaimsKeys.ROLE, entry.getRole());
         }
 
         return claims;

@@ -2458,6 +2458,7 @@ public class AccountEntryPersistenceImpl
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("password", "password_");
+		dbColumnNames.put("role", "role_");
 
 		setDBColumnNames(dbColumnNames);
 
@@ -3250,7 +3251,7 @@ public class AccountEntryPersistenceImpl
 		AccountEntryPersistenceImpl.class);
 
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
-		new String[] {"uuid", "password"});
+		new String[] {"uuid", "password", "role"});
 
 	@Override
 	protected FinderCache getFinderCache() {

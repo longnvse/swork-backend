@@ -33,6 +33,15 @@ public class AccountEntryLocalServiceWrapper
 		_accountEntryLocalService = accountEntryLocalService;
 	}
 
+	@Override
+	public com.swork.account.service.model.AccountEntry addAccountAdmin(
+		long creatorId, long businessId, String email, String password,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _accountEntryLocalService.addAccountAdmin(
+			creatorId, businessId, email, password, serviceContext);
+	}
+
 	/**
 	 * Adds the account entry to the database. Also notifies the appropriate model listeners.
 	 *
@@ -60,6 +69,15 @@ public class AccountEntryLocalServiceWrapper
 		return _accountEntryLocalService.addAccountEntry(
 			creatorId, businessId, username, password, fullName, dateOfBirth,
 			email, phoneNumber, address, serviceContext);
+	}
+
+	@Override
+	public com.swork.account.service.model.AccountEntry addAccountSuperAdmin(
+		String username, String email, String password,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _accountEntryLocalService.addAccountSuperAdmin(
+			username, email, password, serviceContext);
 	}
 
 	/**

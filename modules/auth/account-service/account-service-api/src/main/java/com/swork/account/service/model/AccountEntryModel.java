@@ -314,6 +314,21 @@ public interface AccountEntryModel
 	public void setStatus(String status);
 
 	/**
+	 * Returns the role of this account entry.
+	 *
+	 * @return the role of this account entry
+	 */
+	@AutoEscape
+	public String getRole();
+
+	/**
+	 * Sets the role of this account entry.
+	 *
+	 * @param role the role of this account entry
+	 */
+	public void setRole(String role);
+
+	/**
 	 * Returns the business ID of this account entry.
 	 *
 	 * @return the business ID of this account entry
