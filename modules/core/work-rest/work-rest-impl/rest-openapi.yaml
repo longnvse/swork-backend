@@ -1,0 +1,285 @@
+components:
+  schemas:
+    Work:
+      description: Work Model
+      properties:
+        id:
+          format: int64
+          type: integer
+        externalReferenceCode:
+          type: string
+        projectId:
+          format: int64
+          type: integer
+        phaseId:
+          format: int64
+          type: integer
+        parentReferenceCode:
+          type: string
+        progress:
+          type: number
+          format: double
+          readOnly: true
+        name:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        actualStartDate:
+          type: string
+          format: date
+        actualEndDate:
+          type: string
+          format: date
+        parentName:
+          type: string
+          readOnly: true
+        parentId:
+          format: int64
+          type: integer
+          readOnly: true
+        projectName:
+          type: string
+          readOnly: true
+        phaseName:
+          type: string
+          readOnly: true
+        description:
+          type: string
+        status:
+          enum: [ 'pending', 'doing', 'unevaluated', 'evaluated', 'approved', 'inactive', 'denied' ]
+        manages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Manage"
+        participates:
+          type: array
+          items:
+            $ref: "#/components/schemas/Participate"
+        handles:
+          type: array
+          items:
+            $ref: "#/components/schemas/Handle"
+        percentage:
+          type: number
+          format: double
+          readOnly: true
+        progressType:
+          type: string
+        unit:
+          type: string
+        incompleteWork:
+          type: number
+          format: double
+        complete:
+          type: number
+          format: double
+        descriptionProgress:
+          type: string
+        parentStatus:
+          enum: [ 'pending', 'doing', 'unevaluated', 'evaluated', 'approved', 'inactive', 'denied' ]
+          readOnly: true
+        works:
+          type: array
+          items:
+            $ref: "#/components/schemas/Work"
+
+    Participate:
+      description: Work Participate Model
+      properties:
+        id:
+          format: int64
+          type: integer
+          readOnly: true
+        memberId:
+          format: int64
+          type: integer
+          readOnly: true
+        type:
+          enum: [ 'account', 'department' ]
+        memberReferenceCode:
+          type: string
+        memberName:
+          type: string
+          readOnly: true
+
+    Manage:
+      description: Work Participate Model
+      properties:
+        id:
+          format: int64
+          type: integer
+          readOnly: true
+        memberId:
+          format: int64
+          type: integer
+        memberName:
+          type: string
+          readOnly: true
+
+    Handle:
+      description: Work Handle Model
+      properties:
+        id:
+          format: int64
+          type: integer
+          readOnly: true
+        memberId:
+          format: int64
+          type: integer
+          readOnly: true
+        type:
+          enum: [ 'account', 'department' ]
+        memberReferenceCode:
+          type: string
+        memberName:
+          type: string
+          readOnly: true
+info:
+  description: "WorkRest REST API"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  title: "WorkRest"
+  version: v1.0
+openapi: 3.0.1
+
+paths:
+  "/works":
+    get:
+      tags: [ "Work" ]
+      description:
+        Retrieves the Work. Results can be paginated, filtered, searched, and sorted.
+      operationId: getWorksPage
+      parameters:
+        - in: query
+          name: filter
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: sort
+          schema:
+            type: string
+      responses:
+        200:
+          description: The data returned
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Work"
+                type: array
+            application/xml:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Work"
+                type: array
+    post:
+      tags: [ "Work" ]
+      description: Create a new Work
+      operationId: postWork
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Work"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Work"
+      responses:
+        201:
+          description:
+            "Work was added"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Work"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Work"
+  "/works/{workId}":
+    put:
+      tags: [ "Work" ]
+      description: Update a Work
+      operationId: putWork
+      parameters:
+        - in: path
+          name: workId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Work"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Work"
+      responses:
+        200:
+          description:
+            "Work was updated"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Work"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Work"
+    get:
+      tags: [ "Work" ]
+      description: Get an Work
+      operationId: getWork
+      parameters:
+        - in: path
+          name: workId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        200:
+          description:
+            "Get detail an Task"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Work"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Work"
+    delete:
+      tags: [ "Work" ]
+      description: Delete an Work
+      operationId: deleteWork
+      parameters:
+        - in: path
+          name: workId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        204:
+          description:
+            "Work was deleted"
+          content:
+            application/json: { }
+            application/xml: { }

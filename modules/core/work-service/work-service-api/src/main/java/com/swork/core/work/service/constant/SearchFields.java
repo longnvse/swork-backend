@@ -18,9 +18,9 @@ public class SearchFields {
     public static final String WORK_HANDLE_ACCOUNT = "workHandleAccount";
     public static final String WORK_HANDLE_DEPARTMENT = "workHandleDepartment";
 
-    public static final String ACTUAL_TIME = "actualTime";
+    public static final String ACTUAL_START_DATE = "actualStartDate";
     public static final String YEAR_START_DATE = "yearStartDate";
-    public static final String YEAR_ACTUAL_TIME = "yearActualTime";
+    public static final String YEAR_ACTUAL_START_DATE = "yearActualStartDate";
     public static final String YEAR_MONTH_END_DATE = "yearMonthEndDate";
     public static final String PROGRESS = "progress";
 }

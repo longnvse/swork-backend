@@ -1,0 +1,3 @@
+Bundle-Name: work-rest-impl
+Bundle-SymbolicName: com.swork.core.work.rest.impl
+Bundle-Version: 1.0.0

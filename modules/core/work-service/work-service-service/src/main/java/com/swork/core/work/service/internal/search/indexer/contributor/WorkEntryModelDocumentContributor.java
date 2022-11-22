@@ -72,8 +72,8 @@ public class WorkEntryModelDocumentContributor
         document.addKeyword(SearchFields.WORK_PARTICIPATE_DEPARTMENT,
                 getMemberIdsByType(baseModel.getWorkId(), DEPARTMENT, Type.PARTICIPATE.getValue()));
 
-        document.addDate(SearchFields.ACTUAL_TIME, baseModel.getActualEndDate());
-        document.addDateSortable(SearchFields.ACTUAL_TIME, baseModel.getActualEndDate());
+        document.addDate(SearchFields.ACTUAL_START_DATE, baseModel.getActualEndDate());
+        document.addDateSortable(SearchFields.ACTUAL_START_DATE, baseModel.getActualEndDate());
 
         if (Validator.isNotNull(baseModel.getStartDate())) {
             cal.setTime(baseModel.getStartDate());
@@ -83,8 +83,8 @@ public class WorkEntryModelDocumentContributor
 
         if (Validator.isNotNull(baseModel.getActualEndDate())) {
             cal.setTime(baseModel.getActualEndDate());
-            document.addNumber(SearchFields.YEAR_ACTUAL_TIME, Long.parseLong(String.valueOf(cal.get(Calendar.YEAR))));
-            document.addNumberSortable(SearchFields.YEAR_ACTUAL_TIME, Long.parseLong(String.valueOf(cal.get(Calendar.YEAR))));
+            document.addNumber(SearchFields.YEAR_ACTUAL_START_DATE, Long.parseLong(String.valueOf(cal.get(Calendar.YEAR))));
+            document.addNumberSortable(SearchFields.YEAR_ACTUAL_START_DATE, Long.parseLong(String.valueOf(cal.get(Calendar.YEAR))));
         }
 
         if (Validator.isNotNull(baseModel.getEndDate())) {

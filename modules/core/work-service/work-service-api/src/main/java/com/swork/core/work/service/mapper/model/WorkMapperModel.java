@@ -8,10 +8,6 @@ public class WorkMapperModel {
     private Date startDate;
     private Date endDate;
     private String description;
-    private String status;
-    private Long progress;
-    private Date actualStartDate;
-    private Date actualEndDate;
     private String progressType;
     private Long projectId;
     private Long phaseId;
@@ -60,22 +56,6 @@ public class WorkMapperModel {
         this.description = description;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Long getProgress() {
-        return progress;
-    }
-
-    public void setProgress(Long progress) {
-        this.progress = progress;
-    }
-
     public void setManages(WorkMembersMapperModel manages) {
         this.manages = manages;
     }
@@ -98,23 +78,6 @@ public class WorkMapperModel {
 
     public WorkMembersMapperModel getParticipates() {
         return participates;
-    }
-
-    public Date getActualStartDate() {
-        return actualStartDate;
-    }
-
-    public void setActualStartDate(Date actualStartDate) {
-        this.actualStartDate = actualStartDate;
-    }
-
-
-    public Date getActualEndDate() {
-        return actualEndDate;
-    }
-
-    public void setActualEndDate(Date actualEndDate) {
-        this.actualEndDate = actualEndDate;
     }
 
     public String getProgressType() {
