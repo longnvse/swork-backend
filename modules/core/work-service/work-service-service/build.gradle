@@ -1,0 +1,15 @@
+dependencies {
+	compile project(":modules:core:work-service:work-service-api")
+	compile project(":modules:core:project-service:project-service-api")
+	compile project(":modules:auth:account-service:account-service-api")
+	compile project(":modules:auth:department-service:department-service-api")
+	compile project(":modules:common:common-util")
+
+	compileOnly group: "com.liferay.portal", name: "release.portal.api", version: "7.4.3.13-ga13"
+}
+
+buildService {
+	apiDir = "../work-service-api/src/main/java"
+}
+
+group = "com.swork.core.work.service"
