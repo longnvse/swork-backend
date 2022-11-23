@@ -71,6 +71,14 @@ public abstract class BaseWorkResourceImpl
 			),
 			@io.swagger.v3.oas.annotations.Parameter(
 				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "projectId"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "phaseId"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
 				name = "filter"
 			),
 			@io.swagger.v3.oas.annotations.Parameter(
@@ -98,6 +106,14 @@ public abstract class BaseWorkResourceImpl
 			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
 			@javax.ws.rs.QueryParam("search")
 			String search,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.QueryParam("projectId")
+			Long projectId,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.QueryParam("phaseId")
+			Long phaseId,
 			@javax.ws.rs.core.Context Filter filter,
 			@javax.ws.rs.core.Context Pagination pagination,
 			@javax.ws.rs.core.Context Sort[] sorts)
@@ -109,7 +125,7 @@ public abstract class BaseWorkResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/swork/work-rest/v1.0/works' -d $'{"Followers": ___, "actualEndDate": ___, "actualStartDate": ___, "complete": ___, "description": ___, "descriptionProgress": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "id": ___, "incompleteWork": ___, "manages": ___, "name": ___, "parentReferenceCode": ___, "participates": ___, "phaseId": ___, "progressType": ___, "projectId": ___, "startDate": ___, "status": ___, "unit": ___, "works": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/swork/work-rest/v1.0/works' -d $'{"actualEndDate": ___, "actualStartDate": ___, "complete": ___, "description": ___, "descriptionProgress": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "id": ___, "incompleteWork": ___, "manages": ___, "name": ___, "parentReferenceCode": ___, "participates": ___, "phaseId": ___, "progressType": ___, "projectId": ___, "startDate": ___, "status": ___, "unit": ___, "works": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Create a new Work")
 	@io.swagger.v3.oas.annotations.tags.Tags(
@@ -275,7 +291,7 @@ public abstract class BaseWorkResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0/works/{workId}' -d $'{"Followers": ___, "actualEndDate": ___, "actualStartDate": ___, "complete": ___, "description": ___, "descriptionProgress": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "id": ___, "incompleteWork": ___, "manages": ___, "name": ___, "parentReferenceCode": ___, "participates": ___, "phaseId": ___, "progressType": ___, "projectId": ___, "startDate": ___, "status": ___, "unit": ___, "works": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0/works/{workId}' -d $'{"actualEndDate": ___, "actualStartDate": ___, "complete": ___, "description": ___, "descriptionProgress": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "id": ___, "incompleteWork": ___, "manages": ___, "name": ___, "parentReferenceCode": ___, "participates": ___, "phaseId": ___, "progressType": ___, "projectId": ___, "startDate": ___, "status": ___, "unit": ___, "works": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Update a Work")
 	@io.swagger.v3.oas.annotations.Parameters(
@@ -396,7 +412,10 @@ public abstract class BaseWorkResourceImpl
 			Map<String, Serializable> parameters, String search)
 		throws Exception {
 
-		return getWorksPage(search, filter, pagination, sorts);
+		return getWorksPage(
+			search, Long.parseLong((String)parameters.get("projectId")),
+			Long.parseLong((String)parameters.get("phaseId")), filter,
+			pagination, sorts);
 	}
 
 	@Override

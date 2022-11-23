@@ -49,30 +49,6 @@ public class WorkSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
-		if (work.getFollowers() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"Followers\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < work.getFollowers().length; i++) {
-				sb.append("\"");
-
-				sb.append(_escape(work.getFollowers()[i]));
-
-				sb.append("\"");
-
-				if ((i + 1) < work.getFollowers().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
 		if (work.getActualEndDate() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -424,30 +400,6 @@ public class WorkSerDes {
 			sb.append("\"");
 		}
 
-		if (work.getTreeName() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"treeName\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < work.getTreeName().length; i++) {
-				sb.append("\"");
-
-				sb.append(_escape(work.getTreeName()[i]));
-
-				sb.append("\"");
-
-				if ((i + 1) < work.getTreeName().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
 		if (work.getUnit() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -502,13 +454,6 @@ public class WorkSerDes {
 
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
-
-		if (work.getFollowers() == null) {
-			map.put("Followers", null);
-		}
-		else {
-			map.put("Followers", String.valueOf(work.getFollowers()));
-		}
 
 		if (work.getActualEndDate() == null) {
 			map.put("actualEndDate", null);
@@ -705,13 +650,6 @@ public class WorkSerDes {
 			map.put("status", String.valueOf(work.getStatus()));
 		}
 
-		if (work.getTreeName() == null) {
-			map.put("treeName", null);
-		}
-		else {
-			map.put("treeName", String.valueOf(work.getTreeName()));
-		}
-
 		if (work.getUnit() == null) {
 			map.put("unit", null);
 		}
@@ -746,13 +684,7 @@ public class WorkSerDes {
 			Work work, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "Followers")) {
-				if (jsonParserFieldValue != null) {
-					work.setFollowers(
-						toStrings((Object[])jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "actualEndDate")) {
+			if (Objects.equals(jsonParserFieldName, "actualEndDate")) {
 				if (jsonParserFieldValue != null) {
 					work.setActualEndDate(toDate((String)jsonParserFieldValue));
 				}
@@ -888,7 +820,7 @@ public class WorkSerDes {
 			else if (Objects.equals(jsonParserFieldName, "progress")) {
 				if (jsonParserFieldValue != null) {
 					work.setProgress(
-						Double.valueOf((String)jsonParserFieldValue));
+						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "progressType")) {
@@ -916,11 +848,6 @@ public class WorkSerDes {
 				if (jsonParserFieldValue != null) {
 					work.setStatus(
 						Work.Status.create((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "treeName")) {
-				if (jsonParserFieldValue != null) {
-					work.setTreeName(toStrings((Object[])jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "unit")) {

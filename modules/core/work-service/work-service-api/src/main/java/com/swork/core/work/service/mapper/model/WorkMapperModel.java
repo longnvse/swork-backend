@@ -1,5 +1,7 @@
 package com.swork.core.work.service.mapper.model;
 
+import com.liferay.petra.string.StringPool;
+
 import java.util.Date;
 
 public class WorkMapperModel {
@@ -29,7 +31,7 @@ public class WorkMapperModel {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.trim().replaceAll("\\s+", StringPool.BLANK);
     }
 
     public Date getStartDate() {

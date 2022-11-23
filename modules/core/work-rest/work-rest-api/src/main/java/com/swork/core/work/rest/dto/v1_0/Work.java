@@ -51,34 +51,6 @@ public class Work implements Serializable {
 	}
 
 	@Schema
-	public String[] getFollowers() {
-		return Followers;
-	}
-
-	public void setFollowers(String[] Followers) {
-		this.Followers = Followers;
-	}
-
-	@JsonIgnore
-	public void setFollowers(
-		UnsafeSupplier<String[], Exception> FollowersUnsafeSupplier) {
-
-		try {
-			Followers = FollowersUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String[] Followers;
-
-	@Schema
 	public Date getActualEndDate() {
 		return actualEndDate;
 	}
@@ -648,17 +620,17 @@ public class Work implements Serializable {
 	protected String phaseName;
 
 	@Schema
-	public Double getProgress() {
+	public Long getProgress() {
 		return progress;
 	}
 
-	public void setProgress(Double progress) {
+	public void setProgress(Long progress) {
 		this.progress = progress;
 	}
 
 	@JsonIgnore
 	public void setProgress(
-		UnsafeSupplier<Double, Exception> progressUnsafeSupplier) {
+		UnsafeSupplier<Long, Exception> progressUnsafeSupplier) {
 
 		try {
 			progress = progressUnsafeSupplier.get();
@@ -673,7 +645,7 @@ public class Work implements Serializable {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected Double progress;
+	protected Long progress;
 
 	@Schema
 	public String getProgressType() {
@@ -826,34 +798,6 @@ public class Work implements Serializable {
 	protected Status status;
 
 	@Schema
-	public String[] getTreeName() {
-		return treeName;
-	}
-
-	public void setTreeName(String[] treeName) {
-		this.treeName = treeName;
-	}
-
-	@JsonIgnore
-	public void setTreeName(
-		UnsafeSupplier<String[], Exception> treeNameUnsafeSupplier) {
-
-		try {
-			treeName = treeNameUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected String[] treeName;
-
-	@Schema
 	public String getUnit() {
 		return unit;
 	}
@@ -937,30 +881,6 @@ public class Work implements Serializable {
 
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
-
-		if (Followers != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"Followers\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < Followers.length; i++) {
-				sb.append("\"");
-
-				sb.append(_escape(Followers[i]));
-
-				sb.append("\"");
-
-				if ((i + 1) < Followers.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
 
 		if (actualEndDate != null) {
 			if (sb.length() > 1) {
@@ -1310,30 +1230,6 @@ public class Work implements Serializable {
 			sb.append(status);
 
 			sb.append("\"");
-		}
-
-		if (treeName != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"treeName\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < treeName.length; i++) {
-				sb.append("\"");
-
-				sb.append(_escape(treeName[i]));
-
-				sb.append("\"");
-
-				if ((i + 1) < treeName.length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
 		}
 
 		if (unit != null) {

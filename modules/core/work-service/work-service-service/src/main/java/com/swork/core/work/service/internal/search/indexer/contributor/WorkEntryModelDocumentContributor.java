@@ -35,6 +35,9 @@ public class WorkEntryModelDocumentContributor
     public void contribute(Document document, WorkEntry baseModel) {
         document.addKeyword(SearchFields.BUSINESS_ID, baseModel.getBusinessId());
         document.addKeyword(SearchFields.CREATOR_ID, baseModel.getAccountId());
+        document.addKeyword(SearchFields.PARENT_ID, baseModel.getParentId());
+        document.addKeyword(SearchFields.PROJECT_ID, baseModel.getProjectId());
+        document.addKeyword(SearchFields.PHASE_ID, baseModel.getPhaseId());
 
         document.addKeyword(SearchFields.EXTERNAL_REFERENCE_CODE, baseModel.getExternalReferenceCode());
         document.addKeywordSortable(SearchFields.EXTERNAL_REFERENCE_CODE, baseModel.getExternalReferenceCode());

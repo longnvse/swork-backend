@@ -1456,51 +1456,46 @@ public class WorkEntryPersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"workEntry.companyId = ?";
 
-	private FinderPath _finderPathWithPaginationFindByB_P;
-	private FinderPath _finderPathWithoutPaginationFindByB_P;
-	private FinderPath _finderPathCountByB_P;
+	private FinderPath _finderPathWithPaginationFindByProjectId;
+	private FinderPath _finderPathWithoutPaginationFindByProjectId;
+	private FinderPath _finderPathCountByProjectId;
 
 	/**
-	 * Returns all the work entries where businessId = &#63; and projectId = &#63;.
+	 * Returns all the work entries where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @return the matching work entries
 	 */
 	@Override
-	public List<WorkEntry> findByB_P(long businessId, Long projectId) {
-		return findByB_P(
-			businessId, projectId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	public List<WorkEntry> findByProjectId(Long projectId) {
+		return findByProjectId(
+			projectId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns a range of all the work entries where businessId = &#63; and projectId = &#63;.
+	 * Returns a range of all the work entries where projectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
 	 * @return the range of matching work entries
 	 */
 	@Override
-	public List<WorkEntry> findByB_P(
-		long businessId, Long projectId, int start, int end) {
-
-		return findByB_P(businessId, projectId, start, end, null);
+	public List<WorkEntry> findByProjectId(Long projectId, int start, int end) {
+		return findByProjectId(projectId, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the work entries where businessId = &#63; and projectId = &#63;.
+	 * Returns an ordered range of all the work entries where projectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
@@ -1508,22 +1503,20 @@ public class WorkEntryPersistenceImpl
 	 * @return the ordered range of matching work entries
 	 */
 	@Override
-	public List<WorkEntry> findByB_P(
-		long businessId, Long projectId, int start, int end,
+	public List<WorkEntry> findByProjectId(
+		Long projectId, int start, int end,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		return findByB_P(
-			businessId, projectId, start, end, orderByComparator, true);
+		return findByProjectId(projectId, start, end, orderByComparator, true);
 	}
 
 	/**
-	 * Returns an ordered range of all the work entries where businessId = &#63; and projectId = &#63;.
+	 * Returns an ordered range of all the work entries where projectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
@@ -1532,8 +1525,8 @@ public class WorkEntryPersistenceImpl
 	 * @return the ordered range of matching work entries
 	 */
 	@Override
-	public List<WorkEntry> findByB_P(
-		long businessId, Long projectId, int start, int end,
+	public List<WorkEntry> findByProjectId(
+		Long projectId, int start, int end,
 		OrderByComparator<WorkEntry> orderByComparator,
 		boolean useFinderCache) {
 
@@ -1544,14 +1537,14 @@ public class WorkEntryPersistenceImpl
 			(orderByComparator == null)) {
 
 			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByB_P;
-				finderArgs = new Object[] {businessId, projectId};
+				finderPath = _finderPathWithoutPaginationFindByProjectId;
+				finderArgs = new Object[] {projectId};
 			}
 		}
 		else if (useFinderCache) {
-			finderPath = _finderPathWithPaginationFindByB_P;
+			finderPath = _finderPathWithPaginationFindByProjectId;
 			finderArgs = new Object[] {
-				businessId, projectId, start, end, orderByComparator
+				projectId, start, end, orderByComparator
 			};
 		}
 
@@ -1563,9 +1556,7 @@ public class WorkEntryPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (WorkEntry workEntry : list) {
-					if ((businessId != workEntry.getBusinessId()) ||
-						!Objects.equals(projectId, workEntry.getProjectId())) {
-
+					if (!Objects.equals(projectId, workEntry.getProjectId())) {
 						list = null;
 
 						break;
@@ -1579,17 +1570,15 @@ public class WorkEntryPersistenceImpl
 
 			if (orderByComparator != null) {
 				sb = new StringBundler(
-					4 + (orderByComparator.getOrderByFields().length * 2));
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				sb = new StringBundler(4);
+				sb = new StringBundler(3);
 			}
 
 			sb.append(_SQL_SELECT_WORKENTRY_WHERE);
 
-			sb.append(_FINDER_COLUMN_B_P_BUSINESSID_2);
-
-			sb.append(_FINDER_COLUMN_B_P_PROJECTID_2);
+			sb.append(_FINDER_COLUMN_PROJECTID_PROJECTID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -1609,8 +1598,6 @@ public class WorkEntryPersistenceImpl
 				Query query = session.createQuery(sql);
 
 				QueryPos queryPos = QueryPos.getInstance(query);
-
-				queryPos.add(businessId);
 
 				queryPos.add(projectId.longValue());
 
@@ -1635,35 +1622,30 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the first work entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the first work entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry findByB_P_First(
-			long businessId, Long projectId,
-			OrderByComparator<WorkEntry> orderByComparator)
+	public WorkEntry findByProjectId_First(
+			Long projectId, OrderByComparator<WorkEntry> orderByComparator)
 		throws NoSuchWorkEntryException {
 
-		WorkEntry workEntry = fetchByB_P_First(
-			businessId, projectId, orderByComparator);
+		WorkEntry workEntry = fetchByProjectId_First(
+			projectId, orderByComparator);
 
 		if (workEntry != null) {
 			return workEntry;
 		}
 
-		StringBundler sb = new StringBundler(6);
+		StringBundler sb = new StringBundler(4);
 
 		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("businessId=");
-		sb.append(businessId);
-
-		sb.append(", projectId=");
+		sb.append("projectId=");
 		sb.append(projectId);
 
 		sb.append("}");
@@ -1672,20 +1654,18 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the first work entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the first work entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry fetchByB_P_First(
-		long businessId, Long projectId,
-		OrderByComparator<WorkEntry> orderByComparator) {
+	public WorkEntry fetchByProjectId_First(
+		Long projectId, OrderByComparator<WorkEntry> orderByComparator) {
 
-		List<WorkEntry> list = findByB_P(
-			businessId, projectId, 0, 1, orderByComparator);
+		List<WorkEntry> list = findByProjectId(
+			projectId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -1695,35 +1675,30 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the last work entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the last work entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry findByB_P_Last(
-			long businessId, Long projectId,
-			OrderByComparator<WorkEntry> orderByComparator)
+	public WorkEntry findByProjectId_Last(
+			Long projectId, OrderByComparator<WorkEntry> orderByComparator)
 		throws NoSuchWorkEntryException {
 
-		WorkEntry workEntry = fetchByB_P_Last(
-			businessId, projectId, orderByComparator);
+		WorkEntry workEntry = fetchByProjectId_Last(
+			projectId, orderByComparator);
 
 		if (workEntry != null) {
 			return workEntry;
 		}
 
-		StringBundler sb = new StringBundler(6);
+		StringBundler sb = new StringBundler(4);
 
 		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("businessId=");
-		sb.append(businessId);
-
-		sb.append(", projectId=");
+		sb.append("projectId=");
 		sb.append(projectId);
 
 		sb.append("}");
@@ -1732,26 +1707,24 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the last work entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the last work entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry fetchByB_P_Last(
-		long businessId, Long projectId,
-		OrderByComparator<WorkEntry> orderByComparator) {
+	public WorkEntry fetchByProjectId_Last(
+		Long projectId, OrderByComparator<WorkEntry> orderByComparator) {
 
-		int count = countByB_P(businessId, projectId);
+		int count = countByProjectId(projectId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<WorkEntry> list = findByB_P(
-			businessId, projectId, count - 1, count, orderByComparator);
+		List<WorkEntry> list = findByProjectId(
+			projectId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -1761,18 +1734,17 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the work entries before and after the current work entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the work entries before and after the current work entry in the ordered set where projectId = &#63;.
 	 *
 	 * @param workId the primary key of the current work entry
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next work entry
 	 * @throws NoSuchWorkEntryException if a work entry with the primary key could not be found
 	 */
 	@Override
-	public WorkEntry[] findByB_P_PrevAndNext(
-			long workId, long businessId, Long projectId,
+	public WorkEntry[] findByProjectId_PrevAndNext(
+			long workId, Long projectId,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws NoSuchWorkEntryException {
 
@@ -1785,15 +1757,13 @@ public class WorkEntryPersistenceImpl
 
 			WorkEntry[] array = new WorkEntryImpl[3];
 
-			array[0] = getByB_P_PrevAndNext(
-				session, workEntry, businessId, projectId, orderByComparator,
-				true);
+			array[0] = getByProjectId_PrevAndNext(
+				session, workEntry, projectId, orderByComparator, true);
 
 			array[1] = workEntry;
 
-			array[2] = getByB_P_PrevAndNext(
-				session, workEntry, businessId, projectId, orderByComparator,
-				false);
+			array[2] = getByProjectId_PrevAndNext(
+				session, workEntry, projectId, orderByComparator, false);
 
 			return array;
 		}
@@ -1805,26 +1775,24 @@ public class WorkEntryPersistenceImpl
 		}
 	}
 
-	protected WorkEntry getByB_P_PrevAndNext(
-		Session session, WorkEntry workEntry, long businessId, Long projectId,
+	protected WorkEntry getByProjectId_PrevAndNext(
+		Session session, WorkEntry workEntry, Long projectId,
 		OrderByComparator<WorkEntry> orderByComparator, boolean previous) {
 
 		StringBundler sb = null;
 
 		if (orderByComparator != null) {
 			sb = new StringBundler(
-				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			sb = new StringBundler(4);
+			sb = new StringBundler(3);
 		}
 
 		sb.append(_SQL_SELECT_WORKENTRY_WHERE);
 
-		sb.append(_FINDER_COLUMN_B_P_BUSINESSID_2);
-
-		sb.append(_FINDER_COLUMN_B_P_PROJECTID_2);
+		sb.append(_FINDER_COLUMN_PROJECTID_PROJECTID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -1895,8 +1863,6 @@ public class WorkEntryPersistenceImpl
 
 		QueryPos queryPos = QueryPos.getInstance(query);
 
-		queryPos.add(businessId);
-
 		queryPos.add(projectId.longValue());
 
 		if (orderByComparator != null) {
@@ -1918,45 +1884,40 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Removes all the work entries where businessId = &#63; and projectId = &#63; from the database.
+	 * Removes all the work entries where projectId = &#63; from the database.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 */
 	@Override
-	public void removeByB_P(long businessId, Long projectId) {
+	public void removeByProjectId(Long projectId) {
 		for (WorkEntry workEntry :
-				findByB_P(
-					businessId, projectId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-					null)) {
+				findByProjectId(
+					projectId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 
 			remove(workEntry);
 		}
 	}
 
 	/**
-	 * Returns the number of work entries where businessId = &#63; and projectId = &#63;.
+	 * Returns the number of work entries where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @return the number of matching work entries
 	 */
 	@Override
-	public int countByB_P(long businessId, Long projectId) {
-		FinderPath finderPath = _finderPathCountByB_P;
+	public int countByProjectId(Long projectId) {
+		FinderPath finderPath = _finderPathCountByProjectId;
 
-		Object[] finderArgs = new Object[] {businessId, projectId};
+		Object[] finderArgs = new Object[] {projectId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
 
 		if (count == null) {
-			StringBundler sb = new StringBundler(3);
+			StringBundler sb = new StringBundler(2);
 
 			sb.append(_SQL_COUNT_WORKENTRY_WHERE);
 
-			sb.append(_FINDER_COLUMN_B_P_BUSINESSID_2);
-
-			sb.append(_FINDER_COLUMN_B_P_PROJECTID_2);
+			sb.append(_FINDER_COLUMN_PROJECTID_PROJECTID_2);
 
 			String sql = sb.toString();
 
@@ -1968,8 +1929,6 @@ public class WorkEntryPersistenceImpl
 				Query query = session.createQuery(sql);
 
 				QueryPos queryPos = QueryPos.getInstance(query);
-
-				queryPos.add(businessId);
 
 				queryPos.add(projectId.longValue());
 
@@ -1988,57 +1947,54 @@ public class WorkEntryPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_B_P_BUSINESSID_2 =
-		"workEntry.businessId = ? AND ";
-
-	private static final String _FINDER_COLUMN_B_P_PROJECTID_2 =
+	private static final String _FINDER_COLUMN_PROJECTID_PROJECTID_2 =
 		"workEntry.projectId = ?";
 
-	private FinderPath _finderPathWithPaginationFindByB_PH;
-	private FinderPath _finderPathWithoutPaginationFindByB_PH;
-	private FinderPath _finderPathCountByB_PH;
+	private FinderPath _finderPathWithPaginationFindByProjectAndPhase;
+	private FinderPath _finderPathWithoutPaginationFindByProjectAndPhase;
+	private FinderPath _finderPathCountByProjectAndPhase;
 
 	/**
-	 * Returns all the work entries where businessId = &#63; and phaseId = &#63;.
+	 * Returns all the work entries where projectId = &#63; and phaseId = &#63;.
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @return the matching work entries
 	 */
 	@Override
-	public List<WorkEntry> findByB_PH(long businessId, Long phaseId) {
-		return findByB_PH(
-			businessId, phaseId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	public List<WorkEntry> findByProjectAndPhase(Long projectId, Long phaseId) {
+		return findByProjectAndPhase(
+			projectId, phaseId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns a range of all the work entries where businessId = &#63; and phaseId = &#63;.
+	 * Returns a range of all the work entries where projectId = &#63; and phaseId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
 	 * @return the range of matching work entries
 	 */
 	@Override
-	public List<WorkEntry> findByB_PH(
-		long businessId, Long phaseId, int start, int end) {
+	public List<WorkEntry> findByProjectAndPhase(
+		Long projectId, Long phaseId, int start, int end) {
 
-		return findByB_PH(businessId, phaseId, start, end, null);
+		return findByProjectAndPhase(projectId, phaseId, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the work entries where businessId = &#63; and phaseId = &#63;.
+	 * Returns an ordered range of all the work entries where projectId = &#63; and phaseId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
@@ -2046,22 +2002,22 @@ public class WorkEntryPersistenceImpl
 	 * @return the ordered range of matching work entries
 	 */
 	@Override
-	public List<WorkEntry> findByB_PH(
-		long businessId, Long phaseId, int start, int end,
+	public List<WorkEntry> findByProjectAndPhase(
+		Long projectId, Long phaseId, int start, int end,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		return findByB_PH(
-			businessId, phaseId, start, end, orderByComparator, true);
+		return findByProjectAndPhase(
+			projectId, phaseId, start, end, orderByComparator, true);
 	}
 
 	/**
-	 * Returns an ordered range of all the work entries where businessId = &#63; and phaseId = &#63;.
+	 * Returns an ordered range of all the work entries where projectId = &#63; and phaseId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
@@ -2070,8 +2026,8 @@ public class WorkEntryPersistenceImpl
 	 * @return the ordered range of matching work entries
 	 */
 	@Override
-	public List<WorkEntry> findByB_PH(
-		long businessId, Long phaseId, int start, int end,
+	public List<WorkEntry> findByProjectAndPhase(
+		Long projectId, Long phaseId, int start, int end,
 		OrderByComparator<WorkEntry> orderByComparator,
 		boolean useFinderCache) {
 
@@ -2082,14 +2038,14 @@ public class WorkEntryPersistenceImpl
 			(orderByComparator == null)) {
 
 			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByB_PH;
-				finderArgs = new Object[] {businessId, phaseId};
+				finderPath = _finderPathWithoutPaginationFindByProjectAndPhase;
+				finderArgs = new Object[] {projectId, phaseId};
 			}
 		}
 		else if (useFinderCache) {
-			finderPath = _finderPathWithPaginationFindByB_PH;
+			finderPath = _finderPathWithPaginationFindByProjectAndPhase;
 			finderArgs = new Object[] {
-				businessId, phaseId, start, end, orderByComparator
+				projectId, phaseId, start, end, orderByComparator
 			};
 		}
 
@@ -2101,7 +2057,7 @@ public class WorkEntryPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (WorkEntry workEntry : list) {
-					if ((businessId != workEntry.getBusinessId()) ||
+					if (!Objects.equals(projectId, workEntry.getProjectId()) ||
 						!Objects.equals(phaseId, workEntry.getPhaseId())) {
 
 						list = null;
@@ -2125,9 +2081,9 @@ public class WorkEntryPersistenceImpl
 
 			sb.append(_SQL_SELECT_WORKENTRY_WHERE);
 
-			sb.append(_FINDER_COLUMN_B_PH_BUSINESSID_2);
+			sb.append(_FINDER_COLUMN_PROJECTANDPHASE_PROJECTID_2);
 
-			sb.append(_FINDER_COLUMN_B_PH_PHASEID_2);
+			sb.append(_FINDER_COLUMN_PROJECTANDPHASE_PHASEID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -2148,7 +2104,7 @@ public class WorkEntryPersistenceImpl
 
 				QueryPos queryPos = QueryPos.getInstance(query);
 
-				queryPos.add(businessId);
+				queryPos.add(projectId.longValue());
 
 				queryPos.add(phaseId.longValue());
 
@@ -2173,22 +2129,22 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the first work entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 * Returns the first work entry in the ordered set where projectId = &#63; and phaseId = &#63;.
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry findByB_PH_First(
-			long businessId, Long phaseId,
+	public WorkEntry findByProjectAndPhase_First(
+			Long projectId, Long phaseId,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws NoSuchWorkEntryException {
 
-		WorkEntry workEntry = fetchByB_PH_First(
-			businessId, phaseId, orderByComparator);
+		WorkEntry workEntry = fetchByProjectAndPhase_First(
+			projectId, phaseId, orderByComparator);
 
 		if (workEntry != null) {
 			return workEntry;
@@ -2198,8 +2154,8 @@ public class WorkEntryPersistenceImpl
 
 		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("businessId=");
-		sb.append(businessId);
+		sb.append("projectId=");
+		sb.append(projectId);
 
 		sb.append(", phaseId=");
 		sb.append(phaseId);
@@ -2210,20 +2166,20 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the first work entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 * Returns the first work entry in the ordered set where projectId = &#63; and phaseId = &#63;.
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry fetchByB_PH_First(
-		long businessId, Long phaseId,
+	public WorkEntry fetchByProjectAndPhase_First(
+		Long projectId, Long phaseId,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		List<WorkEntry> list = findByB_PH(
-			businessId, phaseId, 0, 1, orderByComparator);
+		List<WorkEntry> list = findByProjectAndPhase(
+			projectId, phaseId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -2233,22 +2189,22 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the last work entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 * Returns the last work entry in the ordered set where projectId = &#63; and phaseId = &#63;.
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry findByB_PH_Last(
-			long businessId, Long phaseId,
+	public WorkEntry findByProjectAndPhase_Last(
+			Long projectId, Long phaseId,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws NoSuchWorkEntryException {
 
-		WorkEntry workEntry = fetchByB_PH_Last(
-			businessId, phaseId, orderByComparator);
+		WorkEntry workEntry = fetchByProjectAndPhase_Last(
+			projectId, phaseId, orderByComparator);
 
 		if (workEntry != null) {
 			return workEntry;
@@ -2258,8 +2214,8 @@ public class WorkEntryPersistenceImpl
 
 		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("businessId=");
-		sb.append(businessId);
+		sb.append("projectId=");
+		sb.append(projectId);
 
 		sb.append(", phaseId=");
 		sb.append(phaseId);
@@ -2270,26 +2226,26 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the last work entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 * Returns the last work entry in the ordered set where projectId = &#63; and phaseId = &#63;.
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry fetchByB_PH_Last(
-		long businessId, Long phaseId,
+	public WorkEntry fetchByProjectAndPhase_Last(
+		Long projectId, Long phaseId,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		int count = countByB_PH(businessId, phaseId);
+		int count = countByProjectAndPhase(projectId, phaseId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<WorkEntry> list = findByB_PH(
-			businessId, phaseId, count - 1, count, orderByComparator);
+		List<WorkEntry> list = findByProjectAndPhase(
+			projectId, phaseId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -2299,18 +2255,18 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the work entries before and after the current work entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 * Returns the work entries before and after the current work entry in the ordered set where projectId = &#63; and phaseId = &#63;.
 	 *
 	 * @param workId the primary key of the current work entry
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next work entry
 	 * @throws NoSuchWorkEntryException if a work entry with the primary key could not be found
 	 */
 	@Override
-	public WorkEntry[] findByB_PH_PrevAndNext(
-			long workId, long businessId, Long phaseId,
+	public WorkEntry[] findByProjectAndPhase_PrevAndNext(
+			long workId, Long projectId, Long phaseId,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws NoSuchWorkEntryException {
 
@@ -2323,14 +2279,14 @@ public class WorkEntryPersistenceImpl
 
 			WorkEntry[] array = new WorkEntryImpl[3];
 
-			array[0] = getByB_PH_PrevAndNext(
-				session, workEntry, businessId, phaseId, orderByComparator,
+			array[0] = getByProjectAndPhase_PrevAndNext(
+				session, workEntry, projectId, phaseId, orderByComparator,
 				true);
 
 			array[1] = workEntry;
 
-			array[2] = getByB_PH_PrevAndNext(
-				session, workEntry, businessId, phaseId, orderByComparator,
+			array[2] = getByProjectAndPhase_PrevAndNext(
+				session, workEntry, projectId, phaseId, orderByComparator,
 				false);
 
 			return array;
@@ -2343,8 +2299,8 @@ public class WorkEntryPersistenceImpl
 		}
 	}
 
-	protected WorkEntry getByB_PH_PrevAndNext(
-		Session session, WorkEntry workEntry, long businessId, Long phaseId,
+	protected WorkEntry getByProjectAndPhase_PrevAndNext(
+		Session session, WorkEntry workEntry, Long projectId, Long phaseId,
 		OrderByComparator<WorkEntry> orderByComparator, boolean previous) {
 
 		StringBundler sb = null;
@@ -2360,9 +2316,9 @@ public class WorkEntryPersistenceImpl
 
 		sb.append(_SQL_SELECT_WORKENTRY_WHERE);
 
-		sb.append(_FINDER_COLUMN_B_PH_BUSINESSID_2);
+		sb.append(_FINDER_COLUMN_PROJECTANDPHASE_PROJECTID_2);
 
-		sb.append(_FINDER_COLUMN_B_PH_PHASEID_2);
+		sb.append(_FINDER_COLUMN_PROJECTANDPHASE_PHASEID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -2433,7 +2389,7 @@ public class WorkEntryPersistenceImpl
 
 		QueryPos queryPos = QueryPos.getInstance(query);
 
-		queryPos.add(businessId);
+		queryPos.add(projectId.longValue());
 
 		queryPos.add(phaseId.longValue());
 
@@ -2456,16 +2412,16 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Removes all the work entries where businessId = &#63; and phaseId = &#63; from the database.
+	 * Removes all the work entries where projectId = &#63; and phaseId = &#63; from the database.
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 */
 	@Override
-	public void removeByB_PH(long businessId, Long phaseId) {
+	public void removeByProjectAndPhase(Long projectId, Long phaseId) {
 		for (WorkEntry workEntry :
-				findByB_PH(
-					businessId, phaseId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+				findByProjectAndPhase(
+					projectId, phaseId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
 					null)) {
 
 			remove(workEntry);
@@ -2473,17 +2429,17 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the number of work entries where businessId = &#63; and phaseId = &#63;.
+	 * Returns the number of work entries where projectId = &#63; and phaseId = &#63;.
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @return the number of matching work entries
 	 */
 	@Override
-	public int countByB_PH(long businessId, Long phaseId) {
-		FinderPath finderPath = _finderPathCountByB_PH;
+	public int countByProjectAndPhase(Long projectId, Long phaseId) {
+		FinderPath finderPath = _finderPathCountByProjectAndPhase;
 
-		Object[] finderArgs = new Object[] {businessId, phaseId};
+		Object[] finderArgs = new Object[] {projectId, phaseId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
 
@@ -2492,9 +2448,9 @@ public class WorkEntryPersistenceImpl
 
 			sb.append(_SQL_COUNT_WORKENTRY_WHERE);
 
-			sb.append(_FINDER_COLUMN_B_PH_BUSINESSID_2);
+			sb.append(_FINDER_COLUMN_PROJECTANDPHASE_PROJECTID_2);
 
-			sb.append(_FINDER_COLUMN_B_PH_PHASEID_2);
+			sb.append(_FINDER_COLUMN_PROJECTANDPHASE_PHASEID_2);
 
 			String sql = sb.toString();
 
@@ -2507,7 +2463,7 @@ public class WorkEntryPersistenceImpl
 
 				QueryPos queryPos = QueryPos.getInstance(query);
 
-				queryPos.add(businessId);
+				queryPos.add(projectId.longValue());
 
 				queryPos.add(phaseId.longValue());
 
@@ -2526,15 +2482,504 @@ public class WorkEntryPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_B_PH_BUSINESSID_2 =
-		"workEntry.businessId = ? AND ";
+	private static final String _FINDER_COLUMN_PROJECTANDPHASE_PROJECTID_2 =
+		"workEntry.projectId = ? AND ";
 
-	private static final String _FINDER_COLUMN_B_PH_PHASEID_2 =
+	private static final String _FINDER_COLUMN_PROJECTANDPHASE_PHASEID_2 =
 		"workEntry.phaseId = ?";
 
-	private FinderPath _finderPathWithPaginationFindByB_PID;
-	private FinderPath _finderPathWithoutPaginationFindByB_PID;
-	private FinderPath _finderPathCountByB_PID;
+	private FinderPath _finderPathWithPaginationFindByPhaseId;
+	private FinderPath _finderPathWithoutPaginationFindByPhaseId;
+	private FinderPath _finderPathCountByPhaseId;
+
+	/**
+	 * Returns all the work entries where phaseId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @return the matching work entries
+	 */
+	@Override
+	public List<WorkEntry> findByPhaseId(Long phaseId) {
+		return findByPhaseId(
+			phaseId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the work entries where phaseId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param phaseId the phase ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @return the range of matching work entries
+	 */
+	@Override
+	public List<WorkEntry> findByPhaseId(Long phaseId, int start, int end) {
+		return findByPhaseId(phaseId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the work entries where phaseId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param phaseId the phase ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching work entries
+	 */
+	@Override
+	public List<WorkEntry> findByPhaseId(
+		Long phaseId, int start, int end,
+		OrderByComparator<WorkEntry> orderByComparator) {
+
+		return findByPhaseId(phaseId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the work entries where phaseId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param phaseId the phase ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching work entries
+	 */
+	@Override
+	public List<WorkEntry> findByPhaseId(
+		Long phaseId, int start, int end,
+		OrderByComparator<WorkEntry> orderByComparator,
+		boolean useFinderCache) {
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByPhaseId;
+				finderArgs = new Object[] {phaseId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByPhaseId;
+			finderArgs = new Object[] {phaseId, start, end, orderByComparator};
+		}
+
+		List<WorkEntry> list = null;
+
+		if (useFinderCache) {
+			list = (List<WorkEntry>)finderCache.getResult(
+				finderPath, finderArgs);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (WorkEntry workEntry : list) {
+					if (!Objects.equals(phaseId, workEntry.getPhaseId())) {
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(3);
+			}
+
+			sb.append(_SQL_SELECT_WORKENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_PHASEID_PHASEID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(WorkEntryModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(phaseId.longValue());
+
+				list = (List<WorkEntry>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first work entry in the ordered set where phaseId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry findByPhaseId_First(
+			Long phaseId, OrderByComparator<WorkEntry> orderByComparator)
+		throws NoSuchWorkEntryException {
+
+		WorkEntry workEntry = fetchByPhaseId_First(phaseId, orderByComparator);
+
+		if (workEntry != null) {
+			return workEntry;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("phaseId=");
+		sb.append(phaseId);
+
+		sb.append("}");
+
+		throw new NoSuchWorkEntryException(sb.toString());
+	}
+
+	/**
+	 * Returns the first work entry in the ordered set where phaseId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry fetchByPhaseId_First(
+		Long phaseId, OrderByComparator<WorkEntry> orderByComparator) {
+
+		List<WorkEntry> list = findByPhaseId(phaseId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last work entry in the ordered set where phaseId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry findByPhaseId_Last(
+			Long phaseId, OrderByComparator<WorkEntry> orderByComparator)
+		throws NoSuchWorkEntryException {
+
+		WorkEntry workEntry = fetchByPhaseId_Last(phaseId, orderByComparator);
+
+		if (workEntry != null) {
+			return workEntry;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("phaseId=");
+		sb.append(phaseId);
+
+		sb.append("}");
+
+		throw new NoSuchWorkEntryException(sb.toString());
+	}
+
+	/**
+	 * Returns the last work entry in the ordered set where phaseId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry fetchByPhaseId_Last(
+		Long phaseId, OrderByComparator<WorkEntry> orderByComparator) {
+
+		int count = countByPhaseId(phaseId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<WorkEntry> list = findByPhaseId(
+			phaseId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the work entries before and after the current work entry in the ordered set where phaseId = &#63;.
+	 *
+	 * @param workId the primary key of the current work entry
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next work entry
+	 * @throws NoSuchWorkEntryException if a work entry with the primary key could not be found
+	 */
+	@Override
+	public WorkEntry[] findByPhaseId_PrevAndNext(
+			long workId, Long phaseId,
+			OrderByComparator<WorkEntry> orderByComparator)
+		throws NoSuchWorkEntryException {
+
+		WorkEntry workEntry = findByPrimaryKey(workId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			WorkEntry[] array = new WorkEntryImpl[3];
+
+			array[0] = getByPhaseId_PrevAndNext(
+				session, workEntry, phaseId, orderByComparator, true);
+
+			array[1] = workEntry;
+
+			array[2] = getByPhaseId_PrevAndNext(
+				session, workEntry, phaseId, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected WorkEntry getByPhaseId_PrevAndNext(
+		Session session, WorkEntry workEntry, Long phaseId,
+		OrderByComparator<WorkEntry> orderByComparator, boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(3);
+		}
+
+		sb.append(_SQL_SELECT_WORKENTRY_WHERE);
+
+		sb.append(_FINDER_COLUMN_PHASEID_PHASEID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(WorkEntryModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(phaseId.longValue());
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(workEntry)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<WorkEntry> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the work entries where phaseId = &#63; from the database.
+	 *
+	 * @param phaseId the phase ID
+	 */
+	@Override
+	public void removeByPhaseId(Long phaseId) {
+		for (WorkEntry workEntry :
+				findByPhaseId(
+					phaseId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+
+			remove(workEntry);
+		}
+	}
+
+	/**
+	 * Returns the number of work entries where phaseId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @return the number of matching work entries
+	 */
+	@Override
+	public int countByPhaseId(Long phaseId) {
+		FinderPath finderPath = _finderPathCountByPhaseId;
+
+		Object[] finderArgs = new Object[] {phaseId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_WORKENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_PHASEID_PHASEID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(phaseId.longValue());
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_PHASEID_PHASEID_2 =
+		"workEntry.phaseId = ?";
+
+	private FinderPath _finderPathWithPaginationFindByParentId;
+	private FinderPath _finderPathWithoutPaginationFindByParentId;
+	private FinderPath _finderPathCountByParentId;
 
 	/**
 	 * Returns all the work entries where businessId = &#63; and parentId = &#63;.
@@ -2544,8 +2989,8 @@ public class WorkEntryPersistenceImpl
 	 * @return the matching work entries
 	 */
 	@Override
-	public List<WorkEntry> findByB_PID(long businessId, Long parentId) {
-		return findByB_PID(
+	public List<WorkEntry> findByParentId(long businessId, Long parentId) {
+		return findByParentId(
 			businessId, parentId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
@@ -2563,10 +3008,10 @@ public class WorkEntryPersistenceImpl
 	 * @return the range of matching work entries
 	 */
 	@Override
-	public List<WorkEntry> findByB_PID(
+	public List<WorkEntry> findByParentId(
 		long businessId, Long parentId, int start, int end) {
 
-		return findByB_PID(businessId, parentId, start, end, null);
+		return findByParentId(businessId, parentId, start, end, null);
 	}
 
 	/**
@@ -2584,11 +3029,11 @@ public class WorkEntryPersistenceImpl
 	 * @return the ordered range of matching work entries
 	 */
 	@Override
-	public List<WorkEntry> findByB_PID(
+	public List<WorkEntry> findByParentId(
 		long businessId, Long parentId, int start, int end,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		return findByB_PID(
+		return findByParentId(
 			businessId, parentId, start, end, orderByComparator, true);
 	}
 
@@ -2608,7 +3053,7 @@ public class WorkEntryPersistenceImpl
 	 * @return the ordered range of matching work entries
 	 */
 	@Override
-	public List<WorkEntry> findByB_PID(
+	public List<WorkEntry> findByParentId(
 		long businessId, Long parentId, int start, int end,
 		OrderByComparator<WorkEntry> orderByComparator,
 		boolean useFinderCache) {
@@ -2620,12 +3065,12 @@ public class WorkEntryPersistenceImpl
 			(orderByComparator == null)) {
 
 			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByB_PID;
+				finderPath = _finderPathWithoutPaginationFindByParentId;
 				finderArgs = new Object[] {businessId, parentId};
 			}
 		}
 		else if (useFinderCache) {
-			finderPath = _finderPathWithPaginationFindByB_PID;
+			finderPath = _finderPathWithPaginationFindByParentId;
 			finderArgs = new Object[] {
 				businessId, parentId, start, end, orderByComparator
 			};
@@ -2663,9 +3108,9 @@ public class WorkEntryPersistenceImpl
 
 			sb.append(_SQL_SELECT_WORKENTRY_WHERE);
 
-			sb.append(_FINDER_COLUMN_B_PID_BUSINESSID_2);
+			sb.append(_FINDER_COLUMN_PARENTID_BUSINESSID_2);
 
-			sb.append(_FINDER_COLUMN_B_PID_PARENTID_2);
+			sb.append(_FINDER_COLUMN_PARENTID_PARENTID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -2720,12 +3165,12 @@ public class WorkEntryPersistenceImpl
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry findByB_PID_First(
+	public WorkEntry findByParentId_First(
 			long businessId, Long parentId,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws NoSuchWorkEntryException {
 
-		WorkEntry workEntry = fetchByB_PID_First(
+		WorkEntry workEntry = fetchByParentId_First(
 			businessId, parentId, orderByComparator);
 
 		if (workEntry != null) {
@@ -2756,11 +3201,11 @@ public class WorkEntryPersistenceImpl
 	 * @return the first matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry fetchByB_PID_First(
+	public WorkEntry fetchByParentId_First(
 		long businessId, Long parentId,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		List<WorkEntry> list = findByB_PID(
+		List<WorkEntry> list = findByParentId(
 			businessId, parentId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -2780,12 +3225,12 @@ public class WorkEntryPersistenceImpl
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry findByB_PID_Last(
+	public WorkEntry findByParentId_Last(
 			long businessId, Long parentId,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws NoSuchWorkEntryException {
 
-		WorkEntry workEntry = fetchByB_PID_Last(
+		WorkEntry workEntry = fetchByParentId_Last(
 			businessId, parentId, orderByComparator);
 
 		if (workEntry != null) {
@@ -2816,17 +3261,17 @@ public class WorkEntryPersistenceImpl
 	 * @return the last matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry fetchByB_PID_Last(
+	public WorkEntry fetchByParentId_Last(
 		long businessId, Long parentId,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		int count = countByB_PID(businessId, parentId);
+		int count = countByParentId(businessId, parentId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<WorkEntry> list = findByB_PID(
+		List<WorkEntry> list = findByParentId(
 			businessId, parentId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -2847,7 +3292,7 @@ public class WorkEntryPersistenceImpl
 	 * @throws NoSuchWorkEntryException if a work entry with the primary key could not be found
 	 */
 	@Override
-	public WorkEntry[] findByB_PID_PrevAndNext(
+	public WorkEntry[] findByParentId_PrevAndNext(
 			long workId, long businessId, Long parentId,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws NoSuchWorkEntryException {
@@ -2861,13 +3306,13 @@ public class WorkEntryPersistenceImpl
 
 			WorkEntry[] array = new WorkEntryImpl[3];
 
-			array[0] = getByB_PID_PrevAndNext(
+			array[0] = getByParentId_PrevAndNext(
 				session, workEntry, businessId, parentId, orderByComparator,
 				true);
 
 			array[1] = workEntry;
 
-			array[2] = getByB_PID_PrevAndNext(
+			array[2] = getByParentId_PrevAndNext(
 				session, workEntry, businessId, parentId, orderByComparator,
 				false);
 
@@ -2881,7 +3326,7 @@ public class WorkEntryPersistenceImpl
 		}
 	}
 
-	protected WorkEntry getByB_PID_PrevAndNext(
+	protected WorkEntry getByParentId_PrevAndNext(
 		Session session, WorkEntry workEntry, long businessId, Long parentId,
 		OrderByComparator<WorkEntry> orderByComparator, boolean previous) {
 
@@ -2898,9 +3343,9 @@ public class WorkEntryPersistenceImpl
 
 		sb.append(_SQL_SELECT_WORKENTRY_WHERE);
 
-		sb.append(_FINDER_COLUMN_B_PID_BUSINESSID_2);
+		sb.append(_FINDER_COLUMN_PARENTID_BUSINESSID_2);
 
-		sb.append(_FINDER_COLUMN_B_PID_PARENTID_2);
+		sb.append(_FINDER_COLUMN_PARENTID_PARENTID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -3000,9 +3445,9 @@ public class WorkEntryPersistenceImpl
 	 * @param parentId the parent ID
 	 */
 	@Override
-	public void removeByB_PID(long businessId, Long parentId) {
+	public void removeByParentId(long businessId, Long parentId) {
 		for (WorkEntry workEntry :
-				findByB_PID(
+				findByParentId(
 					businessId, parentId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
 					null)) {
 
@@ -3018,8 +3463,8 @@ public class WorkEntryPersistenceImpl
 	 * @return the number of matching work entries
 	 */
 	@Override
-	public int countByB_PID(long businessId, Long parentId) {
-		FinderPath finderPath = _finderPathCountByB_PID;
+	public int countByParentId(long businessId, Long parentId) {
+		FinderPath finderPath = _finderPathCountByParentId;
 
 		Object[] finderArgs = new Object[] {businessId, parentId};
 
@@ -3030,9 +3475,9 @@ public class WorkEntryPersistenceImpl
 
 			sb.append(_SQL_COUNT_WORKENTRY_WHERE);
 
-			sb.append(_FINDER_COLUMN_B_PID_BUSINESSID_2);
+			sb.append(_FINDER_COLUMN_PARENTID_BUSINESSID_2);
 
-			sb.append(_FINDER_COLUMN_B_PID_PARENTID_2);
+			sb.append(_FINDER_COLUMN_PARENTID_PARENTID_2);
 
 			String sql = sb.toString();
 
@@ -3064,60 +3509,347 @@ public class WorkEntryPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_B_PID_BUSINESSID_2 =
+	private static final String _FINDER_COLUMN_PARENTID_BUSINESSID_2 =
 		"workEntry.businessId = ? AND ";
 
-	private static final String _FINDER_COLUMN_B_PID_PARENTID_2 =
+	private static final String _FINDER_COLUMN_PARENTID_PARENTID_2 =
 		"workEntry.parentId = ?";
 
-	private FinderPath _finderPathWithPaginationFindByB_P_C;
-	private FinderPath _finderPathWithoutPaginationFindByB_P_C;
-	private FinderPath _finderPathCountByB_P_C;
+	private FinderPath _finderPathFetchByParentIdAndName;
+	private FinderPath _finderPathCountByParentIdAndName;
 
 	/**
-	 * Returns all the work entries where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns the work entry where businessId = &#63; and parentId = &#63; and name = &#63; or throws a <code>NoSuchWorkEntryException</code> if it could not be found.
 	 *
 	 * @param businessId the business ID
+	 * @param parentId the parent ID
+	 * @param name the name
+	 * @return the matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry findByParentIdAndName(
+			long businessId, Long parentId, String name)
+		throws NoSuchWorkEntryException {
+
+		WorkEntry workEntry = fetchByParentIdAndName(
+			businessId, parentId, name);
+
+		if (workEntry == null) {
+			StringBundler sb = new StringBundler(8);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("businessId=");
+			sb.append(businessId);
+
+			sb.append(", parentId=");
+			sb.append(parentId);
+
+			sb.append(", name=");
+			sb.append(name);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchWorkEntryException(sb.toString());
+		}
+
+		return workEntry;
+	}
+
+	/**
+	 * Returns the work entry where businessId = &#63; and parentId = &#63; and name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param businessId the business ID
+	 * @param parentId the parent ID
+	 * @param name the name
+	 * @return the matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry fetchByParentIdAndName(
+		long businessId, Long parentId, String name) {
+
+		return fetchByParentIdAndName(businessId, parentId, name, true);
+	}
+
+	/**
+	 * Returns the work entry where businessId = &#63; and parentId = &#63; and name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param businessId the business ID
+	 * @param parentId the parent ID
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry fetchByParentIdAndName(
+		long businessId, Long parentId, String name, boolean useFinderCache) {
+
+		name = Objects.toString(name, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {businessId, parentId, name};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByParentIdAndName, finderArgs);
+		}
+
+		if (result instanceof WorkEntry) {
+			WorkEntry workEntry = (WorkEntry)result;
+
+			if ((businessId != workEntry.getBusinessId()) ||
+				!Objects.equals(parentId, workEntry.getParentId()) ||
+				!Objects.equals(name, workEntry.getName())) {
+
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(5);
+
+			sb.append(_SQL_SELECT_WORKENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_PARENTIDANDNAME_BUSINESSID_2);
+
+			sb.append(_FINDER_COLUMN_PARENTIDANDNAME_PARENTID_2);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				sb.append(_FINDER_COLUMN_PARENTIDANDNAME_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				sb.append(_FINDER_COLUMN_PARENTIDANDNAME_NAME_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(businessId);
+
+				queryPos.add(parentId.longValue());
+
+				if (bindName) {
+					queryPos.add(name);
+				}
+
+				List<WorkEntry> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByParentIdAndName, finderArgs,
+							list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {
+									businessId, parentId, name
+								};
+							}
+
+							_log.warn(
+								"WorkEntryPersistenceImpl.fetchByParentIdAndName(long, Long, String, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					WorkEntry workEntry = list.get(0);
+
+					result = workEntry;
+
+					cacheResult(workEntry);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (WorkEntry)result;
+		}
+	}
+
+	/**
+	 * Removes the work entry where businessId = &#63; and parentId = &#63; and name = &#63; from the database.
+	 *
+	 * @param businessId the business ID
+	 * @param parentId the parent ID
+	 * @param name the name
+	 * @return the work entry that was removed
+	 */
+	@Override
+	public WorkEntry removeByParentIdAndName(
+			long businessId, Long parentId, String name)
+		throws NoSuchWorkEntryException {
+
+		WorkEntry workEntry = findByParentIdAndName(businessId, parentId, name);
+
+		return remove(workEntry);
+	}
+
+	/**
+	 * Returns the number of work entries where businessId = &#63; and parentId = &#63; and name = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param parentId the parent ID
+	 * @param name the name
+	 * @return the number of matching work entries
+	 */
+	@Override
+	public int countByParentIdAndName(
+		long businessId, Long parentId, String name) {
+
+		name = Objects.toString(name, "");
+
+		FinderPath finderPath = _finderPathCountByParentIdAndName;
+
+		Object[] finderArgs = new Object[] {businessId, parentId, name};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_SQL_COUNT_WORKENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_PARENTIDANDNAME_BUSINESSID_2);
+
+			sb.append(_FINDER_COLUMN_PARENTIDANDNAME_PARENTID_2);
+
+			boolean bindName = false;
+
+			if (name.isEmpty()) {
+				sb.append(_FINDER_COLUMN_PARENTIDANDNAME_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				sb.append(_FINDER_COLUMN_PARENTIDANDNAME_NAME_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(businessId);
+
+				queryPos.add(parentId.longValue());
+
+				if (bindName) {
+					queryPos.add(name);
+				}
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_PARENTIDANDNAME_BUSINESSID_2 =
+		"workEntry.businessId = ? AND ";
+
+	private static final String _FINDER_COLUMN_PARENTIDANDNAME_PARENTID_2 =
+		"workEntry.parentId = ? AND ";
+
+	private static final String _FINDER_COLUMN_PARENTIDANDNAME_NAME_2 =
+		"workEntry.name = ?";
+
+	private static final String _FINDER_COLUMN_PARENTIDANDNAME_NAME_3 =
+		"(workEntry.name IS NULL OR workEntry.name = '')";
+
+	private FinderPath _finderPathWithPaginationFindByParentCode;
+	private FinderPath _finderPathWithoutPaginationFindByParentCode;
+	private FinderPath _finderPathCountByParentCode;
+
+	/**
+	 * Returns all the work entries where parentReferenceCode = &#63;.
+	 *
 	 * @param parentReferenceCode the parent reference code
 	 * @return the matching work entries
 	 */
 	@Override
-	public List<WorkEntry> findByB_P_C(
-		long businessId, String parentReferenceCode) {
-
-		return findByB_P_C(
-			businessId, parentReferenceCode, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
+	public List<WorkEntry> findByParentCode(String parentReferenceCode) {
+		return findByParentCode(
+			parentReferenceCode, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns a range of all the work entries where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns a range of all the work entries where parentReferenceCode = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
 	 * @return the range of matching work entries
 	 */
 	@Override
-	public List<WorkEntry> findByB_P_C(
-		long businessId, String parentReferenceCode, int start, int end) {
+	public List<WorkEntry> findByParentCode(
+		String parentReferenceCode, int start, int end) {
 
-		return findByB_P_C(businessId, parentReferenceCode, start, end, null);
+		return findByParentCode(parentReferenceCode, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the work entries where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns an ordered range of all the work entries where parentReferenceCode = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
@@ -3125,23 +3857,21 @@ public class WorkEntryPersistenceImpl
 	 * @return the ordered range of matching work entries
 	 */
 	@Override
-	public List<WorkEntry> findByB_P_C(
-		long businessId, String parentReferenceCode, int start, int end,
+	public List<WorkEntry> findByParentCode(
+		String parentReferenceCode, int start, int end,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		return findByB_P_C(
-			businessId, parentReferenceCode, start, end, orderByComparator,
-			true);
+		return findByParentCode(
+			parentReferenceCode, start, end, orderByComparator, true);
 	}
 
 	/**
-	 * Returns an ordered range of all the work entries where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns an ordered range of all the work entries where parentReferenceCode = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
@@ -3150,8 +3880,8 @@ public class WorkEntryPersistenceImpl
 	 * @return the ordered range of matching work entries
 	 */
 	@Override
-	public List<WorkEntry> findByB_P_C(
-		long businessId, String parentReferenceCode, int start, int end,
+	public List<WorkEntry> findByParentCode(
+		String parentReferenceCode, int start, int end,
 		OrderByComparator<WorkEntry> orderByComparator,
 		boolean useFinderCache) {
 
@@ -3164,14 +3894,14 @@ public class WorkEntryPersistenceImpl
 			(orderByComparator == null)) {
 
 			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByB_P_C;
-				finderArgs = new Object[] {businessId, parentReferenceCode};
+				finderPath = _finderPathWithoutPaginationFindByParentCode;
+				finderArgs = new Object[] {parentReferenceCode};
 			}
 		}
 		else if (useFinderCache) {
-			finderPath = _finderPathWithPaginationFindByB_P_C;
+			finderPath = _finderPathWithPaginationFindByParentCode;
 			finderArgs = new Object[] {
-				businessId, parentReferenceCode, start, end, orderByComparator
+				parentReferenceCode, start, end, orderByComparator
 			};
 		}
 
@@ -3183,8 +3913,7 @@ public class WorkEntryPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (WorkEntry workEntry : list) {
-					if ((businessId != workEntry.getBusinessId()) ||
-						!parentReferenceCode.equals(
+					if (!parentReferenceCode.equals(
 							workEntry.getParentReferenceCode())) {
 
 						list = null;
@@ -3200,25 +3929,23 @@ public class WorkEntryPersistenceImpl
 
 			if (orderByComparator != null) {
 				sb = new StringBundler(
-					4 + (orderByComparator.getOrderByFields().length * 2));
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				sb = new StringBundler(4);
+				sb = new StringBundler(3);
 			}
 
 			sb.append(_SQL_SELECT_WORKENTRY_WHERE);
 
-			sb.append(_FINDER_COLUMN_B_P_C_BUSINESSID_2);
-
 			boolean bindParentReferenceCode = false;
 
 			if (parentReferenceCode.isEmpty()) {
-				sb.append(_FINDER_COLUMN_B_P_C_PARENTREFERENCECODE_3);
+				sb.append(_FINDER_COLUMN_PARENTCODE_PARENTREFERENCECODE_3);
 			}
 			else {
 				bindParentReferenceCode = true;
 
-				sb.append(_FINDER_COLUMN_B_P_C_PARENTREFERENCECODE_2);
+				sb.append(_FINDER_COLUMN_PARENTCODE_PARENTREFERENCECODE_2);
 			}
 
 			if (orderByComparator != null) {
@@ -3239,8 +3966,6 @@ public class WorkEntryPersistenceImpl
 				Query query = session.createQuery(sql);
 
 				QueryPos queryPos = QueryPos.getInstance(query);
-
-				queryPos.add(businessId);
 
 				if (bindParentReferenceCode) {
 					queryPos.add(parentReferenceCode);
@@ -3267,35 +3992,31 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the first work entry in the ordered set where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns the first work entry in the ordered set where parentReferenceCode = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry findByB_P_C_First(
-			long businessId, String parentReferenceCode,
+	public WorkEntry findByParentCode_First(
+			String parentReferenceCode,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws NoSuchWorkEntryException {
 
-		WorkEntry workEntry = fetchByB_P_C_First(
-			businessId, parentReferenceCode, orderByComparator);
+		WorkEntry workEntry = fetchByParentCode_First(
+			parentReferenceCode, orderByComparator);
 
 		if (workEntry != null) {
 			return workEntry;
 		}
 
-		StringBundler sb = new StringBundler(6);
+		StringBundler sb = new StringBundler(4);
 
 		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("businessId=");
-		sb.append(businessId);
-
-		sb.append(", parentReferenceCode=");
+		sb.append("parentReferenceCode=");
 		sb.append(parentReferenceCode);
 
 		sb.append("}");
@@ -3304,20 +4025,19 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the first work entry in the ordered set where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns the first work entry in the ordered set where parentReferenceCode = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry fetchByB_P_C_First(
-		long businessId, String parentReferenceCode,
+	public WorkEntry fetchByParentCode_First(
+		String parentReferenceCode,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		List<WorkEntry> list = findByB_P_C(
-			businessId, parentReferenceCode, 0, 1, orderByComparator);
+		List<WorkEntry> list = findByParentCode(
+			parentReferenceCode, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -3327,35 +4047,31 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the last work entry in the ordered set where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns the last work entry in the ordered set where parentReferenceCode = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry findByB_P_C_Last(
-			long businessId, String parentReferenceCode,
+	public WorkEntry findByParentCode_Last(
+			String parentReferenceCode,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws NoSuchWorkEntryException {
 
-		WorkEntry workEntry = fetchByB_P_C_Last(
-			businessId, parentReferenceCode, orderByComparator);
+		WorkEntry workEntry = fetchByParentCode_Last(
+			parentReferenceCode, orderByComparator);
 
 		if (workEntry != null) {
 			return workEntry;
 		}
 
-		StringBundler sb = new StringBundler(6);
+		StringBundler sb = new StringBundler(4);
 
 		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("businessId=");
-		sb.append(businessId);
-
-		sb.append(", parentReferenceCode=");
+		sb.append("parentReferenceCode=");
 		sb.append(parentReferenceCode);
 
 		sb.append("}");
@@ -3364,27 +4080,25 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the last work entry in the ordered set where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns the last work entry in the ordered set where parentReferenceCode = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry fetchByB_P_C_Last(
-		long businessId, String parentReferenceCode,
+	public WorkEntry fetchByParentCode_Last(
+		String parentReferenceCode,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		int count = countByB_P_C(businessId, parentReferenceCode);
+		int count = countByParentCode(parentReferenceCode);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<WorkEntry> list = findByB_P_C(
-			businessId, parentReferenceCode, count - 1, count,
-			orderByComparator);
+		List<WorkEntry> list = findByParentCode(
+			parentReferenceCode, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -3394,18 +4108,17 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the work entries before and after the current work entry in the ordered set where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns the work entries before and after the current work entry in the ordered set where parentReferenceCode = &#63;.
 	 *
 	 * @param workId the primary key of the current work entry
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next work entry
 	 * @throws NoSuchWorkEntryException if a work entry with the primary key could not be found
 	 */
 	@Override
-	public WorkEntry[] findByB_P_C_PrevAndNext(
-			long workId, long businessId, String parentReferenceCode,
+	public WorkEntry[] findByParentCode_PrevAndNext(
+			long workId, String parentReferenceCode,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws NoSuchWorkEntryException {
 
@@ -3420,15 +4133,15 @@ public class WorkEntryPersistenceImpl
 
 			WorkEntry[] array = new WorkEntryImpl[3];
 
-			array[0] = getByB_P_C_PrevAndNext(
-				session, workEntry, businessId, parentReferenceCode,
-				orderByComparator, true);
+			array[0] = getByParentCode_PrevAndNext(
+				session, workEntry, parentReferenceCode, orderByComparator,
+				true);
 
 			array[1] = workEntry;
 
-			array[2] = getByB_P_C_PrevAndNext(
-				session, workEntry, businessId, parentReferenceCode,
-				orderByComparator, false);
+			array[2] = getByParentCode_PrevAndNext(
+				session, workEntry, parentReferenceCode, orderByComparator,
+				false);
 
 			return array;
 		}
@@ -3440,35 +4153,32 @@ public class WorkEntryPersistenceImpl
 		}
 	}
 
-	protected WorkEntry getByB_P_C_PrevAndNext(
-		Session session, WorkEntry workEntry, long businessId,
-		String parentReferenceCode,
+	protected WorkEntry getByParentCode_PrevAndNext(
+		Session session, WorkEntry workEntry, String parentReferenceCode,
 		OrderByComparator<WorkEntry> orderByComparator, boolean previous) {
 
 		StringBundler sb = null;
 
 		if (orderByComparator != null) {
 			sb = new StringBundler(
-				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			sb = new StringBundler(4);
+			sb = new StringBundler(3);
 		}
 
 		sb.append(_SQL_SELECT_WORKENTRY_WHERE);
 
-		sb.append(_FINDER_COLUMN_B_P_C_BUSINESSID_2);
-
 		boolean bindParentReferenceCode = false;
 
 		if (parentReferenceCode.isEmpty()) {
-			sb.append(_FINDER_COLUMN_B_P_C_PARENTREFERENCECODE_3);
+			sb.append(_FINDER_COLUMN_PARENTCODE_PARENTREFERENCECODE_3);
 		}
 		else {
 			bindParentReferenceCode = true;
 
-			sb.append(_FINDER_COLUMN_B_P_C_PARENTREFERENCECODE_2);
+			sb.append(_FINDER_COLUMN_PARENTCODE_PARENTREFERENCECODE_2);
 		}
 
 		if (orderByComparator != null) {
@@ -3540,8 +4250,6 @@ public class WorkEntryPersistenceImpl
 
 		QueryPos queryPos = QueryPos.getInstance(query);
 
-		queryPos.add(businessId);
-
 		if (bindParentReferenceCode) {
 			queryPos.add(parentReferenceCode);
 		}
@@ -3565,55 +4273,51 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Removes all the work entries where businessId = &#63; and parentReferenceCode = &#63; from the database.
+	 * Removes all the work entries where parentReferenceCode = &#63; from the database.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 */
 	@Override
-	public void removeByB_P_C(long businessId, String parentReferenceCode) {
+	public void removeByParentCode(String parentReferenceCode) {
 		for (WorkEntry workEntry :
-				findByB_P_C(
-					businessId, parentReferenceCode, QueryUtil.ALL_POS,
-					QueryUtil.ALL_POS, null)) {
+				findByParentCode(
+					parentReferenceCode, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+					null)) {
 
 			remove(workEntry);
 		}
 	}
 
 	/**
-	 * Returns the number of work entries where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns the number of work entries where parentReferenceCode = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @return the number of matching work entries
 	 */
 	@Override
-	public int countByB_P_C(long businessId, String parentReferenceCode) {
+	public int countByParentCode(String parentReferenceCode) {
 		parentReferenceCode = Objects.toString(parentReferenceCode, "");
 
-		FinderPath finderPath = _finderPathCountByB_P_C;
+		FinderPath finderPath = _finderPathCountByParentCode;
 
-		Object[] finderArgs = new Object[] {businessId, parentReferenceCode};
+		Object[] finderArgs = new Object[] {parentReferenceCode};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
 
 		if (count == null) {
-			StringBundler sb = new StringBundler(3);
+			StringBundler sb = new StringBundler(2);
 
 			sb.append(_SQL_COUNT_WORKENTRY_WHERE);
-
-			sb.append(_FINDER_COLUMN_B_P_C_BUSINESSID_2);
 
 			boolean bindParentReferenceCode = false;
 
 			if (parentReferenceCode.isEmpty()) {
-				sb.append(_FINDER_COLUMN_B_P_C_PARENTREFERENCECODE_3);
+				sb.append(_FINDER_COLUMN_PARENTCODE_PARENTREFERENCECODE_3);
 			}
 			else {
 				bindParentReferenceCode = true;
 
-				sb.append(_FINDER_COLUMN_B_P_C_PARENTREFERENCECODE_2);
+				sb.append(_FINDER_COLUMN_PARENTCODE_PARENTREFERENCECODE_2);
 			}
 
 			String sql = sb.toString();
@@ -3626,8 +4330,6 @@ public class WorkEntryPersistenceImpl
 				Query query = session.createQuery(sql);
 
 				QueryPos queryPos = QueryPos.getInstance(query);
-
-				queryPos.add(businessId);
 
 				if (bindParentReferenceCode) {
 					queryPos.add(parentReferenceCode);
@@ -3648,42 +4350,37 @@ public class WorkEntryPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_B_P_C_BUSINESSID_2 =
-		"workEntry.businessId = ? AND ";
+	private static final String
+		_FINDER_COLUMN_PARENTCODE_PARENTREFERENCECODE_2 =
+			"workEntry.parentReferenceCode = ?";
 
-	private static final String _FINDER_COLUMN_B_P_C_PARENTREFERENCECODE_2 =
-		"workEntry.parentReferenceCode = ?";
+	private static final String
+		_FINDER_COLUMN_PARENTCODE_PARENTREFERENCECODE_3 =
+			"(workEntry.parentReferenceCode IS NULL OR workEntry.parentReferenceCode = '')";
 
-	private static final String _FINDER_COLUMN_B_P_C_PARENTREFERENCECODE_3 =
-		"(workEntry.parentReferenceCode IS NULL OR workEntry.parentReferenceCode = '')";
-
-	private FinderPath _finderPathFetchByB_P_N;
-	private FinderPath _finderPathCountByB_P_N;
+	private FinderPath _finderPathFetchByProjectAndName;
+	private FinderPath _finderPathCountByProjectAndName;
 
 	/**
-	 * Returns the work entry where businessId = &#63; and projectId = &#63; and name = &#63; or throws a <code>NoSuchWorkEntryException</code> if it could not be found.
+	 * Returns the work entry where projectId = &#63; and name = &#63; or throws a <code>NoSuchWorkEntryException</code> if it could not be found.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param name the name
 	 * @return the matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry findByB_P_N(long businessId, Long projectId, String name)
+	public WorkEntry findByProjectAndName(Long projectId, String name)
 		throws NoSuchWorkEntryException {
 
-		WorkEntry workEntry = fetchByB_P_N(businessId, projectId, name);
+		WorkEntry workEntry = fetchByProjectAndName(projectId, name);
 
 		if (workEntry == null) {
-			StringBundler sb = new StringBundler(8);
+			StringBundler sb = new StringBundler(6);
 
 			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			sb.append("businessId=");
-			sb.append(businessId);
-
-			sb.append(", projectId=");
+			sb.append("projectId=");
 			sb.append(projectId);
 
 			sb.append(", name=");
@@ -3702,52 +4399,48 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the work entry where businessId = &#63; and projectId = &#63; and name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the work entry where projectId = &#63; and name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param name the name
 	 * @return the matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry fetchByB_P_N(
-		long businessId, Long projectId, String name) {
-
-		return fetchByB_P_N(businessId, projectId, name, true);
+	public WorkEntry fetchByProjectAndName(Long projectId, String name) {
+		return fetchByProjectAndName(projectId, name, true);
 	}
 
 	/**
-	 * Returns the work entry where businessId = &#63; and projectId = &#63; and name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the work entry where projectId = &#63; and name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param name the name
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry fetchByB_P_N(
-		long businessId, Long projectId, String name, boolean useFinderCache) {
+	public WorkEntry fetchByProjectAndName(
+		Long projectId, String name, boolean useFinderCache) {
 
 		name = Objects.toString(name, "");
 
 		Object[] finderArgs = null;
 
 		if (useFinderCache) {
-			finderArgs = new Object[] {businessId, projectId, name};
+			finderArgs = new Object[] {projectId, name};
 		}
 
 		Object result = null;
 
 		if (useFinderCache) {
-			result = finderCache.getResult(_finderPathFetchByB_P_N, finderArgs);
+			result = finderCache.getResult(
+				_finderPathFetchByProjectAndName, finderArgs);
 		}
 
 		if (result instanceof WorkEntry) {
 			WorkEntry workEntry = (WorkEntry)result;
 
-			if ((businessId != workEntry.getBusinessId()) ||
-				!Objects.equals(projectId, workEntry.getProjectId()) ||
+			if (!Objects.equals(projectId, workEntry.getProjectId()) ||
 				!Objects.equals(name, workEntry.getName())) {
 
 				result = null;
@@ -3755,23 +4448,21 @@ public class WorkEntryPersistenceImpl
 		}
 
 		if (result == null) {
-			StringBundler sb = new StringBundler(5);
+			StringBundler sb = new StringBundler(4);
 
 			sb.append(_SQL_SELECT_WORKENTRY_WHERE);
 
-			sb.append(_FINDER_COLUMN_B_P_N_BUSINESSID_2);
-
-			sb.append(_FINDER_COLUMN_B_P_N_PROJECTID_2);
+			sb.append(_FINDER_COLUMN_PROJECTANDNAME_PROJECTID_2);
 
 			boolean bindName = false;
 
 			if (name.isEmpty()) {
-				sb.append(_FINDER_COLUMN_B_P_N_NAME_3);
+				sb.append(_FINDER_COLUMN_PROJECTANDNAME_NAME_3);
 			}
 			else {
 				bindName = true;
 
-				sb.append(_FINDER_COLUMN_B_P_N_NAME_2);
+				sb.append(_FINDER_COLUMN_PROJECTANDNAME_NAME_2);
 			}
 
 			String sql = sb.toString();
@@ -3785,8 +4476,6 @@ public class WorkEntryPersistenceImpl
 
 				QueryPos queryPos = QueryPos.getInstance(query);
 
-				queryPos.add(businessId);
-
 				queryPos.add(projectId.longValue());
 
 				if (bindName) {
@@ -3798,7 +4487,7 @@ public class WorkEntryPersistenceImpl
 				if (list.isEmpty()) {
 					if (useFinderCache) {
 						finderCache.putResult(
-							_finderPathFetchByB_P_N, finderArgs, list);
+							_finderPathFetchByProjectAndName, finderArgs, list);
 					}
 				}
 				else {
@@ -3807,13 +4496,11 @@ public class WorkEntryPersistenceImpl
 
 						if (_log.isWarnEnabled()) {
 							if (!useFinderCache) {
-								finderArgs = new Object[] {
-									businessId, projectId, name
-								};
+								finderArgs = new Object[] {projectId, name};
 							}
 
 							_log.warn(
-								"WorkEntryPersistenceImpl.fetchByB_P_N(long, Long, String, boolean) with parameters (" +
+								"WorkEntryPersistenceImpl.fetchByProjectAndName(Long, String, boolean) with parameters (" +
 									StringUtil.merge(finderArgs) +
 										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
 						}
@@ -3843,58 +4530,54 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Removes the work entry where businessId = &#63; and projectId = &#63; and name = &#63; from the database.
+	 * Removes the work entry where projectId = &#63; and name = &#63; from the database.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param name the name
 	 * @return the work entry that was removed
 	 */
 	@Override
-	public WorkEntry removeByB_P_N(long businessId, Long projectId, String name)
+	public WorkEntry removeByProjectAndName(Long projectId, String name)
 		throws NoSuchWorkEntryException {
 
-		WorkEntry workEntry = findByB_P_N(businessId, projectId, name);
+		WorkEntry workEntry = findByProjectAndName(projectId, name);
 
 		return remove(workEntry);
 	}
 
 	/**
-	 * Returns the number of work entries where businessId = &#63; and projectId = &#63; and name = &#63;.
+	 * Returns the number of work entries where projectId = &#63; and name = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param name the name
 	 * @return the number of matching work entries
 	 */
 	@Override
-	public int countByB_P_N(long businessId, Long projectId, String name) {
+	public int countByProjectAndName(Long projectId, String name) {
 		name = Objects.toString(name, "");
 
-		FinderPath finderPath = _finderPathCountByB_P_N;
+		FinderPath finderPath = _finderPathCountByProjectAndName;
 
-		Object[] finderArgs = new Object[] {businessId, projectId, name};
+		Object[] finderArgs = new Object[] {projectId, name};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
 
 		if (count == null) {
-			StringBundler sb = new StringBundler(4);
+			StringBundler sb = new StringBundler(3);
 
 			sb.append(_SQL_COUNT_WORKENTRY_WHERE);
 
-			sb.append(_FINDER_COLUMN_B_P_N_BUSINESSID_2);
-
-			sb.append(_FINDER_COLUMN_B_P_N_PROJECTID_2);
+			sb.append(_FINDER_COLUMN_PROJECTANDNAME_PROJECTID_2);
 
 			boolean bindName = false;
 
 			if (name.isEmpty()) {
-				sb.append(_FINDER_COLUMN_B_P_N_NAME_3);
+				sb.append(_FINDER_COLUMN_PROJECTANDNAME_NAME_3);
 			}
 			else {
 				bindName = true;
 
-				sb.append(_FINDER_COLUMN_B_P_N_NAME_2);
+				sb.append(_FINDER_COLUMN_PROJECTANDNAME_NAME_2);
 			}
 
 			String sql = sb.toString();
@@ -3907,8 +4590,6 @@ public class WorkEntryPersistenceImpl
 				Query query = session.createQuery(sql);
 
 				QueryPos queryPos = QueryPos.getInstance(query);
-
-				queryPos.add(businessId);
 
 				queryPos.add(projectId.longValue());
 
@@ -3931,47 +4612,40 @@ public class WorkEntryPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_B_P_N_BUSINESSID_2 =
-		"workEntry.businessId = ? AND ";
-
-	private static final String _FINDER_COLUMN_B_P_N_PROJECTID_2 =
+	private static final String _FINDER_COLUMN_PROJECTANDNAME_PROJECTID_2 =
 		"workEntry.projectId = ? AND ";
 
-	private static final String _FINDER_COLUMN_B_P_N_NAME_2 =
+	private static final String _FINDER_COLUMN_PROJECTANDNAME_NAME_2 =
 		"workEntry.name = ?";
 
-	private static final String _FINDER_COLUMN_B_P_N_NAME_3 =
+	private static final String _FINDER_COLUMN_PROJECTANDNAME_NAME_3 =
 		"(workEntry.name IS NULL OR workEntry.name = '')";
 
-	private FinderPath _finderPathFetchByB_P_C_N;
-	private FinderPath _finderPathCountByB_P_C_N;
+	private FinderPath _finderPathFetchByParentCodeAndName;
+	private FinderPath _finderPathCountByParentCodeAndName;
 
 	/**
-	 * Returns the work entry where businessId = &#63; and parentReferenceCode = &#63; and name = &#63; or throws a <code>NoSuchWorkEntryException</code> if it could not be found.
+	 * Returns the work entry where parentReferenceCode = &#63; and name = &#63; or throws a <code>NoSuchWorkEntryException</code> if it could not be found.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param name the name
 	 * @return the matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry findByB_P_C_N(
-			long businessId, String parentReferenceCode, String name)
+	public WorkEntry findByParentCodeAndName(
+			String parentReferenceCode, String name)
 		throws NoSuchWorkEntryException {
 
-		WorkEntry workEntry = fetchByB_P_C_N(
-			businessId, parentReferenceCode, name);
+		WorkEntry workEntry = fetchByParentCodeAndName(
+			parentReferenceCode, name);
 
 		if (workEntry == null) {
-			StringBundler sb = new StringBundler(8);
+			StringBundler sb = new StringBundler(6);
 
 			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			sb.append("businessId=");
-			sb.append(businessId);
-
-			sb.append(", parentReferenceCode=");
+			sb.append("parentReferenceCode=");
 			sb.append(parentReferenceCode);
 
 			sb.append(", name=");
@@ -3990,33 +4664,30 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the work entry where businessId = &#63; and parentReferenceCode = &#63; and name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the work entry where parentReferenceCode = &#63; and name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param name the name
 	 * @return the matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry fetchByB_P_C_N(
-		long businessId, String parentReferenceCode, String name) {
+	public WorkEntry fetchByParentCodeAndName(
+		String parentReferenceCode, String name) {
 
-		return fetchByB_P_C_N(businessId, parentReferenceCode, name, true);
+		return fetchByParentCodeAndName(parentReferenceCode, name, true);
 	}
 
 	/**
-	 * Returns the work entry where businessId = &#63; and parentReferenceCode = &#63; and name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the work entry where parentReferenceCode = &#63; and name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param name the name
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
 	@Override
-	public WorkEntry fetchByB_P_C_N(
-		long businessId, String parentReferenceCode, String name,
-		boolean useFinderCache) {
+	public WorkEntry fetchByParentCodeAndName(
+		String parentReferenceCode, String name, boolean useFinderCache) {
 
 		parentReferenceCode = Objects.toString(parentReferenceCode, "");
 		name = Objects.toString(name, "");
@@ -4024,21 +4695,20 @@ public class WorkEntryPersistenceImpl
 		Object[] finderArgs = null;
 
 		if (useFinderCache) {
-			finderArgs = new Object[] {businessId, parentReferenceCode, name};
+			finderArgs = new Object[] {parentReferenceCode, name};
 		}
 
 		Object result = null;
 
 		if (useFinderCache) {
 			result = finderCache.getResult(
-				_finderPathFetchByB_P_C_N, finderArgs);
+				_finderPathFetchByParentCodeAndName, finderArgs);
 		}
 
 		if (result instanceof WorkEntry) {
 			WorkEntry workEntry = (WorkEntry)result;
 
-			if ((businessId != workEntry.getBusinessId()) ||
-				!Objects.equals(
+			if (!Objects.equals(
 					parentReferenceCode, workEntry.getParentReferenceCode()) ||
 				!Objects.equals(name, workEntry.getName())) {
 
@@ -4047,32 +4717,32 @@ public class WorkEntryPersistenceImpl
 		}
 
 		if (result == null) {
-			StringBundler sb = new StringBundler(5);
+			StringBundler sb = new StringBundler(4);
 
 			sb.append(_SQL_SELECT_WORKENTRY_WHERE);
-
-			sb.append(_FINDER_COLUMN_B_P_C_N_BUSINESSID_2);
 
 			boolean bindParentReferenceCode = false;
 
 			if (parentReferenceCode.isEmpty()) {
-				sb.append(_FINDER_COLUMN_B_P_C_N_PARENTREFERENCECODE_3);
+				sb.append(
+					_FINDER_COLUMN_PARENTCODEANDNAME_PARENTREFERENCECODE_3);
 			}
 			else {
 				bindParentReferenceCode = true;
 
-				sb.append(_FINDER_COLUMN_B_P_C_N_PARENTREFERENCECODE_2);
+				sb.append(
+					_FINDER_COLUMN_PARENTCODEANDNAME_PARENTREFERENCECODE_2);
 			}
 
 			boolean bindName = false;
 
 			if (name.isEmpty()) {
-				sb.append(_FINDER_COLUMN_B_P_C_N_NAME_3);
+				sb.append(_FINDER_COLUMN_PARENTCODEANDNAME_NAME_3);
 			}
 			else {
 				bindName = true;
 
-				sb.append(_FINDER_COLUMN_B_P_C_N_NAME_2);
+				sb.append(_FINDER_COLUMN_PARENTCODEANDNAME_NAME_2);
 			}
 
 			String sql = sb.toString();
@@ -4085,8 +4755,6 @@ public class WorkEntryPersistenceImpl
 				Query query = session.createQuery(sql);
 
 				QueryPos queryPos = QueryPos.getInstance(query);
-
-				queryPos.add(businessId);
 
 				if (bindParentReferenceCode) {
 					queryPos.add(parentReferenceCode);
@@ -4101,7 +4769,8 @@ public class WorkEntryPersistenceImpl
 				if (list.isEmpty()) {
 					if (useFinderCache) {
 						finderCache.putResult(
-							_finderPathFetchByB_P_C_N, finderArgs, list);
+							_finderPathFetchByParentCodeAndName, finderArgs,
+							list);
 					}
 				}
 				else {
@@ -4111,12 +4780,12 @@ public class WorkEntryPersistenceImpl
 						if (_log.isWarnEnabled()) {
 							if (!useFinderCache) {
 								finderArgs = new Object[] {
-									businessId, parentReferenceCode, name
+									parentReferenceCode, name
 								};
 							}
 
 							_log.warn(
-								"WorkEntryPersistenceImpl.fetchByB_P_C_N(long, String, String, boolean) with parameters (" +
+								"WorkEntryPersistenceImpl.fetchByParentCodeAndName(String, String, boolean) with parameters (" +
 									StringUtil.merge(finderArgs) +
 										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
 						}
@@ -4146,74 +4815,70 @@ public class WorkEntryPersistenceImpl
 	}
 
 	/**
-	 * Removes the work entry where businessId = &#63; and parentReferenceCode = &#63; and name = &#63; from the database.
+	 * Removes the work entry where parentReferenceCode = &#63; and name = &#63; from the database.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param name the name
 	 * @return the work entry that was removed
 	 */
 	@Override
-	public WorkEntry removeByB_P_C_N(
-			long businessId, String parentReferenceCode, String name)
+	public WorkEntry removeByParentCodeAndName(
+			String parentReferenceCode, String name)
 		throws NoSuchWorkEntryException {
 
-		WorkEntry workEntry = findByB_P_C_N(
-			businessId, parentReferenceCode, name);
+		WorkEntry workEntry = findByParentCodeAndName(
+			parentReferenceCode, name);
 
 		return remove(workEntry);
 	}
 
 	/**
-	 * Returns the number of work entries where businessId = &#63; and parentReferenceCode = &#63; and name = &#63;.
+	 * Returns the number of work entries where parentReferenceCode = &#63; and name = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param name the name
 	 * @return the number of matching work entries
 	 */
 	@Override
-	public int countByB_P_C_N(
-		long businessId, String parentReferenceCode, String name) {
+	public int countByParentCodeAndName(
+		String parentReferenceCode, String name) {
 
 		parentReferenceCode = Objects.toString(parentReferenceCode, "");
 		name = Objects.toString(name, "");
 
-		FinderPath finderPath = _finderPathCountByB_P_C_N;
+		FinderPath finderPath = _finderPathCountByParentCodeAndName;
 
-		Object[] finderArgs = new Object[] {
-			businessId, parentReferenceCode, name
-		};
+		Object[] finderArgs = new Object[] {parentReferenceCode, name};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
 
 		if (count == null) {
-			StringBundler sb = new StringBundler(4);
+			StringBundler sb = new StringBundler(3);
 
 			sb.append(_SQL_COUNT_WORKENTRY_WHERE);
-
-			sb.append(_FINDER_COLUMN_B_P_C_N_BUSINESSID_2);
 
 			boolean bindParentReferenceCode = false;
 
 			if (parentReferenceCode.isEmpty()) {
-				sb.append(_FINDER_COLUMN_B_P_C_N_PARENTREFERENCECODE_3);
+				sb.append(
+					_FINDER_COLUMN_PARENTCODEANDNAME_PARENTREFERENCECODE_3);
 			}
 			else {
 				bindParentReferenceCode = true;
 
-				sb.append(_FINDER_COLUMN_B_P_C_N_PARENTREFERENCECODE_2);
+				sb.append(
+					_FINDER_COLUMN_PARENTCODEANDNAME_PARENTREFERENCECODE_2);
 			}
 
 			boolean bindName = false;
 
 			if (name.isEmpty()) {
-				sb.append(_FINDER_COLUMN_B_P_C_N_NAME_3);
+				sb.append(_FINDER_COLUMN_PARENTCODEANDNAME_NAME_3);
 			}
 			else {
 				bindName = true;
 
-				sb.append(_FINDER_COLUMN_B_P_C_N_NAME_2);
+				sb.append(_FINDER_COLUMN_PARENTCODEANDNAME_NAME_2);
 			}
 
 			String sql = sb.toString();
@@ -4226,8 +4891,6 @@ public class WorkEntryPersistenceImpl
 				Query query = session.createQuery(sql);
 
 				QueryPos queryPos = QueryPos.getInstance(query);
-
-				queryPos.add(businessId);
 
 				if (bindParentReferenceCode) {
 					queryPos.add(parentReferenceCode);
@@ -4252,19 +4915,18 @@ public class WorkEntryPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_B_P_C_N_BUSINESSID_2 =
-		"workEntry.businessId = ? AND ";
+	private static final String
+		_FINDER_COLUMN_PARENTCODEANDNAME_PARENTREFERENCECODE_2 =
+			"workEntry.parentReferenceCode = ? AND ";
 
-	private static final String _FINDER_COLUMN_B_P_C_N_PARENTREFERENCECODE_2 =
-		"workEntry.parentReferenceCode = ? AND ";
+	private static final String
+		_FINDER_COLUMN_PARENTCODEANDNAME_PARENTREFERENCECODE_3 =
+			"(workEntry.parentReferenceCode IS NULL OR workEntry.parentReferenceCode = '') AND ";
 
-	private static final String _FINDER_COLUMN_B_P_C_N_PARENTREFERENCECODE_3 =
-		"(workEntry.parentReferenceCode IS NULL OR workEntry.parentReferenceCode = '') AND ";
-
-	private static final String _FINDER_COLUMN_B_P_C_N_NAME_2 =
+	private static final String _FINDER_COLUMN_PARENTCODEANDNAME_NAME_2 =
 		"workEntry.name = ?";
 
-	private static final String _FINDER_COLUMN_B_P_C_N_NAME_3 =
+	private static final String _FINDER_COLUMN_PARENTCODEANDNAME_NAME_3 =
 		"(workEntry.name IS NULL OR workEntry.name = '')";
 
 	private FinderPath _finderPathFetchByC_ERC;
@@ -4566,18 +5228,22 @@ public class WorkEntryPersistenceImpl
 			workEntry);
 
 		finderCache.putResult(
-			_finderPathFetchByB_P_N,
+			_finderPathFetchByParentIdAndName,
 			new Object[] {
-				workEntry.getBusinessId(), workEntry.getProjectId(),
+				workEntry.getBusinessId(), workEntry.getParentId(),
 				workEntry.getName()
 			},
 			workEntry);
 
 		finderCache.putResult(
-			_finderPathFetchByB_P_C_N,
+			_finderPathFetchByProjectAndName,
+			new Object[] {workEntry.getProjectId(), workEntry.getName()},
+			workEntry);
+
+		finderCache.putResult(
+			_finderPathFetchByParentCodeAndName,
 			new Object[] {
-				workEntry.getBusinessId(), workEntry.getParentReferenceCode(),
-				workEntry.getName()
+				workEntry.getParentReferenceCode(), workEntry.getName()
 			},
 			workEntry);
 
@@ -4669,22 +5335,32 @@ public class WorkEntryPersistenceImpl
 
 		args = new Object[] {
 			workEntryModelImpl.getBusinessId(),
+			workEntryModelImpl.getParentId(), workEntryModelImpl.getName()
+		};
+
+		finderCache.putResult(
+			_finderPathCountByParentIdAndName, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByParentIdAndName, args, workEntryModelImpl);
+
+		args = new Object[] {
 			workEntryModelImpl.getProjectId(), workEntryModelImpl.getName()
 		};
 
-		finderCache.putResult(_finderPathCountByB_P_N, args, Long.valueOf(1));
 		finderCache.putResult(
-			_finderPathFetchByB_P_N, args, workEntryModelImpl);
+			_finderPathCountByProjectAndName, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByProjectAndName, args, workEntryModelImpl);
 
 		args = new Object[] {
-			workEntryModelImpl.getBusinessId(),
 			workEntryModelImpl.getParentReferenceCode(),
 			workEntryModelImpl.getName()
 		};
 
-		finderCache.putResult(_finderPathCountByB_P_C_N, args, Long.valueOf(1));
 		finderCache.putResult(
-			_finderPathFetchByB_P_C_N, args, workEntryModelImpl);
+			_finderPathCountByParentCodeAndName, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByParentCodeAndName, args, workEntryModelImpl);
 
 		args = new Object[] {
 			workEntryModelImpl.getCompanyId(),
@@ -5206,46 +5882,63 @@ public class WorkEntryPersistenceImpl
 			new String[] {String.class.getName(), Long.class.getName()},
 			new String[] {"uuid_", "companyId"}, false);
 
-		_finderPathWithPaginationFindByB_P = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByB_P",
+		_finderPathWithPaginationFindByProjectId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByProjectId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			},
+			new String[] {"projectId"}, true);
+
+		_finderPathWithoutPaginationFindByProjectId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByProjectId",
+			new String[] {Long.class.getName()}, new String[] {"projectId"},
+			true);
+
+		_finderPathCountByProjectId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByProjectId",
+			new String[] {Long.class.getName()}, new String[] {"projectId"},
+			false);
+
+		_finderPathWithPaginationFindByProjectAndPhase = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByProjectAndPhase",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			},
-			new String[] {"businessId", "projectId"}, true);
+			new String[] {"projectId", "phaseId"}, true);
 
-		_finderPathWithoutPaginationFindByB_P = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByB_P",
+		_finderPathWithoutPaginationFindByProjectAndPhase = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByProjectAndPhase",
 			new String[] {Long.class.getName(), Long.class.getName()},
-			new String[] {"businessId", "projectId"}, true);
+			new String[] {"projectId", "phaseId"}, true);
 
-		_finderPathCountByB_P = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByB_P",
+		_finderPathCountByProjectAndPhase = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByProjectAndPhase",
 			new String[] {Long.class.getName(), Long.class.getName()},
-			new String[] {"businessId", "projectId"}, false);
+			new String[] {"projectId", "phaseId"}, false);
 
-		_finderPathWithPaginationFindByB_PH = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByB_PH",
+		_finderPathWithPaginationFindByPhaseId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByPhaseId",
 			new String[] {
-				Long.class.getName(), Long.class.getName(),
-				Integer.class.getName(), Integer.class.getName(),
-				OrderByComparator.class.getName()
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
 			},
-			new String[] {"businessId", "phaseId"}, true);
+			new String[] {"phaseId"}, true);
 
-		_finderPathWithoutPaginationFindByB_PH = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByB_PH",
-			new String[] {Long.class.getName(), Long.class.getName()},
-			new String[] {"businessId", "phaseId"}, true);
+		_finderPathWithoutPaginationFindByPhaseId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByPhaseId",
+			new String[] {Long.class.getName()}, new String[] {"phaseId"},
+			true);
 
-		_finderPathCountByB_PH = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByB_PH",
-			new String[] {Long.class.getName(), Long.class.getName()},
-			new String[] {"businessId", "phaseId"}, false);
+		_finderPathCountByPhaseId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByPhaseId",
+			new String[] {Long.class.getName()}, new String[] {"phaseId"},
+			false);
 
-		_finderPathWithPaginationFindByB_PID = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByB_PID",
+		_finderPathWithPaginationFindByParentId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByParentId",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				Integer.class.getName(), Integer.class.getName(),
@@ -5253,66 +5946,70 @@ public class WorkEntryPersistenceImpl
 			},
 			new String[] {"businessId", "parentId"}, true);
 
-		_finderPathWithoutPaginationFindByB_PID = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByB_PID",
+		_finderPathWithoutPaginationFindByParentId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByParentId",
 			new String[] {Long.class.getName(), Long.class.getName()},
 			new String[] {"businessId", "parentId"}, true);
 
-		_finderPathCountByB_PID = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByB_PID",
+		_finderPathCountByParentId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByParentId",
 			new String[] {Long.class.getName(), Long.class.getName()},
 			new String[] {"businessId", "parentId"}, false);
 
-		_finderPathWithPaginationFindByB_P_C = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByB_P_C",
-			new String[] {
-				Long.class.getName(), String.class.getName(),
-				Integer.class.getName(), Integer.class.getName(),
-				OrderByComparator.class.getName()
-			},
-			new String[] {"businessId", "parentReferenceCode"}, true);
-
-		_finderPathWithoutPaginationFindByB_P_C = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByB_P_C",
-			new String[] {Long.class.getName(), String.class.getName()},
-			new String[] {"businessId", "parentReferenceCode"}, true);
-
-		_finderPathCountByB_P_C = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByB_P_C",
-			new String[] {Long.class.getName(), String.class.getName()},
-			new String[] {"businessId", "parentReferenceCode"}, false);
-
-		_finderPathFetchByB_P_N = new FinderPath(
-			FINDER_CLASS_NAME_ENTITY, "fetchByB_P_N",
+		_finderPathFetchByParentIdAndName = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByParentIdAndName",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				String.class.getName()
 			},
-			new String[] {"businessId", "projectId", "name"}, true);
+			new String[] {"businessId", "parentId", "name"}, true);
 
-		_finderPathCountByB_P_N = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByB_P_N",
+		_finderPathCountByParentIdAndName = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByParentIdAndName",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				String.class.getName()
 			},
-			new String[] {"businessId", "projectId", "name"}, false);
+			new String[] {"businessId", "parentId", "name"}, false);
 
-		_finderPathFetchByB_P_C_N = new FinderPath(
-			FINDER_CLASS_NAME_ENTITY, "fetchByB_P_C_N",
+		_finderPathWithPaginationFindByParentCode = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByParentCode",
 			new String[] {
-				Long.class.getName(), String.class.getName(),
-				String.class.getName()
+				String.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
 			},
-			new String[] {"businessId", "parentReferenceCode", "name"}, true);
+			new String[] {"parentReferenceCode"}, true);
 
-		_finderPathCountByB_P_C_N = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByB_P_C_N",
-			new String[] {
-				Long.class.getName(), String.class.getName(),
-				String.class.getName()
-			},
-			new String[] {"businessId", "parentReferenceCode", "name"}, false);
+		_finderPathWithoutPaginationFindByParentCode = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByParentCode",
+			new String[] {String.class.getName()},
+			new String[] {"parentReferenceCode"}, true);
+
+		_finderPathCountByParentCode = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByParentCode",
+			new String[] {String.class.getName()},
+			new String[] {"parentReferenceCode"}, false);
+
+		_finderPathFetchByProjectAndName = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByProjectAndName",
+			new String[] {Long.class.getName(), String.class.getName()},
+			new String[] {"projectId", "name"}, true);
+
+		_finderPathCountByProjectAndName = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByProjectAndName",
+			new String[] {Long.class.getName(), String.class.getName()},
+			new String[] {"projectId", "name"}, false);
+
+		_finderPathFetchByParentCodeAndName = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByParentCodeAndName",
+			new String[] {String.class.getName(), String.class.getName()},
+			new String[] {"parentReferenceCode", "name"}, true);
+
+		_finderPathCountByParentCodeAndName = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByParentCodeAndName",
+			new String[] {String.class.getName(), String.class.getName()},
+			new String[] {"parentReferenceCode", "name"}, false);
 
 		_finderPathFetchByC_ERC = new FinderPath(
 			FINDER_CLASS_NAME_ENTITY, "fetchByC_ERC",

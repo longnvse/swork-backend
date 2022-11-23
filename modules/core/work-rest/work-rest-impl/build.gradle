@@ -8,6 +8,7 @@ dependencies {
 
 	compile project(":modules:common:common-util")
 	compile project(":modules:common:common-token-helper")
+	compile project(":modules:common:common-exception-helper")
 
 	compileOnly group: "com.fasterxml.jackson.core", name: "jackson-annotations", version: "2.12.4"
 	compileOnly group: "com.liferay", name: "com.liferay.petra.function"

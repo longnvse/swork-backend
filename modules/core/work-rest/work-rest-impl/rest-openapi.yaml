@@ -17,8 +17,8 @@ components:
         parentReferenceCode:
           type: string
         progress:
-          type: number
-          format: double
+          type: integer
+          format: int64
           readOnly: true
         name:
           type: string
@@ -175,6 +175,18 @@ paths:
           name: sort
           schema:
             type: string
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+            format: int64
+          required: true
+        - in: query
+          name: phaseId
+          schema:
+            type: integer
+            format: int64
+          required: true
       responses:
         200:
           description: The data returned

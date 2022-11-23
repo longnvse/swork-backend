@@ -256,6 +256,22 @@ public class WorkEntryLocalServiceUtil {
 		return getService().fetchWorkEntryByUuidAndGroupId(uuid, groupId);
 	}
 
+	public static WorkEntry findByP_Name(long projectId, String name) {
+		return getService().findByP_Name(projectId, name);
+	}
+
+	public static List<WorkEntry> findByParentId(
+		long businessId, long parentId) {
+
+		return getService().findByParentId(businessId, parentId);
+	}
+
+	public static WorkEntry findByPID_Name(
+		long businessId, long parentId, String name) {
+
+		return getService().findByPID_Name(businessId, parentId, name);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

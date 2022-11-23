@@ -530,65 +530,61 @@ public class WorkEntryUtil {
 	}
 
 	/**
-	 * Returns all the work entries where businessId = &#63; and projectId = &#63;.
+	 * Returns all the work entries where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @return the matching work entries
 	 */
-	public static List<WorkEntry> findByB_P(long businessId, Long projectId) {
-		return getPersistence().findByB_P(businessId, projectId);
+	public static List<WorkEntry> findByProjectId(Long projectId) {
+		return getPersistence().findByProjectId(projectId);
 	}
 
 	/**
-	 * Returns a range of all the work entries where businessId = &#63; and projectId = &#63;.
+	 * Returns a range of all the work entries where projectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
 	 * @return the range of matching work entries
 	 */
-	public static List<WorkEntry> findByB_P(
-		long businessId, Long projectId, int start, int end) {
+	public static List<WorkEntry> findByProjectId(
+		Long projectId, int start, int end) {
 
-		return getPersistence().findByB_P(businessId, projectId, start, end);
+		return getPersistence().findByProjectId(projectId, start, end);
 	}
 
 	/**
-	 * Returns an ordered range of all the work entries where businessId = &#63; and projectId = &#63;.
+	 * Returns an ordered range of all the work entries where projectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching work entries
 	 */
-	public static List<WorkEntry> findByB_P(
-		long businessId, Long projectId, int start, int end,
+	public static List<WorkEntry> findByProjectId(
+		Long projectId, int start, int end,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		return getPersistence().findByB_P(
-			businessId, projectId, start, end, orderByComparator);
+		return getPersistence().findByProjectId(
+			projectId, start, end, orderByComparator);
 	}
 
 	/**
-	 * Returns an ordered range of all the work entries where businessId = &#63; and projectId = &#63;.
+	 * Returns an ordered range of all the work entries where projectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
@@ -596,184 +592,175 @@ public class WorkEntryUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching work entries
 	 */
-	public static List<WorkEntry> findByB_P(
-		long businessId, Long projectId, int start, int end,
+	public static List<WorkEntry> findByProjectId(
+		Long projectId, int start, int end,
 		OrderByComparator<WorkEntry> orderByComparator,
 		boolean useFinderCache) {
 
-		return getPersistence().findByB_P(
-			businessId, projectId, start, end, orderByComparator,
-			useFinderCache);
+		return getPersistence().findByProjectId(
+			projectId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
-	 * Returns the first work entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the first work entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
-	public static WorkEntry findByB_P_First(
-			long businessId, Long projectId,
-			OrderByComparator<WorkEntry> orderByComparator)
+	public static WorkEntry findByProjectId_First(
+			Long projectId, OrderByComparator<WorkEntry> orderByComparator)
 		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
 
-		return getPersistence().findByB_P_First(
-			businessId, projectId, orderByComparator);
+		return getPersistence().findByProjectId_First(
+			projectId, orderByComparator);
 	}
 
 	/**
-	 * Returns the first work entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the first work entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
-	public static WorkEntry fetchByB_P_First(
-		long businessId, Long projectId,
-		OrderByComparator<WorkEntry> orderByComparator) {
+	public static WorkEntry fetchByProjectId_First(
+		Long projectId, OrderByComparator<WorkEntry> orderByComparator) {
 
-		return getPersistence().fetchByB_P_First(
-			businessId, projectId, orderByComparator);
+		return getPersistence().fetchByProjectId_First(
+			projectId, orderByComparator);
 	}
 
 	/**
-	 * Returns the last work entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the last work entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
-	public static WorkEntry findByB_P_Last(
-			long businessId, Long projectId,
-			OrderByComparator<WorkEntry> orderByComparator)
+	public static WorkEntry findByProjectId_Last(
+			Long projectId, OrderByComparator<WorkEntry> orderByComparator)
 		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
 
-		return getPersistence().findByB_P_Last(
-			businessId, projectId, orderByComparator);
+		return getPersistence().findByProjectId_Last(
+			projectId, orderByComparator);
 	}
 
 	/**
-	 * Returns the last work entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the last work entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
-	public static WorkEntry fetchByB_P_Last(
-		long businessId, Long projectId,
-		OrderByComparator<WorkEntry> orderByComparator) {
+	public static WorkEntry fetchByProjectId_Last(
+		Long projectId, OrderByComparator<WorkEntry> orderByComparator) {
 
-		return getPersistence().fetchByB_P_Last(
-			businessId, projectId, orderByComparator);
+		return getPersistence().fetchByProjectId_Last(
+			projectId, orderByComparator);
 	}
 
 	/**
-	 * Returns the work entries before and after the current work entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the work entries before and after the current work entry in the ordered set where projectId = &#63;.
 	 *
 	 * @param workId the primary key of the current work entry
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next work entry
 	 * @throws NoSuchWorkEntryException if a work entry with the primary key could not be found
 	 */
-	public static WorkEntry[] findByB_P_PrevAndNext(
-			long workId, long businessId, Long projectId,
+	public static WorkEntry[] findByProjectId_PrevAndNext(
+			long workId, Long projectId,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
 
-		return getPersistence().findByB_P_PrevAndNext(
-			workId, businessId, projectId, orderByComparator);
+		return getPersistence().findByProjectId_PrevAndNext(
+			workId, projectId, orderByComparator);
 	}
 
 	/**
-	 * Removes all the work entries where businessId = &#63; and projectId = &#63; from the database.
+	 * Removes all the work entries where projectId = &#63; from the database.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 */
-	public static void removeByB_P(long businessId, Long projectId) {
-		getPersistence().removeByB_P(businessId, projectId);
+	public static void removeByProjectId(Long projectId) {
+		getPersistence().removeByProjectId(projectId);
 	}
 
 	/**
-	 * Returns the number of work entries where businessId = &#63; and projectId = &#63;.
+	 * Returns the number of work entries where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @return the number of matching work entries
 	 */
-	public static int countByB_P(long businessId, Long projectId) {
-		return getPersistence().countByB_P(businessId, projectId);
+	public static int countByProjectId(Long projectId) {
+		return getPersistence().countByProjectId(projectId);
 	}
 
 	/**
-	 * Returns all the work entries where businessId = &#63; and phaseId = &#63;.
+	 * Returns all the work entries where projectId = &#63; and phaseId = &#63;.
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @return the matching work entries
 	 */
-	public static List<WorkEntry> findByB_PH(long businessId, Long phaseId) {
-		return getPersistence().findByB_PH(businessId, phaseId);
+	public static List<WorkEntry> findByProjectAndPhase(
+		Long projectId, Long phaseId) {
+
+		return getPersistence().findByProjectAndPhase(projectId, phaseId);
 	}
 
 	/**
-	 * Returns a range of all the work entries where businessId = &#63; and phaseId = &#63;.
+	 * Returns a range of all the work entries where projectId = &#63; and phaseId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
 	 * @return the range of matching work entries
 	 */
-	public static List<WorkEntry> findByB_PH(
-		long businessId, Long phaseId, int start, int end) {
+	public static List<WorkEntry> findByProjectAndPhase(
+		Long projectId, Long phaseId, int start, int end) {
 
-		return getPersistence().findByB_PH(businessId, phaseId, start, end);
+		return getPersistence().findByProjectAndPhase(
+			projectId, phaseId, start, end);
 	}
 
 	/**
-	 * Returns an ordered range of all the work entries where businessId = &#63; and phaseId = &#63;.
+	 * Returns an ordered range of all the work entries where projectId = &#63; and phaseId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching work entries
 	 */
-	public static List<WorkEntry> findByB_PH(
-		long businessId, Long phaseId, int start, int end,
+	public static List<WorkEntry> findByProjectAndPhase(
+		Long projectId, Long phaseId, int start, int end,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		return getPersistence().findByB_PH(
-			businessId, phaseId, start, end, orderByComparator);
+		return getPersistence().findByProjectAndPhase(
+			projectId, phaseId, start, end, orderByComparator);
 	}
 
 	/**
-	 * Returns an ordered range of all the work entries where businessId = &#63; and phaseId = &#63;.
+	 * Returns an ordered range of all the work entries where projectId = &#63; and phaseId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
@@ -781,121 +768,287 @@ public class WorkEntryUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching work entries
 	 */
-	public static List<WorkEntry> findByB_PH(
-		long businessId, Long phaseId, int start, int end,
+	public static List<WorkEntry> findByProjectAndPhase(
+		Long projectId, Long phaseId, int start, int end,
 		OrderByComparator<WorkEntry> orderByComparator,
 		boolean useFinderCache) {
 
-		return getPersistence().findByB_PH(
-			businessId, phaseId, start, end, orderByComparator, useFinderCache);
+		return getPersistence().findByProjectAndPhase(
+			projectId, phaseId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
-	 * Returns the first work entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 * Returns the first work entry in the ordered set where projectId = &#63; and phaseId = &#63;.
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
-	public static WorkEntry findByB_PH_First(
-			long businessId, Long phaseId,
+	public static WorkEntry findByProjectAndPhase_First(
+			Long projectId, Long phaseId,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
 
-		return getPersistence().findByB_PH_First(
-			businessId, phaseId, orderByComparator);
+		return getPersistence().findByProjectAndPhase_First(
+			projectId, phaseId, orderByComparator);
 	}
 
 	/**
-	 * Returns the first work entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 * Returns the first work entry in the ordered set where projectId = &#63; and phaseId = &#63;.
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
-	public static WorkEntry fetchByB_PH_First(
-		long businessId, Long phaseId,
+	public static WorkEntry fetchByProjectAndPhase_First(
+		Long projectId, Long phaseId,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		return getPersistence().fetchByB_PH_First(
-			businessId, phaseId, orderByComparator);
+		return getPersistence().fetchByProjectAndPhase_First(
+			projectId, phaseId, orderByComparator);
 	}
 
 	/**
-	 * Returns the last work entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 * Returns the last work entry in the ordered set where projectId = &#63; and phaseId = &#63;.
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
-	public static WorkEntry findByB_PH_Last(
-			long businessId, Long phaseId,
+	public static WorkEntry findByProjectAndPhase_Last(
+			Long projectId, Long phaseId,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
 
-		return getPersistence().findByB_PH_Last(
-			businessId, phaseId, orderByComparator);
+		return getPersistence().findByProjectAndPhase_Last(
+			projectId, phaseId, orderByComparator);
 	}
 
 	/**
-	 * Returns the last work entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 * Returns the last work entry in the ordered set where projectId = &#63; and phaseId = &#63;.
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
-	public static WorkEntry fetchByB_PH_Last(
-		long businessId, Long phaseId,
+	public static WorkEntry fetchByProjectAndPhase_Last(
+		Long projectId, Long phaseId,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		return getPersistence().fetchByB_PH_Last(
-			businessId, phaseId, orderByComparator);
+		return getPersistence().fetchByProjectAndPhase_Last(
+			projectId, phaseId, orderByComparator);
 	}
 
 	/**
-	 * Returns the work entries before and after the current work entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 * Returns the work entries before and after the current work entry in the ordered set where projectId = &#63; and phaseId = &#63;.
 	 *
 	 * @param workId the primary key of the current work entry
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next work entry
 	 * @throws NoSuchWorkEntryException if a work entry with the primary key could not be found
 	 */
-	public static WorkEntry[] findByB_PH_PrevAndNext(
-			long workId, long businessId, Long phaseId,
+	public static WorkEntry[] findByProjectAndPhase_PrevAndNext(
+			long workId, Long projectId, Long phaseId,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
 
-		return getPersistence().findByB_PH_PrevAndNext(
-			workId, businessId, phaseId, orderByComparator);
+		return getPersistence().findByProjectAndPhase_PrevAndNext(
+			workId, projectId, phaseId, orderByComparator);
 	}
 
 	/**
-	 * Removes all the work entries where businessId = &#63; and phaseId = &#63; from the database.
+	 * Removes all the work entries where projectId = &#63; and phaseId = &#63; from the database.
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 */
-	public static void removeByB_PH(long businessId, Long phaseId) {
-		getPersistence().removeByB_PH(businessId, phaseId);
+	public static void removeByProjectAndPhase(Long projectId, Long phaseId) {
+		getPersistence().removeByProjectAndPhase(projectId, phaseId);
 	}
 
 	/**
-	 * Returns the number of work entries where businessId = &#63; and phaseId = &#63;.
+	 * Returns the number of work entries where projectId = &#63; and phaseId = &#63;.
 	 *
-	 * @param businessId the business ID
+	 * @param projectId the project ID
 	 * @param phaseId the phase ID
 	 * @return the number of matching work entries
 	 */
-	public static int countByB_PH(long businessId, Long phaseId) {
-		return getPersistence().countByB_PH(businessId, phaseId);
+	public static int countByProjectAndPhase(Long projectId, Long phaseId) {
+		return getPersistence().countByProjectAndPhase(projectId, phaseId);
+	}
+
+	/**
+	 * Returns all the work entries where phaseId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @return the matching work entries
+	 */
+	public static List<WorkEntry> findByPhaseId(Long phaseId) {
+		return getPersistence().findByPhaseId(phaseId);
+	}
+
+	/**
+	 * Returns a range of all the work entries where phaseId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param phaseId the phase ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @return the range of matching work entries
+	 */
+	public static List<WorkEntry> findByPhaseId(
+		Long phaseId, int start, int end) {
+
+		return getPersistence().findByPhaseId(phaseId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the work entries where phaseId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param phaseId the phase ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching work entries
+	 */
+	public static List<WorkEntry> findByPhaseId(
+		Long phaseId, int start, int end,
+		OrderByComparator<WorkEntry> orderByComparator) {
+
+		return getPersistence().findByPhaseId(
+			phaseId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the work entries where phaseId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param phaseId the phase ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching work entries
+	 */
+	public static List<WorkEntry> findByPhaseId(
+		Long phaseId, int start, int end,
+		OrderByComparator<WorkEntry> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByPhaseId(
+			phaseId, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first work entry in the ordered set where phaseId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	public static WorkEntry findByPhaseId_First(
+			Long phaseId, OrderByComparator<WorkEntry> orderByComparator)
+		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
+
+		return getPersistence().findByPhaseId_First(phaseId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first work entry in the ordered set where phaseId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	public static WorkEntry fetchByPhaseId_First(
+		Long phaseId, OrderByComparator<WorkEntry> orderByComparator) {
+
+		return getPersistence().fetchByPhaseId_First(
+			phaseId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last work entry in the ordered set where phaseId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	public static WorkEntry findByPhaseId_Last(
+			Long phaseId, OrderByComparator<WorkEntry> orderByComparator)
+		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
+
+		return getPersistence().findByPhaseId_Last(phaseId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last work entry in the ordered set where phaseId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	public static WorkEntry fetchByPhaseId_Last(
+		Long phaseId, OrderByComparator<WorkEntry> orderByComparator) {
+
+		return getPersistence().fetchByPhaseId_Last(phaseId, orderByComparator);
+	}
+
+	/**
+	 * Returns the work entries before and after the current work entry in the ordered set where phaseId = &#63;.
+	 *
+	 * @param workId the primary key of the current work entry
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next work entry
+	 * @throws NoSuchWorkEntryException if a work entry with the primary key could not be found
+	 */
+	public static WorkEntry[] findByPhaseId_PrevAndNext(
+			long workId, Long phaseId,
+			OrderByComparator<WorkEntry> orderByComparator)
+		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
+
+		return getPersistence().findByPhaseId_PrevAndNext(
+			workId, phaseId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the work entries where phaseId = &#63; from the database.
+	 *
+	 * @param phaseId the phase ID
+	 */
+	public static void removeByPhaseId(Long phaseId) {
+		getPersistence().removeByPhaseId(phaseId);
+	}
+
+	/**
+	 * Returns the number of work entries where phaseId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @return the number of matching work entries
+	 */
+	public static int countByPhaseId(Long phaseId) {
+		return getPersistence().countByPhaseId(phaseId);
 	}
 
 	/**
@@ -905,8 +1058,10 @@ public class WorkEntryUtil {
 	 * @param parentId the parent ID
 	 * @return the matching work entries
 	 */
-	public static List<WorkEntry> findByB_PID(long businessId, Long parentId) {
-		return getPersistence().findByB_PID(businessId, parentId);
+	public static List<WorkEntry> findByParentId(
+		long businessId, Long parentId) {
+
+		return getPersistence().findByParentId(businessId, parentId);
 	}
 
 	/**
@@ -922,10 +1077,11 @@ public class WorkEntryUtil {
 	 * @param end the upper bound of the range of work entries (not inclusive)
 	 * @return the range of matching work entries
 	 */
-	public static List<WorkEntry> findByB_PID(
+	public static List<WorkEntry> findByParentId(
 		long businessId, Long parentId, int start, int end) {
 
-		return getPersistence().findByB_PID(businessId, parentId, start, end);
+		return getPersistence().findByParentId(
+			businessId, parentId, start, end);
 	}
 
 	/**
@@ -942,11 +1098,11 @@ public class WorkEntryUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching work entries
 	 */
-	public static List<WorkEntry> findByB_PID(
+	public static List<WorkEntry> findByParentId(
 		long businessId, Long parentId, int start, int end,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		return getPersistence().findByB_PID(
+		return getPersistence().findByParentId(
 			businessId, parentId, start, end, orderByComparator);
 	}
 
@@ -965,12 +1121,12 @@ public class WorkEntryUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching work entries
 	 */
-	public static List<WorkEntry> findByB_PID(
+	public static List<WorkEntry> findByParentId(
 		long businessId, Long parentId, int start, int end,
 		OrderByComparator<WorkEntry> orderByComparator,
 		boolean useFinderCache) {
 
-		return getPersistence().findByB_PID(
+		return getPersistence().findByParentId(
 			businessId, parentId, start, end, orderByComparator,
 			useFinderCache);
 	}
@@ -984,12 +1140,12 @@ public class WorkEntryUtil {
 	 * @return the first matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
-	public static WorkEntry findByB_PID_First(
+	public static WorkEntry findByParentId_First(
 			long businessId, Long parentId,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
 
-		return getPersistence().findByB_PID_First(
+		return getPersistence().findByParentId_First(
 			businessId, parentId, orderByComparator);
 	}
 
@@ -1001,11 +1157,11 @@ public class WorkEntryUtil {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
-	public static WorkEntry fetchByB_PID_First(
+	public static WorkEntry fetchByParentId_First(
 		long businessId, Long parentId,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		return getPersistence().fetchByB_PID_First(
+		return getPersistence().fetchByParentId_First(
 			businessId, parentId, orderByComparator);
 	}
 
@@ -1018,12 +1174,12 @@ public class WorkEntryUtil {
 	 * @return the last matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
-	public static WorkEntry findByB_PID_Last(
+	public static WorkEntry findByParentId_Last(
 			long businessId, Long parentId,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
 
-		return getPersistence().findByB_PID_Last(
+		return getPersistence().findByParentId_Last(
 			businessId, parentId, orderByComparator);
 	}
 
@@ -1035,11 +1191,11 @@ public class WorkEntryUtil {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
-	public static WorkEntry fetchByB_PID_Last(
+	public static WorkEntry fetchByParentId_Last(
 		long businessId, Long parentId,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		return getPersistence().fetchByB_PID_Last(
+		return getPersistence().fetchByParentId_Last(
 			businessId, parentId, orderByComparator);
 	}
 
@@ -1053,12 +1209,12 @@ public class WorkEntryUtil {
 	 * @return the previous, current, and next work entry
 	 * @throws NoSuchWorkEntryException if a work entry with the primary key could not be found
 	 */
-	public static WorkEntry[] findByB_PID_PrevAndNext(
+	public static WorkEntry[] findByParentId_PrevAndNext(
 			long workId, long businessId, Long parentId,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
 
-		return getPersistence().findByB_PID_PrevAndNext(
+		return getPersistence().findByParentId_PrevAndNext(
 			workId, businessId, parentId, orderByComparator);
 	}
 
@@ -1068,8 +1224,8 @@ public class WorkEntryUtil {
 	 * @param businessId the business ID
 	 * @param parentId the parent ID
 	 */
-	public static void removeByB_PID(long businessId, Long parentId) {
-		getPersistence().removeByB_PID(businessId, parentId);
+	public static void removeByParentId(long businessId, Long parentId) {
+		getPersistence().removeByParentId(businessId, parentId);
 	}
 
 	/**
@@ -1079,73 +1235,146 @@ public class WorkEntryUtil {
 	 * @param parentId the parent ID
 	 * @return the number of matching work entries
 	 */
-	public static int countByB_PID(long businessId, Long parentId) {
-		return getPersistence().countByB_PID(businessId, parentId);
+	public static int countByParentId(long businessId, Long parentId) {
+		return getPersistence().countByParentId(businessId, parentId);
 	}
 
 	/**
-	 * Returns all the work entries where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns the work entry where businessId = &#63; and parentId = &#63; and name = &#63; or throws a <code>NoSuchWorkEntryException</code> if it could not be found.
 	 *
 	 * @param businessId the business ID
+	 * @param parentId the parent ID
+	 * @param name the name
+	 * @return the matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	public static WorkEntry findByParentIdAndName(
+			long businessId, Long parentId, String name)
+		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
+
+		return getPersistence().findByParentIdAndName(
+			businessId, parentId, name);
+	}
+
+	/**
+	 * Returns the work entry where businessId = &#63; and parentId = &#63; and name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param businessId the business ID
+	 * @param parentId the parent ID
+	 * @param name the name
+	 * @return the matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	public static WorkEntry fetchByParentIdAndName(
+		long businessId, Long parentId, String name) {
+
+		return getPersistence().fetchByParentIdAndName(
+			businessId, parentId, name);
+	}
+
+	/**
+	 * Returns the work entry where businessId = &#63; and parentId = &#63; and name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param businessId the business ID
+	 * @param parentId the parent ID
+	 * @param name the name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	public static WorkEntry fetchByParentIdAndName(
+		long businessId, Long parentId, String name, boolean useFinderCache) {
+
+		return getPersistence().fetchByParentIdAndName(
+			businessId, parentId, name, useFinderCache);
+	}
+
+	/**
+	 * Removes the work entry where businessId = &#63; and parentId = &#63; and name = &#63; from the database.
+	 *
+	 * @param businessId the business ID
+	 * @param parentId the parent ID
+	 * @param name the name
+	 * @return the work entry that was removed
+	 */
+	public static WorkEntry removeByParentIdAndName(
+			long businessId, Long parentId, String name)
+		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
+
+		return getPersistence().removeByParentIdAndName(
+			businessId, parentId, name);
+	}
+
+	/**
+	 * Returns the number of work entries where businessId = &#63; and parentId = &#63; and name = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param parentId the parent ID
+	 * @param name the name
+	 * @return the number of matching work entries
+	 */
+	public static int countByParentIdAndName(
+		long businessId, Long parentId, String name) {
+
+		return getPersistence().countByParentIdAndName(
+			businessId, parentId, name);
+	}
+
+	/**
+	 * Returns all the work entries where parentReferenceCode = &#63;.
+	 *
 	 * @param parentReferenceCode the parent reference code
 	 * @return the matching work entries
 	 */
-	public static List<WorkEntry> findByB_P_C(
-		long businessId, String parentReferenceCode) {
-
-		return getPersistence().findByB_P_C(businessId, parentReferenceCode);
+	public static List<WorkEntry> findByParentCode(String parentReferenceCode) {
+		return getPersistence().findByParentCode(parentReferenceCode);
 	}
 
 	/**
-	 * Returns a range of all the work entries where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns a range of all the work entries where parentReferenceCode = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
 	 * @return the range of matching work entries
 	 */
-	public static List<WorkEntry> findByB_P_C(
-		long businessId, String parentReferenceCode, int start, int end) {
+	public static List<WorkEntry> findByParentCode(
+		String parentReferenceCode, int start, int end) {
 
-		return getPersistence().findByB_P_C(
-			businessId, parentReferenceCode, start, end);
+		return getPersistence().findByParentCode(
+			parentReferenceCode, start, end);
 	}
 
 	/**
-	 * Returns an ordered range of all the work entries where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns an ordered range of all the work entries where parentReferenceCode = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching work entries
 	 */
-	public static List<WorkEntry> findByB_P_C(
-		long businessId, String parentReferenceCode, int start, int end,
+	public static List<WorkEntry> findByParentCode(
+		String parentReferenceCode, int start, int end,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		return getPersistence().findByB_P_C(
-			businessId, parentReferenceCode, start, end, orderByComparator);
+		return getPersistence().findByParentCode(
+			parentReferenceCode, start, end, orderByComparator);
 	}
 
 	/**
-	 * Returns an ordered range of all the work entries where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns an ordered range of all the work entries where parentReferenceCode = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param start the lower bound of the range of work entries
 	 * @param end the upper bound of the range of work entries (not inclusive)
@@ -1153,281 +1382,252 @@ public class WorkEntryUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching work entries
 	 */
-	public static List<WorkEntry> findByB_P_C(
-		long businessId, String parentReferenceCode, int start, int end,
+	public static List<WorkEntry> findByParentCode(
+		String parentReferenceCode, int start, int end,
 		OrderByComparator<WorkEntry> orderByComparator,
 		boolean useFinderCache) {
 
-		return getPersistence().findByB_P_C(
-			businessId, parentReferenceCode, start, end, orderByComparator,
-			useFinderCache);
+		return getPersistence().findByParentCode(
+			parentReferenceCode, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
-	 * Returns the first work entry in the ordered set where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns the first work entry in the ordered set where parentReferenceCode = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
-	public static WorkEntry findByB_P_C_First(
-			long businessId, String parentReferenceCode,
+	public static WorkEntry findByParentCode_First(
+			String parentReferenceCode,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
 
-		return getPersistence().findByB_P_C_First(
-			businessId, parentReferenceCode, orderByComparator);
+		return getPersistence().findByParentCode_First(
+			parentReferenceCode, orderByComparator);
 	}
 
 	/**
-	 * Returns the first work entry in the ordered set where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns the first work entry in the ordered set where parentReferenceCode = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
-	public static WorkEntry fetchByB_P_C_First(
-		long businessId, String parentReferenceCode,
+	public static WorkEntry fetchByParentCode_First(
+		String parentReferenceCode,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		return getPersistence().fetchByB_P_C_First(
-			businessId, parentReferenceCode, orderByComparator);
+		return getPersistence().fetchByParentCode_First(
+			parentReferenceCode, orderByComparator);
 	}
 
 	/**
-	 * Returns the last work entry in the ordered set where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns the last work entry in the ordered set where parentReferenceCode = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
-	public static WorkEntry findByB_P_C_Last(
-			long businessId, String parentReferenceCode,
+	public static WorkEntry findByParentCode_Last(
+			String parentReferenceCode,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
 
-		return getPersistence().findByB_P_C_Last(
-			businessId, parentReferenceCode, orderByComparator);
+		return getPersistence().findByParentCode_Last(
+			parentReferenceCode, orderByComparator);
 	}
 
 	/**
-	 * Returns the last work entry in the ordered set where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns the last work entry in the ordered set where parentReferenceCode = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
-	public static WorkEntry fetchByB_P_C_Last(
-		long businessId, String parentReferenceCode,
+	public static WorkEntry fetchByParentCode_Last(
+		String parentReferenceCode,
 		OrderByComparator<WorkEntry> orderByComparator) {
 
-		return getPersistence().fetchByB_P_C_Last(
-			businessId, parentReferenceCode, orderByComparator);
+		return getPersistence().fetchByParentCode_Last(
+			parentReferenceCode, orderByComparator);
 	}
 
 	/**
-	 * Returns the work entries before and after the current work entry in the ordered set where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns the work entries before and after the current work entry in the ordered set where parentReferenceCode = &#63;.
 	 *
 	 * @param workId the primary key of the current work entry
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next work entry
 	 * @throws NoSuchWorkEntryException if a work entry with the primary key could not be found
 	 */
-	public static WorkEntry[] findByB_P_C_PrevAndNext(
-			long workId, long businessId, String parentReferenceCode,
+	public static WorkEntry[] findByParentCode_PrevAndNext(
+			long workId, String parentReferenceCode,
 			OrderByComparator<WorkEntry> orderByComparator)
 		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
 
-		return getPersistence().findByB_P_C_PrevAndNext(
-			workId, businessId, parentReferenceCode, orderByComparator);
+		return getPersistence().findByParentCode_PrevAndNext(
+			workId, parentReferenceCode, orderByComparator);
 	}
 
 	/**
-	 * Removes all the work entries where businessId = &#63; and parentReferenceCode = &#63; from the database.
+	 * Removes all the work entries where parentReferenceCode = &#63; from the database.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 */
-	public static void removeByB_P_C(
-		long businessId, String parentReferenceCode) {
-
-		getPersistence().removeByB_P_C(businessId, parentReferenceCode);
+	public static void removeByParentCode(String parentReferenceCode) {
+		getPersistence().removeByParentCode(parentReferenceCode);
 	}
 
 	/**
-	 * Returns the number of work entries where businessId = &#63; and parentReferenceCode = &#63;.
+	 * Returns the number of work entries where parentReferenceCode = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @return the number of matching work entries
 	 */
-	public static int countByB_P_C(
-		long businessId, String parentReferenceCode) {
-
-		return getPersistence().countByB_P_C(businessId, parentReferenceCode);
+	public static int countByParentCode(String parentReferenceCode) {
+		return getPersistence().countByParentCode(parentReferenceCode);
 	}
 
 	/**
-	 * Returns the work entry where businessId = &#63; and projectId = &#63; and name = &#63; or throws a <code>NoSuchWorkEntryException</code> if it could not be found.
+	 * Returns the work entry where projectId = &#63; and name = &#63; or throws a <code>NoSuchWorkEntryException</code> if it could not be found.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param name the name
 	 * @return the matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
-	public static WorkEntry findByB_P_N(
-			long businessId, Long projectId, String name)
+	public static WorkEntry findByProjectAndName(Long projectId, String name)
 		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
 
-		return getPersistence().findByB_P_N(businessId, projectId, name);
+		return getPersistence().findByProjectAndName(projectId, name);
 	}
 
 	/**
-	 * Returns the work entry where businessId = &#63; and projectId = &#63; and name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the work entry where projectId = &#63; and name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param name the name
 	 * @return the matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
-	public static WorkEntry fetchByB_P_N(
-		long businessId, Long projectId, String name) {
-
-		return getPersistence().fetchByB_P_N(businessId, projectId, name);
+	public static WorkEntry fetchByProjectAndName(Long projectId, String name) {
+		return getPersistence().fetchByProjectAndName(projectId, name);
 	}
 
 	/**
-	 * Returns the work entry where businessId = &#63; and projectId = &#63; and name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the work entry where projectId = &#63; and name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param name the name
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
-	public static WorkEntry fetchByB_P_N(
-		long businessId, Long projectId, String name, boolean useFinderCache) {
+	public static WorkEntry fetchByProjectAndName(
+		Long projectId, String name, boolean useFinderCache) {
 
-		return getPersistence().fetchByB_P_N(
-			businessId, projectId, name, useFinderCache);
+		return getPersistence().fetchByProjectAndName(
+			projectId, name, useFinderCache);
 	}
 
 	/**
-	 * Removes the work entry where businessId = &#63; and projectId = &#63; and name = &#63; from the database.
+	 * Removes the work entry where projectId = &#63; and name = &#63; from the database.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param name the name
 	 * @return the work entry that was removed
 	 */
-	public static WorkEntry removeByB_P_N(
-			long businessId, Long projectId, String name)
+	public static WorkEntry removeByProjectAndName(Long projectId, String name)
 		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
 
-		return getPersistence().removeByB_P_N(businessId, projectId, name);
+		return getPersistence().removeByProjectAndName(projectId, name);
 	}
 
 	/**
-	 * Returns the number of work entries where businessId = &#63; and projectId = &#63; and name = &#63;.
+	 * Returns the number of work entries where projectId = &#63; and name = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param name the name
 	 * @return the number of matching work entries
 	 */
-	public static int countByB_P_N(
-		long businessId, Long projectId, String name) {
-
-		return getPersistence().countByB_P_N(businessId, projectId, name);
+	public static int countByProjectAndName(Long projectId, String name) {
+		return getPersistence().countByProjectAndName(projectId, name);
 	}
 
 	/**
-	 * Returns the work entry where businessId = &#63; and parentReferenceCode = &#63; and name = &#63; or throws a <code>NoSuchWorkEntryException</code> if it could not be found.
+	 * Returns the work entry where parentReferenceCode = &#63; and name = &#63; or throws a <code>NoSuchWorkEntryException</code> if it could not be found.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param name the name
 	 * @return the matching work entry
 	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
 	 */
-	public static WorkEntry findByB_P_C_N(
-			long businessId, String parentReferenceCode, String name)
+	public static WorkEntry findByParentCodeAndName(
+			String parentReferenceCode, String name)
 		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
 
-		return getPersistence().findByB_P_C_N(
-			businessId, parentReferenceCode, name);
+		return getPersistence().findByParentCodeAndName(
+			parentReferenceCode, name);
 	}
 
 	/**
-	 * Returns the work entry where businessId = &#63; and parentReferenceCode = &#63; and name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the work entry where parentReferenceCode = &#63; and name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param name the name
 	 * @return the matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
-	public static WorkEntry fetchByB_P_C_N(
-		long businessId, String parentReferenceCode, String name) {
+	public static WorkEntry fetchByParentCodeAndName(
+		String parentReferenceCode, String name) {
 
-		return getPersistence().fetchByB_P_C_N(
-			businessId, parentReferenceCode, name);
+		return getPersistence().fetchByParentCodeAndName(
+			parentReferenceCode, name);
 	}
 
 	/**
-	 * Returns the work entry where businessId = &#63; and parentReferenceCode = &#63; and name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the work entry where parentReferenceCode = &#63; and name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param name the name
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching work entry, or <code>null</code> if a matching work entry could not be found
 	 */
-	public static WorkEntry fetchByB_P_C_N(
-		long businessId, String parentReferenceCode, String name,
-		boolean useFinderCache) {
+	public static WorkEntry fetchByParentCodeAndName(
+		String parentReferenceCode, String name, boolean useFinderCache) {
 
-		return getPersistence().fetchByB_P_C_N(
-			businessId, parentReferenceCode, name, useFinderCache);
+		return getPersistence().fetchByParentCodeAndName(
+			parentReferenceCode, name, useFinderCache);
 	}
 
 	/**
-	 * Removes the work entry where businessId = &#63; and parentReferenceCode = &#63; and name = &#63; from the database.
+	 * Removes the work entry where parentReferenceCode = &#63; and name = &#63; from the database.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param name the name
 	 * @return the work entry that was removed
 	 */
-	public static WorkEntry removeByB_P_C_N(
-			long businessId, String parentReferenceCode, String name)
+	public static WorkEntry removeByParentCodeAndName(
+			String parentReferenceCode, String name)
 		throws com.swork.core.work.service.exception.NoSuchWorkEntryException {
 
-		return getPersistence().removeByB_P_C_N(
-			businessId, parentReferenceCode, name);
+		return getPersistence().removeByParentCodeAndName(
+			parentReferenceCode, name);
 	}
 
 	/**
-	 * Returns the number of work entries where businessId = &#63; and parentReferenceCode = &#63; and name = &#63;.
+	 * Returns the number of work entries where parentReferenceCode = &#63; and name = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param parentReferenceCode the parent reference code
 	 * @param name the name
 	 * @return the number of matching work entries
 	 */
-	public static int countByB_P_C_N(
-		long businessId, String parentReferenceCode, String name) {
+	public static int countByParentCodeAndName(
+		String parentReferenceCode, String name) {
 
-		return getPersistence().countByB_P_C_N(
-			businessId, parentReferenceCode, name);
+		return getPersistence().countByParentCodeAndName(
+			parentReferenceCode, name);
 	}
 
 	/**

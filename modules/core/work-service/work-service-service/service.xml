@@ -52,34 +52,40 @@
         <column name="incompleteTask" type="double"/>
         <column name="complete" type="double"/>
 
-        <finder name="B_P" return-type="Collection">
-            <finder-column name="businessId"/>
+        <finder name="ProjectId" return-type="Collection">
             <finder-column name="projectId"/>
         </finder>
 
-        <finder name="B_PH" return-type="Collection">
-            <finder-column name="businessId"/>
+        <finder name="ProjectAndPhase" return-type="Collection">
+            <finder-column name="projectId"/>
             <finder-column name="phaseId"/>
         </finder>
 
-        <finder name="B_PID" return-type="Collection">
+        <finder name="PhaseId" return-type="Collection">
+            <finder-column name="phaseId"/>
+        </finder>
+
+        <finder name="ParentId" return-type="Collection">
             <finder-column name="businessId"/>
             <finder-column name="parentId"/>
         </finder>
 
-        <finder name="B_P_C" return-type="Collection">
+        <finder name="ParentIdAndName" return-type="WorkEntry">
             <finder-column name="businessId"/>
+            <finder-column name="parentId"/>
+            <finder-column name="name"/>
+        </finder>
+
+        <finder name="ParentCode" return-type="Collection">
             <finder-column name="parentReferenceCode"/>
         </finder>
 
-        <finder name="B_P_N" return-type="TaskEntry">
-            <finder-column name="businessId"/>
+        <finder name="ProjectAndName" return-type="WorkEntry">
             <finder-column name="projectId"/>
             <finder-column name="name"/>
         </finder>
 
-        <finder name="B_P_C_N" return-type="TaskEntry">
-            <finder-column name="businessId"/>
+        <finder name="ParentCodeAndName" return-type="WorkEntry">
             <finder-column name="parentReferenceCode"/>
             <finder-column name="name"/>
         </finder>

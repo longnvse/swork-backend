@@ -23,4 +23,7 @@ public class SearchFields {
     public static final String YEAR_ACTUAL_START_DATE = "yearActualStartDate";
     public static final String YEAR_MONTH_END_DATE = "yearMonthEndDate";
     public static final String PROGRESS = "progress";
+    public static final String PARENT_ID = "parentId";
+    public static final String PROJECT_ID = "projectId";
+    public static final String PHASE_ID = "projectId";
 }

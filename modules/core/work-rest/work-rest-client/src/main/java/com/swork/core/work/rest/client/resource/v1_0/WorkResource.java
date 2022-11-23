@@ -27,13 +27,13 @@ public interface WorkResource {
 	}
 
 	public Page<Work> getWorksPage(
-			String search, String filterString, Pagination pagination,
-			String sortString)
+			String search, Long projectId, Long phaseId, String filterString,
+			Pagination pagination, String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getWorksPageHttpResponse(
-			String search, String filterString, Pagination pagination,
-			String sortString)
+			String search, Long projectId, Long phaseId, String filterString,
+			Pagination pagination, String sortString)
 		throws Exception;
 
 	public Work postWork(Work work) throws Exception;
@@ -149,12 +149,13 @@ public interface WorkResource {
 	public static class WorkResourceImpl implements WorkResource {
 
 		public Page<Work> getWorksPage(
-				String search, String filterString, Pagination pagination,
-				String sortString)
+				String search, Long projectId, Long phaseId,
+				String filterString, Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = getWorksPageHttpResponse(
-				search, filterString, pagination, sortString);
+				search, projectId, phaseId, filterString, pagination,
+				sortString);
 
 			String content = httpResponse.getContent();
 
@@ -194,8 +195,8 @@ public interface WorkResource {
 		}
 
 		public HttpInvoker.HttpResponse getWorksPageHttpResponse(
-				String search, String filterString, Pagination pagination,
-				String sortString)
+				String search, Long projectId, Long phaseId,
+				String filterString, Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -221,6 +222,14 @@ public interface WorkResource {
 
 			if (search != null) {
 				httpInvoker.parameter("search", String.valueOf(search));
+			}
+
+			if (projectId != null) {
+				httpInvoker.parameter("projectId", String.valueOf(projectId));
+			}
+
+			if (phaseId != null) {
+				httpInvoker.parameter("phaseId", String.valueOf(phaseId));
 			}
 
 			if (filterString != null) {
