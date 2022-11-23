@@ -284,6 +284,28 @@ public class WorkEntryLocalServiceWrapper
 	}
 
 	@Override
+	public com.swork.core.work.service.model.WorkEntry findByP_Name(
+		long projectId, String name) {
+
+		return _workEntryLocalService.findByP_Name(projectId, name);
+	}
+
+	@Override
+	public java.util.List<com.swork.core.work.service.model.WorkEntry>
+		findByParentId(long businessId, long parentId) {
+
+		return _workEntryLocalService.findByParentId(businessId, parentId);
+	}
+
+	@Override
+	public com.swork.core.work.service.model.WorkEntry findByPID_Name(
+		long businessId, long parentId, String name) {
+
+		return _workEntryLocalService.findByPID_Name(
+			businessId, parentId, name);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

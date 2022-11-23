@@ -21,27 +21,6 @@ public class Work implements Cloneable, Serializable {
 		return WorkSerDes.toDTO(json);
 	}
 
-	public String[] getFollowers() {
-		return Followers;
-	}
-
-	public void setFollowers(String[] Followers) {
-		this.Followers = Followers;
-	}
-
-	public void setFollowers(
-		UnsafeSupplier<String[], Exception> FollowersUnsafeSupplier) {
-
-		try {
-			Followers = FollowersUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String[] Followers;
-
 	public Date getActualEndDate() {
 		return actualEndDate;
 	}
@@ -466,16 +445,16 @@ public class Work implements Cloneable, Serializable {
 
 	protected String phaseName;
 
-	public Double getProgress() {
+	public Long getProgress() {
 		return progress;
 	}
 
-	public void setProgress(Double progress) {
+	public void setProgress(Long progress) {
 		this.progress = progress;
 	}
 
 	public void setProgress(
-		UnsafeSupplier<Double, Exception> progressUnsafeSupplier) {
+		UnsafeSupplier<Long, Exception> progressUnsafeSupplier) {
 
 		try {
 			progress = progressUnsafeSupplier.get();
@@ -485,7 +464,7 @@ public class Work implements Cloneable, Serializable {
 		}
 	}
 
-	protected Double progress;
+	protected Long progress;
 
 	public String getProgressType() {
 		return progressType;
@@ -599,27 +578,6 @@ public class Work implements Cloneable, Serializable {
 	}
 
 	protected Status status;
-
-	public String[] getTreeName() {
-		return treeName;
-	}
-
-	public void setTreeName(String[] treeName) {
-		this.treeName = treeName;
-	}
-
-	public void setTreeName(
-		UnsafeSupplier<String[], Exception> treeNameUnsafeSupplier) {
-
-		try {
-			treeName = treeNameUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String[] treeName;
 
 	public String getUnit() {
 		return unit;

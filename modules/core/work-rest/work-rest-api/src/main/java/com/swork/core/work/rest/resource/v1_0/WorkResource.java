@@ -46,7 +46,8 @@ public interface WorkResource {
 	}
 
 	public Page<Work> getWorksPage(
-			String search, Filter filter, Pagination pagination, Sort[] sorts)
+			String search, Long projectId, Long phaseId, Filter filter,
+			Pagination pagination, Sort[] sorts)
 		throws Exception;
 
 	public Work postWork(Work work) throws Exception;

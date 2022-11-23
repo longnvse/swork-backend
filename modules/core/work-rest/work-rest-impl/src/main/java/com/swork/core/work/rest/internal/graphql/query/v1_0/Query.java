@@ -45,13 +45,15 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {works(filter: ___, page: ___, pageSize: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {works(filter: ___, page: ___, pageSize: ___, phaseId: ___, projectId: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(
 		description = "Retrieves the Work. Results can be paginated, filtered, searched, and sorted."
 	)
 	public WorkPage works(
 			@GraphQLName("search") String search,
+			@GraphQLName("projectId") Long projectId,
+			@GraphQLName("phaseId") Long phaseId,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page,
@@ -63,7 +65,8 @@ public class Query {
 			this::_populateResourceContext,
 			workResource -> new WorkPage(
 				workResource.getWorksPage(
-					search, _filterBiFunction.apply(workResource, filterString),
+					search, projectId, phaseId,
+					_filterBiFunction.apply(workResource, filterString),
 					Pagination.of(page, pageSize),
 					_sortsBiFunction.apply(workResource, sortsString))));
 	}
@@ -71,7 +74,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {work(workId: ___){id, externalReferenceCode, projectId, phaseId, parentReferenceCode, progress, name, startDate, endDate, actualStartDate, actualEndDate, parentName, parentId, projectName, phaseName, description, status, manages, participates, handles, Followers, treeName, percentage, progressType, unit, incompleteWork, complete, descriptionProgress, parentStatus, works}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {work(workId: ___){id, externalReferenceCode, projectId, phaseId, parentReferenceCode, progress, name, startDate, endDate, actualStartDate, actualEndDate, parentName, parentId, projectName, phaseName, description, status, manages, participates, handles, percentage, progressType, unit, incompleteWork, complete, descriptionProgress, parentStatus, works}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Get an Work")
 	public Work work(@GraphQLName("workId") Long workId) throws Exception {

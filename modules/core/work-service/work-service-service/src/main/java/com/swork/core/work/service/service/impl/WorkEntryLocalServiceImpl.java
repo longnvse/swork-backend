@@ -14,6 +14,7 @@
 
 package com.swork.core.work.service.service.impl;
 
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
@@ -27,6 +28,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Brian Wing Shun Chan
@@ -113,6 +115,26 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
                                 workId,
                                 participate,
                                 Type.PARTICIPATE.getValue()));
+    }
+
+    public WorkEntry findByP_Name(long projectId,
+                                  String name) {
+        return workEntryPersistence.fetchByProjectAndName(
+                projectId,
+                name.trim().replaceAll("\\s+", StringPool.BLANK));
+    }
+
+    public WorkEntry findByPID_Name(long businessId,
+                                    long parentId,
+                                    String name) {
+        return workEntryPersistence.fetchByParentIdAndName(
+                businessId,
+                parentId,
+                name.trim().replaceAll("\\s+", StringPool.BLANK));
+    }
+
+    public List<WorkEntry> findByParentId(long businessId, long parentId) {
+        return workEntryPersistence.findByParentId(businessId, parentId);
     }
 
     private void createModifierAudit(long businessId,

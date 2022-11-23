@@ -237,6 +237,13 @@ public interface WorkEntryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public WorkEntry fetchWorkEntryByUuidAndGroupId(String uuid, long groupId);
 
+	public WorkEntry findByP_Name(long projectId, String name);
+
+	public List<WorkEntry> findByParentId(long businessId, long parentId);
+
+	public WorkEntry findByPID_Name(
+		long businessId, long parentId, String name);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
