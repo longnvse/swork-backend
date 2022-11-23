@@ -148,13 +148,13 @@ public class AccountEntryLocalServiceImpl
     }
 
     public AccountEntry getAccount(String username) {
-        AccountEntry entry = accountEntryPersistence.fetchByUsername(username);
+        AccountEntry entry = accountEntryPersistence.fetchByUsername(username,false);
 
         if (Validator.isNotNull(entry)) {
             return entry;
         }
 
-        return accountEntryPersistence.fetchByEmail(username);
+        return accountEntryPersistence.fetchByEmail(username,false);
     }
 
     @Indexable(type = IndexableType.REINDEX)
