@@ -28,11 +28,13 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import com.swork.common.file.mapper.model.FileManagerMapperModel;
 import com.swork.common.file.model.FileManagerEntry;
 
 import java.io.Serializable;
@@ -64,6 +66,10 @@ public interface FileManagerEntryLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.swork.common.file.service.impl.FileManagerEntryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the file manager entry local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link FileManagerEntryLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	@Indexable(type = IndexableType.REINDEX)
+	public FileManagerEntry addFileManager(
+		long customerId, long userId, FileManagerMapperModel model,
+		ServiceContext serviceContext);
 
 	/**
 	 * Adds the file manager entry to the database. Also notifies the appropriate model listeners.
@@ -313,6 +319,10 @@ public interface FileManagerEntryLocalService
 			long companyId, String externalReferenceCode)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public FileManagerEntry getFileManagerEntryByFileId(
+		long fileId, long customerId);
+
 	/**
 	 * Returns the file manager entry matching the UUID and group.
 	 *
@@ -343,6 +353,11 @@ public interface FileManagerEntryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public FileManagerEntry updateFileManager(
+		long fileManagerId, FileManagerMapperModel model,
+		ServiceContext serviceContext);
 
 	/**
 	 * Updates the file manager entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

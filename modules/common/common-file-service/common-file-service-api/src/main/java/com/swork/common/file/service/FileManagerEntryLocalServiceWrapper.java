@@ -33,6 +33,16 @@ public class FileManagerEntryLocalServiceWrapper
 		_fileManagerEntryLocalService = fileManagerEntryLocalService;
 	}
 
+	@Override
+	public com.swork.common.file.model.FileManagerEntry addFileManager(
+		long customerId, long userId,
+		com.swork.common.file.mapper.model.FileManagerMapperModel model,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _fileManagerEntryLocalService.addFileManager(
+			customerId, userId, model, serviceContext);
+	}
+
 	/**
 	 * Adds the file manager entry to the database. Also notifies the appropriate model listeners.
 	 *
@@ -398,6 +408,14 @@ public class FileManagerEntryLocalServiceWrapper
 				companyId, externalReferenceCode);
 	}
 
+	@Override
+	public com.swork.common.file.model.FileManagerEntry
+		getFileManagerEntryByFileId(long fileId, long customerId) {
+
+		return _fileManagerEntryLocalService.getFileManagerEntryByFileId(
+			fileId, customerId);
+	}
+
 	/**
 	 * Returns the file manager entry matching the UUID and group.
 	 *
@@ -442,6 +460,16 @@ public class FileManagerEntryLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _fileManagerEntryLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	@Override
+	public com.swork.common.file.model.FileManagerEntry updateFileManager(
+		long fileManagerId,
+		com.swork.common.file.mapper.model.FileManagerMapperModel model,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _fileManagerEntryLocalService.updateFileManager(
+			fileManagerId, model, serviceContext);
 	}
 
 	/**

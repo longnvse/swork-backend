@@ -45,6 +45,14 @@ public class FileManagerEntryLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.swork.common.file.service.impl.FileManagerEntryLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static FileManagerEntry addFileManager(
+		long customerId, long userId,
+		com.swork.common.file.mapper.model.FileManagerMapperModel model,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().addFileManager(
+			customerId, userId, model, serviceContext);
+	}
 
 	/**
 	 * Adds the file manager entry to the database. Also notifies the appropriate model listeners.
@@ -355,6 +363,12 @@ public class FileManagerEntryLocalServiceUtil {
 			companyId, externalReferenceCode);
 	}
 
+	public static FileManagerEntry getFileManagerEntryByFileId(
+		long fileId, long customerId) {
+
+		return getService().getFileManagerEntryByFileId(fileId, customerId);
+	}
+
 	/**
 	 * Returns the file manager entry matching the UUID and group.
 	 *
@@ -393,6 +407,15 @@ public class FileManagerEntryLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	public static FileManagerEntry updateFileManager(
+		long fileManagerId,
+		com.swork.common.file.mapper.model.FileManagerMapperModel model,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateFileManager(
+			fileManagerId, model, serviceContext);
 	}
 
 	/**
