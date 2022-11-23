@@ -50,6 +50,7 @@ public class AccountEntrySoap implements Serializable {
 		soapModel.setAddress(model.getAddress());
 		soapModel.setDepartmentId(model.getDepartmentId());
 		soapModel.setStatus(model.getStatus());
+		soapModel.setRole(model.getRole());
 		soapModel.setBusinessId(model.getBusinessId());
 
 		return soapModel;
@@ -240,6 +241,14 @@ public class AccountEntrySoap implements Serializable {
 		_status = status;
 	}
 
+	public String getRole() {
+		return _role;
+	}
+
+	public void setRole(String role) {
+		_role = role;
+	}
+
 	public Long getBusinessId() {
 		return _businessId;
 	}
@@ -265,6 +274,7 @@ public class AccountEntrySoap implements Serializable {
 	private String _address;
 	private Long _departmentId;
 	private String _status;
+	private String _role;
 	private Long _businessId;
 
 }

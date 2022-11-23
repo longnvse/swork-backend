@@ -45,6 +45,13 @@ public class AccountEntryLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.swork.account.service.service.impl.AccountEntryLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static AccountEntry addAccountAdmin(
+		long creatorId, long businessId, String email, String password,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().addAccountAdmin(
+			creatorId, businessId, email, password, serviceContext);
+	}
 
 	/**
 	 * Adds the account entry to the database. Also notifies the appropriate model listeners.
@@ -69,6 +76,14 @@ public class AccountEntryLocalServiceUtil {
 		return getService().addAccountEntry(
 			creatorId, businessId, username, password, fullName, dateOfBirth,
 			email, phoneNumber, address, serviceContext);
+	}
+
+	public static AccountEntry addAccountSuperAdmin(
+		String username, String email, String password,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().addAccountSuperAdmin(
+			username, email, password, serviceContext);
 	}
 
 	/**

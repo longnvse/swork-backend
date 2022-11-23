@@ -3,6 +3,7 @@ package com.swork.account.service.internal.listener;
 import com.liferay.portal.kernel.exception.ModelListenerException;
 import com.liferay.portal.kernel.model.BaseModelListener;
 import com.liferay.portal.kernel.model.ModelListener;
+import com.swork.account.service.constant.Role;
 import com.swork.account.service.internal.service.MailService;
 import com.swork.account.service.model.AccountEntry;
 import org.osgi.service.component.annotations.Component;
@@ -16,7 +17,9 @@ public class AccountListener extends BaseModelListener<AccountEntry> {
 
     @Override
     public void onAfterCreate(AccountEntry model) throws ModelListenerException {
-        mailService.sendMail(model);
+        if (!model.getRole().equals(Role.SUPER_ADMIN.getValue())) {
+            mailService.sendMail(model);
+        }
     }
 
     @Reference

@@ -1,10 +1,10 @@
 package com.swork.auth.department.rest.internal.mapper;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.swork.auth.department.rest.dto.v1_0.Department;
 import com.swork.auth.department.rest.dto.v1_0.Member;
 import com.swork.auth.department.service.mapper.model.DepartmentMapperModel;
 import com.swork.auth.department.service.model.DepartmentAccountEntry;
-import com.swork.auth.department.service.model.DepartmentAccountEntryModel;
 import com.swork.auth.department.service.model.DepartmentEntry;
 import com.swork.auth.department.service.service.DepartmentAccountEntryLocalService;
 import org.osgi.service.component.annotations.Component;
@@ -43,7 +43,9 @@ public class DepartmentMapper {
 
         to.setName(from.getName());
 
-        to.setAccounts(Arrays.stream(from.getMembers()).mapToLong(Member::getMemberId).boxed().toArray(Long[]::new));
+        if (Validator.isNotNull(from.getMembers())) {
+            to.setAccounts(Arrays.stream(from.getMembers()).mapToLong(Member::getMemberId).boxed().toArray(Long[]::new));
+        }
         return to;
     }
 

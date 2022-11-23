@@ -16,5 +16,6 @@ create table SW_AccountEntry (
 	address VARCHAR(75) null,
 	departmentId LONG,
 	status VARCHAR(75) null,
+	role_ VARCHAR(75) null,
 	businessId LONG
 );

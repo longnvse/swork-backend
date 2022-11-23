@@ -68,6 +68,8 @@ public class AccountEntryTable extends BaseTable<AccountEntryTable> {
 		"departmentId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<AccountEntryTable, String> status = createColumn(
 		"status", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<AccountEntryTable, String> role = createColumn(
+		"role_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<AccountEntryTable, Long> businessId = createColumn(
 		"businessId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
