@@ -10,6 +10,8 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 
 import com.swork.account.rest.dto.v1_0.Account;
+import com.swork.account.rest.dto.v1_0.ChangePassword;
+import com.swork.account.rest.dto.v1_0.ResetPassword;
 import com.swork.account.rest.resource.v1_0.AccountResource;
 
 import java.util.function.BiFunction;
@@ -123,6 +125,45 @@ public class Mutation {
 			this::_populateResourceContext,
 			accountResource -> accountResource.approvalAccount(
 				accountId, status));
+
+		return true;
+	}
+
+	@GraphQLField(description = "Update Account Info")
+	public boolean patchAccountPassword(
+			@GraphQLName("changePassword") ChangePassword changePassword)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.patchAccountPassword(
+				changePassword));
+
+		return true;
+	}
+
+	@GraphQLField(description = "Update Account Info")
+	public boolean updateAccountInfo(@GraphQLName("account") Account account)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.putAccountInfo(account));
+
+		return true;
+	}
+
+	@GraphQLField(description = "Update Account Info")
+	public boolean resetPassword(
+			@GraphQLName("resetPassword") ResetPassword resetPassword)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.resetPassword(resetPassword));
 
 		return true;
 	}

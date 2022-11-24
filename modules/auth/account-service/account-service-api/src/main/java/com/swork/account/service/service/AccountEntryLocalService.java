@@ -95,6 +95,10 @@ public interface AccountEntryLocalService
 		String username, String email, String password,
 		ServiceContext serviceContext);
 
+	@Indexable(type = IndexableType.REINDEX)
+	public AccountEntry changePassword(
+		long accountId, String password, ServiceContext serviceContext);
+
 	/**
 	 * Creates a new account entry with the primary key. Does not add the account entry to the database.
 	 *
@@ -365,6 +369,9 @@ public interface AccountEntryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public AccountEntry resetPassword(String username);
 
 	/**
 	 * Updates the account entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

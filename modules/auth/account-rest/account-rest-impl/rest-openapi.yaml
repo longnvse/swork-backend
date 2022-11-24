@@ -32,6 +32,20 @@ components:
           readOnly: true
         status:
           enum: [ active, inactive ]
+    ChangePassword:
+      properties:
+        oldPassword:
+          type: string
+        newPassword:
+          type: string
+        newPasswordRepeat:
+          type: string
+    ResetPassword:
+      properties:
+        username:
+          type: string
+        email:
+          type: string
 info:
   description: "AccountRest REST API"
   license:
@@ -199,5 +213,79 @@ paths:
           description:
             "Updated an Account"
           content:
-            application/json: {}
-            application/xml: {}
+            application/json: { }
+            application/xml: { }
+  "/accounts/account-info":
+    get:
+      tags: [ "Account" ]
+      description: Update an Account
+      operationId: getAccountInfo
+      responses:
+        200:
+          description:
+            "Get detail an Account"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Account"
+    put:
+      tags: [ "Account" ]
+      description: "Update Account Info"
+      operationId: putAccountInfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Account"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Account"
+      responses:
+        204:
+          description:
+            "Get Current Account Info"
+          content:
+            application/json: { }
+            application/xml: { }
+    patch:
+      tags: [ "Account" ]
+      description: "Update Account Info"
+      operationId: patchAccountPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+      responses:
+        204:
+          description:
+            "Change Password"
+          content:
+            application/json: { }
+            application/xml: { }
+  "/accounts/reset-password":
+    patch:
+      tags: [ "Account" ]
+      description: "Update Account Info"
+      operationId: resetPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPassword'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ResetPassword'
+      responses:
+        204:
+          description:
+            "Change Password"
+          content:
+            application/json: { }
+            application/xml: { }
