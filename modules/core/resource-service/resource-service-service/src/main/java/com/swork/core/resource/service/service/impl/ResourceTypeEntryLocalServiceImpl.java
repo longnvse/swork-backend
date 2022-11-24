@@ -57,7 +57,7 @@ public class ResourceTypeEntryLocalServiceImpl
 
         entry.setName(model.getName());
         entry.setUnit(model.getUnit());
-        entry.setParentId(model.getParentTypeId());
+        entry.setParentId(model.getParentId());
 
         return addResourceTypeEntry(entry);
     }
@@ -79,7 +79,7 @@ public class ResourceTypeEntryLocalServiceImpl
 
         entry.setName(model.getName());
         entry.setUnit(model.getUnit());
-        entry.setParentId(model.getParentTypeId());
+        entry.setParentId(model.getParentId());
 
         return updateResourceTypeEntry(entry);
     }
