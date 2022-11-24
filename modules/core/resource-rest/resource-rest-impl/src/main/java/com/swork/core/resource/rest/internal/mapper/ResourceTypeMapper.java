@@ -22,7 +22,7 @@ public class ResourceTypeMapper {
 
         to.setName(from.getName());
         to.setUnit(from.getUnit());
-        to.setParentTypeId(GetterUtil.getLong(from.getParentId(), 0L));
+        to.setParentId(GetterUtil.getLong(from.getParentId(), 0L));
 
         return to;
     }

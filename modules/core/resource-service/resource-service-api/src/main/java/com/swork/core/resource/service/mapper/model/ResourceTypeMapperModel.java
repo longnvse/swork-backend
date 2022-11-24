@@ -7,7 +7,7 @@ public class ResourceTypeMapperModel {
     String name;
     String unit;
 
-    Long parentTypeId;
+    Long parentId;
 
     public String getName() {
         return name;
@@ -25,11 +25,11 @@ public class ResourceTypeMapperModel {
         this.unit = GetterUtil.getString(unit).trim();
     }
 
-    public Long getParentTypeId() {
-        return parentTypeId;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setParentTypeId(Long parentTypeId) {
-        this.parentTypeId = parentTypeId;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 }
