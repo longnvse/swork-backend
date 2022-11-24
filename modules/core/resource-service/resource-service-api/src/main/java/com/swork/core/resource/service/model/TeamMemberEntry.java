@@ -39,11 +39,11 @@ public interface TeamMemberEntry extends PersistedModel, TeamMemberEntryModel {
 	 * Never modify this interface directly. Add methods to <code>com.swork.core.resource.service.model.impl.TeamMemberEntryImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public static final Accessor<TeamMemberEntry, Long>
-		TEAM_MEMBER_TASK_ID_ACCESSOR = new Accessor<TeamMemberEntry, Long>() {
+		TEAM_MEMBER_ID_ACCESSOR = new Accessor<TeamMemberEntry, Long>() {
 
 			@Override
 			public Long get(TeamMemberEntry teamMemberEntry) {
-				return teamMemberEntry.getTeamMemberTaskId();
+				return teamMemberEntry.getTeamMemberId();
 			}
 
 			@Override

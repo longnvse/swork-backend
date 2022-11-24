@@ -95,11 +95,11 @@ public interface TeamMemberEntryLocalService
 	/**
 	 * Creates a new team member entry with the primary key. Does not add the team member entry to the database.
 	 *
-	 * @param teamMemberTaskId the primary key for the new team member entry
+	 * @param teamMemberId the primary key for the new team member entry
 	 * @return the new team member entry
 	 */
 	@Transactional(enabled = false)
-	public TeamMemberEntry createTeamMemberEntry(long teamMemberTaskId);
+	public TeamMemberEntry createTeamMemberEntry(long teamMemberId);
 
 	@Indexable(type = IndexableType.REINDEX)
 	public void deleteAdminByTeamId(long teamId);
@@ -121,12 +121,12 @@ public interface TeamMemberEntryLocalService
 	 * <strong>Important:</strong> Inspect TeamMemberEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
 	 * </p>
 	 *
-	 * @param teamMemberTaskId the primary key of the team member entry
+	 * @param teamMemberId the primary key of the team member entry
 	 * @return the team member entry that was removed
 	 * @throws PortalException if a team member entry with the primary key could not be found
 	 */
 	@Indexable(type = IndexableType.DELETE)
-	public TeamMemberEntry deleteTeamMemberEntry(long teamMemberTaskId)
+	public TeamMemberEntry deleteTeamMemberEntry(long teamMemberId)
 		throws PortalException;
 
 	/**
@@ -216,7 +216,7 @@ public interface TeamMemberEntryLocalService
 		DynamicQuery dynamicQuery, Projection projection);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public TeamMemberEntry fetchTeamMemberEntry(long teamMemberTaskId);
+	public TeamMemberEntry fetchTeamMemberEntry(long teamMemberId);
 
 	/**
 	 * Returns the team member entry with the matching external reference code and company.
@@ -300,12 +300,12 @@ public interface TeamMemberEntryLocalService
 	/**
 	 * Returns the team member entry with the primary key.
 	 *
-	 * @param teamMemberTaskId the primary key of the team member entry
+	 * @param teamMemberId the primary key of the team member entry
 	 * @return the team member entry
 	 * @throws PortalException if a team member entry with the primary key could not be found
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public TeamMemberEntry getTeamMemberEntry(long teamMemberTaskId)
+	public TeamMemberEntry getTeamMemberEntry(long teamMemberId)
 		throws PortalException;
 
 	/**

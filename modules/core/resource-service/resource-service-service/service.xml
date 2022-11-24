@@ -40,7 +40,7 @@
         <column name="resourceTypeName" type="String"/>
         <column name="teamId" type="long"/>
         <column name="teamName" type="String"/>
-        <column name="quantity" type="long"/>
+        <column name="quantity" type="double"/>
         <column name="unit" type="String"/>
         <column name="dateResource" type="Date"/>
         <column name="totalAmount" type="Long"/>
@@ -182,7 +182,7 @@
 
         <!-- PK fields -->
 
-        <column name="teamMemberTaskId" primary="true" type="long"/>
+        <column name="teamMemberId" primary="true" type="long"/>
         <column name="companyId" type="long"/>
 
         <!-- Other fields -->

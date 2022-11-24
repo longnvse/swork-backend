@@ -37,9 +37,8 @@ public class TeamMemberEntryTable extends BaseTable<TeamMemberEntryTable> {
 		createColumn(
 			"externalReferenceCode", String.class, Types.VARCHAR,
 			Column.FLAG_DEFAULT);
-	public final Column<TeamMemberEntryTable, Long> teamMemberTaskId =
-		createColumn(
-			"teamMemberTaskId", Long.class, Types.BIGINT, Column.FLAG_PRIMARY);
+	public final Column<TeamMemberEntryTable, Long> teamMemberId = createColumn(
+		"teamMemberId", Long.class, Types.BIGINT, Column.FLAG_PRIMARY);
 	public final Column<TeamMemberEntryTable, Long> companyId = createColumn(
 		"companyId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<TeamMemberEntryTable, Long> memberId = createColumn(

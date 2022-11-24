@@ -89,15 +89,14 @@ public class TeamMemberEntryLocalServiceWrapper
 	/**
 	 * Creates a new team member entry with the primary key. Does not add the team member entry to the database.
 	 *
-	 * @param teamMemberTaskId the primary key for the new team member entry
+	 * @param teamMemberId the primary key for the new team member entry
 	 * @return the new team member entry
 	 */
 	@Override
 	public com.swork.core.resource.service.model.TeamMemberEntry
-		createTeamMemberEntry(long teamMemberTaskId) {
+		createTeamMemberEntry(long teamMemberId) {
 
-		return _teamMemberEntryLocalService.createTeamMemberEntry(
-			teamMemberTaskId);
+		return _teamMemberEntryLocalService.createTeamMemberEntry(teamMemberId);
 	}
 
 	@Override
@@ -129,17 +128,16 @@ public class TeamMemberEntryLocalServiceWrapper
 	 * <strong>Important:</strong> Inspect TeamMemberEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
 	 * </p>
 	 *
-	 * @param teamMemberTaskId the primary key of the team member entry
+	 * @param teamMemberId the primary key of the team member entry
 	 * @return the team member entry that was removed
 	 * @throws PortalException if a team member entry with the primary key could not be found
 	 */
 	@Override
 	public com.swork.core.resource.service.model.TeamMemberEntry
-			deleteTeamMemberEntry(long teamMemberTaskId)
+			deleteTeamMemberEntry(long teamMemberId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _teamMemberEntryLocalService.deleteTeamMemberEntry(
-			teamMemberTaskId);
+		return _teamMemberEntryLocalService.deleteTeamMemberEntry(teamMemberId);
 	}
 
 	/**
@@ -267,10 +265,9 @@ public class TeamMemberEntryLocalServiceWrapper
 
 	@Override
 	public com.swork.core.resource.service.model.TeamMemberEntry
-		fetchTeamMemberEntry(long teamMemberTaskId) {
+		fetchTeamMemberEntry(long teamMemberId) {
 
-		return _teamMemberEntryLocalService.fetchTeamMemberEntry(
-			teamMemberTaskId);
+		return _teamMemberEntryLocalService.fetchTeamMemberEntry(teamMemberId);
 	}
 
 	/**
@@ -399,17 +396,16 @@ public class TeamMemberEntryLocalServiceWrapper
 	/**
 	 * Returns the team member entry with the primary key.
 	 *
-	 * @param teamMemberTaskId the primary key of the team member entry
+	 * @param teamMemberId the primary key of the team member entry
 	 * @return the team member entry
 	 * @throws PortalException if a team member entry with the primary key could not be found
 	 */
 	@Override
 	public com.swork.core.resource.service.model.TeamMemberEntry
-			getTeamMemberEntry(long teamMemberTaskId)
+			getTeamMemberEntry(long teamMemberId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _teamMemberEntryLocalService.getTeamMemberEntry(
-			teamMemberTaskId);
+		return _teamMemberEntryLocalService.getTeamMemberEntry(teamMemberId);
 	}
 
 	/**

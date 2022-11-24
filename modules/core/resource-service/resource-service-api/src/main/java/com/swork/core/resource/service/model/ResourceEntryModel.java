@@ -313,14 +313,14 @@ public interface ResourceEntryModel
 	 *
 	 * @return the quantity of this resource entry
 	 */
-	public long getQuantity();
+	public double getQuantity();
 
 	/**
 	 * Sets the quantity of this resource entry.
 	 *
 	 * @param quantity the quantity of this resource entry
 	 */
-	public void setQuantity(long quantity);
+	public void setQuantity(double quantity);
 
 	/**
 	 * Returns the unit of this resource entry.

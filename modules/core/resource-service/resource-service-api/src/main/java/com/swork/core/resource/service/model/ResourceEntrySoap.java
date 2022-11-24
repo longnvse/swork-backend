@@ -243,11 +243,11 @@ public class ResourceEntrySoap implements Serializable {
 		_teamName = teamName;
 	}
 
-	public long getQuantity() {
+	public double getQuantity() {
 		return _quantity;
 	}
 
-	public void setQuantity(long quantity) {
+	public void setQuantity(double quantity) {
 		_quantity = quantity;
 	}
 
@@ -292,7 +292,7 @@ public class ResourceEntrySoap implements Serializable {
 	private String _resourceTypeName;
 	private long _teamId;
 	private String _teamName;
-	private long _quantity;
+	private double _quantity;
 	private String _unit;
 	private Date _dateResource;
 	private Long _totalAmount;

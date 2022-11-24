@@ -368,7 +368,7 @@ public interface ResourceEntryLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public ResourceEntry updateResourceEntry(
-		long resourceId, ResourceMapperModel model,
+		long creatorId, long resourceId, ResourceMapperModel model,
 		ServiceContext serviceContext);
 
 	/**

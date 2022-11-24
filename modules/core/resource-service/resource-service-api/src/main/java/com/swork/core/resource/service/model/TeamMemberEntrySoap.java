@@ -34,7 +34,7 @@ public class TeamMemberEntrySoap implements Serializable {
 
 		soapModel.setUuid(model.getUuid());
 		soapModel.setExternalReferenceCode(model.getExternalReferenceCode());
-		soapModel.setTeamMemberTaskId(model.getTeamMemberTaskId());
+		soapModel.setTeamMemberId(model.getTeamMemberId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setMemberId(model.getMemberId());
 		soapModel.setMemberName(model.getMemberName());
@@ -92,11 +92,11 @@ public class TeamMemberEntrySoap implements Serializable {
 	}
 
 	public long getPrimaryKey() {
-		return _teamMemberTaskId;
+		return _teamMemberId;
 	}
 
 	public void setPrimaryKey(long pk) {
-		setTeamMemberTaskId(pk);
+		setTeamMemberId(pk);
 	}
 
 	public String getUuid() {
@@ -115,12 +115,12 @@ public class TeamMemberEntrySoap implements Serializable {
 		_externalReferenceCode = externalReferenceCode;
 	}
 
-	public long getTeamMemberTaskId() {
-		return _teamMemberTaskId;
+	public long getTeamMemberId() {
+		return _teamMemberId;
 	}
 
-	public void setTeamMemberTaskId(long teamMemberTaskId) {
-		_teamMemberTaskId = teamMemberTaskId;
+	public void setTeamMemberId(long teamMemberId) {
+		_teamMemberId = teamMemberId;
 	}
 
 	public long getCompanyId() {
@@ -165,7 +165,7 @@ public class TeamMemberEntrySoap implements Serializable {
 
 	private String _uuid;
 	private String _externalReferenceCode;
-	private long _teamMemberTaskId;
+	private long _teamMemberId;
 	private long _companyId;
 	private Long _memberId;
 	private String _memberName;

@@ -86,18 +86,18 @@ public interface TeamMemberEntryModel
 	public void setExternalReferenceCode(String externalReferenceCode);
 
 	/**
-	 * Returns the team member task ID of this team member entry.
+	 * Returns the team member ID of this team member entry.
 	 *
-	 * @return the team member task ID of this team member entry
+	 * @return the team member ID of this team member entry
 	 */
-	public long getTeamMemberTaskId();
+	public long getTeamMemberId();
 
 	/**
-	 * Sets the team member task ID of this team member entry.
+	 * Sets the team member ID of this team member entry.
 	 *
-	 * @param teamMemberTaskId the team member task ID of this team member entry
+	 * @param teamMemberId the team member ID of this team member entry
 	 */
-	public void setTeamMemberTaskId(long teamMemberTaskId);
+	public void setTeamMemberId(long teamMemberId);
 
 	/**
 	 * Returns the company ID of this team member entry.

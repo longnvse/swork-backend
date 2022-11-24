@@ -43,7 +43,7 @@ public class TeamMemberEntryWrapper
 
 		attributes.put("uuid", getUuid());
 		attributes.put("externalReferenceCode", getExternalReferenceCode());
-		attributes.put("teamMemberTaskId", getTeamMemberTaskId());
+		attributes.put("teamMemberId", getTeamMemberId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("memberId", getMemberId());
 		attributes.put("memberName", getMemberName());
@@ -68,10 +68,10 @@ public class TeamMemberEntryWrapper
 			setExternalReferenceCode(externalReferenceCode);
 		}
 
-		Long teamMemberTaskId = (Long)attributes.get("teamMemberTaskId");
+		Long teamMemberId = (Long)attributes.get("teamMemberId");
 
-		if (teamMemberTaskId != null) {
-			setTeamMemberTaskId(teamMemberTaskId);
+		if (teamMemberId != null) {
+			setTeamMemberId(teamMemberId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -181,13 +181,13 @@ public class TeamMemberEntryWrapper
 	}
 
 	/**
-	 * Returns the team member task ID of this team member entry.
+	 * Returns the team member ID of this team member entry.
 	 *
-	 * @return the team member task ID of this team member entry
+	 * @return the team member ID of this team member entry
 	 */
 	@Override
-	public long getTeamMemberTaskId() {
-		return model.getTeamMemberTaskId();
+	public long getTeamMemberId() {
+		return model.getTeamMemberId();
 	}
 
 	/**
@@ -276,13 +276,13 @@ public class TeamMemberEntryWrapper
 	}
 
 	/**
-	 * Sets the team member task ID of this team member entry.
+	 * Sets the team member ID of this team member entry.
 	 *
-	 * @param teamMemberTaskId the team member task ID of this team member entry
+	 * @param teamMemberId the team member ID of this team member entry
 	 */
 	@Override
-	public void setTeamMemberTaskId(long teamMemberTaskId) {
-		model.setTeamMemberTaskId(teamMemberTaskId);
+	public void setTeamMemberId(long teamMemberId) {
+		model.setTeamMemberId(teamMemberId);
 	}
 
 	/**

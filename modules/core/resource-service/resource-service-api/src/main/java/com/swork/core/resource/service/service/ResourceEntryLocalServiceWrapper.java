@@ -491,13 +491,13 @@ public class ResourceEntryLocalServiceWrapper
 	@Override
 	public com.swork.core.resource.service.model.ResourceEntry
 		updateResourceEntry(
-			long resourceId,
+			long creatorId, long resourceId,
 			com.swork.core.resource.service.mapper.model.ResourceMapperModel
 				model,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _resourceEntryLocalService.updateResourceEntry(
-			resourceId, model, serviceContext);
+			creatorId, resourceId, model, serviceContext);
 	}
 
 	/**

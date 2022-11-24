@@ -101,13 +101,13 @@ public abstract class TeamMemberEntryLocalServiceBaseImpl
 	/**
 	 * Creates a new team member entry with the primary key. Does not add the team member entry to the database.
 	 *
-	 * @param teamMemberTaskId the primary key for the new team member entry
+	 * @param teamMemberId the primary key for the new team member entry
 	 * @return the new team member entry
 	 */
 	@Override
 	@Transactional(enabled = false)
-	public TeamMemberEntry createTeamMemberEntry(long teamMemberTaskId) {
-		return teamMemberEntryPersistence.create(teamMemberTaskId);
+	public TeamMemberEntry createTeamMemberEntry(long teamMemberId) {
+		return teamMemberEntryPersistence.create(teamMemberId);
 	}
 
 	/**
@@ -117,16 +117,16 @@ public abstract class TeamMemberEntryLocalServiceBaseImpl
 	 * <strong>Important:</strong> Inspect TeamMemberEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
 	 * </p>
 	 *
-	 * @param teamMemberTaskId the primary key of the team member entry
+	 * @param teamMemberId the primary key of the team member entry
 	 * @return the team member entry that was removed
 	 * @throws PortalException if a team member entry with the primary key could not be found
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public TeamMemberEntry deleteTeamMemberEntry(long teamMemberTaskId)
+	public TeamMemberEntry deleteTeamMemberEntry(long teamMemberId)
 		throws PortalException {
 
-		return teamMemberEntryPersistence.remove(teamMemberTaskId);
+		return teamMemberEntryPersistence.remove(teamMemberId);
 	}
 
 	/**
@@ -247,8 +247,8 @@ public abstract class TeamMemberEntryLocalServiceBaseImpl
 	}
 
 	@Override
-	public TeamMemberEntry fetchTeamMemberEntry(long teamMemberTaskId) {
-		return teamMemberEntryPersistence.fetchByPrimaryKey(teamMemberTaskId);
+	public TeamMemberEntry fetchTeamMemberEntry(long teamMemberId) {
+		return teamMemberEntryPersistence.fetchByPrimaryKey(teamMemberId);
 	}
 
 	/**
@@ -313,15 +313,15 @@ public abstract class TeamMemberEntryLocalServiceBaseImpl
 	/**
 	 * Returns the team member entry with the primary key.
 	 *
-	 * @param teamMemberTaskId the primary key of the team member entry
+	 * @param teamMemberId the primary key of the team member entry
 	 * @return the team member entry
 	 * @throws PortalException if a team member entry with the primary key could not be found
 	 */
 	@Override
-	public TeamMemberEntry getTeamMemberEntry(long teamMemberTaskId)
+	public TeamMemberEntry getTeamMemberEntry(long teamMemberId)
 		throws PortalException {
 
-		return teamMemberEntryPersistence.findByPrimaryKey(teamMemberTaskId);
+		return teamMemberEntryPersistence.findByPrimaryKey(teamMemberId);
 	}
 
 	@Override
@@ -333,7 +333,7 @@ public abstract class TeamMemberEntryLocalServiceBaseImpl
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(TeamMemberEntry.class);
 
-		actionableDynamicQuery.setPrimaryKeyPropertyName("teamMemberTaskId");
+		actionableDynamicQuery.setPrimaryKeyPropertyName("teamMemberId");
 
 		return actionableDynamicQuery;
 	}
@@ -351,7 +351,7 @@ public abstract class TeamMemberEntryLocalServiceBaseImpl
 		indexableActionableDynamicQuery.setModelClass(TeamMemberEntry.class);
 
 		indexableActionableDynamicQuery.setPrimaryKeyPropertyName(
-			"teamMemberTaskId");
+			"teamMemberId");
 
 		return indexableActionableDynamicQuery;
 	}
@@ -363,7 +363,7 @@ public abstract class TeamMemberEntryLocalServiceBaseImpl
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(TeamMemberEntry.class);
 
-		actionableDynamicQuery.setPrimaryKeyPropertyName("teamMemberTaskId");
+		actionableDynamicQuery.setPrimaryKeyPropertyName("teamMemberId");
 	}
 
 	/**

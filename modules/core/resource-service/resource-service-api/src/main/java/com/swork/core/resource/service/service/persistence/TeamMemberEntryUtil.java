@@ -252,20 +252,20 @@ public class TeamMemberEntryUtil {
 	/**
 	 * Returns the team member entries before and after the current team member entry in the ordered set where uuid = &#63;.
 	 *
-	 * @param teamMemberTaskId the primary key of the current team member entry
+	 * @param teamMemberId the primary key of the current team member entry
 	 * @param uuid the uuid
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next team member entry
 	 * @throws NoSuchTeamMemberEntryException if a team member entry with the primary key could not be found
 	 */
 	public static TeamMemberEntry[] findByUuid_PrevAndNext(
-			long teamMemberTaskId, String uuid,
+			long teamMemberId, String uuid,
 			OrderByComparator<TeamMemberEntry> orderByComparator)
 		throws com.swork.core.resource.service.exception.
 			NoSuchTeamMemberEntryException {
 
 		return getPersistence().findByUuid_PrevAndNext(
-			teamMemberTaskId, uuid, orderByComparator);
+			teamMemberId, uuid, orderByComparator);
 	}
 
 	/**
@@ -438,7 +438,7 @@ public class TeamMemberEntryUtil {
 	/**
 	 * Returns the team member entries before and after the current team member entry in the ordered set where uuid = &#63; and companyId = &#63;.
 	 *
-	 * @param teamMemberTaskId the primary key of the current team member entry
+	 * @param teamMemberId the primary key of the current team member entry
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -446,13 +446,13 @@ public class TeamMemberEntryUtil {
 	 * @throws NoSuchTeamMemberEntryException if a team member entry with the primary key could not be found
 	 */
 	public static TeamMemberEntry[] findByUuid_C_PrevAndNext(
-			long teamMemberTaskId, String uuid, long companyId,
+			long teamMemberId, String uuid, long companyId,
 			OrderByComparator<TeamMemberEntry> orderByComparator)
 		throws com.swork.core.resource.service.exception.
 			NoSuchTeamMemberEntryException {
 
 		return getPersistence().findByUuid_C_PrevAndNext(
-			teamMemberTaskId, uuid, companyId, orderByComparator);
+			teamMemberId, uuid, companyId, orderByComparator);
 	}
 
 	/**
@@ -627,7 +627,7 @@ public class TeamMemberEntryUtil {
 	/**
 	 * Returns the team member entries before and after the current team member entry in the ordered set where teamId = &#63; and isAdmin = &#63;.
 	 *
-	 * @param teamMemberTaskId the primary key of the current team member entry
+	 * @param teamMemberId the primary key of the current team member entry
 	 * @param teamId the team ID
 	 * @param isAdmin the is admin
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -635,13 +635,13 @@ public class TeamMemberEntryUtil {
 	 * @throws NoSuchTeamMemberEntryException if a team member entry with the primary key could not be found
 	 */
 	public static TeamMemberEntry[] findByTeam_PrevAndNext(
-			long teamMemberTaskId, long teamId, Boolean isAdmin,
+			long teamMemberId, long teamId, Boolean isAdmin,
 			OrderByComparator<TeamMemberEntry> orderByComparator)
 		throws com.swork.core.resource.service.exception.
 			NoSuchTeamMemberEntryException {
 
 		return getPersistence().findByTeam_PrevAndNext(
-			teamMemberTaskId, teamId, isAdmin, orderByComparator);
+			teamMemberId, teamId, isAdmin, orderByComparator);
 	}
 
 	/**
@@ -758,25 +758,25 @@ public class TeamMemberEntryUtil {
 	/**
 	 * Creates a new team member entry with the primary key. Does not add the team member entry to the database.
 	 *
-	 * @param teamMemberTaskId the primary key for the new team member entry
+	 * @param teamMemberId the primary key for the new team member entry
 	 * @return the new team member entry
 	 */
-	public static TeamMemberEntry create(long teamMemberTaskId) {
-		return getPersistence().create(teamMemberTaskId);
+	public static TeamMemberEntry create(long teamMemberId) {
+		return getPersistence().create(teamMemberId);
 	}
 
 	/**
 	 * Removes the team member entry with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * @param teamMemberTaskId the primary key of the team member entry
+	 * @param teamMemberId the primary key of the team member entry
 	 * @return the team member entry that was removed
 	 * @throws NoSuchTeamMemberEntryException if a team member entry with the primary key could not be found
 	 */
-	public static TeamMemberEntry remove(long teamMemberTaskId)
+	public static TeamMemberEntry remove(long teamMemberId)
 		throws com.swork.core.resource.service.exception.
 			NoSuchTeamMemberEntryException {
 
-		return getPersistence().remove(teamMemberTaskId);
+		return getPersistence().remove(teamMemberId);
 	}
 
 	public static TeamMemberEntry updateImpl(TeamMemberEntry teamMemberEntry) {
@@ -786,25 +786,25 @@ public class TeamMemberEntryUtil {
 	/**
 	 * Returns the team member entry with the primary key or throws a <code>NoSuchTeamMemberEntryException</code> if it could not be found.
 	 *
-	 * @param teamMemberTaskId the primary key of the team member entry
+	 * @param teamMemberId the primary key of the team member entry
 	 * @return the team member entry
 	 * @throws NoSuchTeamMemberEntryException if a team member entry with the primary key could not be found
 	 */
-	public static TeamMemberEntry findByPrimaryKey(long teamMemberTaskId)
+	public static TeamMemberEntry findByPrimaryKey(long teamMemberId)
 		throws com.swork.core.resource.service.exception.
 			NoSuchTeamMemberEntryException {
 
-		return getPersistence().findByPrimaryKey(teamMemberTaskId);
+		return getPersistence().findByPrimaryKey(teamMemberId);
 	}
 
 	/**
 	 * Returns the team member entry with the primary key or returns <code>null</code> if it could not be found.
 	 *
-	 * @param teamMemberTaskId the primary key of the team member entry
+	 * @param teamMemberId the primary key of the team member entry
 	 * @return the team member entry, or <code>null</code> if a team member entry with the primary key could not be found
 	 */
-	public static TeamMemberEntry fetchByPrimaryKey(long teamMemberTaskId) {
-		return getPersistence().fetchByPrimaryKey(teamMemberTaskId);
+	public static TeamMemberEntry fetchByPrimaryKey(long teamMemberId) {
+		return getPersistence().fetchByPrimaryKey(teamMemberId);
 	}
 
 	/**
