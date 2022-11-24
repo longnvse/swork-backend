@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.swork.core.resource.service.model.ResourceEntry">
+		<field name="uuid" type="String" />
+		<field name="externalReferenceCode" type="String" />
+		<field name="resourceId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="accountId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="businessId" type="long" />
+		<field name="modifiedId" type="long" />
+		<field name="workId" type="Long" />
+		<field name="phaseId" type="Long" />
+		<field name="projectId" type="Long" />
+		<field name="resourceTypeId" type="long" />
+		<field name="resourceTypeName" type="String" />
+		<field name="teamId" type="long" />
+		<field name="teamName" type="String" />
+		<field name="quantity" type="long" />
+		<field name="unit" type="String" />
+		<field name="dateResource" type="Date" />
+		<field name="totalAmount" type="Long" />
+	</model>
+	<model name="com.swork.core.resource.service.model.ResourceTypeEntry">
+		<field name="uuid" type="String" />
+		<field name="externalReferenceCode" type="String" />
+		<field name="resourceTypeId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="accountId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="businessId" type="long" />
+		<field name="modifiedId" type="long" />
+		<field name="name" type="String" />
+		<field name="unit" type="String" />
+		<field name="parentId" type="Long" />
+	</model>
+	<model name="com.swork.core.resource.service.model.TeamEntry">
+		<field name="uuid" type="String" />
+		<field name="externalReferenceCode" type="String" />
+		<field name="teamId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="accountId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="businessId" type="long" />
+		<field name="modifiedId" type="long" />
+		<field name="name" type="String" />
+		<field name="description" type="String" />
+		<field name="isActive" type="Boolean" />
+		<field name="phaseId" type="Long" />
+		<field name="projectId" type="Long" />
+		<field name="totalIncoming" type="Long" />
+		<field name="totalSpending" type="Long" />
+	</model>
+	<model name="com.swork.core.resource.service.model.TeamMemberEntry">
+		<field name="uuid" type="String" />
+		<field name="externalReferenceCode" type="String" />
+		<field name="teamMemberTaskId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="memberId" type="Long" />
+		<field name="memberName" type="String" />
+		<field name="isAdmin" type="Boolean" />
+		<field name="teamId" type="long" />
+	</model>
+</model-hints>
