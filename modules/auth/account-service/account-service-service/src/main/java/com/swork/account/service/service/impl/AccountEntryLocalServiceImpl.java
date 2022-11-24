@@ -66,7 +66,7 @@ public class AccountEntryLocalServiceImpl
         entry.setFullName(fullName);
         entry.setDateOfBirth(dateOfBirth);
         entry.setEmail(email.trim().replaceAll("\\s+", StringPool.BLANK));
-        entry.setPhoneNumber(phoneNumber.trim().replaceAll("\\s+", StringPool.BLANK));
+        entry.setPhoneNumber(GetterUtil.getString(phoneNumber).trim().replaceAll("\\s+", StringPool.BLANK));
         entry.setAddress(address);
         entry.setRole(Role.USER.getValue());
         return addAccountEntry(entry);
