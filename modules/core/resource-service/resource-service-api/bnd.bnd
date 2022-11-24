@@ -7,6 +7,8 @@ Export-Package:\
 	com.swork.core.resource.service.service,\
 	com.swork.core.resource.service.service.persistence,\
 	com.swork.core.resource.service.mapper.model,\
-	com.swork.core.resource.service.retriever
+	com.swork.core.resource.service.retriever,\
+	com.swork.core.resource.service.constant
+
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../resource-service-service/service.xml
