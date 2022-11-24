@@ -39,6 +39,7 @@ public class ProjectHandleMapper {
 
         to.setMemberId(from.getMemberId());
         to.setMemberType(from.getMemberType().getValue());
+        to.setMemberReferenceCode(from.getMemberReferenceCode());
 
         return to;
     }

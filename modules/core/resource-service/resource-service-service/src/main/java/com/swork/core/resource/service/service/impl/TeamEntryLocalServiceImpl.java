@@ -63,8 +63,8 @@ public class TeamEntryLocalServiceImpl extends TeamEntryLocalServiceBaseImpl {
 
         entry.setPhaseId(model.getPhaseId());
         entry.setProjectId(model.getProjectId());
-        entry.setTotalIncoming(0L);
-        entry.setTotalSpending(0L);
+        entry.setTotalIncoming(GetterUtil.DEFAULT_LONG);
+        entry.setTotalSpending(GetterUtil.DEFAULT_LONG);
 
         memberLocalService.addTeamMemberEntries(
                 serviceContext.getCompanyId(),

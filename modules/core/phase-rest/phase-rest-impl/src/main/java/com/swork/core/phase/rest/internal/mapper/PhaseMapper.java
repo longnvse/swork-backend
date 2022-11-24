@@ -19,12 +19,12 @@ public class PhaseMapper {
         PhaseMapperModel to = new PhaseMapperModel();
 
         to.setName(from.getName());
-        to.setProjectId(from.getProjectId());
         to.setDescription(from.getDescription());
         to.setStatus(from.getStatus().getValue());
         to.setStartDate(from.getStartDate());
         to.setEndDate(from.getEndDate());
         to.setManages(from.getManages());
+        to.setProjectId(from.getProjectId());
 
         return to;
     }

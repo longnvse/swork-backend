@@ -105,7 +105,7 @@ public class TeamEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_Team (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,teamId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedDate DATE null,businessId LONG,modifiedId LONG,name VARCHAR(75) null,description VARCHAR(75) null,isActive BOOLEAN,phaseId LONG,projectId LONG,totalIncoming LONG,totalSpending LONG)";
+		"create table SW_Team (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,teamId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedDate DATE null,businessId LONG,modifiedId LONG,name VARCHAR(100) null,description VARCHAR(75) null,isActive BOOLEAN,phaseId LONG,projectId LONG,totalIncoming LONG,totalSpending LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_Team";
 

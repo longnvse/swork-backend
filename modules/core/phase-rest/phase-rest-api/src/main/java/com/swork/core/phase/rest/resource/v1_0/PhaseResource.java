@@ -46,15 +46,14 @@ public interface PhaseResource {
 		return FactoryHolder.factory.create();
 	}
 
+	public void postPhase(Phase phase) throws Exception;
+
+	public Response postPhaseBatch(String callbackURL, Object object)
+		throws Exception;
+
 	public Page<Phase> getPhasesPage(
 			Long projectId, Date startDate, Date endDate, String search,
 			Filter filter, Pagination pagination, Sort[] sorts)
-		throws Exception;
-
-	public void postPhase(Long projectId, Phase phase) throws Exception;
-
-	public Response postPhaseBatch(
-			Long projectId, String callbackURL, Object object)
 		throws Exception;
 
 	public void deletePhase(Long phaseId) throws Exception;

@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class PhaseMapperModel {
 
-    private long projectId;
     private String name;
     private Date startDate;
     private Date endDate;
@@ -13,13 +12,7 @@ public class PhaseMapperModel {
     private long progress;
     private Long[] manages;
 
-    public long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(long projectId) {
-        this.projectId = projectId;
-    }
+    private long projectId;
 
     public String getName() {
         return name;
@@ -75,5 +68,13 @@ public class PhaseMapperModel {
 
     public void setProgress(long progress) {
         this.progress = progress;
+    }
+
+    public long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(long projectId) {
+        this.projectId = projectId;
     }
 }

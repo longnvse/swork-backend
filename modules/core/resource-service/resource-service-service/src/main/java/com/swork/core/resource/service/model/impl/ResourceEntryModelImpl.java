@@ -111,7 +111,7 @@ public class ResourceEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_Resource (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,resourceId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedDate DATE null,businessId LONG,modifiedId LONG,workId LONG,phaseId LONG,projectId LONG,resourceTypeId LONG,resourceTypeName VARCHAR(75) null,teamId LONG,teamName VARCHAR(75) null,quantity DOUBLE,unit VARCHAR(75) null,dateResource DATE null,totalAmount LONG)";
+		"create table SW_Resource (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,resourceId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedDate DATE null,businessId LONG,modifiedId LONG,workId LONG,phaseId LONG,projectId LONG,resourceTypeId LONG,resourceTypeName VARCHAR(100) null,teamId LONG,teamName VARCHAR(100) null,quantity DOUBLE,unit VARCHAR(75) null,dateResource DATE null,totalAmount LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_Resource";
 
