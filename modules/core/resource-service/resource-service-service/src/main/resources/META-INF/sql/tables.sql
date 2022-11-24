@@ -13,9 +13,9 @@ create table SW_Resource (
 	phaseId LONG,
 	projectId LONG,
 	resourceTypeId LONG,
-	resourceTypeName VARCHAR(75) null,
+	resourceTypeName VARCHAR(100) null,
 	teamId LONG,
-	teamName VARCHAR(75) null,
+	teamName VARCHAR(100) null,
 	quantity DOUBLE,
 	unit VARCHAR(75) null,
 	dateResource DATE null,
@@ -33,7 +33,7 @@ create table SW_ResourceType (
 	modifiedDate DATE null,
 	businessId LONG,
 	modifiedId LONG,
-	name VARCHAR(75) null,
+	name VARCHAR(100) null,
 	unit VARCHAR(75) null,
 	parentId LONG
 );
@@ -49,7 +49,7 @@ create table SW_Team (
 	modifiedDate DATE null,
 	businessId LONG,
 	modifiedId LONG,
-	name VARCHAR(75) null,
+	name VARCHAR(100) null,
 	description VARCHAR(75) null,
 	isActive BOOLEAN,
 	phaseId LONG,
@@ -64,7 +64,7 @@ create table SW_TeamMember (
 	teamMemberId LONG not null primary key,
 	companyId LONG,
 	memberId LONG,
-	memberName VARCHAR(75) null,
+	memberName VARCHAR(100) null,
 	isAdmin BOOLEAN,
 	teamId LONG
 );

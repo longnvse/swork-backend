@@ -29,24 +29,24 @@ public class PhaseValidator {
     private static final int MAX_LENGTH_NAME = 100;
     private static final int MAX_LENGTH_DESCRIPTION = 500;
 
-    public void validatorForAdd(long customerId,
+    public void validatorForAdd(long businessId,
                                 Phase phase) throws SW_BadRequestException, ParseException {
 
         validatorMaxLength(phase);
-        validatorNameForAdd(customerId, phase);
-        validatorTimeForAdd(phase);
+        validatorNameForAdd(businessId, phase);
+        validatorTime(phase);
     }
 
-    public void validatorForUpdate(long customerId,
+    public void validatorForUpdate(long businessId,
                                    long phaseId,
                                    Phase phase) throws SW_BadRequestException, ParseException {
 
         validatorMaxLength(phase);
-        validatorNameForUpdate(customerId, phaseId, phase);
-        validatorTimeForAdd(phase);
+        validatorNameForUpdate(businessId, phaseId, phase);
+        validatorTime(phase);
     }
 
-    public void validatorTimeForAdd(Phase phase) throws SW_BadRequestException, ParseException {
+    public void validatorTime(Phase phase) throws SW_BadRequestException, ParseException {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 

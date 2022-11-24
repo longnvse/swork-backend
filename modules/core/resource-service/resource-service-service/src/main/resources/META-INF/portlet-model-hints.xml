@@ -2,31 +2,31 @@
 
 <model-hints>
 	<model name="com.swork.core.resource.service.model.ResourceEntry">
-		<field name="uuid" type="String"/>
-		<field name="externalReferenceCode" type="String"/>
-		<field name="resourceId" type="long"/>
-		<field name="groupId" type="long"/>
-		<field name="companyId" type="long"/>
-		<field name="accountId" type="long"/>
-		<field name="createDate" type="Date"/>
-		<field name="modifiedDate" type="Date"/>
-		<field name="businessId" type="long"/>
-		<field name="modifiedId" type="long"/>
-		<field name="workId" type="Long"/>
-		<field name="phaseId" type="Long"/>
-		<field name="projectId" type="Long"/>
-		<field name="resourceTypeId" type="long"/>
+		<field name="uuid" type="String" />
+		<field name="externalReferenceCode" type="String" />
+		<field name="resourceId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="accountId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="businessId" type="long" />
+		<field name="modifiedId" type="long" />
+		<field name="workId" type="Long" />
+		<field name="phaseId" type="Long" />
+		<field name="projectId" type="Long" />
+		<field name="resourceTypeId" type="long" />
 		<field name="resourceTypeName" type="String">
 			<hint name="max-length">100</hint>
 		</field>
-		<field name="teamId" type="long"/>
+		<field name="teamId" type="long" />
 		<field name="teamName" type="String">
 			<hint name="max-length">100</hint>
 		</field>
-		<field name="quantity" type="double"/>
-		<field name="unit" type="String"/>
-		<field name="dateResource" type="Date"/>
-		<field name="totalAmount" type="Long"/>
+		<field name="quantity" type="double" />
+		<field name="unit" type="String" />
+		<field name="dateResource" type="Date" />
+		<field name="totalAmount" type="Long" />
 	</model>
 	<model name="com.swork.core.resource.service.model.ResourceTypeEntry">
 		<field name="uuid" type="String" />
@@ -39,7 +39,7 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="businessId" type="long" />
 		<field name="modifiedId" type="long" />
-		<field name="name" type="String" >
+		<field name="name" type="String">
 			<hint name="max-length">100</hint>
 		</field>
 		<field name="unit" type="String" />
@@ -56,7 +56,7 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="businessId" type="long" />
 		<field name="modifiedId" type="long" />
-		<field name="name" type="String" >
+		<field name="name" type="String">
 			<hint name="max-length">100</hint>
 		</field>
 		<field name="description" type="String" />
@@ -72,7 +72,7 @@
 		<field name="teamMemberId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="memberId" type="Long" />
-		<field name="memberName" type="String" >
+		<field name="memberName" type="String">
 			<hint name="max-length">100</hint>
 		</field>
 		<field name="isAdmin" type="Boolean" />

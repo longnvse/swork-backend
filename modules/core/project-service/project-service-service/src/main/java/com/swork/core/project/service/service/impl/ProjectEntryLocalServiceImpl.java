@@ -265,7 +265,6 @@ public class ProjectEntryLocalServiceImpl
         entry.setDescription(model.getDescription());
         entry.setStartDate(model.getStartDate());
         entry.setEndDate(model.getEndDate());
-        entry.setStatus(model.getStatus());
         entry.setProgress(model.getProgress());
         entry.setActualEndDate(model.getActualEndDate());
         entry.setActualStartDate(model.getActualStartDate());
