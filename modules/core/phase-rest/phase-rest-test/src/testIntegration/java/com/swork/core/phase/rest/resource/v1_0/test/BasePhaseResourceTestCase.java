@@ -190,6 +190,23 @@ public abstract class BasePhaseResourceTestCase {
 	}
 
 	@Test
+	public void testPostPhase() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Phase phase = testPostPhase_addPhase();
+
+		assertHttpResponseStatusCode(
+			204, phaseResource.postPhaseHttpResponse(phase));
+
+		assertHttpResponseStatusCode(
+			404, phaseResource.postPhaseHttpResponse(phase));
+	}
+
+	protected Phase testPostPhase_addPhase() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
 	public void testGetPhasesPage() throws Exception {
 		Long projectId = testGetPhasesPage_getProjectId();
 		Long irrelevantProjectId = testGetPhasesPage_getIrrelevantProjectId();
@@ -489,25 +506,6 @@ public abstract class BasePhaseResourceTestCase {
 			Arrays.asList(phase1, phase2),
 			Arrays.asList(
 				PhaseSerDes.toDTOs(phasesJSONObject.getString("items"))));
-	}
-
-	@Test
-	public void testPostPhase() throws Exception {
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Phase phase = testPostPhase_addPhase();
-
-		assertHttpResponseStatusCode(
-			204,
-			phaseResource.postPhaseHttpResponse(phase.getProjectId(), phase));
-
-		assertHttpResponseStatusCode(
-			404,
-			phaseResource.postPhaseHttpResponse(phase.getProjectId(), phase));
-	}
-
-	protected Phase testPostPhase_addPhase() throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
 	}
 
 	@Test

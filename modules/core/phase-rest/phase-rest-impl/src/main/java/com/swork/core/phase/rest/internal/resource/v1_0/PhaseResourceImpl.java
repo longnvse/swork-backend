@@ -51,7 +51,7 @@ public class PhaseResourceImpl extends BasePhaseResourceImpl {
 	}
 
 	@Override
-	public void postPhase(Long projectId, Phase phase) throws Exception {
+	public void postPhase( Phase phase) throws Exception {
 		phaseValidator.validatorForAdd(
 				getUserToken().getBusinessId(),
 				phase

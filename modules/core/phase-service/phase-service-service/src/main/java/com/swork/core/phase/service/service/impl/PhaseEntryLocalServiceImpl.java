@@ -66,6 +66,7 @@ public class PhaseEntryLocalServiceImpl extends PhaseEntryLocalServiceBaseImpl {
                 serviceContext);
 
         updatePhaseData(entry, model);
+        entry.setProjectId(model.getProjectId());
 
         Arrays.stream(model.getManages())
                 .forEach(accountId -> phaseManageEntryLocalService.addPhaseManage(entry.getPhaseId(), accountId));
@@ -113,7 +114,6 @@ public class PhaseEntryLocalServiceImpl extends PhaseEntryLocalServiceBaseImpl {
     private void updatePhaseData(PhaseEntry entry,
                                  PhaseMapperModel model) {
 
-        entry.setProjectId(model.getProjectId());
         entry.setPhaseName(model.getName());
         entry.setStartDate(model.getStartDate());
         entry.setEndDate(model.getEndDate());

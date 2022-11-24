@@ -27,8 +27,6 @@ import org.osgi.service.component.annotations.Reference;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component(
         immediate = true,

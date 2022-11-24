@@ -70,18 +70,11 @@ info:
 openapi: 3.0.1
 
 paths:
-  "/phases/{projectId}":
+  "/phases":
     post:
       tags: [ "Phase" ]
       description: Create a new Phase
       operationId: postPhase
-      parameters:
-        - in: path
-          name: projectId
-          required: true
-          schema:
-            type: integer
-            format: int64
       requestBody:
         content:
           application/json:
@@ -97,6 +90,7 @@ paths:
           content:
             application/json: { }
             application/xml: { }
+  "/phases/list/{projectId}":
     get:
       tags: [ "Phase" ]
       description:

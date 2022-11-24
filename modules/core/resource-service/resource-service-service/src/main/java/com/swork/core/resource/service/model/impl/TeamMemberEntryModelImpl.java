@@ -89,7 +89,7 @@ public class TeamMemberEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_TeamMember (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,teamMemberId LONG not null primary key,companyId LONG,memberId LONG,memberName VARCHAR(75) null,isAdmin BOOLEAN,teamId LONG)";
+		"create table SW_TeamMember (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,teamMemberId LONG not null primary key,companyId LONG,memberId LONG,memberName VARCHAR(100) null,isAdmin BOOLEAN,teamId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_TeamMember";
 

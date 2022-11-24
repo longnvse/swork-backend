@@ -40,22 +40,19 @@ public class Mutation {
 	}
 
 	@GraphQLField(description = "Create a new Phase")
-	public boolean createPhase(
-			@GraphQLName("projectId") Long projectId,
-			@GraphQLName("phase") Phase phase)
+	public boolean createPhase(@GraphQLName("phase") Phase phase)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_phaseResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			phaseResource -> phaseResource.postPhase(projectId, phase));
+			phaseResource -> phaseResource.postPhase(phase));
 
 		return true;
 	}
 
 	@GraphQLField
 	public Response createPhaseBatch(
-			@GraphQLName("projectId") Long projectId,
 			@GraphQLName("callbackURL") String callbackURL,
 			@GraphQLName("object") Object object)
 		throws Exception {
@@ -63,8 +60,7 @@ public class Mutation {
 		return _applyComponentServiceObjects(
 			_phaseResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			phaseResource -> phaseResource.postPhaseBatch(
-				projectId, callbackURL, object));
+			phaseResource -> phaseResource.postPhaseBatch(callbackURL, object));
 	}
 
 	@GraphQLField(description = "Delete an Phase")
