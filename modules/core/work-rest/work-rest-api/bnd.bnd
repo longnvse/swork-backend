@@ -1,0 +1,6 @@
+Bundle-Name: work-rest-api
+Bundle-SymbolicName: com.swork.core.work.rest.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.swork.core.work.rest.dto.v1_0,\
+	com.swork.core.work.rest.resource.v1_0
