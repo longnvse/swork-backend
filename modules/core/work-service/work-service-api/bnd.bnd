@@ -5,6 +5,7 @@ Export-Package:\
 	com.swork.core.work.service.exception,\
 	com.swork.core.work.service.model,\
 	com.swork.core.work.service.service,\
-	com.swork.core.work.service.service.persistence
+	com.swork.core.work.service.service.persistence,\
+	com.swork.core.work.service.mapper.model
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../work-service-service/service.xml
