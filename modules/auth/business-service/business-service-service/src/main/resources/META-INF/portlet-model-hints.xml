@@ -16,7 +16,9 @@
 		<field name="phoneNumber" type="String" />
 		<field name="email" type="String" />
 		<field name="businessAddress" type="String" />
-		<field name="name" type="String" />
+		<field name="name" type="String" >
+			<hint name="max-length">100</hint>
+		</field>
 		<field name="fieldOperations" type="String" />
 		<field name="logoId" type="Long" />
 		<field name="status" type="String" />
