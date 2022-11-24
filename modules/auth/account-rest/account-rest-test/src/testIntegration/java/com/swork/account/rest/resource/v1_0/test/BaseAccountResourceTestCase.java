@@ -633,6 +633,97 @@ public abstract class BaseAccountResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testGetAccountInfo() throws Exception {
+		Account postAccount = testGetAccountInfo_addAccount();
+
+		Account getAccount = accountResource.getAccountInfo();
+
+		assertEquals(postAccount, getAccount);
+		assertValid(getAccount);
+	}
+
+	protected Account testGetAccountInfo_addAccount() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetAccountInfo() throws Exception {
+		Account account = testGraphQLAccount_addAccount();
+
+		Assert.assertTrue(
+			equals(
+				account,
+				AccountSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"accountInfo",
+								new HashMap<String, Object>() {
+									{
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/accountInfo"))));
+	}
+
+	@Test
+	public void testGraphQLGetAccountInfoNotFound() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testPatchAccountPassword() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Account account = testPatchAccountPassword_addAccount();
+
+		assertHttpResponseStatusCode(
+			204, accountResource.patchAccountPasswordHttpResponse(null));
+
+		assertHttpResponseStatusCode(
+			404, accountResource.patchAccountPasswordHttpResponse(null));
+	}
+
+	protected Account testPatchAccountPassword_addAccount() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testPutAccountInfo() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Account account = testPutAccountInfo_addAccount();
+
+		assertHttpResponseStatusCode(
+			204, accountResource.putAccountInfoHttpResponse(account));
+
+		assertHttpResponseStatusCode(
+			404, accountResource.putAccountInfoHttpResponse(account));
+	}
+
+	protected Account testPutAccountInfo_addAccount() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testResetPassword() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Account account = testResetPassword_addAccount();
+
+		assertHttpResponseStatusCode(
+			204, accountResource.resetPasswordHttpResponse(null));
+
+		assertHttpResponseStatusCode(
+			404, accountResource.resetPasswordHttpResponse(null));
+	}
+
+	protected Account testResetPassword_addAccount() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 

@@ -80,6 +80,15 @@ public class AccountEntryLocalServiceWrapper
 			username, email, password, serviceContext);
 	}
 
+	@Override
+	public com.swork.account.service.model.AccountEntry changePassword(
+		long accountId, String password,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _accountEntryLocalService.changePassword(
+			accountId, password, serviceContext);
+	}
+
 	/**
 	 * Creates a new account entry with the primary key. Does not add the account entry to the database.
 	 *
@@ -484,6 +493,13 @@ public class AccountEntryLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _accountEntryLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	@Override
+	public com.swork.account.service.model.AccountEntry resetPassword(
+		String username) {
+
+		return _accountEntryLocalService.resetPassword(username);
 	}
 
 	/**

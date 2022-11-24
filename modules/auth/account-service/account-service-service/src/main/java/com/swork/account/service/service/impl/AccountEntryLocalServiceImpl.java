@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.PwdGenerator;
 import com.liferay.portal.kernel.util.Validator;
 import com.swork.account.service.constant.Role;
 import com.swork.account.service.model.AccountEntry;
@@ -169,11 +170,35 @@ public class AccountEntryLocalServiceImpl
     }
 
     public AccountEntry findByEmail(String email) {
-        return accountEntryPersistence.fetchByEmail(email.trim().replaceAll("\\s+", StringPool.BLANK),false);
+        return accountEntryPersistence.fetchByEmail(email.trim().replaceAll("\\s+", StringPool.BLANK), false);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public AccountEntry resetPassword(String username) {
+        AccountEntry accountEntry = getAccount(username);
+
+        accountEntry.setPassword(PwdGenerator.getPassword(12));
+
+        return updateAccountEntry(accountEntry);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public AccountEntry changePassword(long accountId, String password, ServiceContext serviceContext) {
+        AccountEntry accountEntry = fetchAccountEntry(accountId);
+
+        updateModifierAudit(
+                accountEntry,
+                new Date(),
+                serviceContext
+        );
+
+        accountEntry.setPassword(password);
+
+        return updateAccountEntry(accountEntry);
     }
 
     public AccountEntry findByPhone(String phoneNumber) {
-        return accountEntryPersistence.fetchByPhone(phoneNumber.trim().replaceAll("\\s+", StringPool.BLANK),false);
+        return accountEntryPersistence.fetchByPhone(phoneNumber.trim().replaceAll("\\s+", StringPool.BLANK), false);
     }
 
 

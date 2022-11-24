@@ -13,6 +13,8 @@ import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import com.swork.account.rest.dto.v1_0.Account;
+import com.swork.account.rest.dto.v1_0.ChangePassword;
+import com.swork.account.rest.dto.v1_0.ResetPassword;
 
 import java.util.Collections;
 import java.util.List;
@@ -67,6 +69,15 @@ public interface AccountResource {
 		throws Exception;
 
 	public void approvalAccount(Long accountId, String status) throws Exception;
+
+	public Account getAccountInfo() throws Exception;
+
+	public void patchAccountPassword(ChangePassword changePassword)
+		throws Exception;
+
+	public void putAccountInfo(Account account) throws Exception;
+
+	public void resetPassword(ResetPassword resetPassword) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

@@ -86,6 +86,13 @@ public class AccountEntryLocalServiceUtil {
 			username, email, password, serviceContext);
 	}
 
+	public static AccountEntry changePassword(
+		long accountId, String password,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().changePassword(accountId, password, serviceContext);
+	}
+
 	/**
 	 * Creates a new account entry with the primary key. Does not add the account entry to the database.
 	 *
@@ -423,6 +430,10 @@ public class AccountEntryLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	public static AccountEntry resetPassword(String username) {
+		return getService().resetPassword(username);
 	}
 
 	/**

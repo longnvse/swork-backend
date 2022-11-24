@@ -84,6 +84,19 @@ public class Query {
 			accountResource -> accountResource.getAccount(accountId));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountInfo{id, externalReferenceCode, createDate, username, fullName, dateOfBirth, email, phoneNumber, address, password, status}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField(description = "Update an Account")
+	public Account accountInfo() throws Exception {
+		return _applyComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.getAccountInfo());
+	}
+
 	@GraphQLName("AccountPage")
 	public class AccountPage {
 
