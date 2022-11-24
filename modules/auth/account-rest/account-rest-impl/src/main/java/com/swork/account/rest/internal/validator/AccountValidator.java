@@ -2,6 +2,8 @@ package com.swork.account.rest.internal.validator;
 
 import com.liferay.portal.kernel.util.Validator;
 import com.swork.account.rest.dto.v1_0.Account;
+import com.swork.account.rest.dto.v1_0.ChangePassword;
+import com.swork.account.rest.dto.v1_0.ResetPassword;
 import com.swork.account.rest.internal.service.LanguageService;
 import com.swork.account.rest.internal.util.LanguageKeys;
 import com.swork.account.service.model.AccountEntry;
@@ -20,6 +22,7 @@ import java.util.regex.Pattern;
 public class AccountValidator {
     public static final String VALID_EMAIL_ADDRESS_REGEX = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
     public static final String VALID_PHONE_NUMBER_REGEX = "^\\(?([0-9]{3})\\)?([ .-]?)([0-9]{3})\\2([0-9]{4})$";
+    public static final String VALID_PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,20}$";
 
 
     public void validatorForPostAccount(Account account) throws SW_DataInputException,
@@ -59,6 +62,50 @@ public class AccountValidator {
         }
 
         throw new SW_BadRequestException(languageService.getMessage(LanguageKeys.ACCOUNT_ACTIVE_CANNOT_DELETE));
+    }
+
+    public void validateForResetPassword(ResetPassword resetPassword) throws SW_BadRequestException {
+        AccountEntry accountEntry = localService.getAccount(resetPassword.getEmail());
+
+        if (Validator.isNull(accountEntry)) {
+            throw new SW_BadRequestException(languageService.getMessage(LanguageKeys.ACCOUNT_NOT_FOUND));
+        }
+
+        if (accountEntry.getUsername().equals(resetPassword.getUsername())) {
+            return;
+        }
+
+        throw new SW_BadRequestException(languageService.getMessage(LanguageKeys.ACCOUNT_NOT_FOUND));
+    }
+
+    public void validateForChangePassword(long accountId,
+                                          ChangePassword changePassword) throws SW_NoSuchEntryException, SW_BadRequestException, SW_DataInputException {
+        validatorAccountIsExists(accountId);
+
+        validateForOldPassword(accountId, changePassword.getOldPassword());
+
+        validateNewPassword(changePassword);
+    }
+
+    private void validateForOldPassword(long accountId,
+                                        String oldPassword) throws SW_BadRequestException {
+        AccountEntry accountEntry = localService.fetchAccountEntry(accountId);
+
+        if (accountEntry.getPassword().equals(oldPassword)) {
+            return;
+        }
+
+        throw new SW_BadRequestException(languageService.getMessage(LanguageKeys.OLD_PASSWORD_INVALID));
+    }
+
+    private void validateNewPassword(ChangePassword changePassword) throws SW_BadRequestException, SW_DataInputException {
+        validatorRegexField(changePassword.getNewPassword(), VALID_PASSWORD_REGEX, LanguageKeys.NEW_PASSWORD_INVALID);
+
+        if (changePassword.getNewPassword().equals(changePassword.getNewPasswordRepeat())) {
+            return;
+        }
+
+        throw new SW_BadRequestException(languageService.getMessage(LanguageKeys.NEW_PASSWORD_NOT_MATCH));
     }
 
     private void validatorFieldsForUpdateAccount(

@@ -8,6 +8,8 @@ import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.swork.account.rest.dto.v1_0.Account;
+import com.swork.account.rest.dto.v1_0.ChangePassword;
+import com.swork.account.rest.dto.v1_0.ResetPassword;
 import com.swork.account.rest.internal.odata.v1_0.AccountEntityModel;
 import com.swork.account.rest.internal.service.AccountService;
 import com.swork.account.rest.internal.validator.AccountValidator;
@@ -87,6 +89,47 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
                 account,
                 getServiceContext()
         );
+    }
+
+    @Override
+    public Account getAccountInfo() throws PortalException {
+        return service.getAccount(getUserToken().getAccountId());
+    }
+
+    @Override
+    public void patchAccountPassword(ChangePassword changePassword) throws Exception {
+        validator.validateForChangePassword(
+                getUserToken().getAccountId(),
+                changePassword
+        );
+
+        service.changePassword(
+                getUserToken().getAccountId(),
+                changePassword,
+                getServiceContext()
+        );
+    }
+
+    @Override
+    public void putAccountInfo(Account account) throws Exception {
+        validator.validatorForPutAccount(
+                getUserToken().getAccountId(),
+                account
+        );
+
+        service.updateAccount(
+                getUserToken().getAccountId(),
+                getUserToken().getAccountId(),
+                account,
+                getServiceContext()
+        );
+    }
+
+    @Override
+    public void resetPassword(ResetPassword resetPassword) throws Exception {
+        validator.validateForResetPassword(resetPassword);
+
+        service.resetPassword(resetPassword);
     }
 
     @Override

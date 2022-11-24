@@ -15,6 +15,8 @@ import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.util.SearchUtil;
 import com.swork.account.rest.dto.v1_0.Account;
+import com.swork.account.rest.dto.v1_0.ChangePassword;
+import com.swork.account.rest.dto.v1_0.ResetPassword;
 import com.swork.account.rest.internal.mapper.AccountMapper;
 import com.swork.account.service.constant.SearchFields;
 import com.swork.account.service.model.AccountEntry;
@@ -122,6 +124,22 @@ public class AccountService {
         return mapper.mapDTOFromEntry(entry);
     }
 
+    public void changePassword(long accountId,
+                               ChangePassword changePassword,
+                               ServiceContext serviceContext) {
+        accountEntryLocalService.changePassword(
+                accountId,
+                changePassword.getNewPassword(),
+                serviceContext
+        );
+    }
+
+    public void resetPassword(ResetPassword resetPassword) {
+        AccountEntry accountEntry = accountEntryLocalService.resetPassword(resetPassword.getEmail());
+
+        mailService.sendMail(accountEntry);
+    }
+
     public void approvalAccount(long accountId, String status, ServiceContext serviceContext) {
         accountEntryLocalService.updateStatus(accountId, status, serviceContext);
     }
@@ -130,4 +148,7 @@ public class AccountService {
     private AccountMapper mapper;
     @Reference
     private AccountEntryLocalService accountEntryLocalService;
+
+    @Reference
+    private MailService mailService;
 }
