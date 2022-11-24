@@ -1,11 +1,11 @@
 package com.swork.core.resource.service.internal.search;
 
-import com.dogoo.core.resource.service.constant.SearchFields;
-import com.dogoo.core.resource.service.model.ResourceTypeEntry;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.search.spi.model.index.contributor.ModelIndexerWriterContributor;
 import com.liferay.portal.search.spi.model.registrar.ModelSearchRegistrarHelper;
+import com.swork.core.resource.service.constant.SearchFields;
+import com.swork.core.resource.service.model.ResourceTypeEntry;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.component.annotations.Activate;
