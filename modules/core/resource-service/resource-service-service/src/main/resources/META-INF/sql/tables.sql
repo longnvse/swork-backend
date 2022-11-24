@@ -16,7 +16,7 @@ create table SW_Resource (
 	resourceTypeName VARCHAR(75) null,
 	teamId LONG,
 	teamName VARCHAR(75) null,
-	quantity LONG,
+	quantity DOUBLE,
 	unit VARCHAR(75) null,
 	dateResource DATE null,
 	totalAmount LONG
@@ -61,7 +61,7 @@ create table SW_Team (
 create table SW_TeamMember (
 	uuid_ VARCHAR(75) null,
 	externalReferenceCode VARCHAR(75) null,
-	teamMemberTaskId LONG not null primary key,
+	teamMemberId LONG not null primary key,
 	companyId LONG,
 	memberId LONG,
 	memberName VARCHAR(75) null,

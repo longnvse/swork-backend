@@ -93,11 +93,11 @@ public class TeamMemberEntryLocalServiceUtil {
 	/**
 	 * Creates a new team member entry with the primary key. Does not add the team member entry to the database.
 	 *
-	 * @param teamMemberTaskId the primary key for the new team member entry
+	 * @param teamMemberId the primary key for the new team member entry
 	 * @return the new team member entry
 	 */
-	public static TeamMemberEntry createTeamMemberEntry(long teamMemberTaskId) {
-		return getService().createTeamMemberEntry(teamMemberTaskId);
+	public static TeamMemberEntry createTeamMemberEntry(long teamMemberId) {
+		return getService().createTeamMemberEntry(teamMemberId);
 	}
 
 	public static void deleteAdminByTeamId(long teamId) {
@@ -125,14 +125,14 @@ public class TeamMemberEntryLocalServiceUtil {
 	 * <strong>Important:</strong> Inspect TeamMemberEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
 	 * </p>
 	 *
-	 * @param teamMemberTaskId the primary key of the team member entry
+	 * @param teamMemberId the primary key of the team member entry
 	 * @return the team member entry that was removed
 	 * @throws PortalException if a team member entry with the primary key could not be found
 	 */
-	public static TeamMemberEntry deleteTeamMemberEntry(long teamMemberTaskId)
+	public static TeamMemberEntry deleteTeamMemberEntry(long teamMemberId)
 		throws PortalException {
 
-		return getService().deleteTeamMemberEntry(teamMemberTaskId);
+		return getService().deleteTeamMemberEntry(teamMemberId);
 	}
 
 	/**
@@ -236,8 +236,8 @@ public class TeamMemberEntryLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static TeamMemberEntry fetchTeamMemberEntry(long teamMemberTaskId) {
-		return getService().fetchTeamMemberEntry(teamMemberTaskId);
+	public static TeamMemberEntry fetchTeamMemberEntry(long teamMemberId) {
+		return getService().fetchTeamMemberEntry(teamMemberId);
 	}
 
 	/**
@@ -347,14 +347,14 @@ public class TeamMemberEntryLocalServiceUtil {
 	/**
 	 * Returns the team member entry with the primary key.
 	 *
-	 * @param teamMemberTaskId the primary key of the team member entry
+	 * @param teamMemberId the primary key of the team member entry
 	 * @return the team member entry
 	 * @throws PortalException if a team member entry with the primary key could not be found
 	 */
-	public static TeamMemberEntry getTeamMemberEntry(long teamMemberTaskId)
+	public static TeamMemberEntry getTeamMemberEntry(long teamMemberId)
 		throws PortalException {
 
-		return getService().getTeamMemberEntry(teamMemberTaskId);
+		return getService().getTeamMemberEntry(teamMemberId);
 	}
 
 	/**

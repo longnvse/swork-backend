@@ -5,7 +5,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import java.util.Date;
 
 public class ResourceMapperModel {
-    long quantity;
+    double quantity;
     long resourceTypeId;
     String resourceTypeName;
     Long teamId;
@@ -36,11 +36,11 @@ public class ResourceMapperModel {
         this.dateResource = dateResource;
     }
 
-    public long getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(long quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 

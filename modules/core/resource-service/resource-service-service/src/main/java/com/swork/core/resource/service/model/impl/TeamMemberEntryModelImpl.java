@@ -69,7 +69,7 @@ public class TeamMemberEntryModelImpl
 
 	public static final Object[][] TABLE_COLUMNS = {
 		{"uuid_", Types.VARCHAR}, {"externalReferenceCode", Types.VARCHAR},
-		{"teamMemberTaskId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"teamMemberId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"memberId", Types.BIGINT}, {"memberName", Types.VARCHAR},
 		{"isAdmin", Types.BOOLEAN}, {"teamId", Types.BIGINT}
 	};
@@ -80,7 +80,7 @@ public class TeamMemberEntryModelImpl
 	static {
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("externalReferenceCode", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("teamMemberTaskId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("teamMemberId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("memberId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("memberName", Types.VARCHAR);
@@ -89,15 +89,15 @@ public class TeamMemberEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_TeamMember (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,teamMemberTaskId LONG not null primary key,companyId LONG,memberId LONG,memberName VARCHAR(75) null,isAdmin BOOLEAN,teamId LONG)";
+		"create table SW_TeamMember (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,teamMemberId LONG not null primary key,companyId LONG,memberId LONG,memberName VARCHAR(75) null,isAdmin BOOLEAN,teamId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_TeamMember";
 
 	public static final String ORDER_BY_JPQL =
-		" ORDER BY teamMemberEntry.teamMemberTaskId ASC";
+		" ORDER BY teamMemberEntry.teamMemberId ASC";
 
 	public static final String ORDER_BY_SQL =
-		" ORDER BY SW_TeamMember.teamMemberTaskId ASC";
+		" ORDER BY SW_TeamMember.teamMemberId ASC";
 
 	public static final String DATA_SOURCE = "liferayDataSource";
 
@@ -140,7 +140,7 @@ public class TeamMemberEntryModelImpl
 	 *		#getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long TEAMMEMBERTASKID_COLUMN_BITMASK = 32L;
+	public static final long TEAMMEMBERID_COLUMN_BITMASK = 32L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -161,17 +161,17 @@ public class TeamMemberEntryModelImpl
 
 	@Override
 	public long getPrimaryKey() {
-		return _teamMemberTaskId;
+		return _teamMemberId;
 	}
 
 	@Override
 	public void setPrimaryKey(long primaryKey) {
-		setTeamMemberTaskId(primaryKey);
+		setTeamMemberId(primaryKey);
 	}
 
 	@Override
 	public Serializable getPrimaryKeyObj() {
-		return _teamMemberTaskId;
+		return _teamMemberId;
 	}
 
 	@Override
@@ -292,11 +292,11 @@ public class TeamMemberEntryModelImpl
 			(BiConsumer<TeamMemberEntry, String>)
 				TeamMemberEntry::setExternalReferenceCode);
 		attributeGetterFunctions.put(
-			"teamMemberTaskId", TeamMemberEntry::getTeamMemberTaskId);
+			"teamMemberId", TeamMemberEntry::getTeamMemberId);
 		attributeSetterBiConsumers.put(
-			"teamMemberTaskId",
+			"teamMemberId",
 			(BiConsumer<TeamMemberEntry, Long>)
-				TeamMemberEntry::setTeamMemberTaskId);
+				TeamMemberEntry::setTeamMemberId);
 		attributeGetterFunctions.put(
 			"companyId", TeamMemberEntry::getCompanyId);
 		attributeSetterBiConsumers.put(
@@ -384,17 +384,17 @@ public class TeamMemberEntryModelImpl
 	}
 
 	@Override
-	public long getTeamMemberTaskId() {
-		return _teamMemberTaskId;
+	public long getTeamMemberId() {
+		return _teamMemberId;
 	}
 
 	@Override
-	public void setTeamMemberTaskId(long teamMemberTaskId) {
+	public void setTeamMemberId(long teamMemberId) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_teamMemberTaskId = teamMemberTaskId;
+		_teamMemberId = teamMemberId;
 	}
 
 	@Override
@@ -560,7 +560,7 @@ public class TeamMemberEntryModelImpl
 		teamMemberEntryImpl.setUuid(getUuid());
 		teamMemberEntryImpl.setExternalReferenceCode(
 			getExternalReferenceCode());
-		teamMemberEntryImpl.setTeamMemberTaskId(getTeamMemberTaskId());
+		teamMemberEntryImpl.setTeamMemberId(getTeamMemberId());
 		teamMemberEntryImpl.setCompanyId(getCompanyId());
 		teamMemberEntryImpl.setMemberId(getMemberId());
 		teamMemberEntryImpl.setMemberName(getMemberName());
@@ -580,8 +580,8 @@ public class TeamMemberEntryModelImpl
 			this.<String>getColumnOriginalValue("uuid_"));
 		teamMemberEntryImpl.setExternalReferenceCode(
 			this.<String>getColumnOriginalValue("externalReferenceCode"));
-		teamMemberEntryImpl.setTeamMemberTaskId(
-			this.<Long>getColumnOriginalValue("teamMemberTaskId"));
+		teamMemberEntryImpl.setTeamMemberId(
+			this.<Long>getColumnOriginalValue("teamMemberId"));
 		teamMemberEntryImpl.setCompanyId(
 			this.<Long>getColumnOriginalValue("companyId"));
 		teamMemberEntryImpl.setMemberId(
@@ -688,7 +688,7 @@ public class TeamMemberEntryModelImpl
 			teamMemberEntryCacheModel.externalReferenceCode = null;
 		}
 
-		teamMemberEntryCacheModel.teamMemberTaskId = getTeamMemberTaskId();
+		teamMemberEntryCacheModel.teamMemberId = getTeamMemberId();
 
 		teamMemberEntryCacheModel.companyId = getCompanyId();
 
@@ -806,7 +806,7 @@ public class TeamMemberEntryModelImpl
 
 	private String _uuid;
 	private String _externalReferenceCode;
-	private long _teamMemberTaskId;
+	private long _teamMemberId;
 	private long _companyId;
 	private Long _memberId;
 	private String _memberName;
@@ -845,7 +845,7 @@ public class TeamMemberEntryModelImpl
 		_columnOriginalValues.put("uuid_", _uuid);
 		_columnOriginalValues.put(
 			"externalReferenceCode", _externalReferenceCode);
-		_columnOriginalValues.put("teamMemberTaskId", _teamMemberTaskId);
+		_columnOriginalValues.put("teamMemberId", _teamMemberId);
 		_columnOriginalValues.put("companyId", _companyId);
 		_columnOriginalValues.put("memberId", _memberId);
 		_columnOriginalValues.put("memberName", _memberName);
@@ -878,7 +878,7 @@ public class TeamMemberEntryModelImpl
 
 		columnBitmasks.put("externalReferenceCode", 2L);
 
-		columnBitmasks.put("teamMemberTaskId", 4L);
+		columnBitmasks.put("teamMemberId", 4L);
 
 		columnBitmasks.put("companyId", 8L);
 

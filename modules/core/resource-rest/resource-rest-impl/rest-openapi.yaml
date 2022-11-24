@@ -1,0 +1,736 @@
+components:
+  schemas:
+    ResourceType:
+      description: ResourceType Model
+      properties:
+        id:
+          format: int64
+          readOnly: true
+          type: integer
+        externalReferenceCode:
+          readOnly: true
+          type: string
+        name:
+          type: string
+        unit:
+          type: string
+        resourceTypes:
+          type: array
+          description: ResourceType Children Model
+          items:
+            $ref: '#/components/schemas/ResourceType'
+          readOnly: true
+          title: children
+        parentId:
+          type: integer
+          format: int64
+        creator:
+          type: string
+          readOnly: true
+    ResourceTypeInit:
+      description: InitData by customer
+      properties:
+        id:
+          format: int64
+          readOnly: true
+          type: integer
+        customerId:
+          format: int64
+          type: integer
+        resourceTypes:
+          type: array
+          items:
+            $ref: "#/components/schemas/ResourceType"
+    Resource:
+      description: Resource Model
+      properties:
+        id:
+          format: int64
+          type: integer
+        externalReferenceCode:
+          readOnly: true
+          type: string
+        resourceTypeId:
+          type: integer
+          format: int64
+        resourceTypeName:
+          type: string
+          readOnly: true
+        teamId:
+          type: integer
+          format: int64
+        teamName:
+          type: string
+          readOnly: true
+        quantity:
+          type: number
+          format: double
+        unit:
+          type: string
+          readOnly: true
+        creator:
+          type: string
+          readOnly: true
+        parentName:
+          type: string
+          readOnly: true
+        dateResource:
+          type: string
+          format: date
+        totalAmount:
+          type: integer
+          format: int64
+        workId:
+          type: integer
+          format: int64
+          readOnly: true
+        phaseId:
+          type: integer
+          format: int64
+          readOnly: true
+        projectId:
+          type: integer
+          format: int64
+          readOnly: true
+        creatorId:
+          type: integer
+          format: int64
+          readOnly: true
+    Team:
+      description: Team Model
+      required: [ name ]
+      properties:
+        id:
+          format: int64
+          readOnly: true
+          type: integer
+        externalReferenceCode:
+          readOnly: true
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        isActive:
+          type: boolean
+        admins:
+          type: array
+          items:
+            $ref: '#/components/schemas/Admin'
+          default: [ ]
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/Member'
+          default: [ ]
+        quantityMember:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+          readOnly: true
+        phaseId:
+          format: int64
+          type: integer
+          default: 0
+        phaseName:
+          type: string
+          readOnly: true
+        projectId:
+          format: int64
+          type: integer
+          default: 0
+        projectName:
+          type: string
+          readOnly: true
+        creator:
+          type: string
+          readOnly: true
+        createDate:
+          type: string
+          format: date
+          readOnly: true
+        modifiedDate:
+          type: string
+          format: date
+          readOnly: true
+        totalIncoming:
+          type: integer
+          format: int64
+          readOnly: true
+        totalSpending:
+          type: integer
+          format: int64
+          readOnly: true
+    Member:
+      description: Item of Team Model
+      properties:
+        id:
+          format: int64
+          readOnly: true
+          type: integer
+        externalReferenceCode:
+          readOnly: true
+          type: string
+        memberId:
+          format: int64
+          type: integer
+        memberName:
+          type: string
+    Admin:
+      description: Item of Team Model
+      properties:
+        id:
+          format: int64
+          readOnly: true
+          type: integer
+        externalReferenceCode:
+          readOnly: true
+          type: string
+        memberId:
+          format: int64
+          type: integer
+        memberName:
+          type: string
+info:
+  description: "ResourceRest REST API"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  title: "ResourceRest"
+  version: v1.0
+openapi: 3.0.1
+
+paths:
+  /resource-types:
+    get:
+      tags:
+        - ResourceType
+      description: Get list ResourceTypes
+      operationId: getResourceTypePages
+      parameters:
+        - in: query
+          name: filter
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: sort
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return list ResourceTypes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResourceType'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResourceType'
+    post:
+      tags:
+        - ResourceType
+      description: Create new a ResourceType
+      operationId: postResourceType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceType'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ResourceType'
+      responses:
+        '200':
+          description: Created a ResourceType
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceType'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ResourceType'
+  /resource-types/{id}:
+    put:
+      tags:
+        - ResourceType
+      description: Create new a ResourceType
+      operationId: putResourceType
+      parameters:
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceType'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ResourceType'
+      responses:
+        '201':
+          description: Created a ResourceType
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceType'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ResourceType'
+    get:
+      tags:
+        - ResourceType
+      description: Get a ResourceType
+      operationId: getResourceType
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        '200':
+          description: Get detail a ResourceType
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceType'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ResourceType'
+    delete:
+      tags:
+        - ResourceType
+      description: Delete a ResourceType
+      operationId: deleteResourceType
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        '204':
+          description: Deleted a ResourceType
+          content:
+            application/json: { }
+            application/xml: { }
+  /resources/resource-types:
+    get:
+      tags:
+        - ResourceType
+      description: Get list ResourceTypes
+      operationId: getResourceTypesFromResources
+      parameters:
+        - in: query
+          name: workId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: phaseId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: return list ResourceTypes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resourceTypes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ResourceType'
+                  totalMoney:
+                    type: integer
+                    format: int64
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  resourceTypes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ResourceType'
+                  totalMoney:
+                    type: integer
+                    format: int64
+  /resources/resource-types/total/{resourceTypeId}:
+    get:
+      tags:
+        - ResourceType
+      description: Get list ResourceTypes
+      operationId: getTotalMoneyInProject
+      parameters:
+        - in: path
+          name: resourceTypeId
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: workId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: phaseId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: return list ResourceTypes
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+            application/xml:
+              schema:
+                type: integer
+                format: int64
+  /resources:
+    get:
+      tags:
+        - Resource
+      description: Get List Resource
+      operationId: getResourcePages
+      parameters:
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: phaseId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: workId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: filter
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: sort
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Get List Resource
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Resource'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Resource'
+    post:
+      tags:
+        - Resource
+      description: Create new a Resource
+      operationId: postResource
+      parameters:
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: phaseId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: workId
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/Resource'
+          application/xml:
+            schema:
+                $ref: '#/components/schemas/Resource'
+      responses:
+        '200':
+          description: Post a ResourceProject
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Resource'
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/Resource'
+  /resources/{id}:
+    get:
+      tags:
+        - Resource
+      description: Get a Resource
+      operationId: getResource
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        '200':
+          description: Get detail a Resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Resource'
+    put:
+      tags:
+        - Resource
+      description: Create new a Resource
+      operationId: putResource
+      parameters:
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Resource'
+      responses:
+        '204':
+          description: Update a ResourceProject
+          content:
+            application/json: { }
+            application/xml: { }
+
+    delete:
+      tags:
+        - Resource
+      description: Delete a Resource
+      operationId: deleteResource
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        '204':
+          description: Deleted a Resource
+          content:
+            application/json: { }
+            application/xml: { }
+  /teams:
+    post:
+      tags:
+        - Team
+      description: Create new a Team
+      operationId: postTeam
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Team'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Team'
+      responses:
+        '200':
+          description: Post a ResourceProject
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Team'
+    get:
+      tags:
+        - Team
+      description: Get List Teams
+      operationId: getTeamPages
+      parameters:
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: phaseId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: filter
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: sort
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Get List Teams by workId
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+  /teams/{teamId}:
+    put:
+      tags:
+        - Team
+      description: Create new a ResourceType
+      operationId: putTeam
+      parameters:
+        - in: path
+          required: true
+          name: teamId
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Team'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Team'
+      responses:
+        '201':
+          description: Created a Team
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Team'
+    get:
+      tags:
+        - Team
+      description: Get a ResourceType
+      operationId: getTeam
+      parameters:
+        - in: path
+          name: teamId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        '200':
+          description: Get detail a Team
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Team'
+    delete:
+      tags:
+        - Team
+      description: Delete a ResourceType
+      operationId: deleteTeam
+      parameters:
+        - in: path
+          name: teamId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        '204':
+          description: Deleted a Team
+          content:
+            application/json: { }
+            application/xml: { }

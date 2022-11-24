@@ -173,7 +173,7 @@ public class ResourceEntryWrapper
 			setTeamName(teamName);
 		}
 
-		Long quantity = (Long)attributes.get("quantity");
+		Double quantity = (Double)attributes.get("quantity");
 
 		if (quantity != null) {
 			setQuantity(quantity);
@@ -329,7 +329,7 @@ public class ResourceEntryWrapper
 	 * @return the quantity of this resource entry
 	 */
 	@Override
-	public long getQuantity() {
+	public double getQuantity() {
 		return model.getQuantity();
 	}
 
@@ -554,7 +554,7 @@ public class ResourceEntryWrapper
 	 * @param quantity the quantity of this resource entry
 	 */
 	@Override
-	public void setQuantity(long quantity) {
+	public void setQuantity(double quantity) {
 		model.setQuantity(quantity);
 	}
 

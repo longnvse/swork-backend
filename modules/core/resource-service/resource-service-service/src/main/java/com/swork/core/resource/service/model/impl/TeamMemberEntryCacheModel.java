@@ -47,7 +47,7 @@ public class TeamMemberEntryCacheModel
 		TeamMemberEntryCacheModel teamMemberEntryCacheModel =
 			(TeamMemberEntryCacheModel)object;
 
-		if (teamMemberTaskId == teamMemberEntryCacheModel.teamMemberTaskId) {
+		if (teamMemberId == teamMemberEntryCacheModel.teamMemberId) {
 			return true;
 		}
 
@@ -56,7 +56,7 @@ public class TeamMemberEntryCacheModel
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, teamMemberTaskId);
+		return HashUtil.hash(0, teamMemberId);
 	}
 
 	@Override
@@ -67,8 +67,8 @@ public class TeamMemberEntryCacheModel
 		sb.append(uuid);
 		sb.append(", externalReferenceCode=");
 		sb.append(externalReferenceCode);
-		sb.append(", teamMemberTaskId=");
-		sb.append(teamMemberTaskId);
+		sb.append(", teamMemberId=");
+		sb.append(teamMemberId);
 		sb.append(", companyId=");
 		sb.append(companyId);
 		sb.append(", memberId=");
@@ -102,7 +102,7 @@ public class TeamMemberEntryCacheModel
 			teamMemberEntryImpl.setExternalReferenceCode(externalReferenceCode);
 		}
 
-		teamMemberEntryImpl.setTeamMemberTaskId(teamMemberTaskId);
+		teamMemberEntryImpl.setTeamMemberId(teamMemberId);
 		teamMemberEntryImpl.setCompanyId(companyId);
 		teamMemberEntryImpl.setMemberId(memberId);
 
@@ -126,7 +126,7 @@ public class TeamMemberEntryCacheModel
 		uuid = objectInput.readUTF();
 		externalReferenceCode = objectInput.readUTF();
 
-		teamMemberTaskId = objectInput.readLong();
+		teamMemberId = objectInput.readLong();
 
 		companyId = objectInput.readLong();
 
@@ -154,7 +154,7 @@ public class TeamMemberEntryCacheModel
 			objectOutput.writeUTF(externalReferenceCode);
 		}
 
-		objectOutput.writeLong(teamMemberTaskId);
+		objectOutput.writeLong(teamMemberId);
 
 		objectOutput.writeLong(companyId);
 
@@ -174,7 +174,7 @@ public class TeamMemberEntryCacheModel
 
 	public String uuid;
 	public String externalReferenceCode;
-	public long teamMemberTaskId;
+	public long teamMemberId;
 	public long companyId;
 	public long memberId;
 	public String memberName;

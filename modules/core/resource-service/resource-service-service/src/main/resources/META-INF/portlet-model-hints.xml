@@ -19,7 +19,7 @@
 		<field name="resourceTypeName" type="String" />
 		<field name="teamId" type="long" />
 		<field name="teamName" type="String" />
-		<field name="quantity" type="long" />
+		<field name="quantity" type="double" />
 		<field name="unit" type="String" />
 		<field name="dateResource" type="Date" />
 		<field name="totalAmount" type="Long" />
@@ -61,7 +61,7 @@
 	<model name="com.swork.core.resource.service.model.TeamMemberEntry">
 		<field name="uuid" type="String" />
 		<field name="externalReferenceCode" type="String" />
-		<field name="teamMemberTaskId" type="long" />
+		<field name="teamMemberId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="memberId" type="Long" />
 		<field name="memberName" type="String" />

@@ -70,8 +70,8 @@ public class ResourceEntryTable extends BaseTable<ResourceEntryTable> {
 		"teamId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<ResourceEntryTable, String> teamName = createColumn(
 		"teamName", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<ResourceEntryTable, Long> quantity = createColumn(
-		"quantity", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<ResourceEntryTable, Double> quantity = createColumn(
+		"quantity", Double.class, Types.DOUBLE, Column.FLAG_DEFAULT);
 	public final Column<ResourceEntryTable, String> unit = createColumn(
 		"unit", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ResourceEntryTable, Date> dateResource = createColumn(

@@ -1,0 +1,9 @@
+apiDir: "../resource-rest-api/src/main/java"
+apiPackagePath: "com.swork.core.resource.rest"
+application:
+    baseURI: "/swork/resource-rest"
+    className: "ResourceRestApplication"
+    name: "ResourceRest"
+author: "Long Hip"
+clientDir: "../resource-rest-client/src/main/java"
+testDir: "../resource-rest-test/src/testIntegration/java"

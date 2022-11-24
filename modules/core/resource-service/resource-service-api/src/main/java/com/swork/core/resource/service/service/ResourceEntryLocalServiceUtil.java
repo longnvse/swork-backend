@@ -431,12 +431,12 @@ public class ResourceEntryLocalServiceUtil {
 	}
 
 	public static ResourceEntry updateResourceEntry(
-		long resourceId,
+		long creatorId, long resourceId,
 		com.swork.core.resource.service.mapper.model.ResourceMapperModel model,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().updateResourceEntry(
-			resourceId, model, serviceContext);
+			creatorId, resourceId, model, serviceContext);
 	}
 
 	/**

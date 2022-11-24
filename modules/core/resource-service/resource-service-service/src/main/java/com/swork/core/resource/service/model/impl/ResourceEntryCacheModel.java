@@ -226,7 +226,7 @@ public class ResourceEntryCacheModel
 		teamId = objectInput.readLong();
 		teamName = objectInput.readUTF();
 
-		quantity = objectInput.readLong();
+		quantity = objectInput.readDouble();
 		unit = objectInput.readUTF();
 		dateResource = objectInput.readLong();
 
@@ -287,7 +287,7 @@ public class ResourceEntryCacheModel
 			objectOutput.writeUTF(teamName);
 		}
 
-		objectOutput.writeLong(quantity);
+		objectOutput.writeDouble(quantity);
 
 		if (unit == null) {
 			objectOutput.writeUTF("");
@@ -318,7 +318,7 @@ public class ResourceEntryCacheModel
 	public String resourceTypeName;
 	public long teamId;
 	public String teamName;
-	public long quantity;
+	public double quantity;
 	public String unit;
 	public long dateResource;
 	public long totalAmount;

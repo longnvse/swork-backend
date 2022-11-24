@@ -78,7 +78,7 @@ public class ResourceEntryModelImpl
 		{"workId", Types.BIGINT}, {"phaseId", Types.BIGINT},
 		{"projectId", Types.BIGINT}, {"resourceTypeId", Types.BIGINT},
 		{"resourceTypeName", Types.VARCHAR}, {"teamId", Types.BIGINT},
-		{"teamName", Types.VARCHAR}, {"quantity", Types.BIGINT},
+		{"teamName", Types.VARCHAR}, {"quantity", Types.DOUBLE},
 		{"unit", Types.VARCHAR}, {"dateResource", Types.TIMESTAMP},
 		{"totalAmount", Types.BIGINT}
 	};
@@ -104,14 +104,14 @@ public class ResourceEntryModelImpl
 		TABLE_COLUMNS_MAP.put("resourceTypeName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("teamId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("teamName", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("quantity", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("quantity", Types.DOUBLE);
 		TABLE_COLUMNS_MAP.put("unit", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("dateResource", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("totalAmount", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_Resource (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,resourceId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedDate DATE null,businessId LONG,modifiedId LONG,workId LONG,phaseId LONG,projectId LONG,resourceTypeId LONG,resourceTypeName VARCHAR(75) null,teamId LONG,teamName VARCHAR(75) null,quantity LONG,unit VARCHAR(75) null,dateResource DATE null,totalAmount LONG)";
+		"create table SW_Resource (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,resourceId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedDate DATE null,businessId LONG,modifiedId LONG,workId LONG,phaseId LONG,projectId LONG,resourceTypeId LONG,resourceTypeName VARCHAR(75) null,teamId LONG,teamName VARCHAR(75) null,quantity DOUBLE,unit VARCHAR(75) null,dateResource DATE null,totalAmount LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_Resource";
 
@@ -406,7 +406,7 @@ public class ResourceEntryModelImpl
 		attributeGetterFunctions.put("quantity", ResourceEntry::getQuantity);
 		attributeSetterBiConsumers.put(
 			"quantity",
-			(BiConsumer<ResourceEntry, Long>)ResourceEntry::setQuantity);
+			(BiConsumer<ResourceEntry, Double>)ResourceEntry::setQuantity);
 		attributeGetterFunctions.put("unit", ResourceEntry::getUnit);
 		attributeSetterBiConsumers.put(
 			"unit", (BiConsumer<ResourceEntry, String>)ResourceEntry::setUnit);
@@ -776,12 +776,12 @@ public class ResourceEntryModelImpl
 	}
 
 	@Override
-	public long getQuantity() {
+	public double getQuantity() {
 		return _quantity;
 	}
 
 	@Override
-	public void setQuantity(long quantity) {
+	public void setQuantity(double quantity) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
@@ -963,7 +963,7 @@ public class ResourceEntryModelImpl
 		resourceEntryImpl.setTeamName(
 			this.<String>getColumnOriginalValue("teamName"));
 		resourceEntryImpl.setQuantity(
-			this.<Long>getColumnOriginalValue("quantity"));
+			this.<Double>getColumnOriginalValue("quantity"));
 		resourceEntryImpl.setUnit(this.<String>getColumnOriginalValue("unit"));
 		resourceEntryImpl.setDateResource(
 			this.<Date>getColumnOriginalValue("dateResource"));
@@ -1268,7 +1268,7 @@ public class ResourceEntryModelImpl
 	private String _resourceTypeName;
 	private long _teamId;
 	private String _teamName;
-	private long _quantity;
+	private double _quantity;
 	private String _unit;
 	private Date _dateResource;
 	private Long _totalAmount;

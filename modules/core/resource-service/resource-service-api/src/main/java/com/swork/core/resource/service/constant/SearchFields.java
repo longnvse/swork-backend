@@ -29,7 +29,7 @@ public class SearchFields {
 
     public static final String PARENT_ID = "parentId";
     public static final String WORK_ID = "workId";
-    public static final String TASK_ID_NUMBER = "taskId_Number";
+    public static final String WORK_ID_NUMBER = "workId_Number";
     public static final String PHASE_ID = "phaseId";
     public static final String PHASE_ID_NUMBER = "phaseId_Number";
     public static final String PROJECT_ID = "projectId";

@@ -65,10 +65,19 @@ public class ResourceEntryLocalServiceImpl
     }
 
     @Indexable(type = IndexableType.REINDEX)
-    public ResourceEntry updateResourceEntry(long resourceId,
+    public ResourceEntry updateResourceEntry(long creatorId,
+                                             long resourceId,
                                              ResourceMapperModel model,
                                              ServiceContext serviceContext) {
-        ResourceEntry entry = resourceEntryPersistence.fetchByPrimaryKey(resourceId);
+        ResourceEntry entry = fetchResourceEntry(resourceId);
+
+        updateModifierAudit(
+                creatorId,
+                entry,
+                new Date(),
+                serviceContext
+        );
+
         setDataEntry(entry, model);
 
         return updateResourceEntry(entry);
