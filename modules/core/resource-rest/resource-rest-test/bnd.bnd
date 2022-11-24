@@ -1,0 +1,5 @@
+Bundle-Name: resource-rest-test
+Bundle-SymbolicName: com.swork.core.resource.rest.test
+Bundle-Version: 1.0.0
+-includeresource: com.swork.core.resource.rest.client.jar=../resource-rest-client/build/libs/com.swork.core.resource.rest.client-1.0.0.jar;lib:=true
+-provider-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}

@@ -1,0 +1,3 @@
+Bundle-Name: resource-rest-impl
+Bundle-SymbolicName: com.swork.core.resource.rest.impl
+Bundle-Version: 1.0.0
