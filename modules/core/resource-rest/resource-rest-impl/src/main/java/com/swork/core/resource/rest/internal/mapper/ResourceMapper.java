@@ -12,9 +12,7 @@ import com.swork.core.resource.rest.dto.v1_0.Resource;
 import com.swork.core.resource.service.mapper.model.ResourceMapperModel;
 import com.swork.core.resource.service.mapper.model.ResourcesMapperModel;
 import com.swork.core.resource.service.model.ResourceEntry;
-import com.swork.core.resource.service.model.ResourceTypeEntry;
 import com.swork.core.resource.service.model.TeamEntry;
-import com.swork.core.resource.service.service.ResourceTypeEntryLocalService;
 import com.swork.core.resource.service.service.TeamEntryLocalService;
 import com.swork.core.work.service.model.WorkEntry;
 import com.swork.core.work.service.service.WorkEntryLocalService;
@@ -30,7 +28,6 @@ public class ResourceMapper {
     public ResourceMapperModel mapDTOToMapperModel(Resource from) {
         ResourceMapperModel to = new ResourceMapperModel();
 
-        to.setResourceTypeId(from.getResourceTypeId());
         to.setTeamId(GetterUtil.getLong(from.getTeamId()));
         TeamEntry objectGroupWorkEntry =
                 teamEntryLocalService.fetchTeamEntry(from.getTeamId());
@@ -39,21 +36,10 @@ public class ResourceMapper {
         to.setQuantity(GetterUtil.getInteger(from.getQuantity()));
         to.setDateResource(from.getDateResource());
         to.setTotalAmount(from.getTotalAmount());
-
-        ResourceTypeEntry resourceTypeEntry = resourceTypeEntryLocalService.fetchResourceTypeEntry(from.getResourceTypeId());
-
-        if (Validator.isNotNull(resourceTypeEntry)) {
-            to.setResourceTypeName(resourceTypeEntry.getName());
-            to.setUnit(resourceTypeEntry.getUnit());
-        }
+        to.setResourceTypeName(from.getResourceTypeName());
+        to.setUnit(from.getUnit());
 
         return to;
-    }
-
-    public ResourcesMapperModel mapDTOToMapperModels(Resource[] from) {
-        return Arrays.stream(from).map(this::mapDTOToMapperModel).collect(
-                ResourcesMapperModel::new, ResourcesMapperModel::add,
-                ResourcesMapperModel::addAll);
     }
 
 
@@ -62,7 +48,6 @@ public class ResourceMapper {
 
         to.setId(from.getResourceId());
         to.setExternalReferenceCode(from.getExternalReferenceCode());
-        to.setResourceTypeId(from.getResourceTypeId());
         to.setResourceTypeName(from.getResourceTypeName());
         to.setTeamId(from.getTeamId());
         to.setTeamName(from.getTeamName());
@@ -112,30 +97,6 @@ public class ResourceMapper {
                 .toArray(Resource[]::new);
     }
 
-    public List<Resource> mapMapperModelToDtos(List<ResourceMapperModel> from) {
-        List<Resource> to = new ArrayList<>();
-
-        from.forEach(resourceMapperModel -> to.add(mapMapperModelToDto(resourceMapperModel)));
-
-        return to;
-    }
-
-    public Resource mapMapperModelToDto(ResourceMapperModel from) {
-        Resource to = new Resource();
-
-        to.setId(from.getResourceId());
-
-        ResourceTypeEntry resourceTypeEntry = resourceTypeEntryLocalService.fetchResourceTypeEntry(from.getResourceTypeId());
-        to.setResourceTypeName(Validator.isNotNull(resourceTypeEntry) ? resourceTypeEntry.getName() : "");
-        to.setQuantity(from.getQuantity());
-
-        AccountEntry entry = accountEntryLocalService.fetchAccountEntry(from.getCreatorId());
-        to.setCreator(Validator.isNotNull(entry) ? entry.getFullName() : "Admin");
-        return to;
-    }
-
-    @Reference
-    private ResourceTypeEntryLocalService resourceTypeEntryLocalService;
     @Reference
     private TeamEntryLocalService teamEntryLocalService;
     @Reference

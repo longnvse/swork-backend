@@ -10,10 +10,8 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 
 import com.swork.core.resource.rest.dto.v1_0.Resource;
-import com.swork.core.resource.rest.dto.v1_0.ResourceType;
 import com.swork.core.resource.rest.dto.v1_0.Team;
 import com.swork.core.resource.rest.resource.v1_0.ResourceResource;
-import com.swork.core.resource.rest.resource.v1_0.ResourceTypeResource;
 import com.swork.core.resource.rest.resource.v1_0.TeamResource;
 
 import java.util.function.BiFunction;
@@ -41,14 +39,6 @@ public class Mutation {
 
 		_resourceResourceComponentServiceObjects =
 			resourceResourceComponentServiceObjects;
-	}
-
-	public static void setResourceTypeResourceComponentServiceObjects(
-		ComponentServiceObjects<ResourceTypeResource>
-			resourceTypeResourceComponentServiceObjects) {
-
-		_resourceTypeResourceComponentServiceObjects =
-			resourceTypeResourceComponentServiceObjects;
 	}
 
 	public static void setTeamResourceComponentServiceObjects(
@@ -139,86 +129,6 @@ public class Mutation {
 			_resourceResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			resourceResource -> resourceResource.putResourceBatch(
-				id, callbackURL, object));
-	}
-
-	@GraphQLField(description = "Create new a ResourceType")
-	public ResourceType createResourceType(
-			@GraphQLName("resourceType") ResourceType resourceType)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_resourceTypeResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			resourceTypeResource -> resourceTypeResource.postResourceType(
-				resourceType));
-	}
-
-	@GraphQLField
-	public Response createResourceTypeBatch(
-			@GraphQLName("callbackURL") String callbackURL,
-			@GraphQLName("object") Object object)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_resourceTypeResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			resourceTypeResource -> resourceTypeResource.postResourceTypeBatch(
-				callbackURL, object));
-	}
-
-	@GraphQLField(description = "Delete a ResourceType")
-	public boolean deleteResourceType(@GraphQLName("id") Long id)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_resourceTypeResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			resourceTypeResource -> resourceTypeResource.deleteResourceType(
-				id));
-
-		return true;
-	}
-
-	@GraphQLField
-	public Response deleteResourceTypeBatch(
-			@GraphQLName("id") Long id,
-			@GraphQLName("callbackURL") String callbackURL,
-			@GraphQLName("object") Object object)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_resourceTypeResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			resourceTypeResource ->
-				resourceTypeResource.deleteResourceTypeBatch(
-					id, callbackURL, object));
-	}
-
-	@GraphQLField(description = "Create new a ResourceType")
-	public ResourceType updateResourceType(
-			@GraphQLName("id") Long id,
-			@GraphQLName("resourceType") ResourceType resourceType)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_resourceTypeResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			resourceTypeResource -> resourceTypeResource.putResourceType(
-				id, resourceType));
-	}
-
-	@GraphQLField
-	public Response updateResourceTypeBatch(
-			@GraphQLName("id") Long id,
-			@GraphQLName("callbackURL") String callbackURL,
-			@GraphQLName("object") Object object)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_resourceTypeResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			resourceTypeResource -> resourceTypeResource.putResourceTypeBatch(
 				id, callbackURL, object));
 	}
 
@@ -340,21 +250,6 @@ public class Mutation {
 		resourceResource.setRoleLocalService(_roleLocalService);
 	}
 
-	private void _populateResourceContext(
-			ResourceTypeResource resourceTypeResource)
-		throws Exception {
-
-		resourceTypeResource.setContextAcceptLanguage(_acceptLanguage);
-		resourceTypeResource.setContextCompany(_company);
-		resourceTypeResource.setContextHttpServletRequest(_httpServletRequest);
-		resourceTypeResource.setContextHttpServletResponse(
-			_httpServletResponse);
-		resourceTypeResource.setContextUriInfo(_uriInfo);
-		resourceTypeResource.setContextUser(_user);
-		resourceTypeResource.setGroupLocalService(_groupLocalService);
-		resourceTypeResource.setRoleLocalService(_roleLocalService);
-	}
-
 	private void _populateResourceContext(TeamResource teamResource)
 		throws Exception {
 
@@ -370,8 +265,6 @@ public class Mutation {
 
 	private static ComponentServiceObjects<ResourceResource>
 		_resourceResourceComponentServiceObjects;
-	private static ComponentServiceObjects<ResourceTypeResource>
-		_resourceTypeResourceComponentServiceObjects;
 	private static ComponentServiceObjects<TeamResource>
 		_teamResourceComponentServiceObjects;
 

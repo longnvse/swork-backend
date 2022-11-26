@@ -68,8 +68,6 @@ public class OpenAPIResourceImpl {
 		{
 			add(ResourceResourceImpl.class);
 
-			add(ResourceTypeResourceImpl.class);
-
 			add(TeamResourceImpl.class);
 
 			add(OpenAPIResourceImpl.class);

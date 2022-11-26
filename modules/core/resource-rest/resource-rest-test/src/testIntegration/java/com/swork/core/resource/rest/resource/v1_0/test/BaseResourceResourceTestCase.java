@@ -195,6 +195,11 @@ public abstract class BaseResourceResourceTestCase {
 	}
 
 	@Test
+	public void testGetTotalMoneyInProject() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
 	public void testGetResourcePages() throws Exception {
 		Page<Resource> page = resourceResource.getResourcePages(
 			null, null, null, null, null, Pagination.of(1, 10), null);
@@ -727,14 +732,6 @@ public abstract class BaseResourceResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("resourceTypeId", additionalAssertFieldName)) {
-				if (resource.getResourceTypeId() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("resourceTypeName", additionalAssertFieldName)) {
 				if (resource.getResourceTypeName() == null) {
 					valid = false;
@@ -958,17 +955,6 @@ public abstract class BaseResourceResourceTestCase {
 			if (Objects.equals("quantity", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						resource1.getQuantity(), resource2.getQuantity())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("resourceTypeId", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						resource1.getResourceTypeId(),
-						resource2.getResourceTypeId())) {
 
 					return false;
 				}
@@ -1215,11 +1201,6 @@ public abstract class BaseResourceResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("resourceTypeId")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
 		if (entityFieldName.equals("resourceTypeName")) {
 			sb.append("'");
 			sb.append(String.valueOf(resource.getResourceTypeName()));
@@ -1314,7 +1295,6 @@ public abstract class BaseResourceResourceTestCase {
 				phaseId = RandomTestUtil.randomLong();
 				projectId = RandomTestUtil.randomLong();
 				quantity = RandomTestUtil.randomDouble();
-				resourceTypeId = RandomTestUtil.randomLong();
 				resourceTypeName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				teamId = RandomTestUtil.randomLong();

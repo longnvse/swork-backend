@@ -208,27 +208,6 @@ public class Resource implements Cloneable, Serializable {
 
 	protected Double quantity;
 
-	public Long getResourceTypeId() {
-		return resourceTypeId;
-	}
-
-	public void setResourceTypeId(Long resourceTypeId) {
-		this.resourceTypeId = resourceTypeId;
-	}
-
-	public void setResourceTypeId(
-		UnsafeSupplier<Long, Exception> resourceTypeIdUnsafeSupplier) {
-
-		try {
-			resourceTypeId = resourceTypeIdUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected Long resourceTypeId;
-
 	public String getResourceTypeName() {
 		return resourceTypeName;
 	}

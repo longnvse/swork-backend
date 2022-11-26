@@ -21,12 +21,12 @@ public class ResourceValidator {
             SW_NoSuchEntryException, SW_DataInputException {
 
         validateRequiredFields(dto);
-        validateForExistResourceType(dto);
         validateForExistObjectGroup(dto);
 
         validateForNegativeNumber(
                 GetterUtil.getLong(dto.getQuantity()),
                 LanguageKeys.RESOURCE_TASK_QUANTITY_NOT_NEGATIVE);
+
         validateForNegativeNumber(
                 GetterUtil.getLong(dto.getTotalAmount()),
                 LanguageKeys.RESOURCE_TASK_TOTAL_MONEY_NOT_NEGATIVE);
@@ -43,11 +43,6 @@ public class ResourceValidator {
 
     }
 
-    public void validateForExistResourceType(Resource resource) throws SW_NoSuchEntryException {
-        resourceTypeValidator.validateExist(GetterUtil.getLong(resource.getResourceTypeId()));
-
-    }
-
     public void validateForExistObjectGroup(Resource resource) throws SW_NoSuchEntryException {
         if (Validator.isNotNull(resource.getTeamId())) {
             teamValidator.validateExist(resource.getTeamId());
@@ -57,16 +52,12 @@ public class ResourceValidator {
     private void validateRequiredFields(Resource resource) throws SW_FieldRequiredException {
 
         isNotPopulated(
-                resource.getResourceTypeId(),
-                languageService.getMessage(LanguageKeys.RESOURCE_TASK_RESOURCE_TYPE_ID_IS_REQUIRED));
-
-        isNotPopulated(
-                resource.getQuantity(),
-                languageService.getMessage(LanguageKeys.RESOURCE_TASK_QUANTITY_IS_REQUIRED));
+                resource.getResourceTypeName(),
+                languageService.getMessage(LanguageKeys.RESOURCE_TASK_RESOURCE_TYPE_NAME_IS_REQUIRED));
 
         isNotPopulated(
                 resource.getDateResource(),
-                languageService.getMessage(LanguageKeys.RESOURCE_TASK_QUANTITY_IS_REQUIRED));
+                languageService.getMessage(LanguageKeys.RESOURCE_TASK_DATE_RESOURCE_IS_REQUIRED));
     }
 
     private void validateForNegativeNumber(long number, String key) throws SW_DataInputException {
@@ -85,8 +76,6 @@ public class ResourceValidator {
 
     @Reference
     private ResourceEntryLocalService localService;
-    @Reference
-    private ResourceTypeValidator resourceTypeValidator;
     @Reference
     private TeamValidator teamValidator;
     @Reference

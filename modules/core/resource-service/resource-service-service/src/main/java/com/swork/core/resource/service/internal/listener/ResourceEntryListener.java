@@ -41,7 +41,7 @@ public class ResourceEntryListener extends BaseModelListener<ResourceEntry> {
     }
 
     private void addIncomingOrSpending(ResourceEntry model, Long money) {
-        if (model.getResourceTypeName().equals("Thu")) {
+        if (model.getResourceTypeName().toLowerCase().contains("thu")) {
             teamEntryLocalService.addTotalIncoming(model.getTeamId(), GetterUtil.getLong(money));
             return;
         }
