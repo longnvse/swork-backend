@@ -107,7 +107,7 @@ public class BusinessEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_Business (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,businessId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,creatorId LONG,customerName VARCHAR(75) null,phoneNumber VARCHAR(75) null,email VARCHAR(75) null,businessAddress VARCHAR(75) null,name VARCHAR(75) null,fieldOperations VARCHAR(75) null,logoId LONG,status VARCHAR(75) null)";
+		"create table SW_Business (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,businessId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,creatorId LONG,customerName VARCHAR(75) null,phoneNumber VARCHAR(75) null,email VARCHAR(75) null,businessAddress VARCHAR(75) null,name VARCHAR(100) null,fieldOperations VARCHAR(75) null,logoId LONG,status VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_Business";
 

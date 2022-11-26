@@ -108,7 +108,7 @@ public class AccountEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_AccountEntry (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,accountId LONG not null primary key,groupId LONG,companyId LONG,createDate DATE null,modifiedDate DATE null,creatorId LONG,username VARCHAR(75) null,password_ VARCHAR(75) null,fullName VARCHAR(75) null,phoneNumber VARCHAR(75) null,dateOfBirth DATE null,email VARCHAR(75) null,address VARCHAR(75) null,departmentId LONG,status VARCHAR(75) null,role_ VARCHAR(75) null,businessId LONG)";
+		"create table SW_AccountEntry (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,accountId LONG not null primary key,groupId LONG,companyId LONG,createDate DATE null,modifiedDate DATE null,creatorId LONG,username VARCHAR(75) null,password_ VARCHAR(75) null,fullName VARCHAR(100) null,phoneNumber VARCHAR(75) null,dateOfBirth DATE null,email VARCHAR(75) null,address VARCHAR(100) null,departmentId LONG,status VARCHAR(75) null,role_ VARCHAR(75) null,businessId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_AccountEntry";
 

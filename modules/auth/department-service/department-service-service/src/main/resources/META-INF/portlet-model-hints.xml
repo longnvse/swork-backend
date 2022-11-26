@@ -21,7 +21,7 @@
 		<field name="modifiedId" type="long" />
 		<field name="modifiedDate" type="Date" />
 		<field name="businessId" type="long" />
-		<field name="name" type="String" >
+		<field name="name" type="String">
 			<hint name="max-length">100</hint>
 		</field>
 	</model>
