@@ -14,7 +14,7 @@ create table SW_Work (
 	parentId LONG,
 	parentReferenceCode VARCHAR(75) null,
 	progress LONG,
-	name VARCHAR(75) null,
+	name VARCHAR(100) null,
 	startDate DATE null,
 	endDate DATE null,
 	actualStartDate DATE null,

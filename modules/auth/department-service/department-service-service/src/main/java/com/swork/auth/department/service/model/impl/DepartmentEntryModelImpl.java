@@ -96,7 +96,7 @@ public class DepartmentEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_Department (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,departmentId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedId LONG,modifiedDate DATE null,businessId LONG,name VARCHAR(75) null)";
+		"create table SW_Department (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,departmentId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedId LONG,modifiedDate DATE null,businessId LONG,name VARCHAR(100) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_Department";
 
