@@ -36,7 +36,6 @@
         <column name="workId" type="Long"/>
         <column name="phaseId" type="Long"/>
         <column name="projectId" type="Long"/>
-        <column name="resourceTypeId" type="long"/>
         <column name="resourceTypeName" type="String"/>
         <column name="teamId" type="long"/>
         <column name="teamName" type="String"/>
@@ -70,45 +69,6 @@
             <finder-column name="workId"/>
             <finder-column name="phaseId"/>
             <finder-column name="projectId"/>
-        </finder>
-    </entity>
-
-    <entity local-service="true"
-            name="ResourceTypeEntry"
-            table="SW_ResourceType"
-            external-reference-code="true"
-            remote-service="false"
-            uuid="true">
-
-        <!-- PK fields -->
-
-        <column name="resourceTypeId" primary="true" type="long"/>
-
-        <!-- Group instance -->
-
-        <column name="groupId" type="long"/>
-
-        <!-- Audit fields -->
-
-        <column name="companyId" type="long"/>
-        <column name="accountId" type="long"/>
-        <column name="createDate" type="Date"/>
-        <column name="modifiedDate" type="Date"/>
-        <column name="businessId" type="long"/>
-        <column name="modifiedId" type="long"/>
-
-        <column name="name" type="String"/>
-        <column name="unit" type="String"/>
-        <column name="parentId" type="Long"/>
-
-        <finder name="B_PT" return-type="Collection">
-            <finder-column name="businessId"/>
-            <finder-column name="parentId"/>
-        </finder>
-
-        <finder name="B_N" return-type="ResourceTypeEntry">
-            <finder-column name="businessId"/>
-            <finder-column name="name"/>
         </finder>
     </entity>
 

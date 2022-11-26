@@ -45,6 +45,10 @@ public interface ResourceResource {
 		return FactoryHolder.factory.create();
 	}
 
+	public Long getTotalMoneyInProject(
+			String typeResource, Long workId, Long phaseId, Long projectId)
+		throws Exception;
+
 	public Page<Resource> getResourcePages(
 			Long projectId, Long phaseId, Long workId, String search,
 			Filter filter, Pagination pagination, Sort[] sorts)

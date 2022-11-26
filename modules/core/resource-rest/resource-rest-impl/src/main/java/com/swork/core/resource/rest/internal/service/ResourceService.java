@@ -1,9 +1,7 @@
 package com.swork.core.resource.rest.internal.service;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.search.BooleanClauseOccur;
-import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.*;
 import com.liferay.portal.kernel.search.filter.BooleanFilter;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.search.filter.TermFilter;
@@ -18,10 +16,12 @@ import com.swork.core.resource.rest.internal.mapper.ResourceMapper;
 import com.swork.core.resource.service.constant.SearchFields;
 import com.swork.core.resource.service.mapper.model.ResourceMapperModel;
 import com.swork.core.resource.service.model.ResourceEntry;
+import com.swork.core.resource.service.retriever.ResourceRetriever;
 import com.swork.core.resource.service.service.ResourceEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 @Component(immediate = true, service = ResourceService.class)
@@ -144,9 +144,29 @@ public class ResourceService {
         return mapper.mapEntryToDTO(localService.fetchResourceEntry(resourceId));
     }
 
+    public long getTotalMoneyByTypeResource(long businessId,
+                                            String typeResource,
+                                            Long taskId,
+                                            Long phaseId,
+                                            Long projectId,
+                                            ServiceContext serviceContext) throws SearchException, ParseException {
+        Document[] resourceTypes =
+                resourceRetriever.getByTypeAndParent(businessId, typeResource, taskId, phaseId, projectId, serviceContext);
+
+        return Arrays
+                .stream(resourceTypes)
+                .reduce(
+                        0L,
+                        (total, document) -> total + GetterUtil.getLong(document.get(SearchFields.TOTAL_AMOUNT)),
+                        Long::sum);
+    }
+
     @Reference
     private ResourceEntryLocalService localService;
 
     @Reference
     private ResourceMapper mapper;
+
+    @Reference
+    private ResourceRetriever resourceRetriever;
 }

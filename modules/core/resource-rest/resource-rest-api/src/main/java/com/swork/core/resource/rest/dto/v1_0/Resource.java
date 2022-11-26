@@ -297,34 +297,6 @@ public class Resource implements Serializable {
 	protected Double quantity;
 
 	@Schema
-	public Long getResourceTypeId() {
-		return resourceTypeId;
-	}
-
-	public void setResourceTypeId(Long resourceTypeId) {
-		this.resourceTypeId = resourceTypeId;
-	}
-
-	@JsonIgnore
-	public void setResourceTypeId(
-		UnsafeSupplier<Long, Exception> resourceTypeIdUnsafeSupplier) {
-
-		try {
-			resourceTypeId = resourceTypeIdUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Long resourceTypeId;
-
-	@Schema
 	public String getResourceTypeName() {
 		return resourceTypeName;
 	}
@@ -349,7 +321,7 @@ public class Resource implements Serializable {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String resourceTypeName;
 
 	@Schema
@@ -459,7 +431,7 @@ public class Resource implements Serializable {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String unit;
 
 	@Schema
@@ -624,16 +596,6 @@ public class Resource implements Serializable {
 			sb.append("\"quantity\": ");
 
 			sb.append(quantity);
-		}
-
-		if (resourceTypeId != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"resourceTypeId\": ");
-
-			sb.append(resourceTypeId);
 		}
 
 		if (resourceTypeName != null) {

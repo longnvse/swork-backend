@@ -1,46 +1,5 @@
 components:
   schemas:
-    ResourceType:
-      description: ResourceType Model
-      properties:
-        id:
-          format: int64
-          readOnly: true
-          type: integer
-        externalReferenceCode:
-          readOnly: true
-          type: string
-        name:
-          type: string
-        unit:
-          type: string
-        resourceTypes:
-          type: array
-          description: ResourceType Children Model
-          items:
-            $ref: '#/components/schemas/ResourceType'
-          readOnly: true
-          title: children
-        parentId:
-          type: integer
-          format: int64
-        creator:
-          type: string
-          readOnly: true
-    ResourceTypeInit:
-      description: InitData by customer
-      properties:
-        id:
-          format: int64
-          readOnly: true
-          type: integer
-        customerId:
-          format: int64
-          type: integer
-        resourceTypes:
-          type: array
-          items:
-            $ref: "#/components/schemas/ResourceType"
     Resource:
       description: Resource Model
       properties:
@@ -50,12 +9,8 @@ components:
         externalReferenceCode:
           readOnly: true
           type: string
-        resourceTypeId:
-          type: integer
-          format: int64
         resourceTypeName:
           type: string
-          readOnly: true
         teamId:
           type: integer
           format: int64
@@ -67,7 +22,6 @@ components:
           format: double
         unit:
           type: string
-          readOnly: true
         creator:
           type: string
           readOnly: true
@@ -203,202 +157,18 @@ info:
 openapi: 3.0.1
 
 paths:
-  /resource-types:
+  /resources/total/{typeResource}:
     get:
       tags:
-        - ResourceType
-      description: Get list ResourceTypes
-      operationId: getResourceTypePages
-      parameters:
-        - in: query
-          name: filter
-          schema:
-            type: string
-        - in: query
-          name: page
-          schema:
-            type: integer
-        - in: query
-          name: pageSize
-          schema:
-            type: integer
-        - in: query
-          name: search
-          schema:
-            type: string
-        - in: query
-          name: sort
-          schema:
-            type: string
-      responses:
-        '200':
-          description: return list ResourceTypes
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ResourceType'
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ResourceType'
-    post:
-      tags:
-        - ResourceType
-      description: Create new a ResourceType
-      operationId: postResourceType
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ResourceType'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/ResourceType'
-      responses:
-        '200':
-          description: Created a ResourceType
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResourceType'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/ResourceType'
-  /resource-types/{id}:
-    put:
-      tags:
-        - ResourceType
-      description: Create new a ResourceType
-      operationId: putResourceType
-      parameters:
-        - in: path
-          required: true
-          name: id
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ResourceType'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/ResourceType'
-      responses:
-        '201':
-          description: Created a ResourceType
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResourceType'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/ResourceType'
-    get:
-      tags:
-        - ResourceType
-      description: Get a ResourceType
-      operationId: getResourceType
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            format: int64
-            type: integer
-      responses:
-        '200':
-          description: Get detail a ResourceType
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResourceType'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/ResourceType'
-    delete:
-      tags:
-        - ResourceType
-      description: Delete a ResourceType
-      operationId: deleteResourceType
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            format: int64
-            type: integer
-      responses:
-        '204':
-          description: Deleted a ResourceType
-          content:
-            application/json: { }
-            application/xml: { }
-  /resources/resource-types:
-    get:
-      tags:
-        - ResourceType
-      description: Get list ResourceTypes
-      operationId: getResourceTypesFromResources
-      parameters:
-        - in: query
-          name: workId
-          schema:
-            type: integer
-            format: int64
-        - in: query
-          name: phaseId
-          schema:
-            type: integer
-            format: int64
-        - in: query
-          name: projectId
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: return list ResourceTypes
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  resourceTypes:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/ResourceType'
-                  totalMoney:
-                    type: integer
-                    format: int64
-            application/xml:
-              schema:
-                type: object
-                properties:
-                  resourceTypes:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/ResourceType'
-                  totalMoney:
-                    type: integer
-                    format: int64
-  /resources/resource-types/total/{resourceTypeId}:
-    get:
-      tags:
-        - ResourceType
+        - Resource
       description: Get list ResourceTypes
       operationId: getTotalMoneyInProject
       parameters:
         - in: path
-          name: resourceTypeId
+          name: typeResource
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
         - in: query
           name: workId
           schema:
@@ -507,20 +277,20 @@ paths:
         content:
           application/json:
             schema:
-                $ref: '#/components/schemas/Resource'
+              $ref: '#/components/schemas/Resource'
           application/xml:
             schema:
-                $ref: '#/components/schemas/Resource'
+              $ref: '#/components/schemas/Resource'
       responses:
         '200':
           description: Post a ResourceProject
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/Resource'
+                $ref: '#/components/schemas/Resource'
             application/xml:
               schema:
-                  $ref: '#/components/schemas/Resource'
+                $ref: '#/components/schemas/Resource'
   /resources/{id}:
     get:
       tags:

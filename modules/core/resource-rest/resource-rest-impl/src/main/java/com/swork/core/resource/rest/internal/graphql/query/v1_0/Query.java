@@ -14,10 +14,8 @@ import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import com.swork.core.resource.rest.dto.v1_0.Resource;
-import com.swork.core.resource.rest.dto.v1_0.ResourceType;
 import com.swork.core.resource.rest.dto.v1_0.Team;
 import com.swork.core.resource.rest.resource.v1_0.ResourceResource;
-import com.swork.core.resource.rest.resource.v1_0.ResourceTypeResource;
 import com.swork.core.resource.rest.resource.v1_0.TeamResource;
 
 import java.util.Map;
@@ -47,20 +45,32 @@ public class Query {
 			resourceResourceComponentServiceObjects;
 	}
 
-	public static void setResourceTypeResourceComponentServiceObjects(
-		ComponentServiceObjects<ResourceTypeResource>
-			resourceTypeResourceComponentServiceObjects) {
-
-		_resourceTypeResourceComponentServiceObjects =
-			resourceTypeResourceComponentServiceObjects;
-	}
-
 	public static void setTeamResourceComponentServiceObjects(
 		ComponentServiceObjects<TeamResource>
 			teamResourceComponentServiceObjects) {
 
 		_teamResourceComponentServiceObjects =
 			teamResourceComponentServiceObjects;
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {totalMoneyInProject(phaseId: ___, projectId: ___, typeResource: ___, workId: ___){}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField(description = "Get list ResourceTypes")
+	public Long totalMoneyInProject(
+			@GraphQLName("typeResource") String typeResource,
+			@GraphQLName("workId") Long workId,
+			@GraphQLName("phaseId") Long phaseId,
+			@GraphQLName("projectId") Long projectId)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_resourceResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			resourceResource -> resourceResource.getTotalMoneyInProject(
+				typeResource, workId, phaseId, projectId));
 	}
 
 	/**
@@ -94,7 +104,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {resource(id: ___){id, externalReferenceCode, resourceTypeId, resourceTypeName, teamId, teamName, quantity, unit, creator, parentName, dateResource, totalAmount, workId, phaseId, projectId, creatorId}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {resource(id: ___){id, externalReferenceCode, resourceTypeName, teamId, teamName, quantity, unit, creator, parentName, dateResource, totalAmount, workId, phaseId, projectId, creatorId}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Get a Resource")
 	public Resource resource(@GraphQLName("id") Long id) throws Exception {
@@ -102,87 +112,6 @@ public class Query {
 			_resourceResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			resourceResource -> resourceResource.getResource(id));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {resourceType(filter: ___, page: ___, pageSize: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField(description = "Get list ResourceTypes")
-	public ResourceTypePage resourceType(
-			@GraphQLName("search") String search,
-			@GraphQLName("filter") String filterString,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page,
-			@GraphQLName("sort") String sortsString)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_resourceTypeResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			resourceTypeResource -> new ResourceTypePage(
-				resourceTypeResource.getResourceTypePages(
-					search,
-					_filterBiFunction.apply(resourceTypeResource, filterString),
-					Pagination.of(page, pageSize),
-					_sortsBiFunction.apply(
-						resourceTypeResource, sortsString))));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {resourceType(id: ___){id, externalReferenceCode, name, unit, resourceTypes, parentId, creator}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField(description = "Get a ResourceType")
-	public ResourceType resourceType(@GraphQLName("id") Long id)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_resourceTypeResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			resourceTypeResource -> resourceTypeResource.getResourceType(id));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {resourceTypesFromResources(phaseId: ___, projectId: ___, workId: ___){}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField(description = "Get list ResourceTypes")
-	public Object resourceTypesFromResources(
-			@GraphQLName("workId") Long workId,
-			@GraphQLName("phaseId") Long phaseId,
-			@GraphQLName("projectId") Long projectId)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_resourceTypeResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			resourceTypeResource ->
-				resourceTypeResource.getResourceTypesFromResources(
-					workId, phaseId, projectId));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {totalMoneyInProject(phaseId: ___, projectId: ___, resourceTypeId: ___, workId: ___){}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField(description = "Get list ResourceTypes")
-	public Long totalMoneyInProject(
-			@GraphQLName("resourceTypeId") Long resourceTypeId,
-			@GraphQLName("workId") Long workId,
-			@GraphQLName("phaseId") Long phaseId,
-			@GraphQLName("projectId") Long projectId)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_resourceTypeResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			resourceTypeResource -> resourceTypeResource.getTotalMoneyInProject(
-				resourceTypeId, workId, phaseId, projectId));
 	}
 
 	/**
@@ -277,39 +206,6 @@ public class Query {
 
 	}
 
-	@GraphQLName("ResourceTypePage")
-	public class ResourceTypePage {
-
-		public ResourceTypePage(Page resourceTypePage) {
-			actions = resourceTypePage.getActions();
-
-			items = resourceTypePage.getItems();
-			lastPage = resourceTypePage.getLastPage();
-			page = resourceTypePage.getPage();
-			pageSize = resourceTypePage.getPageSize();
-			totalCount = resourceTypePage.getTotalCount();
-		}
-
-		@GraphQLField
-		protected Map<String, Map> actions;
-
-		@GraphQLField
-		protected java.util.Collection<ResourceType> items;
-
-		@GraphQLField
-		protected long lastPage;
-
-		@GraphQLField
-		protected long page;
-
-		@GraphQLField
-		protected long pageSize;
-
-		@GraphQLField
-		protected long totalCount;
-
-	}
-
 	@GraphQLName("TeamPage")
 	public class TeamPage {
 
@@ -340,30 +236,6 @@ public class Query {
 
 		@GraphQLField
 		protected long totalCount;
-
-	}
-
-	@GraphQLTypeExtension(ResourceType.class)
-	public class ParentResourceTypeIdTypeExtension {
-
-		public ParentResourceTypeIdTypeExtension(ResourceType resourceType) {
-			_resourceType = resourceType;
-		}
-
-		@GraphQLField(description = "Get a Resource")
-		public Resource parentResourceType() throws Exception {
-			if (_resourceType.getParentId() == null) {
-				return null;
-			}
-
-			return _applyComponentServiceObjects(
-				_resourceResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				resourceResource -> resourceResource.getResource(
-					_resourceType.getParentId()));
-		}
-
-		private ResourceType _resourceType;
 
 	}
 
@@ -399,21 +271,6 @@ public class Query {
 		resourceResource.setRoleLocalService(_roleLocalService);
 	}
 
-	private void _populateResourceContext(
-			ResourceTypeResource resourceTypeResource)
-		throws Exception {
-
-		resourceTypeResource.setContextAcceptLanguage(_acceptLanguage);
-		resourceTypeResource.setContextCompany(_company);
-		resourceTypeResource.setContextHttpServletRequest(_httpServletRequest);
-		resourceTypeResource.setContextHttpServletResponse(
-			_httpServletResponse);
-		resourceTypeResource.setContextUriInfo(_uriInfo);
-		resourceTypeResource.setContextUser(_user);
-		resourceTypeResource.setGroupLocalService(_groupLocalService);
-		resourceTypeResource.setRoleLocalService(_roleLocalService);
-	}
-
 	private void _populateResourceContext(TeamResource teamResource)
 		throws Exception {
 
@@ -429,8 +286,6 @@ public class Query {
 
 	private static ComponentServiceObjects<ResourceResource>
 		_resourceResourceComponentServiceObjects;
-	private static ComponentServiceObjects<ResourceTypeResource>
-		_resourceTypeResourceComponentServiceObjects;
 	private static ComponentServiceObjects<TeamResource>
 		_teamResourceComponentServiceObjects;
 

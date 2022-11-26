@@ -96,6 +96,17 @@ public class ResourceResourceImpl extends BaseResourceResourceImpl {
         );
     }
 
+    @Override
+    public Long getTotalMoneyInProject(String typeResource, Long workId, Long phaseId, Long projectId) throws Exception {
+        return service.getTotalMoneyByTypeResource(
+                getUserToken().getBusinessId(),
+                typeResource,
+                workId,
+                phaseId,
+                projectId,
+                getServiceContext());
+    }
+
     public ServiceContext getServiceContext() {
 
         ServiceContext serviceContext = new ServiceContext();

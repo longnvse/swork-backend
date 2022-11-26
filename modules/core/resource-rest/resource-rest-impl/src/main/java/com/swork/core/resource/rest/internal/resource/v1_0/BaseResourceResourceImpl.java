@@ -58,6 +58,60 @@ public abstract class BaseResourceResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/swork/resource-rest/v1.0/resources/total/{typeResource}'  -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Operation(
+		description = "Get list ResourceTypes"
+	)
+	@io.swagger.v3.oas.annotations.Parameters(
+		value = {
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
+				name = "typeResource"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "workId"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "phaseId"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "projectId"
+			)
+		}
+	)
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Resource")}
+	)
+	@javax.ws.rs.GET
+	@javax.ws.rs.Path("/resources/total/{typeResource}")
+	@javax.ws.rs.Produces({"application/json", "application/xml"})
+	@Override
+	public Long getTotalMoneyInProject(
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.PathParam("typeResource")
+			String typeResource,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.ws.rs.QueryParam("workId")
+			Long workId,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.ws.rs.QueryParam("phaseId")
+			Long phaseId,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.ws.rs.QueryParam("projectId")
+			Long projectId)
+		throws Exception {
+
+		return 0L;
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/swork/resource-rest/v1.0/resources'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Get List Resource")
@@ -128,7 +182,7 @@ public abstract class BaseResourceResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/swork/resource-rest/v1.0/resources' -d $'{"dateResource": ___, "id": ___, "quantity": ___, "resourceTypeId": ___, "teamId": ___, "totalAmount": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/swork/resource-rest/v1.0/resources' -d $'{"dateResource": ___, "id": ___, "quantity": ___, "resourceTypeName": ___, "teamId": ___, "totalAmount": ___, "unit": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
 		description = "Create new a Resource"
@@ -350,7 +404,7 @@ public abstract class BaseResourceResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/resource-rest/v1.0/resources/{id}' -d $'{"dateResource": ___, "id": ___, "quantity": ___, "resourceTypeId": ___, "teamId": ___, "totalAmount": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/resource-rest/v1.0/resources/{id}' -d $'{"dateResource": ___, "id": ___, "quantity": ___, "resourceTypeName": ___, "teamId": ___, "totalAmount": ___, "unit": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
 		description = "Create new a Resource"
