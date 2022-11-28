@@ -6,12 +6,6 @@ create index IX_845D2D84 on SW_Resource (companyId, externalReferenceCode[$COLUM
 create index IX_8292B163 on SW_Resource (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_36CE34A5 on SW_Resource (uuid_[$COLUMN_LENGTH:75$], groupId);
 
-create index IX_9EF44E77 on SW_ResourceType (businessId, name[$COLUMN_LENGTH:100$]);
-create index IX_BFA747D1 on SW_ResourceType (businessId, parentId);
-create index IX_A33A4F5E on SW_ResourceType (companyId, externalReferenceCode[$COLUMN_LENGTH:75$]);
-create index IX_192C73D on SW_ResourceType (uuid_[$COLUMN_LENGTH:75$], companyId);
-create unique index IX_2EADF8FF on SW_ResourceType (uuid_[$COLUMN_LENGTH:75$], groupId);
-
 create index IX_D895F43A on SW_Team (businessId, name[$COLUMN_LENGTH:100$], phaseId);
 create index IX_37EA5A58 on SW_Team (businessId, name[$COLUMN_LENGTH:100$], projectId);
 create index IX_11904F59 on SW_Team (businessId, phaseId);

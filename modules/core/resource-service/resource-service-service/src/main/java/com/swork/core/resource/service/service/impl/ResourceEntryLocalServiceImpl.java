@@ -84,7 +84,6 @@ public class ResourceEntryLocalServiceImpl
     }
 
     private void setDataEntry(ResourceEntry entry, ResourceMapperModel model) {
-        entry.setResourceTypeId(model.getResourceTypeId());
         entry.setResourceTypeName(model.getResourceTypeName());
         entry.setTeamId(model.getTeamId());
         entry.setTeamName(model.getTeamName());

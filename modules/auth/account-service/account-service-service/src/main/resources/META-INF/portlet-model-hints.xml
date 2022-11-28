@@ -12,13 +12,13 @@
 		<field name="creatorId" type="long" />
 		<field name="username" type="String" />
 		<field name="password" type="String" />
-		<field name="fullName" type="String" >
+		<field name="fullName" type="String">
 			<hint name="max-length">100</hint>
 		</field>
 		<field name="phoneNumber" type="String" />
 		<field name="dateOfBirth" type="Date" />
 		<field name="email" type="String" />
-		<field name="address" type="String" >
+		<field name="address" type="String">
 			<hint name="max-length">100</hint>
 		</field>
 		<field name="departmentId" type="Long" />

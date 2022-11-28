@@ -13,7 +13,7 @@ create table SW_Business (
 	phoneNumber VARCHAR(75) null,
 	email VARCHAR(75) null,
 	businessAddress VARCHAR(75) null,
-	name VARCHAR(75) null,
+	name VARCHAR(100) null,
 	fieldOperations VARCHAR(75) null,
 	logoId LONG,
 	status VARCHAR(75) null

@@ -9,7 +9,7 @@ create table SW_Department (
 	modifiedId LONG,
 	modifiedDate DATE null,
 	businessId LONG,
-	name VARCHAR(75) null
+	name VARCHAR(100) null
 );
 
 create table SW_DepartmentAccount (

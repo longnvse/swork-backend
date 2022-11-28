@@ -60,8 +60,6 @@ public class ResourceEntryTable extends BaseTable<ResourceEntryTable> {
 		"phaseId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<ResourceEntryTable, Long> projectId = createColumn(
 		"projectId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
-	public final Column<ResourceEntryTable, Long> resourceTypeId = createColumn(
-		"resourceTypeId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<ResourceEntryTable, String> resourceTypeName =
 		createColumn(
 			"resourceTypeName", String.class, Types.VARCHAR,

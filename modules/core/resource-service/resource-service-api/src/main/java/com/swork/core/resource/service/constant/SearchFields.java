@@ -34,7 +34,8 @@ public class SearchFields {
     public static final String PHASE_ID_NUMBER = "phaseId_Number";
     public static final String PROJECT_ID = "projectId";
     public static final String PROJECT_ID_NUMBER = "projectId_Number";
-    public static final String RESOURCE_TYPE_ID = "resourceTypeId";
+    public static final String TYPE_RESOURCE = "typeResource";
+    public static final String TYPE_RESOURCE_STRING = "typeResource_String";
     public static final String TEAM_ID = "teamId";
     public static final String QUANTITY = "quantity";
 

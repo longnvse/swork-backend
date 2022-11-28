@@ -43,7 +43,6 @@ import com.swork.core.resource.service.model.TeamMemberEntry;
 import com.swork.core.resource.service.service.TeamMemberEntryLocalService;
 import com.swork.core.resource.service.service.TeamMemberEntryLocalServiceUtil;
 import com.swork.core.resource.service.service.persistence.ResourceEntryPersistence;
-import com.swork.core.resource.service.service.persistence.ResourceTypeEntryPersistence;
 import com.swork.core.resource.service.service.persistence.TeamEntryPersistence;
 import com.swork.core.resource.service.service.persistence.TeamMemberEntryPersistence;
 
@@ -545,9 +544,6 @@ public abstract class TeamMemberEntryLocalServiceBaseImpl
 
 	@Reference
 	protected ResourceEntryPersistence resourceEntryPersistence;
-
-	@Reference
-	protected ResourceTypeEntryPersistence resourceTypeEntryPersistence;
 
 	@Reference
 	protected TeamEntryPersistence teamEntryPersistence;

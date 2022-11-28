@@ -56,7 +56,6 @@ public class ResourceEntryWrapper
 		attributes.put("workId", getWorkId());
 		attributes.put("phaseId", getPhaseId());
 		attributes.put("projectId", getProjectId());
-		attributes.put("resourceTypeId", getResourceTypeId());
 		attributes.put("resourceTypeName", getResourceTypeName());
 		attributes.put("teamId", getTeamId());
 		attributes.put("teamName", getTeamName());
@@ -147,12 +146,6 @@ public class ResourceEntryWrapper
 
 		if (projectId != null) {
 			setProjectId(projectId);
-		}
-
-		Long resourceTypeId = (Long)attributes.get("resourceTypeId");
-
-		if (resourceTypeId != null) {
-			setResourceTypeId(resourceTypeId);
 		}
 
 		String resourceTypeName = (String)attributes.get("resourceTypeName");
@@ -341,16 +334,6 @@ public class ResourceEntryWrapper
 	@Override
 	public long getResourceId() {
 		return model.getResourceId();
-	}
-
-	/**
-	 * Returns the resource type ID of this resource entry.
-	 *
-	 * @return the resource type ID of this resource entry
-	 */
-	@Override
-	public long getResourceTypeId() {
-		return model.getResourceTypeId();
 	}
 
 	/**
@@ -566,16 +549,6 @@ public class ResourceEntryWrapper
 	@Override
 	public void setResourceId(long resourceId) {
 		model.setResourceId(resourceId);
-	}
-
-	/**
-	 * Sets the resource type ID of this resource entry.
-	 *
-	 * @param resourceTypeId the resource type ID of this resource entry
-	 */
-	@Override
-	public void setResourceTypeId(long resourceTypeId) {
-		model.setResourceTypeId(resourceTypeId);
 	}
 
 	/**

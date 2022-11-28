@@ -32,8 +32,8 @@ public class ResourceEntityModel implements EntityModel {
                         SearchFields.WORK_ID,
                         locale -> Field.getSortableFieldName(SearchFields.WORK_ID)),
                 new StringEntityField(
-                        SearchFields.RESOURCE_TYPE_ID,
-                        locale -> Field.getSortableFieldName(SearchFields.RESOURCE_TYPE_ID)),
+                        SearchFields.TYPE_RESOURCE,
+                        locale -> Field.getSortableFieldName(SearchFields.TYPE_RESOURCE_STRING)),
                 new StringEntityField(
                         SearchFields.TEAM_ID,
                         locale -> Field.getSortableFieldName(SearchFields.TEAM_ID)),

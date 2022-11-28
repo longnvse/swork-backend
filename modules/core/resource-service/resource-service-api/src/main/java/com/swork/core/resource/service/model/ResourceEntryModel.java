@@ -251,20 +251,6 @@ public interface ResourceEntryModel
 	public void setProjectId(Long projectId);
 
 	/**
-	 * Returns the resource type ID of this resource entry.
-	 *
-	 * @return the resource type ID of this resource entry
-	 */
-	public long getResourceTypeId();
-
-	/**
-	 * Sets the resource type ID of this resource entry.
-	 *
-	 * @param resourceTypeId the resource type ID of this resource entry
-	 */
-	public void setResourceTypeId(long resourceTypeId);
-
-	/**
 	 * Returns the resource type name of this resource entry.
 	 *
 	 * @return the resource type name of this resource entry
