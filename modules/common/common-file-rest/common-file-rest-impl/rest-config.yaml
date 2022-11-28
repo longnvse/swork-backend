@@ -4,6 +4,4 @@ application:
     baseURI: "/common-file-rest"
     className: "CommonFileRestApplication"
     name: "CommonFileRest"
-author: "ninhvv"
-clientDir: "../common-file-rest-client/src/main/java"
-testDir: "../common-file-rest-test/src/testIntegration/java"
+author: "longnv"

@@ -27,7 +27,7 @@ import javax.ws.rs.core.UriInfo;
 import org.osgi.service.component.ComponentServiceObjects;
 
 /**
- * @author ninhvv
+ * @author longnv
  * @generated
  */
 @Generated("")

@@ -27,7 +27,7 @@ import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * @author ninhvv
+ * @author longnv
  * @generated
  */
 @Generated("")

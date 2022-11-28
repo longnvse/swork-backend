@@ -18,7 +18,6 @@ import com.liferay.portal.vulcan.util.TransformUtil;
 
 import com.swork.common.file.rest.dto.v2_0.FileData;
 import com.swork.common.file.rest.dto.v2_0.FileRes;
-import com.swork.common.file.rest.dto.v2_0.FileUpdate;
 import com.swork.common.file.rest.resource.v2_0.FilesResource;
 
 import java.util.List;
@@ -32,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.UriInfo;
 
 /**
- * @author ninhvv
+ * @author longnv
  * @generated
  */
 @Generated("")
@@ -84,38 +83,6 @@ public abstract class BaseFilesResourceImpl implements FilesResource {
 		throws Exception {
 
 		return new FileData();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/common-file-rest/v2.0/files/{fileId}' -d $'{"url": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@io.swagger.v3.oas.annotations.Parameters(
-		value = {
-			@io.swagger.v3.oas.annotations.Parameter(
-				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
-				name = "fileId"
-			)
-		}
-	)
-	@io.swagger.v3.oas.annotations.tags.Tags(
-		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Files")}
-	)
-	@javax.ws.rs.Consumes({"application/json", "application/xml"})
-	@javax.ws.rs.Path("/files/{fileId}")
-	@javax.ws.rs.Produces({"application/json", "application/xml"})
-	@javax.ws.rs.PUT
-	@Override
-	public FileUpdate updateFile(
-			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
-			@javax.validation.constraints.NotNull
-			@javax.ws.rs.PathParam("fileId")
-			Long fileId,
-			FileUpdate fileUpdate)
-		throws Exception {
-
-		return new FileUpdate();
 	}
 
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {

@@ -12,7 +12,6 @@ import com.liferay.portal.vulcan.multipart.MultipartBody;
 
 import com.swork.common.file.rest.dto.v2_0.FileData;
 import com.swork.common.file.rest.dto.v2_0.FileRes;
-import com.swork.common.file.rest.dto.v2_0.FileUpdate;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +32,7 @@ import org.osgi.annotation.versioning.ProviderType;
  *
  *     curl -u your@email.com:yourpassword -D - http://localhost:8080/o/common-file-rest/v2.0
  *
- * @author ninhvv
+ * @author longnv
  * @generated
  */
 @Generated("")
@@ -47,9 +46,6 @@ public interface FilesResource {
 	public FileRes postFile(MultipartBody multipartBody) throws Exception;
 
 	public FileData getFileById(Long fileId) throws Exception;
-
-	public FileUpdate updateFile(Long fileId, FileUpdate fileUpdate)
-		throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

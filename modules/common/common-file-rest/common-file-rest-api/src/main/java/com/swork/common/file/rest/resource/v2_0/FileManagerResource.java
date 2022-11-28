@@ -32,7 +32,7 @@ import org.osgi.annotation.versioning.ProviderType;
  *
  *     curl -u your@email.com:yourpassword -D - http://localhost:8080/o/common-file-rest/v2.0
  *
- * @author ninhvv
+ * @author longnv
  * @generated
  */
 @Generated("")

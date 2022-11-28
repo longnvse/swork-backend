@@ -16,7 +16,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceScope;
 
 /**
- * @author ninhvv
+ * @author longnv
  * @generated
  */
 @Component(immediate = true, service = ServletData.class)

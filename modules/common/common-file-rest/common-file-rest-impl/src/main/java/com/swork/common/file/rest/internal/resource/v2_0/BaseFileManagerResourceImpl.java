@@ -46,7 +46,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 /**
- * @author ninhvv
+ * @author longnv
  * @generated
  */
 @Generated("")
