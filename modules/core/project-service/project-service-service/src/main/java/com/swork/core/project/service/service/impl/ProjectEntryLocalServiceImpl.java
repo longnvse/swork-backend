@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.Validator;
 import com.swork.core.project.service.constant.Type;
 import com.swork.core.project.service.mapper.model.ProjectMapperModel;
 import com.swork.core.project.service.model.ProjectEntry;
@@ -241,6 +242,17 @@ public class ProjectEntryLocalServiceImpl
         projectMemberEntryLocalService.deleteByProjectId(projectId);
 
         addMember(projectId, model);
+
+        return updateProjectEntry(entry);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public ProjectEntry updateProgress(long projectId, long progress) {
+        ProjectEntry entry = fetchProjectEntry(projectId);
+
+        if (Validator.isNotNull(entry)) {
+            entry.setProgress(progress);
+        }
 
         return updateProjectEntry(entry);
     }

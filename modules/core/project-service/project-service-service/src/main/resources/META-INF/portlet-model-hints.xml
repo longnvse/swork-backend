@@ -22,7 +22,7 @@
 			<hint name="max-length">500</hint>
 		</field>
 		<field name="status" type="String" />
-		<field name="progress" type="Integer" />
+		<field name="progress" type="Long" />
 		<field name="actualStartDate" type="Date" />
 		<field name="actualEndDate" type="Date" />
 		<field name="progressType" type="String" />

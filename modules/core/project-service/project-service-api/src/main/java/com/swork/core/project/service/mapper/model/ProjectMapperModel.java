@@ -11,7 +11,7 @@ public class ProjectMapperModel {
     private Long budget;
     private String description;
     private String status;
-    private Integer progress;
+    private Long progress;
     private Date actualStartDate;
     private Date actualEndDate;
     private String progressType;
@@ -83,11 +83,11 @@ public class ProjectMapperModel {
         this.status = status;
     }
 
-    public Integer getProgress() {
+    public Long getProgress() {
         return progress;
     }
 
-    public void setProgress(Integer progress) {
+    public void setProgress(Long progress) {
         this.progress = progress;
     }
 

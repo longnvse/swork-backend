@@ -451,6 +451,10 @@ public class ProjectEntryLocalServiceUtil {
 			creatorId, projectId, model, serviceContext);
 	}
 
+	public static ProjectEntry updateProgress(long projectId, long progress) {
+		return getService().updateProgress(projectId, progress);
+	}
+
 	public static ProjectEntry updateProject(
 		long creatorId, long projectId,
 		com.swork.core.project.service.mapper.model.ProjectMapperModel model,

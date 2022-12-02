@@ -1,5 +1,6 @@
 package com.swork.core.work.service.internal.impl;
 
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.swork.core.work.service.internal.service.WorkService;
 import com.swork.core.work.service.model.WorkEntry;
 import com.swork.core.work.service.service.WorkEntryLocalService;
@@ -7,23 +8,33 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
+import java.util.List;
+
 @Component(
         scope = ServiceScope.PROTOTYPE, service = WorkService.class
 )
 public class WorkServiceImpl implements WorkService {
-    private static final String MANUAL = "manual";
-    private static final String BY_AMOUNT = "byAmount";
+    private static final String BY_PROPORTION = "byProportion";
 
     @Override
     public void updateProgress(long workId) {
         WorkEntry workEntry = localService.fetchWorkEntry(workId);
 
-        switch (workEntry.getProgressType()) {
-            case MANUAL:
-                return;
-            case BY_AMOUNT:
+        if (workEntry.getProgressType().equalsIgnoreCase(BY_PROPORTION)) {
+            List<WorkEntry> workEntries = localService.findByParentId(workEntry.getBusinessId(), workId);
 
+            long progress = workEntries
+                    .stream()
+                    .reduce(
+                            GetterUtil.DEFAULT_LONG,
+                            (prevProgress, workChildren) -> prevProgress + workChildren.getProgress() * workChildren.getProportion(),
+                            Long::sum);
+
+            localService.updateProgress(workId, progress);
+            return;
         }
+
+        //update progress phase, project here
 
     }
 

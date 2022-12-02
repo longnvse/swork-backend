@@ -15,7 +15,7 @@ create table SW_Project (
 	budget LONG,
 	description VARCHAR(500) null,
 	status VARCHAR(75) null,
-	progress INTEGER,
+	progress LONG,
 	actualStartDate DATE null,
 	actualEndDate DATE null,
 	progressType VARCHAR(75) null,

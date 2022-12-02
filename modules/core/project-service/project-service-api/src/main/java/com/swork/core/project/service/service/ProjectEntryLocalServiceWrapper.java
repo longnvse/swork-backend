@@ -516,6 +516,13 @@ public class ProjectEntryLocalServiceWrapper
 	}
 
 	@Override
+	public com.swork.core.project.service.model.ProjectEntry updateProgress(
+		long projectId, long progress) {
+
+		return _projectEntryLocalService.updateProgress(projectId, progress);
+	}
+
+	@Override
 	public com.swork.core.project.service.model.ProjectEntry updateProject(
 		long creatorId, long projectId,
 		com.swork.core.project.service.mapper.model.ProjectMapperModel model,

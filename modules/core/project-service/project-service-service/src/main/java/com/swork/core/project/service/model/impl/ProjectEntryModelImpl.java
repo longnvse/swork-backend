@@ -78,7 +78,7 @@ public class ProjectEntryModelImpl
 		{"code_", Types.VARCHAR}, {"startDate", Types.TIMESTAMP},
 		{"endDate", Types.TIMESTAMP}, {"budget", Types.BIGINT},
 		{"description", Types.VARCHAR}, {"status", Types.VARCHAR},
-		{"progress", Types.INTEGER}, {"actualStartDate", Types.TIMESTAMP},
+		{"progress", Types.BIGINT}, {"actualStartDate", Types.TIMESTAMP},
 		{"actualEndDate", Types.TIMESTAMP}, {"progressType", Types.VARCHAR},
 		{"businessId", Types.BIGINT}
 	};
@@ -103,7 +103,7 @@ public class ProjectEntryModelImpl
 		TABLE_COLUMNS_MAP.put("budget", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("status", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("progress", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("progress", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("actualStartDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("actualEndDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("progressType", Types.VARCHAR);
@@ -111,7 +111,7 @@ public class ProjectEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_Project (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,projectId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedDate DATE null,modifiedId LONG,name VARCHAR(100) null,code_ VARCHAR(75) null,startDate DATE null,endDate DATE null,budget LONG,description VARCHAR(500) null,status VARCHAR(75) null,progress INTEGER,actualStartDate DATE null,actualEndDate DATE null,progressType VARCHAR(75) null,businessId LONG)";
+		"create table SW_Project (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,projectId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedDate DATE null,modifiedId LONG,name VARCHAR(100) null,code_ VARCHAR(75) null,startDate DATE null,endDate DATE null,budget LONG,description VARCHAR(500) null,status VARCHAR(75) null,progress LONG,actualStartDate DATE null,actualEndDate DATE null,progressType VARCHAR(75) null,businessId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_Project";
 
@@ -381,7 +381,7 @@ public class ProjectEntryModelImpl
 		attributeGetterFunctions.put("progress", ProjectEntry::getProgress);
 		attributeSetterBiConsumers.put(
 			"progress",
-			(BiConsumer<ProjectEntry, Integer>)ProjectEntry::setProgress);
+			(BiConsumer<ProjectEntry, Long>)ProjectEntry::setProgress);
 		attributeGetterFunctions.put(
 			"actualStartDate", ProjectEntry::getActualStartDate);
 		attributeSetterBiConsumers.put(
@@ -724,12 +724,12 @@ public class ProjectEntryModelImpl
 	}
 
 	@Override
-	public Integer getProgress() {
+	public Long getProgress() {
 		return _progress;
 	}
 
 	@Override
-	public void setProgress(Integer progress) {
+	public void setProgress(Long progress) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
@@ -930,7 +930,7 @@ public class ProjectEntryModelImpl
 		projectEntryImpl.setStatus(
 			this.<String>getColumnOriginalValue("status"));
 		projectEntryImpl.setProgress(
-			this.<Integer>getColumnOriginalValue("progress"));
+			this.<Long>getColumnOriginalValue("progress"));
 		projectEntryImpl.setActualStartDate(
 			this.<Date>getColumnOriginalValue("actualStartDate"));
 		projectEntryImpl.setActualEndDate(
@@ -1117,7 +1117,7 @@ public class ProjectEntryModelImpl
 			projectEntryCacheModel.status = null;
 		}
 
-		Integer progress = getProgress();
+		Long progress = getProgress();
 
 		if (progress != null) {
 			projectEntryCacheModel.progress = progress;
@@ -1258,7 +1258,7 @@ public class ProjectEntryModelImpl
 	private long _budget;
 	private String _description;
 	private String _status;
-	private Integer _progress;
+	private Long _progress;
 	private Date _actualStartDate;
 	private Date _actualEndDate;
 	private String _progressType;
