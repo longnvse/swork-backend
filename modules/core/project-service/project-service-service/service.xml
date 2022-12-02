@@ -40,7 +40,7 @@
         <column name="budget" type="long"/>
         <column name="description" type="String"/>
         <column name="status" type="String"/>
-        <column name="progress" type="Integer"/>
+        <column name="progress" type="Long"/>
         <column name="actualStartDate" type="Date"/>
         <column name="actualEndDate" type="Date"/>
         <column name="progressType" type="String"/>

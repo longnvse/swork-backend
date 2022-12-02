@@ -29,6 +29,7 @@ components:
           readOnly: true
         progress:
           type: integer
+          format: int64
           readOnly: true
         manages:
           type: array

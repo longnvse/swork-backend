@@ -241,8 +241,12 @@ public interface WorkEntryLocalService
 
 	public List<WorkEntry> findByParentId(long businessId, long parentId);
 
+	public List<WorkEntry> findByPhaseId(long phaseId);
+
 	public WorkEntry findByPID_Name(
 		long businessId, long parentId, String name);
+
+	public List<WorkEntry> findByProjectId(long projectId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -351,6 +355,9 @@ public interface WorkEntryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public WorkEntry getWorkEntryByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public WorkEntry updateProgress(long workId, long progress);
 
 	@Indexable(type = IndexableType.REINDEX)
 	public WorkEntry updateWorkEntry(

@@ -301,14 +301,14 @@ public interface ProjectEntryModel
 	 *
 	 * @return the progress of this project entry
 	 */
-	public Integer getProgress();
+	public Long getProgress();
 
 	/**
 	 * Sets the progress of this project entry.
 	 *
 	 * @param progress the progress of this project entry
 	 */
-	public void setProgress(Integer progress);
+	public void setProgress(Long progress);
 
 	/**
 	 * Returns the actual start date of this project entry.

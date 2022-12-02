@@ -9,6 +9,7 @@ Export-Package: \
     	com.swork.core.project.service.mapper.model,\
     	com.swork.core.project.service.constant,\
     	com.swork.core.project.service.retriever,\
-    	com.swork.core.project.service.mapper
+    	com.swork.core.project.service.mapper,\
+    	com.swork.core.project.service.internal.service
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../project-service-service/service.xml

@@ -266,10 +266,18 @@ public class WorkEntryLocalServiceUtil {
 		return getService().findByParentId(businessId, parentId);
 	}
 
+	public static List<WorkEntry> findByPhaseId(long phaseId) {
+		return getService().findByPhaseId(phaseId);
+	}
+
 	public static WorkEntry findByPID_Name(
 		long businessId, long parentId, String name) {
 
 		return getService().findByPID_Name(businessId, parentId, name);
+	}
+
+	public static List<WorkEntry> findByProjectId(long projectId) {
+		return getService().findByProjectId(projectId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
@@ -406,6 +414,10 @@ public class WorkEntryLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getWorkEntryByUuidAndGroupId(uuid, groupId);
+	}
+
+	public static WorkEntry updateProgress(long workId, long progress) {
+		return getService().updateProgress(workId, progress);
 	}
 
 	public static WorkEntry updateWorkEntry(

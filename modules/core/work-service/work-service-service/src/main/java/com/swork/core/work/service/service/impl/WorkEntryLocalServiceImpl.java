@@ -19,6 +19,7 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.Validator;
 import com.swork.core.project.service.constant.Type;
 import com.swork.core.work.service.mapper.model.WorkMapperModel;
 import com.swork.core.work.service.model.WorkEntry;
@@ -124,6 +125,14 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
                 name.trim().replaceAll("\\s+", StringPool.BLANK));
     }
 
+    public List<WorkEntry> findByProjectId(long projectId) {
+        return workEntryPersistence.findByProjectId(projectId);
+    }
+
+    public List<WorkEntry> findByPhaseId(long phaseId) {
+        return workEntryPersistence.findByPhaseId(phaseId);
+    }
+
     public WorkEntry findByPID_Name(long businessId,
                                     long parentId,
                                     String name) {
@@ -135,6 +144,17 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
     public List<WorkEntry> findByParentId(long businessId, long parentId) {
         return workEntryPersistence.findByParentId(businessId, parentId);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public WorkEntry updateProgress(long workId, long progress) {
+        WorkEntry workEntry = fetchWorkEntry(workId);
+
+        if (Validator.isNotNull(workEntry)) {
+            workEntry.setProgress(progress);
+        }
+
+        return updateWorkEntry(workEntry);
     }
 
     private void createModifierAudit(long businessId,

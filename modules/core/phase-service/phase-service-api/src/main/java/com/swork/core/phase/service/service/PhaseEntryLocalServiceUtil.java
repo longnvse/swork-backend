@@ -430,6 +430,10 @@ public class PhaseEntryLocalServiceUtil {
 		return getService().updatePhaseEntry(phaseEntry);
 	}
 
+	public static PhaseEntry updateProgress(long phaseId, long progress) {
+		return getService().updateProgress(phaseId, progress);
+	}
+
 	public static PhaseEntryLocalService getService() {
 		return _service;
 	}

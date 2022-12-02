@@ -298,11 +298,25 @@ public class WorkEntryLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.swork.core.work.service.model.WorkEntry>
+		findByPhaseId(long phaseId) {
+
+		return _workEntryLocalService.findByPhaseId(phaseId);
+	}
+
+	@Override
 	public com.swork.core.work.service.model.WorkEntry findByPID_Name(
 		long businessId, long parentId, String name) {
 
 		return _workEntryLocalService.findByPID_Name(
 			businessId, parentId, name);
+	}
+
+	@Override
+	public java.util.List<com.swork.core.work.service.model.WorkEntry>
+		findByProjectId(long projectId) {
+
+		return _workEntryLocalService.findByProjectId(projectId);
 	}
 
 	@Override
@@ -462,6 +476,13 @@ public class WorkEntryLocalServiceWrapper
 
 		return _workEntryLocalService.getWorkEntryByUuidAndGroupId(
 			uuid, groupId);
+	}
+
+	@Override
+	public com.swork.core.work.service.model.WorkEntry updateProgress(
+		long workId, long progress) {
+
+		return _workEntryLocalService.updateProgress(workId, progress);
 	}
 
 	@Override
