@@ -68,8 +68,10 @@ public class WorkEntryWrapper
 		attributes.put("percentage", getPercentage());
 		attributes.put("progressType", getProgressType());
 		attributes.put("unit", getUnit());
-		attributes.put("incompleteTask", getIncompleteTask());
-		attributes.put("complete", getComplete());
+		attributes.put("incompleteAmount", getIncompleteAmount());
+		attributes.put("completeAmount", getCompleteAmount());
+		attributes.put("proportion", getProportion());
+		attributes.put("equalProportions", getEqualProportions());
 
 		return attributes;
 	}
@@ -228,16 +230,28 @@ public class WorkEntryWrapper
 			setUnit(unit);
 		}
 
-		Double incompleteTask = (Double)attributes.get("incompleteTask");
+		Double incompleteAmount = (Double)attributes.get("incompleteAmount");
 
-		if (incompleteTask != null) {
-			setIncompleteTask(incompleteTask);
+		if (incompleteAmount != null) {
+			setIncompleteAmount(incompleteAmount);
 		}
 
-		Double complete = (Double)attributes.get("complete");
+		Double completeAmount = (Double)attributes.get("completeAmount");
 
-		if (complete != null) {
-			setComplete(complete);
+		if (completeAmount != null) {
+			setCompleteAmount(completeAmount);
+		}
+
+		Long proportion = (Long)attributes.get("proportion");
+
+		if (proportion != null) {
+			setProportion(proportion);
+		}
+
+		Boolean equalProportions = (Boolean)attributes.get("equalProportions");
+
+		if (equalProportions != null) {
+			setEqualProportions(equalProportions);
 		}
 	}
 
@@ -297,13 +311,13 @@ public class WorkEntryWrapper
 	}
 
 	/**
-	 * Returns the complete of this work entry.
+	 * Returns the complete amount of this work entry.
 	 *
-	 * @return the complete of this work entry
+	 * @return the complete amount of this work entry
 	 */
 	@Override
-	public double getComplete() {
-		return model.getComplete();
+	public double getCompleteAmount() {
+		return model.getCompleteAmount();
 	}
 
 	/**
@@ -337,6 +351,16 @@ public class WorkEntryWrapper
 	}
 
 	/**
+	 * Returns the equal proportions of this work entry.
+	 *
+	 * @return the equal proportions of this work entry
+	 */
+	@Override
+	public Boolean getEqualProportions() {
+		return model.getEqualProportions();
+	}
+
+	/**
 	 * Returns the external reference code of this work entry.
 	 *
 	 * @return the external reference code of this work entry
@@ -357,13 +381,13 @@ public class WorkEntryWrapper
 	}
 
 	/**
-	 * Returns the incomplete task of this work entry.
+	 * Returns the incomplete amount of this work entry.
 	 *
-	 * @return the incomplete task of this work entry
+	 * @return the incomplete amount of this work entry
 	 */
 	@Override
-	public double getIncompleteTask() {
-		return model.getIncompleteTask();
+	public double getIncompleteAmount() {
+		return model.getIncompleteAmount();
 	}
 
 	/**
@@ -477,6 +501,16 @@ public class WorkEntryWrapper
 	}
 
 	/**
+	 * Returns the proportion of this work entry.
+	 *
+	 * @return the proportion of this work entry
+	 */
+	@Override
+	public long getProportion() {
+		return model.getProportion();
+	}
+
+	/**
 	 * Returns the start date of this work entry.
 	 *
 	 * @return the start date of this work entry
@@ -582,13 +616,13 @@ public class WorkEntryWrapper
 	}
 
 	/**
-	 * Sets the complete of this work entry.
+	 * Sets the complete amount of this work entry.
 	 *
-	 * @param complete the complete of this work entry
+	 * @param completeAmount the complete amount of this work entry
 	 */
 	@Override
-	public void setComplete(double complete) {
-		model.setComplete(complete);
+	public void setCompleteAmount(double completeAmount) {
+		model.setCompleteAmount(completeAmount);
 	}
 
 	/**
@@ -622,6 +656,16 @@ public class WorkEntryWrapper
 	}
 
 	/**
+	 * Sets the equal proportions of this work entry.
+	 *
+	 * @param equalProportions the equal proportions of this work entry
+	 */
+	@Override
+	public void setEqualProportions(Boolean equalProportions) {
+		model.setEqualProportions(equalProportions);
+	}
+
+	/**
 	 * Sets the external reference code of this work entry.
 	 *
 	 * @param externalReferenceCode the external reference code of this work entry
@@ -642,13 +686,13 @@ public class WorkEntryWrapper
 	}
 
 	/**
-	 * Sets the incomplete task of this work entry.
+	 * Sets the incomplete amount of this work entry.
 	 *
-	 * @param incompleteTask the incomplete task of this work entry
+	 * @param incompleteAmount the incomplete amount of this work entry
 	 */
 	@Override
-	public void setIncompleteTask(double incompleteTask) {
-		model.setIncompleteTask(incompleteTask);
+	public void setIncompleteAmount(double incompleteAmount) {
+		model.setIncompleteAmount(incompleteAmount);
 	}
 
 	/**
@@ -759,6 +803,16 @@ public class WorkEntryWrapper
 	@Override
 	public void setProjectId(Long projectId) {
 		model.setProjectId(projectId);
+	}
+
+	/**
+	 * Sets the proportion of this work entry.
+	 *
+	 * @param proportion the proportion of this work entry
+	 */
+	@Override
+	public void setProportion(long proportion) {
+		model.setProportion(proportion);
 	}
 
 	/**

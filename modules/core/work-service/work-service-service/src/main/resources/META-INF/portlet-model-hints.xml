@@ -29,8 +29,10 @@
 		<field name="percentage" type="double" />
 		<field name="progressType" type="String" />
 		<field name="unit" type="String" />
-		<field name="incompleteTask" type="double" />
-		<field name="complete" type="double" />
+		<field name="incompleteAmount" type="double" />
+		<field name="completeAmount" type="double" />
+		<field name="proportion" type="long" />
+		<field name="equalProportions" type="Boolean" />
 	</model>
 	<model name="com.swork.core.work.service.model.WorkMemberEntry">
 		<field name="workMemberId" type="long" />

@@ -425,32 +425,60 @@ public interface WorkEntryModel
 	public void setUnit(String unit);
 
 	/**
-	 * Returns the incomplete task of this work entry.
+	 * Returns the incomplete amount of this work entry.
 	 *
-	 * @return the incomplete task of this work entry
+	 * @return the incomplete amount of this work entry
 	 */
-	public double getIncompleteTask();
+	public double getIncompleteAmount();
 
 	/**
-	 * Sets the incomplete task of this work entry.
+	 * Sets the incomplete amount of this work entry.
 	 *
-	 * @param incompleteTask the incomplete task of this work entry
+	 * @param incompleteAmount the incomplete amount of this work entry
 	 */
-	public void setIncompleteTask(double incompleteTask);
+	public void setIncompleteAmount(double incompleteAmount);
 
 	/**
-	 * Returns the complete of this work entry.
+	 * Returns the complete amount of this work entry.
 	 *
-	 * @return the complete of this work entry
+	 * @return the complete amount of this work entry
 	 */
-	public double getComplete();
+	public double getCompleteAmount();
 
 	/**
-	 * Sets the complete of this work entry.
+	 * Sets the complete amount of this work entry.
 	 *
-	 * @param complete the complete of this work entry
+	 * @param completeAmount the complete amount of this work entry
 	 */
-	public void setComplete(double complete);
+	public void setCompleteAmount(double completeAmount);
+
+	/**
+	 * Returns the proportion of this work entry.
+	 *
+	 * @return the proportion of this work entry
+	 */
+	public long getProportion();
+
+	/**
+	 * Sets the proportion of this work entry.
+	 *
+	 * @param proportion the proportion of this work entry
+	 */
+	public void setProportion(long proportion);
+
+	/**
+	 * Returns the equal proportions of this work entry.
+	 *
+	 * @return the equal proportions of this work entry
+	 */
+	public Boolean getEqualProportions();
+
+	/**
+	 * Sets the equal proportions of this work entry.
+	 *
+	 * @param equalProportions the equal proportions of this work entry
+	 */
+	public void setEqualProportions(Boolean equalProportions);
 
 	@Override
 	public WorkEntry cloneWithOriginalValues();
