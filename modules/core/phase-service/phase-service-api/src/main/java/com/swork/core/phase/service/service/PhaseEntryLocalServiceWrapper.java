@@ -487,6 +487,13 @@ public class PhaseEntryLocalServiceWrapper
 	}
 
 	@Override
+	public com.swork.core.phase.service.model.PhaseEntry updateProgress(
+		long phaseId, long progress) {
+
+		return _phaseEntryLocalService.updateProgress(phaseId, progress);
+	}
+
+	@Override
 	public PhaseEntryLocalService getWrappedService() {
 		return _phaseEntryLocalService;
 	}

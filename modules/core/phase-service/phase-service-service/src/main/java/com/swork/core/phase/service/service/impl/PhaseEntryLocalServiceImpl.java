@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.Validator;
 import com.swork.core.phase.service.mapper.model.PhaseMapperModel;
 import com.swork.core.phase.service.model.PhaseEntry;
 import com.swork.core.phase.service.service.PhaseManageEntryLocalService;
@@ -99,6 +100,17 @@ public class PhaseEntryLocalServiceImpl extends PhaseEntryLocalServiceBaseImpl {
 
         Arrays.stream(model.getManages())
                 .forEach(accountId -> phaseManageEntryLocalService.addPhaseManage(entry.getPhaseId(), accountId));
+
+        return updatePhaseEntry(entry);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public PhaseEntry updateProgress(long phaseId, long progress) {
+        PhaseEntry entry = fetchPhaseEntry(phaseId);
+
+        if (Validator.isNotNull(entry)) {
+            entry.setProgress(progress);
+        }
 
         return updatePhaseEntry(entry);
     }

@@ -1,6 +1,9 @@
 package com.swork.core.work.service.internal.impl;
 
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.Validator;
+import com.swork.core.phase.service.internal.service.PhaseService;
+import com.swork.core.project.service.internal.service.ProjectService;
 import com.swork.core.work.service.internal.service.WorkService;
 import com.swork.core.work.service.model.WorkEntry;
 import com.swork.core.work.service.service.WorkEntryLocalService;
@@ -20,6 +23,10 @@ public class WorkServiceImpl implements WorkService {
     public void updateProgress(long workId) {
         WorkEntry workEntry = localService.fetchWorkEntry(workId);
 
+        if (Validator.isNull(workEntry)) {
+            return;
+        }
+
         if (workEntry.getProgressType().equalsIgnoreCase(BY_PROPORTION)) {
             List<WorkEntry> workEntries = localService.findByParentId(workEntry.getBusinessId(), workId);
 
@@ -35,9 +42,23 @@ public class WorkServiceImpl implements WorkService {
         }
 
         //update progress phase, project here
+        long projectId = GetterUtil.getLong(workEntry.getProjectId());
 
+        if (projectId != 0) {
+            projectService.updateProgress(projectId);
+        }
+
+        long phaseId = GetterUtil.getLong(workEntry.getPhaseId());
+
+        if (phaseId != 0) {
+            phaseService.updateProgress(phaseId);
+        }
     }
 
     @Reference
     private WorkEntryLocalService localService;
+    @Reference
+    private ProjectService projectService;
+    @Reference
+    private PhaseService phaseService;
 }

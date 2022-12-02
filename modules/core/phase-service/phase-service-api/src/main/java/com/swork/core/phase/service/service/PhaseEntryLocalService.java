@@ -379,4 +379,7 @@ public interface PhaseEntryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public PhaseEntry updatePhaseEntry(PhaseEntry phaseEntry);
 
+	@Indexable(type = IndexableType.REINDEX)
+	public PhaseEntry updateProgress(long phaseId, long progress);
+
 }
