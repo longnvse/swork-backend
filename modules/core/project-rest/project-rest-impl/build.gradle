@@ -1,6 +1,7 @@
 dependencies {
     compile project(":modules:core:project-rest:project-rest-api")
     compile project(":modules:core:project-service:project-service-api")
+    compile project(":modules:core:resource-service:resource-service-api")
     compile project(":modules:common:common-exception-helper")
     compile project(":modules:common:common-token-helper")
     compile project(":modules:common:common-util")

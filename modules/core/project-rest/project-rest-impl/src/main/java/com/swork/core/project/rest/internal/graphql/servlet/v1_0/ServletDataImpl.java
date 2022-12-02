@@ -4,6 +4,7 @@ import com.liferay.portal.vulcan.graphql.servlet.ServletData;
 
 import com.swork.core.project.rest.internal.graphql.mutation.v1_0.Mutation;
 import com.swork.core.project.rest.internal.graphql.query.v1_0.Query;
+import com.swork.core.project.rest.resource.v1_0.ChartResource;
 import com.swork.core.project.rest.resource.v1_0.ProjectResource;
 
 import javax.annotation.Generated;
@@ -28,6 +29,8 @@ public class ServletDataImpl implements ServletData {
 		Mutation.setProjectResourceComponentServiceObjects(
 			_projectResourceComponentServiceObjects);
 
+		Query.setChartResourceComponentServiceObjects(
+			_chartResourceComponentServiceObjects);
 		Query.setProjectResourceComponentServiceObjects(
 			_projectResourceComponentServiceObjects);
 	}
@@ -50,5 +53,9 @@ public class ServletDataImpl implements ServletData {
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<ProjectResource>
 		_projectResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<ChartResource>
+		_chartResourceComponentServiceObjects;
 
 }
