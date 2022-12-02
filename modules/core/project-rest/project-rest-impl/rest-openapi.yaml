@@ -98,6 +98,68 @@ components:
         memberType:
           enum: [ account, department ]
           readOnly: true
+
+    ValueChart:
+      description: Present chart
+      type: object
+      properties:
+        value:
+          type: integer
+          format: int64
+        valueDouble:
+          type: number
+          format: double
+        name:
+          type: integer
+          format: int64
+        nameString:
+          type: string
+
+    ValueArrayString:
+      description: Present chart
+      type: object
+      properties:
+        valueArrays:
+          type: array
+          items:
+            type: integer
+            format: int64
+
+    Chart:
+      description: Present Employee chart of object
+      type: object
+      properties:
+        obj:
+          type: string
+        unit:
+          type: string
+        sum:
+          type: integer
+          format: int64
+        sumDouble:
+          type: number
+          format: double
+        date:
+          type: string
+          format: date-time
+        valueCharts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValueChart'
+        valueArrays:
+          type: array
+          items:
+            type: integer
+            format: int64
+        valueArrayDoubles:
+          type: array
+          items:
+            type: number
+            format: double
+        valueArrayStrings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValueArrayString'
 info:
   description: "ProjectRest REST API"
   license:
@@ -385,3 +447,112 @@ paths:
           content:
             application/json: { }
             application/xml: { }
+  "/charts/dashboard-status-work":
+    get:
+      operationId: getDashboardStatusWork
+      summary: Get chart
+      description: chart
+      tags: [ "Chart" ]
+      parameters:
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: chart
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Chart"
+                type: array
+            application/xml:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Chart"
+                type: array
+
+  "/charts/dashboard-project-team-inout":
+    get:
+      operationId: getDashboardTeamInout
+      summary: Get chart
+      description: chart
+      tags: [ "Chart" ]
+      parameters:
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: chart
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Chart"
+                type: array
+            application/xml:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Chart"
+                type: array
+
+  "/charts/dashboard-project-burn-down-work":
+    get:
+      operationId: getDashboardBurnDownWork
+      summary: Get chart
+      description: chart
+      tags: [ "Chart" ]
+      parameters:
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: chart
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Chart"
+                type: array
+            application/xml:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Chart"
+                type: array
+
+  "/charts/dashboard-resource-project":
+    get:
+      operationId: getDashboardResourceProject
+      summary: Get chart
+      description: chart
+      tags: [ "Chart" ]
+      parameters:
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+            format: int64
+          required: true
+
+      responses:
+        200:
+          description: chart
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Chart"
+                type: array
+            application/xml:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Chart"
+                type: array

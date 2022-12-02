@@ -83,7 +83,8 @@ public class WorkEntryModelImpl
 		{"actualEndDate", Types.TIMESTAMP}, {"description", Types.VARCHAR},
 		{"status", Types.VARCHAR}, {"percentage", Types.DOUBLE},
 		{"progressType", Types.VARCHAR}, {"unit", Types.VARCHAR},
-		{"incompleteTask", Types.DOUBLE}, {"complete", Types.DOUBLE}
+		{"incompleteAmount", Types.DOUBLE}, {"completeAmount", Types.DOUBLE},
+		{"proportion", Types.BIGINT}, {"equalProportions", Types.BOOLEAN}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -115,12 +116,14 @@ public class WorkEntryModelImpl
 		TABLE_COLUMNS_MAP.put("percentage", Types.DOUBLE);
 		TABLE_COLUMNS_MAP.put("progressType", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("unit", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("incompleteTask", Types.DOUBLE);
-		TABLE_COLUMNS_MAP.put("complete", Types.DOUBLE);
+		TABLE_COLUMNS_MAP.put("incompleteAmount", Types.DOUBLE);
+		TABLE_COLUMNS_MAP.put("completeAmount", Types.DOUBLE);
+		TABLE_COLUMNS_MAP.put("proportion", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("equalProportions", Types.BOOLEAN);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_Work (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,workId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedDate DATE null,modifiedId LONG,businessId LONG,projectId LONG,phaseId LONG,parentId LONG,parentReferenceCode VARCHAR(75) null,progress LONG,name VARCHAR(100) null,startDate DATE null,endDate DATE null,actualStartDate DATE null,actualEndDate DATE null,description VARCHAR(75) null,status VARCHAR(75) null,percentage DOUBLE,progressType VARCHAR(75) null,unit VARCHAR(75) null,incompleteTask DOUBLE,complete DOUBLE)";
+		"create table SW_Work (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,workId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedDate DATE null,modifiedId LONG,businessId LONG,projectId LONG,phaseId LONG,parentId LONG,parentReferenceCode VARCHAR(75) null,progress LONG,name VARCHAR(100) null,startDate DATE null,endDate DATE null,actualStartDate DATE null,actualEndDate DATE null,description VARCHAR(75) null,status VARCHAR(75) null,percentage DOUBLE,progressType VARCHAR(75) null,unit VARCHAR(75) null,incompleteAmount DOUBLE,completeAmount DOUBLE,proportion LONG,equalProportions BOOLEAN)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_Work";
 
@@ -431,13 +434,24 @@ public class WorkEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"unit", (BiConsumer<WorkEntry, String>)WorkEntry::setUnit);
 		attributeGetterFunctions.put(
-			"incompleteTask", WorkEntry::getIncompleteTask);
+			"incompleteAmount", WorkEntry::getIncompleteAmount);
 		attributeSetterBiConsumers.put(
-			"incompleteTask",
-			(BiConsumer<WorkEntry, Double>)WorkEntry::setIncompleteTask);
-		attributeGetterFunctions.put("complete", WorkEntry::getComplete);
+			"incompleteAmount",
+			(BiConsumer<WorkEntry, Double>)WorkEntry::setIncompleteAmount);
+		attributeGetterFunctions.put(
+			"completeAmount", WorkEntry::getCompleteAmount);
 		attributeSetterBiConsumers.put(
-			"complete", (BiConsumer<WorkEntry, Double>)WorkEntry::setComplete);
+			"completeAmount",
+			(BiConsumer<WorkEntry, Double>)WorkEntry::setCompleteAmount);
+		attributeGetterFunctions.put("proportion", WorkEntry::getProportion);
+		attributeSetterBiConsumers.put(
+			"proportion",
+			(BiConsumer<WorkEntry, Long>)WorkEntry::setProportion);
+		attributeGetterFunctions.put(
+			"equalProportions", WorkEntry::getEqualProportions);
+		attributeSetterBiConsumers.put(
+			"equalProportions",
+			(BiConsumer<WorkEntry, Boolean>)WorkEntry::setEqualProportions);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -936,31 +950,59 @@ public class WorkEntryModelImpl
 	}
 
 	@Override
-	public double getIncompleteTask() {
-		return _incompleteTask;
+	public double getIncompleteAmount() {
+		return _incompleteAmount;
 	}
 
 	@Override
-	public void setIncompleteTask(double incompleteTask) {
+	public void setIncompleteAmount(double incompleteAmount) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_incompleteTask = incompleteTask;
+		_incompleteAmount = incompleteAmount;
 	}
 
 	@Override
-	public double getComplete() {
-		return _complete;
+	public double getCompleteAmount() {
+		return _completeAmount;
 	}
 
 	@Override
-	public void setComplete(double complete) {
+	public void setCompleteAmount(double completeAmount) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_complete = complete;
+		_completeAmount = completeAmount;
+	}
+
+	@Override
+	public long getProportion() {
+		return _proportion;
+	}
+
+	@Override
+	public void setProportion(long proportion) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_proportion = proportion;
+	}
+
+	@Override
+	public Boolean getEqualProportions() {
+		return _equalProportions;
+	}
+
+	@Override
+	public void setEqualProportions(Boolean equalProportions) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_equalProportions = equalProportions;
 	}
 
 	@Override
@@ -1050,8 +1092,10 @@ public class WorkEntryModelImpl
 		workEntryImpl.setPercentage(getPercentage());
 		workEntryImpl.setProgressType(getProgressType());
 		workEntryImpl.setUnit(getUnit());
-		workEntryImpl.setIncompleteTask(getIncompleteTask());
-		workEntryImpl.setComplete(getComplete());
+		workEntryImpl.setIncompleteAmount(getIncompleteAmount());
+		workEntryImpl.setCompleteAmount(getCompleteAmount());
+		workEntryImpl.setProportion(getProportion());
+		workEntryImpl.setEqualProportions(getEqualProportions());
 
 		workEntryImpl.resetOriginalValues();
 
@@ -1104,10 +1148,14 @@ public class WorkEntryModelImpl
 		workEntryImpl.setProgressType(
 			this.<String>getColumnOriginalValue("progressType"));
 		workEntryImpl.setUnit(this.<String>getColumnOriginalValue("unit"));
-		workEntryImpl.setIncompleteTask(
-			this.<Double>getColumnOriginalValue("incompleteTask"));
-		workEntryImpl.setComplete(
-			this.<Double>getColumnOriginalValue("complete"));
+		workEntryImpl.setIncompleteAmount(
+			this.<Double>getColumnOriginalValue("incompleteAmount"));
+		workEntryImpl.setCompleteAmount(
+			this.<Double>getColumnOriginalValue("completeAmount"));
+		workEntryImpl.setProportion(
+			this.<Long>getColumnOriginalValue("proportion"));
+		workEntryImpl.setEqualProportions(
+			this.<Boolean>getColumnOriginalValue("equalProportions"));
 
 		return workEntryImpl;
 	}
@@ -1342,9 +1390,17 @@ public class WorkEntryModelImpl
 			workEntryCacheModel.unit = null;
 		}
 
-		workEntryCacheModel.incompleteTask = getIncompleteTask();
+		workEntryCacheModel.incompleteAmount = getIncompleteAmount();
 
-		workEntryCacheModel.complete = getComplete();
+		workEntryCacheModel.completeAmount = getCompleteAmount();
+
+		workEntryCacheModel.proportion = getProportion();
+
+		Boolean equalProportions = getEqualProportions();
+
+		if (equalProportions != null) {
+			workEntryCacheModel.equalProportions = equalProportions;
+		}
 
 		return workEntryCacheModel;
 	}
@@ -1462,8 +1518,10 @@ public class WorkEntryModelImpl
 	private double _percentage;
 	private String _progressType;
 	private String _unit;
-	private double _incompleteTask;
-	private double _complete;
+	private double _incompleteAmount;
+	private double _completeAmount;
+	private long _proportion;
+	private Boolean _equalProportions;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1520,8 +1578,10 @@ public class WorkEntryModelImpl
 		_columnOriginalValues.put("percentage", _percentage);
 		_columnOriginalValues.put("progressType", _progressType);
 		_columnOriginalValues.put("unit", _unit);
-		_columnOriginalValues.put("incompleteTask", _incompleteTask);
-		_columnOriginalValues.put("complete", _complete);
+		_columnOriginalValues.put("incompleteAmount", _incompleteAmount);
+		_columnOriginalValues.put("completeAmount", _completeAmount);
+		_columnOriginalValues.put("proportion", _proportion);
+		_columnOriginalValues.put("equalProportions", _equalProportions);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1595,9 +1655,13 @@ public class WorkEntryModelImpl
 
 		columnBitmasks.put("unit", 16777216L);
 
-		columnBitmasks.put("incompleteTask", 33554432L);
+		columnBitmasks.put("incompleteAmount", 33554432L);
 
-		columnBitmasks.put("complete", 67108864L);
+		columnBitmasks.put("completeAmount", 67108864L);
+
+		columnBitmasks.put("proportion", 134217728L);
+
+		columnBitmasks.put("equalProportions", 268435456L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

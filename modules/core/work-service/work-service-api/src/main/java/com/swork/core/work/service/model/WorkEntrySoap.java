@@ -58,8 +58,10 @@ public class WorkEntrySoap implements Serializable {
 		soapModel.setPercentage(model.getPercentage());
 		soapModel.setProgressType(model.getProgressType());
 		soapModel.setUnit(model.getUnit());
-		soapModel.setIncompleteTask(model.getIncompleteTask());
-		soapModel.setComplete(model.getComplete());
+		soapModel.setIncompleteAmount(model.getIncompleteAmount());
+		soapModel.setCompleteAmount(model.getCompleteAmount());
+		soapModel.setProportion(model.getProportion());
+		soapModel.setEqualProportions(model.getEqualProportions());
 
 		return soapModel;
 	}
@@ -313,20 +315,36 @@ public class WorkEntrySoap implements Serializable {
 		_unit = unit;
 	}
 
-	public double getIncompleteTask() {
-		return _incompleteTask;
+	public double getIncompleteAmount() {
+		return _incompleteAmount;
 	}
 
-	public void setIncompleteTask(double incompleteTask) {
-		_incompleteTask = incompleteTask;
+	public void setIncompleteAmount(double incompleteAmount) {
+		_incompleteAmount = incompleteAmount;
 	}
 
-	public double getComplete() {
-		return _complete;
+	public double getCompleteAmount() {
+		return _completeAmount;
 	}
 
-	public void setComplete(double complete) {
-		_complete = complete;
+	public void setCompleteAmount(double completeAmount) {
+		_completeAmount = completeAmount;
+	}
+
+	public long getProportion() {
+		return _proportion;
+	}
+
+	public void setProportion(long proportion) {
+		_proportion = proportion;
+	}
+
+	public Boolean getEqualProportions() {
+		return _equalProportions;
+	}
+
+	public void setEqualProportions(Boolean equalProportions) {
+		_equalProportions = equalProportions;
 	}
 
 	private String _uuid;
@@ -354,7 +372,9 @@ public class WorkEntrySoap implements Serializable {
 	private double _percentage;
 	private String _progressType;
 	private String _unit;
-	private double _incompleteTask;
-	private double _complete;
+	private double _incompleteAmount;
+	private double _completeAmount;
+	private long _proportion;
+	private Boolean _equalProportions;
 
 }

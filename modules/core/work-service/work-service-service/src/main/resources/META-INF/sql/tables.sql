@@ -24,8 +24,10 @@ create table SW_Work (
 	percentage DOUBLE,
 	progressType VARCHAR(75) null,
 	unit VARCHAR(75) null,
-	incompleteTask DOUBLE,
-	complete DOUBLE
+	incompleteAmount DOUBLE,
+	completeAmount DOUBLE,
+	proportion LONG,
+	equalProportions BOOLEAN
 );
 
 create table SW_WorkMember (

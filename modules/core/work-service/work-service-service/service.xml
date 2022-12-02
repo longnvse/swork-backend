@@ -49,8 +49,10 @@
         <column name="percentage" type="double"/>
         <column name="progressType" type="String"/>
         <column name="unit" type="String"/>
-        <column name="incompleteTask" type="double"/>
-        <column name="complete" type="double"/>
+        <column name="incompleteAmount" type="double"/>
+        <column name="completeAmount" type="double"/>
+        <column name="proportion" type="long"/>
+        <column name="equalProportions" type="Boolean"/>
 
         <finder name="ProjectId" return-type="Collection">
             <finder-column name="projectId"/>

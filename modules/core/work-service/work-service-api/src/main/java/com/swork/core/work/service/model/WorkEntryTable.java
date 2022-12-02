@@ -86,10 +86,16 @@ public class WorkEntryTable extends BaseTable<WorkEntryTable> {
 		"progressType", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<WorkEntryTable, String> unit = createColumn(
 		"unit", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<WorkEntryTable, Double> incompleteTask = createColumn(
-		"incompleteTask", Double.class, Types.DOUBLE, Column.FLAG_DEFAULT);
-	public final Column<WorkEntryTable, Double> complete = createColumn(
-		"complete", Double.class, Types.DOUBLE, Column.FLAG_DEFAULT);
+	public final Column<WorkEntryTable, Double> incompleteAmount = createColumn(
+		"incompleteAmount", Double.class, Types.DOUBLE, Column.FLAG_DEFAULT);
+	public final Column<WorkEntryTable, Double> completeAmount = createColumn(
+		"completeAmount", Double.class, Types.DOUBLE, Column.FLAG_DEFAULT);
+	public final Column<WorkEntryTable, Long> proportion = createColumn(
+		"proportion", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<WorkEntryTable, Boolean> equalProportions =
+		createColumn(
+			"equalProportions", Boolean.class, Types.BOOLEAN,
+			Column.FLAG_DEFAULT);
 
 	private WorkEntryTable() {
 		super("SW_Work", WorkEntryTable::new);
