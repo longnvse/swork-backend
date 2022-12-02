@@ -8,8 +8,6 @@ public class SearchFields {
     private SearchFields() {
     }
 
-    public static final String RESOURCE_TYPE_ENTRY_INDEXER_CLASS =
-            "indexer.class.name=com.swork.core.resource.service.model.ResourceTypeEntry";
     public static final String TEAM_ENTRY_INDEXER_CLASS =
             "indexer.class.name=com.swork.core.resource.service.model.TeamEntry";
     public static final String RESOURCE_ENTRY_INDEXER_CLASS =
