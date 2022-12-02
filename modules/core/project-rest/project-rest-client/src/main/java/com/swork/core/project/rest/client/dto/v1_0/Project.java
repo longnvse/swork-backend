@@ -267,16 +267,16 @@ public class Project implements Cloneable, Serializable {
 
 	protected Participate[] participates;
 
-	public Integer getProgress() {
+	public Long getProgress() {
 		return progress;
 	}
 
-	public void setProgress(Integer progress) {
+	public void setProgress(Long progress) {
 		this.progress = progress;
 	}
 
 	public void setProgress(
-		UnsafeSupplier<Integer, Exception> progressUnsafeSupplier) {
+		UnsafeSupplier<Long, Exception> progressUnsafeSupplier) {
 
 		try {
 			progress = progressUnsafeSupplier.get();
@@ -286,7 +286,7 @@ public class Project implements Cloneable, Serializable {
 		}
 	}
 
-	protected Integer progress;
+	protected Long progress;
 
 	public String getProgressType() {
 		return progressType;
