@@ -62,7 +62,7 @@ public class WorkEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(55);
+		StringBundler sb = new StringBundler(59);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -114,10 +114,14 @@ public class WorkEntryCacheModel
 		sb.append(progressType);
 		sb.append(", unit=");
 		sb.append(unit);
-		sb.append(", incompleteTask=");
-		sb.append(incompleteTask);
-		sb.append(", complete=");
-		sb.append(complete);
+		sb.append(", incompleteAmount=");
+		sb.append(incompleteAmount);
+		sb.append(", completeAmount=");
+		sb.append(completeAmount);
+		sb.append(", proportion=");
+		sb.append(proportion);
+		sb.append(", equalProportions=");
+		sb.append(equalProportions);
 		sb.append("}");
 
 		return sb.toString();
@@ -240,8 +244,10 @@ public class WorkEntryCacheModel
 			workEntryImpl.setUnit(unit);
 		}
 
-		workEntryImpl.setIncompleteTask(incompleteTask);
-		workEntryImpl.setComplete(complete);
+		workEntryImpl.setIncompleteAmount(incompleteAmount);
+		workEntryImpl.setCompleteAmount(completeAmount);
+		workEntryImpl.setProportion(proportion);
+		workEntryImpl.setEqualProportions(equalProportions);
 
 		workEntryImpl.resetOriginalValues();
 
@@ -287,9 +293,13 @@ public class WorkEntryCacheModel
 		progressType = objectInput.readUTF();
 		unit = objectInput.readUTF();
 
-		incompleteTask = objectInput.readDouble();
+		incompleteAmount = objectInput.readDouble();
 
-		complete = objectInput.readDouble();
+		completeAmount = objectInput.readDouble();
+
+		proportion = objectInput.readLong();
+
+		equalProportions = objectInput.readBoolean();
 	}
 
 	@Override
@@ -379,9 +389,13 @@ public class WorkEntryCacheModel
 			objectOutput.writeUTF(unit);
 		}
 
-		objectOutput.writeDouble(incompleteTask);
+		objectOutput.writeDouble(incompleteAmount);
 
-		objectOutput.writeDouble(complete);
+		objectOutput.writeDouble(completeAmount);
+
+		objectOutput.writeLong(proportion);
+
+		objectOutput.writeBoolean(equalProportions);
 	}
 
 	public String uuid;
@@ -409,7 +423,9 @@ public class WorkEntryCacheModel
 	public double percentage;
 	public String progressType;
 	public String unit;
-	public double incompleteTask;
-	public double complete;
+	public double incompleteAmount;
+	public double completeAmount;
+	public long proportion;
+	public boolean equalProportions;
 
 }
