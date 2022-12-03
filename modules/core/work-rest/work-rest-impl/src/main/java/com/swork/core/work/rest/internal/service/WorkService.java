@@ -125,6 +125,25 @@ public class WorkService {
         localService.deleteWorkEntry(workId);
     }
 
+    public void updateStatus(long creatorId,
+                             long workId,
+                             String status,
+                             ServiceContext serviceContext) {
+        localService.updateStatus(creatorId, workId, status, serviceContext);
+    }
+
+    public void reportProgressByAmount(long creatorId,
+                                       long workId,
+                                       double completeAmount,
+                                       ServiceContext serviceContext) {
+        localService.reportProgressByAmount(
+                creatorId,
+                workId,
+                completeAmount,
+                serviceContext
+        );
+    }
+
     @Reference
     private WorkMapper mapper;
 

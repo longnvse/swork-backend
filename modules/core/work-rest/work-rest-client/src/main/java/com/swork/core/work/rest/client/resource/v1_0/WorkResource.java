@@ -77,15 +77,16 @@ public interface WorkResource {
 			String callbackURL, Object object)
 		throws Exception;
 
-	public void putProcessProject(Long workId, Long process) throws Exception;
-
-	public HttpInvoker.HttpResponse putProcessProjectHttpResponse(
-			Long workId, Long process)
+	public void putReportAmount(Long workId, Double completeAmount)
 		throws Exception;
 
-	public void putStatusProject(Long workId, String status) throws Exception;
+	public HttpInvoker.HttpResponse putReportAmountHttpResponse(
+			Long workId, Double completeAmount)
+		throws Exception;
 
-	public HttpInvoker.HttpResponse putStatusProjectHttpResponse(
+	public void updateStatus(Long workId, String status) throws Exception;
+
+	public HttpInvoker.HttpResponse updateStatusHttpResponse(
 			Long workId, String status)
 		throws Exception;
 
@@ -800,11 +801,11 @@ public interface WorkResource {
 			return httpInvoker.invoke();
 		}
 
-		public void putProcessProject(Long workId, Long process)
+		public void putReportAmount(Long workId, Double completeAmount)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse =
-				putProcessProjectHttpResponse(workId, process);
+			HttpInvoker.HttpResponse httpResponse = putReportAmountHttpResponse(
+				workId, completeAmount);
 
 			String content = httpResponse.getContent();
 
@@ -843,13 +844,13 @@ public interface WorkResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse putProcessProjectHttpResponse(
-				Long workId, Long process)
+		public HttpInvoker.HttpResponse putReportAmountHttpResponse(
+				Long workId, Double completeAmount)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-			httpInvoker.body(process.toString(), "application/json");
+			httpInvoker.body(completeAmount.toString(), "application/json");
 
 			if (_builder._locale != null) {
 				httpInvoker.header(
@@ -870,14 +871,15 @@ public interface WorkResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
-			if (process != null) {
-				httpInvoker.parameter("process", String.valueOf(process));
+			if (completeAmount != null) {
+				httpInvoker.parameter(
+					"completeAmount", String.valueOf(completeAmount));
 			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/swork/work-rest/v1.0/works-process/{workId}");
+						"/o/swork/work-rest/v1.0/report-process/by-amount/{workId}");
 
 			httpInvoker.path("workId", workId);
 
@@ -887,11 +889,9 @@ public interface WorkResource {
 			return httpInvoker.invoke();
 		}
 
-		public void putStatusProject(Long workId, String status)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				putStatusProjectHttpResponse(workId, status);
+		public void updateStatus(Long workId, String status) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = updateStatusHttpResponse(
+				workId, status);
 
 			String content = httpResponse.getContent();
 
@@ -930,7 +930,7 @@ public interface WorkResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse putStatusProjectHttpResponse(
+		public HttpInvoker.HttpResponse updateStatusHttpResponse(
 				Long workId, String status)
 			throws Exception {
 
@@ -964,7 +964,7 @@ public interface WorkResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/swork/work-rest/v1.0/works-status/{workId}");
+						"/o/swork/work-rest/v1.0/approval/{workId}");
 
 			httpInvoker.path("workId", workId);
 

@@ -107,21 +107,22 @@ public class Mutation {
 	}
 
 	@GraphQLField(description = "Update process a Project")
-	public boolean updateProcessProject(
+	public boolean updateReportAmount(
 			@GraphQLName("workId") Long workId,
-			@GraphQLName("process") Long process)
+			@GraphQLName("completeAmount") Double completeAmount)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_workResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			workResource -> workResource.putProcessProject(workId, process));
+			workResource -> workResource.putReportAmount(
+				workId, completeAmount));
 
 		return true;
 	}
 
 	@GraphQLField(description = "Update status a Project")
-	public boolean updateStatusProject(
+	public boolean updateStatus(
 			@GraphQLName("workId") Long workId,
 			@GraphQLName("status") String status)
 		throws Exception {
@@ -129,7 +130,7 @@ public class Mutation {
 		_applyVoidComponentServiceObjects(
 			_workResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			workResource -> workResource.putStatusProject(workId, status));
+			workResource -> workResource.updateStatus(workId, status));
 
 		return true;
 	}

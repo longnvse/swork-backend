@@ -88,10 +88,10 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
     }
 
     @Indexable(type = IndexableType.REINDEX)
-    public WorkEntry updateStatusWorkEntry(long creatorId,
-                                           long workId,
-                                           String status,
-                                           ServiceContext serviceContext) {
+    public WorkEntry updateStatus(long creatorId,
+                                  long workId,
+                                  String status,
+                                  ServiceContext serviceContext) {
 
         WorkEntry entry = fetchWorkEntry(workId);
 
@@ -199,6 +199,30 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
         if (Validator.isNotNull(workEntry)) {
             workEntry.setProgress(progress);
+        }
+
+        return updateWorkEntry(workEntry);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public WorkEntry reportProgressByAmount(long creatorId,
+                                            long workId,
+                                            double completeAmount,
+                                            ServiceContext serviceContext) {
+        WorkEntry workEntry = fetchWorkEntry(workId);
+
+        updateModifierAudit(
+                creatorId,
+                workEntry,
+                new Date(),
+                serviceContext
+        );
+
+        if (Validator.isNotNull(workEntry)) {
+            workEntry.setCompleteAmount(completeAmount);
+            if (workEntry.getIncompleteAmount() != 0) {
+                workEntry.setProgress((long) Math.ceil(completeAmount * 100 / workEntry.getIncompleteAmount()));
+            }
         }
 
         return updateWorkEntry(workEntry);

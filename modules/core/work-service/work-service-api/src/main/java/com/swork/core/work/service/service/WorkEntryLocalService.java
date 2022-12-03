@@ -357,6 +357,11 @@ public interface WorkEntryLocalService
 		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
+	public WorkEntry reportProgressByAmount(
+		long creatorId, long workId, double completeAmount,
+		ServiceContext serviceContext);
+
+	@Indexable(type = IndexableType.REINDEX)
 	public WorkEntry updateProcessWorkEntry(
 		long creatorId, long workId, long process,
 		ServiceContext serviceContext);
@@ -365,7 +370,7 @@ public interface WorkEntryLocalService
 	public WorkEntry updateProgress(long workId, long progress);
 
 	@Indexable(type = IndexableType.REINDEX)
-	public WorkEntry updateStatusWorkEntry(
+	public WorkEntry updateStatus(
 		long creatorId, long workId, String status,
 		ServiceContext serviceContext);
 

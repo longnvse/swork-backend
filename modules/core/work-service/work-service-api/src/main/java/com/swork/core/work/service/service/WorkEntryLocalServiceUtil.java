@@ -416,6 +416,14 @@ public class WorkEntryLocalServiceUtil {
 		return getService().getWorkEntryByUuidAndGroupId(uuid, groupId);
 	}
 
+	public static WorkEntry reportProgressByAmount(
+		long creatorId, long workId, double completeAmount,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().reportProgressByAmount(
+			creatorId, workId, completeAmount, serviceContext);
+	}
+
 	public static WorkEntry updateProcessWorkEntry(
 		long creatorId, long workId, long process,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
@@ -428,11 +436,11 @@ public class WorkEntryLocalServiceUtil {
 		return getService().updateProgress(workId, progress);
 	}
 
-	public static WorkEntry updateStatusWorkEntry(
+	public static WorkEntry updateStatus(
 		long creatorId, long workId, String status,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
-		return getService().updateStatusWorkEntry(
+		return getService().updateStatus(
 			creatorId, workId, status, serviceContext);
 	}
 

@@ -479,6 +479,15 @@ public class WorkEntryLocalServiceWrapper
 	}
 
 	@Override
+	public com.swork.core.work.service.model.WorkEntry reportProgressByAmount(
+		long creatorId, long workId, double completeAmount,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _workEntryLocalService.reportProgressByAmount(
+			creatorId, workId, completeAmount, serviceContext);
+	}
+
+	@Override
 	public com.swork.core.work.service.model.WorkEntry updateProcessWorkEntry(
 		long creatorId, long workId, long process,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
@@ -495,11 +504,11 @@ public class WorkEntryLocalServiceWrapper
 	}
 
 	@Override
-	public com.swork.core.work.service.model.WorkEntry updateStatusWorkEntry(
+	public com.swork.core.work.service.model.WorkEntry updateStatus(
 		long creatorId, long workId, String status,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
-		return _workEntryLocalService.updateStatusWorkEntry(
+		return _workEntryLocalService.updateStatus(
 			creatorId, workId, status, serviceContext);
 	}
 

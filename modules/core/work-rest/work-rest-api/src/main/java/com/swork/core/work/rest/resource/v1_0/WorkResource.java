@@ -67,9 +67,10 @@ public interface WorkResource {
 	public Response putWorkBatch(String callbackURL, Object object)
 		throws Exception;
 
-	public void putProcessProject(Long workId, Long process) throws Exception;
+	public void putReportAmount(Long workId, Double completeAmount)
+		throws Exception;
 
-	public void putStatusProject(Long workId, String status) throws Exception;
+	public void updateStatus(Long workId, String status) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

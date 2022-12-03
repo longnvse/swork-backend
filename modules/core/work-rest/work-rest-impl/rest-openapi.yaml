@@ -295,11 +295,11 @@ paths:
           content:
             application/json: { }
             application/xml: { }
-  "/works-process/{workId}":
+  "/report-process/by-amount/{workId}":
     put:
       tags: [ "Work" ]
       description: Update process a Project
-      operationId: putProcessProject
+      operationId: putReportAmount
       parameters:
         - in: path
           name: workId
@@ -308,11 +308,11 @@ paths:
             format: int64
             type: integer
         - in: query
-          name: process
+          name: completeAmount
           required: true
           schema:
-            format: int64
-            type: integer
+            format: double
+            type: number
       responses:
         204:
           description:
@@ -320,11 +320,11 @@ paths:
           content:
             application/json: {}
             application/xml: {}
-  "/works-status/{workId}":
+  "/approval/{workId}":
     put:
       tags: [ "Work" ]
       description: Update status a Project
-      operationId: putStatusProject
+      operationId: updateStatus
       parameters:
         - in: path
           name: workId

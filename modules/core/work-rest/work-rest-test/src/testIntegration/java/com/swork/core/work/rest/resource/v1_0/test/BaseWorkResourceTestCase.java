@@ -610,36 +610,35 @@ public abstract class BaseWorkResourceTestCase {
 	}
 
 	@Test
-	public void testPutProcessProject() throws Exception {
+	public void testPutReportAmount() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Work work = testPutProcessProject_addWork();
+		Work work = testPutReportAmount_addWork();
 
 		assertHttpResponseStatusCode(
-			204,
-			workResource.putProcessProjectHttpResponse(work.getId(), null));
+			204, workResource.putReportAmountHttpResponse(work.getId(), null));
 
 		assertHttpResponseStatusCode(
-			404, workResource.putProcessProjectHttpResponse(0L, null));
+			404, workResource.putReportAmountHttpResponse(0L, null));
 	}
 
-	protected Work testPutProcessProject_addWork() throws Exception {
+	protected Work testPutReportAmount_addWork() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testPutStatusProject() throws Exception {
+	public void testUpdateStatus() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Work work = testPutStatusProject_addWork();
+		Work work = testUpdateStatus_addWork();
 
 		assertHttpResponseStatusCode(
-			204, workResource.putStatusProjectHttpResponse(work.getId(), null));
+			204, workResource.updateStatusHttpResponse(work.getId(), null));
 
 		assertHttpResponseStatusCode(
-			404, workResource.putStatusProjectHttpResponse(0L, null));
+			404, workResource.updateStatusHttpResponse(0L, null));
 	}
 
-	protected Work testPutStatusProject_addWork() throws Exception {
+	protected Work testUpdateStatus_addWork() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}

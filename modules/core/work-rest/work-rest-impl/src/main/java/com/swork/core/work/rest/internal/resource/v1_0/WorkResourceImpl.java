@@ -13,7 +13,6 @@ import com.swork.core.work.rest.internal.odata.v1_0.WorkEntryModel;
 import com.swork.core.work.rest.internal.service.WorkService;
 import com.swork.core.work.rest.internal.validator.WorkValidator;
 import com.swork.core.work.rest.resource.v1_0.WorkResource;
-import com.swork.core.work.service.service.WorkEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -99,29 +98,26 @@ public class WorkResourceImpl extends BaseWorkResourceImpl {
 	}
 
 	@Override
-	public void putProcessProject(
-			Long workId,
-			Long process)
-			throws Exception {
-
-		validator.validateForExist(workId);
-
-		workEntryLocalService.updateProcessWorkEntry(getUserToken().getAccountId(),workId,process,getServiceContext());
-
+	public void putReportAmount(Long workId, Double completeAmount) {
+		service.reportProgressByAmount(
+				getUserToken().getAccountId(),
+				workId,
+				completeAmount,
+				getServiceContext()
+		);
 	}
 
 	@Override
-	public void putStatusProject(
-			Long workId,
-			String status)
-			throws Exception {
-
+	public void updateStatus(Long workId, String status) throws Exception {
 		validator.validateForExist(workId);
 
-		workEntryLocalService.updateStatusWorkEntry(getUserToken().getAccountId(),workId,status,getServiceContext());
+		service.updateStatus(
+				getUserToken().getAccountId(),
+				workId,
+				status,
+				getServiceContext());
+
 	}
-
-
 
 	public ServiceContext getServiceContext() {
 		ServiceContext serviceContext = new ServiceContext();
@@ -144,7 +140,4 @@ public class WorkResourceImpl extends BaseWorkResourceImpl {
 
 	@Reference
 	private WorkValidator validator;
-
-	@Reference
-	private WorkEntryLocalService workEntryLocalService ;
 }
