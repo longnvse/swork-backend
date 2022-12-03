@@ -97,6 +97,28 @@ public class WorkResourceImpl extends BaseWorkResourceImpl {
 		);
 	}
 
+	@Override
+	public void putReportAmount(Long workId, Double completeAmount) {
+		service.reportProgressByAmount(
+				getUserToken().getAccountId(),
+				workId,
+				completeAmount,
+				getServiceContext()
+		);
+	}
+
+	@Override
+	public void updateStatus(Long workId, String status) throws Exception {
+		validator.validateForExist(workId);
+
+		service.updateStatus(
+				getUserToken().getAccountId(),
+				workId,
+				status,
+				getServiceContext());
+
+	}
+
 	public ServiceContext getServiceContext() {
 		ServiceContext serviceContext = new ServiceContext();
 		serviceContext.setCompanyId(contextCompany.getCompanyId());

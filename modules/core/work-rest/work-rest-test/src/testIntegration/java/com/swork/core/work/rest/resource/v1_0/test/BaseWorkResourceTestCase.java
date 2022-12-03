@@ -180,7 +180,6 @@ public abstract class BaseWorkResourceTestCase {
 		work.setParentName(regex);
 		work.setParentReferenceCode(regex);
 		work.setPhaseName(regex);
-		work.setProgressType(regex);
 		work.setProjectName(regex);
 		work.setUnit(regex);
 
@@ -197,7 +196,6 @@ public abstract class BaseWorkResourceTestCase {
 		Assert.assertEquals(regex, work.getParentName());
 		Assert.assertEquals(regex, work.getParentReferenceCode());
 		Assert.assertEquals(regex, work.getPhaseName());
-		Assert.assertEquals(regex, work.getProgressType());
 		Assert.assertEquals(regex, work.getProjectName());
 		Assert.assertEquals(regex, work.getUnit());
 	}
@@ -611,6 +609,40 @@ public abstract class BaseWorkResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testPutReportAmount() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Work work = testPutReportAmount_addWork();
+
+		assertHttpResponseStatusCode(
+			204, workResource.putReportAmountHttpResponse(work.getId(), null));
+
+		assertHttpResponseStatusCode(
+			404, workResource.putReportAmountHttpResponse(0L, null));
+	}
+
+	protected Work testPutReportAmount_addWork() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testUpdateStatus() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Work work = testUpdateStatus_addWork();
+
+		assertHttpResponseStatusCode(
+			204, workResource.updateStatusHttpResponse(work.getId(), null));
+
+		assertHttpResponseStatusCode(
+			404, workResource.updateStatusHttpResponse(0L, null));
+	}
+
+	protected Work testUpdateStatus_addWork() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 
@@ -755,8 +787,8 @@ public abstract class BaseWorkResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("incompleteWork", additionalAssertFieldName)) {
-				if (work.getIncompleteWork() == null) {
+			if (Objects.equals("incompleteAmount", additionalAssertFieldName)) {
+				if (work.getIncompleteAmount() == null) {
 					valid = false;
 				}
 
@@ -1094,9 +1126,10 @@ public abstract class BaseWorkResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("incompleteWork", additionalAssertFieldName)) {
+			if (Objects.equals("incompleteAmount", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						work1.getIncompleteWork(), work2.getIncompleteWork())) {
+						work1.getIncompleteAmount(),
+						work2.getIncompleteAmount())) {
 
 					return false;
 				}
@@ -1508,7 +1541,7 @@ public abstract class BaseWorkResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("incompleteWork")) {
+		if (entityFieldName.equals("incompleteAmount")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -1581,11 +1614,8 @@ public abstract class BaseWorkResourceTestCase {
 		}
 
 		if (entityFieldName.equals("progressType")) {
-			sb.append("'");
-			sb.append(String.valueOf(work.getProgressType()));
-			sb.append("'");
-
-			return sb.toString();
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("projectId")) {
@@ -1705,7 +1735,7 @@ public abstract class BaseWorkResourceTestCase {
 				externalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
-				incompleteWork = RandomTestUtil.randomDouble();
+				incompleteAmount = RandomTestUtil.randomDouble();
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				parentId = RandomTestUtil.randomLong();
 				parentName = StringUtil.toLowerCase(
@@ -1717,8 +1747,6 @@ public abstract class BaseWorkResourceTestCase {
 				phaseName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				progress = RandomTestUtil.randomLong();
-				progressType = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
 				projectId = RandomTestUtil.randomLong();
 				projectName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());

@@ -107,6 +107,7 @@ public class ProjectEntryLocalServiceImpl
         return updateProjectEntry(entry);
     }
 
+
     private void addMember(long projectId, ProjectMapperModel model) {
         model.getManages()
                 .forEach(manage -> projectMemberEntryLocalService

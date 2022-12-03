@@ -25,7 +25,9 @@ public class WorkMapper {
         to.setEndDate(from.getEndDate());
         to.setDescription(from.getDescription());
         to.setParentId(from.getParentId());
-        to.setProgressType(from.getProgressType());
+        to.setProgressType(from.getProgressType().getValue());
+        to.setIncompleteAmount(from.getIncompleteAmount());
+        to.setUnit(from.getUnit());
         to.setPhaseId(from.getPhaseId());
         to.setProjectId(from.getProjectId());
 
@@ -47,8 +49,11 @@ public class WorkMapper {
         to.setParentId(from.getParentId());
         to.setProjectId(from.getProjectId());
         to.setPhaseId(from.getPhaseId());
-        to.setProgressType(from.getProgressType());
+        to.setProgressType(Work.ProgressType.create(from.getProgressType()));
         to.setProgress(from.getProgress());
+        to.setIncompleteAmount(from.getIncompleteAmount());
+        to.setUnit(from.getUnit());
+        to.setStatus(Work.Status.create(from.getStatus()));
 
         List<WorkMemberEntry> manageEntries =
                 memberEntryLocalService.findByW_T(from.getWorkId(), Type.MANAGE.getValue());

@@ -2,6 +2,7 @@ package com.swork.core.work.service.internal.listener;
 
 import com.liferay.portal.kernel.exception.ModelListenerException;
 import com.liferay.portal.kernel.model.BaseModelListener;
+import com.liferay.portal.kernel.model.ModelListener;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.swork.core.phase.service.internal.service.PhaseService;
 import com.swork.core.project.service.internal.service.ProjectService;
@@ -12,7 +13,7 @@ import org.osgi.service.component.annotations.Reference;
 
 @Component(
         immediate = true,
-        service = BaseModelListener.class
+        service = ModelListener.class
 )
 public class WorkEntryListener extends BaseModelListener<WorkEntry> {
     @Override

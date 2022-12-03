@@ -174,14 +174,14 @@ public class WorkSerDes {
 			sb.append(work.getId());
 		}
 
-		if (work.getIncompleteWork() != null) {
+		if (work.getIncompleteAmount() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"incompleteWork\": ");
+			sb.append("\"incompleteAmount\": ");
 
-			sb.append(work.getIncompleteWork());
+			sb.append(work.getIncompleteAmount());
 		}
 
 		if (work.getManages() != null) {
@@ -343,7 +343,7 @@ public class WorkSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(work.getProgressType()));
+			sb.append(work.getProgressType());
 
 			sb.append("\"");
 		}
@@ -527,11 +527,12 @@ public class WorkSerDes {
 			map.put("id", String.valueOf(work.getId()));
 		}
 
-		if (work.getIncompleteWork() == null) {
-			map.put("incompleteWork", null);
+		if (work.getIncompleteAmount() == null) {
+			map.put("incompleteAmount", null);
 		}
 		else {
-			map.put("incompleteWork", String.valueOf(work.getIncompleteWork()));
+			map.put(
+				"incompleteAmount", String.valueOf(work.getIncompleteAmount()));
 		}
 
 		if (work.getManages() == null) {
@@ -742,9 +743,9 @@ public class WorkSerDes {
 					work.setId(Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "incompleteWork")) {
+			else if (Objects.equals(jsonParserFieldName, "incompleteAmount")) {
 				if (jsonParserFieldValue != null) {
-					work.setIncompleteWork(
+					work.setIncompleteAmount(
 						Double.valueOf((String)jsonParserFieldValue));
 				}
 			}
@@ -825,7 +826,8 @@ public class WorkSerDes {
 			}
 			else if (Objects.equals(jsonParserFieldName, "progressType")) {
 				if (jsonParserFieldValue != null) {
-					work.setProgressType((String)jsonParserFieldValue);
+					work.setProgressType(
+						Work.ProgressType.create((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "projectId")) {

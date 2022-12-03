@@ -46,12 +46,12 @@ public class WorkEntryLocalServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.swork.core.work.service.service.impl.WorkEntryLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static WorkEntry addWorkEntry(
-		long creatorId, long businessId,
+		long businessId, long creatorId,
 		com.swork.core.work.service.mapper.model.WorkMapperModel model,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().addWorkEntry(
-			creatorId, businessId, model, serviceContext);
+			businessId, creatorId, model, serviceContext);
 	}
 
 	/**
@@ -416,8 +416,32 @@ public class WorkEntryLocalServiceUtil {
 		return getService().getWorkEntryByUuidAndGroupId(uuid, groupId);
 	}
 
+	public static WorkEntry reportProgressByAmount(
+		long creatorId, long workId, double completeAmount,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().reportProgressByAmount(
+			creatorId, workId, completeAmount, serviceContext);
+	}
+
+	public static WorkEntry updateProcessWorkEntry(
+		long creatorId, long workId, long process,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateProcessWorkEntry(
+			creatorId, workId, process, serviceContext);
+	}
+
 	public static WorkEntry updateProgress(long workId, long progress) {
 		return getService().updateProgress(workId, progress);
+	}
+
+	public static WorkEntry updateStatus(
+		long creatorId, long workId, String status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateStatus(
+			creatorId, workId, status, serviceContext);
 	}
 
 	public static WorkEntry updateWorkEntry(

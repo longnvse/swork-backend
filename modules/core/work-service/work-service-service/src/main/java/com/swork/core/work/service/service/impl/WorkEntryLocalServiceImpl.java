@@ -41,6 +41,8 @@ import java.util.UUID;
 )
 public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
+    private static final String PENDING = "pending";
+
     @Indexable(type = IndexableType.REINDEX)
     public WorkEntry addWorkEntry(long businessId,
                                   long creatorId,
@@ -57,6 +59,7 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         );
 
         setDataEntry(entry, model);
+        entry.setStatus(PENDING);
         entry.setProjectId(model.getProjectId());
         entry.setPhaseId(model.getPhaseId());
 
@@ -84,12 +87,58 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         return updateWorkEntry(entry);
     }
 
+    @Indexable(type = IndexableType.REINDEX)
+    public WorkEntry updateStatus(long creatorId,
+                                  long workId,
+                                  String status,
+                                  ServiceContext serviceContext) {
+
+        WorkEntry entry = fetchWorkEntry(workId);
+
+        updateModifierAudit(
+                creatorId,
+                entry,
+                new Date(),
+                serviceContext
+        );
+
+        entry.setStatus(status);
+
+        return updateWorkEntry(entry);
+
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public WorkEntry updateProcessWorkEntry(long creatorId,
+                                            long workId,
+                                            long process,
+                                              ServiceContext serviceContext) {
+
+        WorkEntry entry = fetchWorkEntry(workId);
+
+        updateModifierAudit(
+                creatorId,
+                entry,
+                new Date(),
+                serviceContext
+        );
+
+        entry.setProgress(process);
+
+        return updateWorkEntry(entry);
+
+    }
+
+
+
     private void setDataEntry(WorkEntry entry, WorkMapperModel model) {
         entry.setName(model.getName());
         entry.setStartDate(model.getStartDate());
         entry.setEndDate(model.getEndDate());
         entry.setDescription(model.getDescription());
         entry.setProgressType(model.getProgressType());
+        entry.setIncompleteAmount(model.getIncompleteAmount());
+        entry.setUnit(model.getUnit());
         entry.setParentId(model.getParentId());
 
         addMember(entry.getWorkId(), model);
@@ -152,6 +201,30 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
         if (Validator.isNotNull(workEntry)) {
             workEntry.setProgress(progress);
+        }
+
+        return updateWorkEntry(workEntry);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public WorkEntry reportProgressByAmount(long creatorId,
+                                            long workId,
+                                            double completeAmount,
+                                            ServiceContext serviceContext) {
+        WorkEntry workEntry = fetchWorkEntry(workId);
+
+        updateModifierAudit(
+                creatorId,
+                workEntry,
+                new Date(),
+                serviceContext
+        );
+
+        if (Validator.isNotNull(workEntry)) {
+            workEntry.setCompleteAmount(completeAmount);
+            if (workEntry.getIncompleteAmount() != 0) {
+                workEntry.setProgress((long) Math.ceil(completeAmount * 100 / workEntry.getIncompleteAmount()));
+            }
         }
 
         return updateWorkEntry(workEntry);
