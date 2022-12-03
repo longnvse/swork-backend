@@ -208,26 +208,26 @@ public class Work implements Cloneable, Serializable {
 
 	protected Long id;
 
-	public Double getIncompleteWork() {
-		return incompleteWork;
+	public Double getIncompleteAmount() {
+		return incompleteAmount;
 	}
 
-	public void setIncompleteWork(Double incompleteWork) {
-		this.incompleteWork = incompleteWork;
+	public void setIncompleteAmount(Double incompleteAmount) {
+		this.incompleteAmount = incompleteAmount;
 	}
 
-	public void setIncompleteWork(
-		UnsafeSupplier<Double, Exception> incompleteWorkUnsafeSupplier) {
+	public void setIncompleteAmount(
+		UnsafeSupplier<Double, Exception> incompleteAmountUnsafeSupplier) {
 
 		try {
-			incompleteWork = incompleteWorkUnsafeSupplier.get();
+			incompleteAmount = incompleteAmountUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected Double incompleteWork;
+	protected Double incompleteAmount;
 
 	public Manage[] getManages() {
 		return manages;

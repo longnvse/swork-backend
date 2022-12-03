@@ -11,6 +11,8 @@ public class WorkMapperModel {
     private Date endDate;
     private String description;
     private String progressType;
+    private Double incompleteAmount;
+    private String unit;
     private Long projectId;
     private Long phaseId;
     private Long parentId;
@@ -112,5 +114,21 @@ public class WorkMapperModel {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public Double getIncompleteAmount() {
+        return incompleteAmount;
+    }
+
+    public void setIncompleteAmount(Double incompleteAmount) {
+        this.incompleteAmount = incompleteAmount;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

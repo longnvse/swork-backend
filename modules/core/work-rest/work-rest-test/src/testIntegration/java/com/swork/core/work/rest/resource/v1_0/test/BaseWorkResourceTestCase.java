@@ -787,8 +787,8 @@ public abstract class BaseWorkResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("incompleteWork", additionalAssertFieldName)) {
-				if (work.getIncompleteWork() == null) {
+			if (Objects.equals("incompleteAmount", additionalAssertFieldName)) {
+				if (work.getIncompleteAmount() == null) {
 					valid = false;
 				}
 
@@ -1126,9 +1126,10 @@ public abstract class BaseWorkResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("incompleteWork", additionalAssertFieldName)) {
+			if (Objects.equals("incompleteAmount", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						work1.getIncompleteWork(), work2.getIncompleteWork())) {
+						work1.getIncompleteAmount(),
+						work2.getIncompleteAmount())) {
 
 					return false;
 				}
@@ -1540,7 +1541,7 @@ public abstract class BaseWorkResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("incompleteWork")) {
+		if (entityFieldName.equals("incompleteAmount")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -1734,7 +1735,7 @@ public abstract class BaseWorkResourceTestCase {
 				externalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
-				incompleteWork = RandomTestUtil.randomDouble();
+				incompleteAmount = RandomTestUtil.randomDouble();
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				parentId = RandomTestUtil.randomLong();
 				parentName = StringUtil.toLowerCase(

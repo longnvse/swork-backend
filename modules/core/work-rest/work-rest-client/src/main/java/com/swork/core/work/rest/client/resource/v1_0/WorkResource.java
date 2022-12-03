@@ -879,7 +879,7 @@ public interface WorkResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/swork/work-rest/v1.0/report-process/by-amount/{workId}");
+						"/o/swork/work-rest/v1.0works/report-process/by-amount/{workId}");
 
 			httpInvoker.path("workId", workId);
 
@@ -964,7 +964,7 @@ public interface WorkResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/swork/work-rest/v1.0/approval/{workId}");
+						"/o/swork/work-rest/v1.0works/approval/{workId}");
 
 			httpInvoker.path("workId", workId);
 

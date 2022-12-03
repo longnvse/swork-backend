@@ -137,6 +137,8 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         entry.setEndDate(model.getEndDate());
         entry.setDescription(model.getDescription());
         entry.setProgressType(model.getProgressType());
+        entry.setIncompleteAmount(model.getIncompleteAmount());
+        entry.setUnit(model.getUnit());
         entry.setParentId(model.getParentId());
 
         addMember(entry.getWorkId(), model);

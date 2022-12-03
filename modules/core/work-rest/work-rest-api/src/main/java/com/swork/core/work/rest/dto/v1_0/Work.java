@@ -302,20 +302,20 @@ public class Work implements Serializable {
 	protected Long id;
 
 	@Schema
-	public Double getIncompleteWork() {
-		return incompleteWork;
+	public Double getIncompleteAmount() {
+		return incompleteAmount;
 	}
 
-	public void setIncompleteWork(Double incompleteWork) {
-		this.incompleteWork = incompleteWork;
+	public void setIncompleteAmount(Double incompleteAmount) {
+		this.incompleteAmount = incompleteAmount;
 	}
 
 	@JsonIgnore
-	public void setIncompleteWork(
-		UnsafeSupplier<Double, Exception> incompleteWorkUnsafeSupplier) {
+	public void setIncompleteAmount(
+		UnsafeSupplier<Double, Exception> incompleteAmountUnsafeSupplier) {
 
 		try {
-			incompleteWork = incompleteWorkUnsafeSupplier.get();
+			incompleteAmount = incompleteAmountUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -327,7 +327,7 @@ public class Work implements Serializable {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Double incompleteWork;
+	protected Double incompleteAmount;
 
 	@Schema
 	@Valid
@@ -1016,14 +1016,14 @@ public class Work implements Serializable {
 			sb.append(id);
 		}
 
-		if (incompleteWork != null) {
+		if (incompleteAmount != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"incompleteWork\": ");
+			sb.append("\"incompleteAmount\": ");
 
-			sb.append(incompleteWork);
+			sb.append(incompleteAmount);
 		}
 
 		if (manages != null) {

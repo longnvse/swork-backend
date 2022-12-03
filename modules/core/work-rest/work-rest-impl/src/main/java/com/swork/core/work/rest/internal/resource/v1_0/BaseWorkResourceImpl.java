@@ -123,7 +123,7 @@ public abstract class BaseWorkResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/swork/work-rest/v1.0/works' -d $'{"actualEndDate": ___, "actualStartDate": ___, "complete": ___, "description": ___, "descriptionProgress": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "id": ___, "incompleteWork": ___, "manages": ___, "name": ___, "parentReferenceCode": ___, "participates": ___, "phaseId": ___, "progressType": ___, "projectId": ___, "startDate": ___, "status": ___, "unit": ___, "works": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/swork/work-rest/v1.0/works' -d $'{"actualEndDate": ___, "actualStartDate": ___, "complete": ___, "description": ___, "descriptionProgress": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "id": ___, "incompleteAmount": ___, "manages": ___, "name": ___, "parentReferenceCode": ___, "participates": ___, "phaseId": ___, "progressType": ___, "projectId": ___, "startDate": ___, "status": ___, "unit": ___, "works": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Create a new Work")
 	@io.swagger.v3.oas.annotations.tags.Tags(
@@ -289,7 +289,7 @@ public abstract class BaseWorkResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0/works/{workId}' -d $'{"actualEndDate": ___, "actualStartDate": ___, "complete": ___, "description": ___, "descriptionProgress": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "id": ___, "incompleteWork": ___, "manages": ___, "name": ___, "parentReferenceCode": ___, "participates": ___, "phaseId": ___, "progressType": ___, "projectId": ___, "startDate": ___, "status": ___, "unit": ___, "works": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0/works/{workId}' -d $'{"actualEndDate": ___, "actualStartDate": ___, "complete": ___, "description": ___, "descriptionProgress": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "id": ___, "incompleteAmount": ___, "manages": ___, "name": ___, "parentReferenceCode": ___, "participates": ___, "phaseId": ___, "progressType": ___, "projectId": ___, "startDate": ___, "status": ___, "unit": ___, "works": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Update a Work")
 	@io.swagger.v3.oas.annotations.Parameters(
@@ -366,7 +366,7 @@ public abstract class BaseWorkResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0/report-process/by-amount/{workId}'  -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0works/report-process/by-amount/{workId}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
 		description = "Update process a Project"
@@ -386,7 +386,7 @@ public abstract class BaseWorkResourceImpl
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Work")}
 	)
-	@javax.ws.rs.Path("/report-process/by-amount/{workId}")
+	@javax.ws.rs.Path("works/report-process/by-amount/{workId}")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
 	@Override
@@ -405,7 +405,7 @@ public abstract class BaseWorkResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0/approval/{workId}'  -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0works/approval/{workId}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
 		description = "Update status a Project"
@@ -425,7 +425,7 @@ public abstract class BaseWorkResourceImpl
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Work")}
 	)
-	@javax.ws.rs.Path("/approval/{workId}")
+	@javax.ws.rs.Path("works/approval/{workId}")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
 	@Override
