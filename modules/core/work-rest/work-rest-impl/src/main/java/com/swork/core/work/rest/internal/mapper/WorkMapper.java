@@ -49,6 +49,7 @@ public class WorkMapper {
         to.setPhaseId(from.getPhaseId());
         to.setProgressType(from.getProgressType());
         to.setProgress(from.getProgress());
+        to.setStatus(Work.Status.create(from.getStatus()));
 
         List<WorkMemberEntry> manageEntries =
                 memberEntryLocalService.findByW_T(from.getWorkId(), Type.MANAGE.getValue());

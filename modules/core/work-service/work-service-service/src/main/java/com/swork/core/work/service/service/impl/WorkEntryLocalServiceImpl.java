@@ -41,6 +41,8 @@ import java.util.UUID;
 )
 public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
+    private static final String PENDING = "pending";
+
     @Indexable(type = IndexableType.REINDEX)
     public WorkEntry addWorkEntry(long businessId,
                                   long creatorId,
@@ -57,6 +59,7 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         );
 
         setDataEntry(entry, model);
+        entry.setStatus(PENDING);
         entry.setProjectId(model.getProjectId());
         entry.setPhaseId(model.getPhaseId());
 
