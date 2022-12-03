@@ -107,11 +107,9 @@ public abstract class BaseWorkResourceImpl
 			@javax.ws.rs.QueryParam("search")
 			String search,
 			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
-			@javax.validation.constraints.NotNull
 			@javax.ws.rs.QueryParam("projectId")
 			Long projectId,
 			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
-			@javax.validation.constraints.NotNull
 			@javax.ws.rs.QueryParam("phaseId")
 			Long phaseId,
 			@javax.ws.rs.core.Context Filter filter,
