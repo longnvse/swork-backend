@@ -37,7 +37,7 @@ public class ResourceResourceImpl extends BaseResourceResourceImpl {
     }
 
     @Override
-    public Page<Resource> getResourcePages(Long projectId, Long phaseId, Long workId, String search, Filter filter, Pagination pagination, Sort[] sorts) throws Exception {
+    public Page<Resource> getResourcePages(Long projectId, Long phaseId, Long workId, Long teamId, String search, Filter filter, Pagination pagination, Sort[] sorts) throws Exception {
         if (Validator.isNotNull(search)) {
             search = commonUtil.vnNormalize(search);
         }
@@ -47,6 +47,7 @@ public class ResourceResourceImpl extends BaseResourceResourceImpl {
                 projectId,
                 phaseId,
                 workId,
+                teamId,
                 search,
                 filter,
                 pagination,

@@ -54,10 +54,6 @@ public class ResourceValidator {
         isNotPopulated(
                 resource.getResourceTypeName(),
                 languageService.getMessage(LanguageKeys.RESOURCE_TASK_RESOURCE_TYPE_NAME_IS_REQUIRED));
-
-        isNotPopulated(
-                resource.getDateResource(),
-                languageService.getMessage(LanguageKeys.RESOURCE_TASK_DATE_RESOURCE_IS_REQUIRED));
     }
 
     private void validateForNegativeNumber(long number, String key) throws SW_DataInputException {

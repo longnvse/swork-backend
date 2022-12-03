@@ -30,6 +30,7 @@ public class ResourceService {
                                            Long projectId,
                                            Long phaseId,
                                            Long workId,
+                                           Long teamId,
                                            String search,
                                            Filter filter,
                                            Pagination pagination,
@@ -70,6 +71,13 @@ public class ResourceService {
                                 new TermFilter(SearchFields.WORK_ID, String.valueOf(workId));
 
                         booleanFilter.add(phaseIdIdFilter, BooleanClauseOccur.MUST);
+                    }
+
+                    if (Validator.isNotNull(teamId)) {
+                        TermFilter teamIdIdFilter =
+                                new TermFilter(SearchFields.TEAM_ID, String.valueOf(teamId));
+
+                        booleanFilter.add(teamIdIdFilter, BooleanClauseOccur.MUST);
                     }
                 },
                 filter,

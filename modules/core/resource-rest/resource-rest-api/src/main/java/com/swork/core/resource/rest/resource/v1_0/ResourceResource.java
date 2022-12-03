@@ -50,8 +50,8 @@ public interface ResourceResource {
 		throws Exception;
 
 	public Page<Resource> getResourcePages(
-			Long projectId, Long phaseId, Long workId, String search,
-			Filter filter, Pagination pagination, Sort[] sorts)
+			Long projectId, Long phaseId, Long workId, Long teamId,
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
 	public Resource postResource(

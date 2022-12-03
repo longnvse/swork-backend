@@ -202,7 +202,7 @@ public abstract class BaseResourceResourceTestCase {
 	@Test
 	public void testGetResourcePages() throws Exception {
 		Page<Resource> page = resourceResource.getResourcePages(
-			null, null, null, null, null, Pagination.of(1, 10), null);
+			null, null, null, null, null, null, Pagination.of(1, 10), null);
 
 		long totalCount = page.getTotalCount();
 
@@ -211,7 +211,7 @@ public abstract class BaseResourceResourceTestCase {
 		Resource resource2 = testGetResourcePages_addResource(randomResource());
 
 		page = resourceResource.getResourcePages(
-			null, null, null, null, null, Pagination.of(1, 10), null);
+			null, null, null, null, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
@@ -241,7 +241,7 @@ public abstract class BaseResourceResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Resource> page = resourceResource.getResourcePages(
-				null, null, null, null,
+				null, null, null, null, null,
 				getFilterString(entityField, "between", resource1),
 				Pagination.of(1, 2), null);
 
@@ -267,7 +267,7 @@ public abstract class BaseResourceResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Resource> page = resourceResource.getResourcePages(
-				null, null, null, null,
+				null, null, null, null, null,
 				getFilterString(entityField, "eq", resource1),
 				Pagination.of(1, 2), null);
 
@@ -280,7 +280,7 @@ public abstract class BaseResourceResourceTestCase {
 	@Test
 	public void testGetResourcePagesWithPagination() throws Exception {
 		Page<Resource> totalPage = resourceResource.getResourcePages(
-			null, null, null, null, null, null, null);
+			null, null, null, null, null, null, null, null);
 
 		int totalCount = GetterUtil.getInteger(totalPage.getTotalCount());
 
@@ -291,8 +291,8 @@ public abstract class BaseResourceResourceTestCase {
 		Resource resource3 = testGetResourcePages_addResource(randomResource());
 
 		Page<Resource> page1 = resourceResource.getResourcePages(
-			null, null, null, null, null, Pagination.of(1, totalCount + 2),
-			null);
+			null, null, null, null, null, null,
+			Pagination.of(1, totalCount + 2), null);
 
 		List<Resource> resources1 = (List<Resource>)page1.getItems();
 
@@ -300,8 +300,8 @@ public abstract class BaseResourceResourceTestCase {
 			resources1.toString(), totalCount + 2, resources1.size());
 
 		Page<Resource> page2 = resourceResource.getResourcePages(
-			null, null, null, null, null, Pagination.of(2, totalCount + 2),
-			null);
+			null, null, null, null, null, null,
+			Pagination.of(2, totalCount + 2), null);
 
 		Assert.assertEquals(totalCount + 3, page2.getTotalCount());
 
@@ -310,8 +310,8 @@ public abstract class BaseResourceResourceTestCase {
 		Assert.assertEquals(resources2.toString(), 1, resources2.size());
 
 		Page<Resource> page3 = resourceResource.getResourcePages(
-			null, null, null, null, null, Pagination.of(1, totalCount + 3),
-			null);
+			null, null, null, null, null, null,
+			Pagination.of(1, totalCount + 3), null);
 
 		assertContains(resource1, (List<Resource>)page3.getItems());
 		assertContains(resource2, (List<Resource>)page3.getItems());
@@ -415,7 +415,7 @@ public abstract class BaseResourceResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Resource> ascPage = resourceResource.getResourcePages(
-				null, null, null, null, null, Pagination.of(1, 2),
+				null, null, null, null, null, null, Pagination.of(1, 2),
 				entityField.getName() + ":asc");
 
 			assertEquals(
@@ -423,7 +423,7 @@ public abstract class BaseResourceResourceTestCase {
 				(List<Resource>)ascPage.getItems());
 
 			Page<Resource> descPage = resourceResource.getResourcePages(
-				null, null, null, null, null, Pagination.of(1, 2),
+				null, null, null, null, null, null, Pagination.of(1, 2),
 				entityField.getName() + ":desc");
 
 			assertEquals(
