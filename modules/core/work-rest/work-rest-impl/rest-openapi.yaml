@@ -50,7 +50,7 @@ components:
         description:
           type: string
         status:
-          enum: [ 'pending', 'doing', 'unevaluated', 'evaluated', 'approved', 'inactive', 'denied' ]
+          enum: [ pending,active, completed, inactive, denied]
         manages:
           type: array
           items:
@@ -69,6 +69,7 @@ components:
           readOnly: true
         progressType:
           type: string
+          enum: [manual,byChecklist,byAmount,byProportion]
         unit:
           type: string
         incompleteWork:
@@ -80,7 +81,8 @@ components:
         descriptionProgress:
           type: string
         parentStatus:
-          enum: [ 'pending', 'doing', 'unevaluated', 'evaluated', 'approved', 'inactive', 'denied' ]
+          enum: [ pending,active, completed, inactive, denied]
+
           readOnly: true
         works:
           type: array
@@ -293,3 +295,55 @@ paths:
           content:
             application/json: { }
             application/xml: { }
+  "/works-process/{workId}":
+    put:
+      tags: [ "Work" ]
+      description: Update process a Project
+      operationId: putProcessProject
+      parameters:
+        - in: path
+          name: workId
+          required: true
+          schema:
+            format: int64
+            type: integer
+        - in: query
+          name: process
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        204:
+          description:
+            "Project detail"
+          content:
+            application/json: {}
+            application/xml: {}
+  "/works-status/{workId}":
+    put:
+      tags: [ "Work" ]
+      description: Update status a Project
+      operationId: putStatusProject
+      parameters:
+        - in: path
+          name: workId
+          required: true
+          schema:
+            format: int64
+            type: integer
+        - in: query
+          name: status
+          required: true
+          schema:
+            type: string
+            enum: [ pending, active, completed, inactive,denied ]
+
+      responses:
+        204:
+          description:
+            "Project detail"
+          content:
+            application/json: {}
+            application/xml: {}
+

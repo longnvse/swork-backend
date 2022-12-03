@@ -106,6 +106,34 @@ public class Mutation {
 			workResource -> workResource.putWorkBatch(callbackURL, object));
 	}
 
+	@GraphQLField(description = "Update process a Project")
+	public boolean updateProcessProject(
+			@GraphQLName("workId") Long workId,
+			@GraphQLName("process") Long process)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_workResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			workResource -> workResource.putProcessProject(workId, process));
+
+		return true;
+	}
+
+	@GraphQLField(description = "Update status a Project")
+	public boolean updateStatusProject(
+			@GraphQLName("workId") Long workId,
+			@GraphQLName("status") String status)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_workResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			workResource -> workResource.putStatusProject(workId, status));
+
+		return true;
+	}
+
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
 			_applyComponentServiceObjects(
 				ComponentServiceObjects<T> componentServiceObjects,

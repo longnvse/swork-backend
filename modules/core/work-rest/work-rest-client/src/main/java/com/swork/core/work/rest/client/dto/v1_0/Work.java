@@ -466,16 +466,24 @@ public class Work implements Cloneable, Serializable {
 
 	protected Long progress;
 
-	public String getProgressType() {
+	public ProgressType getProgressType() {
 		return progressType;
 	}
 
-	public void setProgressType(String progressType) {
+	public String getProgressTypeAsString() {
+		if (progressType == null) {
+			return null;
+		}
+
+		return progressType.toString();
+	}
+
+	public void setProgressType(ProgressType progressType) {
 		this.progressType = progressType;
 	}
 
 	public void setProgressType(
-		UnsafeSupplier<String, Exception> progressTypeUnsafeSupplier) {
+		UnsafeSupplier<ProgressType, Exception> progressTypeUnsafeSupplier) {
 
 		try {
 			progressType = progressTypeUnsafeSupplier.get();
@@ -485,7 +493,7 @@ public class Work implements Cloneable, Serializable {
 		}
 	}
 
-	protected String progressType;
+	protected ProgressType progressType;
 
 	public Long getProjectId() {
 		return projectId;
@@ -652,9 +660,8 @@ public class Work implements Cloneable, Serializable {
 
 	public static enum ParentStatus {
 
-		PENDING("pending"), DOING("doing"), UNEVALUATED("unevaluated"),
-		EVALUATED("evaluated"), APPROVED("approved"), INACTIVE("inactive"),
-		DENIED("denied");
+		PENDING("pending"), ACTIVE("active"), COMPLETED("completed"),
+		INACTIVE("inactive"), DENIED("denied");
 
 		public static ParentStatus create(String value) {
 			for (ParentStatus parentStatus : values()) {
@@ -685,11 +692,44 @@ public class Work implements Cloneable, Serializable {
 
 	}
 
+	public static enum ProgressType {
+
+		MANUAL("manual"), BY_CHECKLIST("byChecklist"), BY_AMOUNT("byAmount"),
+		BY_PROPORTION("byProportion");
+
+		public static ProgressType create(String value) {
+			for (ProgressType progressType : values()) {
+				if (Objects.equals(progressType.getValue(), value) ||
+					Objects.equals(progressType.name(), value)) {
+
+					return progressType;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private ProgressType(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
 	public static enum Status {
 
-		PENDING("pending"), DOING("doing"), UNEVALUATED("unevaluated"),
-		EVALUATED("evaluated"), APPROVED("approved"), INACTIVE("inactive"),
-		DENIED("denied");
+		PENDING("pending"), ACTIVE("active"), COMPLETED("completed"),
+		INACTIVE("inactive"), DENIED("denied");
 
 		public static Status create(String value) {
 			for (Status status : values()) {

@@ -87,6 +87,50 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         return updateWorkEntry(entry);
     }
 
+    @Indexable(type = IndexableType.REINDEX)
+    public WorkEntry updateStatusWorkEntry(long creatorId,
+                                           long workId,
+                                           String status,
+                                           ServiceContext serviceContext) {
+
+        WorkEntry entry = fetchWorkEntry(workId);
+
+        updateModifierAudit(
+                creatorId,
+                entry,
+                new Date(),
+                serviceContext
+        );
+
+        entry.setStatus(status);
+
+        return updateWorkEntry(entry);
+
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public WorkEntry updateProcessWorkEntry(long creatorId,
+                                            long workId,
+                                            long process,
+                                              ServiceContext serviceContext) {
+
+        WorkEntry entry = fetchWorkEntry(workId);
+
+        updateModifierAudit(
+                creatorId,
+                entry,
+                new Date(),
+                serviceContext
+        );
+
+        entry.setProgress(process);
+
+        return updateWorkEntry(entry);
+
+    }
+
+
+
     private void setDataEntry(WorkEntry entry, WorkMapperModel model) {
         entry.setName(model.getName());
         entry.setStartDate(model.getStartDate());

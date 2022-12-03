@@ -343,7 +343,7 @@ public class WorkSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(work.getProgressType()));
+			sb.append(work.getProgressType());
 
 			sb.append("\"");
 		}
@@ -825,7 +825,8 @@ public class WorkSerDes {
 			}
 			else if (Objects.equals(jsonParserFieldName, "progressType")) {
 				if (jsonParserFieldValue != null) {
-					work.setProgressType((String)jsonParserFieldValue);
+					work.setProgressType(
+						Work.ProgressType.create((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "projectId")) {
