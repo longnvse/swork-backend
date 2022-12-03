@@ -219,6 +219,11 @@ paths:
             type: integer
             format: int64
         - in: query
+          name: teamId
+          schema:
+            type: integer
+            format: int64
+        - in: query
           name: filter
           schema:
             type: string

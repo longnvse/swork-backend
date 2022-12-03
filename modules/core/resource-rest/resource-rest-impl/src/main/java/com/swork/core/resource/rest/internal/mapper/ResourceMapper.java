@@ -29,8 +29,7 @@ public class ResourceMapper {
         ResourceMapperModel to = new ResourceMapperModel();
 
         to.setTeamId(GetterUtil.getLong(from.getTeamId()));
-        TeamEntry objectGroupWorkEntry =
-                teamEntryLocalService.fetchTeamEntry(from.getTeamId());
+        TeamEntry objectGroupWorkEntry = teamEntryLocalService.fetchTeamEntry(GetterUtil.getLong(from.getTeamId()));
         to.setTeamName(Validator.isNotNull(objectGroupWorkEntry) ?
                 objectGroupWorkEntry.getName() : "");
         to.setQuantity(GetterUtil.getInteger(from.getQuantity()));
