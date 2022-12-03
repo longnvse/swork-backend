@@ -68,7 +68,7 @@ public interface WorkEntryLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public WorkEntry addWorkEntry(
-		long creatorId, long businessId, WorkMapperModel model,
+		long businessId, long creatorId, WorkMapperModel model,
 		ServiceContext serviceContext);
 
 	/**
@@ -357,7 +357,17 @@ public interface WorkEntryLocalService
 		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
+	public WorkEntry updateProcessWorkEntry(
+		long creatorId, long workId, long process,
+		ServiceContext serviceContext);
+
+	@Indexable(type = IndexableType.REINDEX)
 	public WorkEntry updateProgress(long workId, long progress);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public WorkEntry updateStatusWorkEntry(
+		long creatorId, long workId, String status,
+		ServiceContext serviceContext);
 
 	@Indexable(type = IndexableType.REINDEX)
 	public WorkEntry updateWorkEntry(

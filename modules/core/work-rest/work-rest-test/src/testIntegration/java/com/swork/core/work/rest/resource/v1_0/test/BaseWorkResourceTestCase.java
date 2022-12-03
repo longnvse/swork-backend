@@ -180,7 +180,6 @@ public abstract class BaseWorkResourceTestCase {
 		work.setParentName(regex);
 		work.setParentReferenceCode(regex);
 		work.setPhaseName(regex);
-		work.setProgressType(regex);
 		work.setProjectName(regex);
 		work.setUnit(regex);
 
@@ -197,7 +196,6 @@ public abstract class BaseWorkResourceTestCase {
 		Assert.assertEquals(regex, work.getParentName());
 		Assert.assertEquals(regex, work.getParentReferenceCode());
 		Assert.assertEquals(regex, work.getPhaseName());
-		Assert.assertEquals(regex, work.getProgressType());
 		Assert.assertEquals(regex, work.getProjectName());
 		Assert.assertEquals(regex, work.getUnit());
 	}
@@ -607,6 +605,41 @@ public abstract class BaseWorkResourceTestCase {
 	}
 
 	protected Work testPutWork_addWork() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testPutProcessProject() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Work work = testPutProcessProject_addWork();
+
+		assertHttpResponseStatusCode(
+			204,
+			workResource.putProcessProjectHttpResponse(work.getId(), null));
+
+		assertHttpResponseStatusCode(
+			404, workResource.putProcessProjectHttpResponse(0L, null));
+	}
+
+	protected Work testPutProcessProject_addWork() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testPutStatusProject() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Work work = testPutStatusProject_addWork();
+
+		assertHttpResponseStatusCode(
+			204, workResource.putStatusProjectHttpResponse(work.getId(), null));
+
+		assertHttpResponseStatusCode(
+			404, workResource.putStatusProjectHttpResponse(0L, null));
+	}
+
+	protected Work testPutStatusProject_addWork() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
@@ -1581,11 +1614,8 @@ public abstract class BaseWorkResourceTestCase {
 		}
 
 		if (entityFieldName.equals("progressType")) {
-			sb.append("'");
-			sb.append(String.valueOf(work.getProgressType()));
-			sb.append("'");
-
-			return sb.toString();
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("projectId")) {
@@ -1717,8 +1747,6 @@ public abstract class BaseWorkResourceTestCase {
 				phaseName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				progress = RandomTestUtil.randomLong();
-				progressType = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
 				projectId = RandomTestUtil.randomLong();
 				projectName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());

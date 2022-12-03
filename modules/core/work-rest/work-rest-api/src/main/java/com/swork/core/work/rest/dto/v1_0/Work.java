@@ -648,17 +648,27 @@ public class Work implements Serializable {
 	protected Long progress;
 
 	@Schema
-	public String getProgressType() {
+	@Valid
+	public ProgressType getProgressType() {
 		return progressType;
 	}
 
-	public void setProgressType(String progressType) {
+	@JsonIgnore
+	public String getProgressTypeAsString() {
+		if (progressType == null) {
+			return null;
+		}
+
+		return progressType.toString();
+	}
+
+	public void setProgressType(ProgressType progressType) {
 		this.progressType = progressType;
 	}
 
 	@JsonIgnore
 	public void setProgressType(
-		UnsafeSupplier<String, Exception> progressTypeUnsafeSupplier) {
+		UnsafeSupplier<ProgressType, Exception> progressTypeUnsafeSupplier) {
 
 		try {
 			progressType = progressTypeUnsafeSupplier.get();
@@ -673,7 +683,7 @@ public class Work implements Serializable {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String progressType;
+	protected ProgressType progressType;
 
 	@Schema
 	public Long getProjectId() {
@@ -1175,7 +1185,7 @@ public class Work implements Serializable {
 
 			sb.append("\"");
 
-			sb.append(_escape(progressType));
+			sb.append(progressType);
 
 			sb.append("\"");
 		}
@@ -1281,9 +1291,8 @@ public class Work implements Serializable {
 	@GraphQLName("ParentStatus")
 	public static enum ParentStatus {
 
-		PENDING("pending"), DOING("doing"), UNEVALUATED("unevaluated"),
-		EVALUATED("evaluated"), APPROVED("approved"), INACTIVE("inactive"),
-		DENIED("denied");
+		PENDING("pending"), ACTIVE("active"), COMPLETED("completed"),
+		INACTIVE("inactive"), DENIED("denied");
 
 		@JsonCreator
 		public static ParentStatus create(String value) {
@@ -1318,12 +1327,50 @@ public class Work implements Serializable {
 
 	}
 
+	@GraphQLName("ProgressType")
+	public static enum ProgressType {
+
+		MANUAL("manual"), BY_CHECKLIST("byChecklist"), BY_AMOUNT("byAmount"),
+		BY_PROPORTION("byProportion");
+
+		@JsonCreator
+		public static ProgressType create(String value) {
+			if ((value == null) || value.equals("")) {
+				return null;
+			}
+
+			for (ProgressType progressType : values()) {
+				if (Objects.equals(progressType.getValue(), value)) {
+					return progressType;
+				}
+			}
+
+			throw new IllegalArgumentException("Invalid enum value: " + value);
+		}
+
+		@JsonValue
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private ProgressType(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
 	@GraphQLName("Status")
 	public static enum Status {
 
-		PENDING("pending"), DOING("doing"), UNEVALUATED("unevaluated"),
-		EVALUATED("evaluated"), APPROVED("approved"), INACTIVE("inactive"),
-		DENIED("denied");
+		PENDING("pending"), ACTIVE("active"), COMPLETED("completed"),
+		INACTIVE("inactive"), DENIED("denied");
 
 		@JsonCreator
 		public static Status create(String value) {
