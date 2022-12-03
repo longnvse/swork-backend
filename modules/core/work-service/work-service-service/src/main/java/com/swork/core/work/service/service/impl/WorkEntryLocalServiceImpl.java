@@ -30,6 +30,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Brian Wing Shun Chan
@@ -41,8 +42,8 @@ import java.util.List;
 public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
     @Indexable(type = IndexableType.REINDEX)
-    public WorkEntry addWorkEntry(long creatorId,
-                                  long businessId,
+    public WorkEntry addWorkEntry(long businessId,
+                                  long creatorId,
                                   WorkMapperModel model,
                                   ServiceContext serviceContext) {
         WorkEntry entry = createWorkEntry(counterLocalService.increment(WorkEntry.class.getName()));
@@ -56,7 +57,8 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         );
 
         setDataEntry(entry, model);
-
+        entry.setProjectId(model.getProjectId());
+        entry.setPhaseId(model.getPhaseId());
 
         return addWorkEntry(entry);
     }
@@ -88,9 +90,7 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         entry.setEndDate(model.getEndDate());
         entry.setDescription(model.getDescription());
         entry.setProgressType(model.getProgressType());
-        entry.setProjectId(model.getProjectId());
-        entry.setPhaseId(model.getPhaseId());
-        entry.setParentId(model.getProjectId());
+        entry.setParentId(model.getParentId());
 
         addMember(entry.getWorkId(), model);
     }
@@ -167,6 +167,7 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         entry.setGroupId(serviceContext.getScopeGroupId());
         entry.setCompanyId(serviceContext.getCompanyId());
         entry.setCreateDate(serviceContext.getCreateDate(current));
+        entry.setExternalReferenceCode(UUID.randomUUID().toString());
         entry.setAccountId(creatorId);
 
         updateModifierAudit(creatorId, entry, current, serviceContext);

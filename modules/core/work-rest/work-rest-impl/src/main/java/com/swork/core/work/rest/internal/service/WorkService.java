@@ -47,6 +47,7 @@ public class WorkService {
 
                     TermFilter businessIdFilter =
                             new TermFilter(SearchFields.BUSINESS_ID, String.valueOf(businessId));
+
                     TermFilter parentIdFilter =
                             new TermFilter(SearchFields.PARENT_ID, String.valueOf(GetterUtil.DEFAULT_LONG));
 
