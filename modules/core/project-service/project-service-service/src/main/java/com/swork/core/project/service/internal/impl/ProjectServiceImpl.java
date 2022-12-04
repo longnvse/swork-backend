@@ -59,7 +59,7 @@ public class ProjectServiceImpl implements ProjectService {
                             GetterUtil.DEFAULT_LONG,
                             (prevProgress, workEntry) -> {
                                 long dayDiff = getDayDiff(workEntry.getStartDate(), workEntry.getEndDate());
-                                return prevProgress + (dayDiff * workEntry.getProgress()) / totalProportion;
+                                return prevProgress + (long) (Math.ceil((double) (dayDiff * workEntry.getProgress()) * 100 / totalProportion));
                             },
                             Long::sum);
 
@@ -69,7 +69,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     private long getDayDiff(Date startDate, Date endDate) {
         long diffInMillis = Math.abs(endDate.getTime() - startDate.getTime());
-        return TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+        return TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS) + 1;
     }
 
     @Reference
