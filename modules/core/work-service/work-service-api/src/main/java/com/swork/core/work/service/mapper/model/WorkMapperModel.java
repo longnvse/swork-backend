@@ -33,7 +33,7 @@ public class WorkMapperModel {
     }
 
     public void setName(String name) {
-        this.name = name.trim().replaceAll("\\s+", StringPool.BLANK);
+        this.name = name.trim().replaceAll("\\s+", StringPool.SPACE);
     }
 
     public Date getStartDate() {
