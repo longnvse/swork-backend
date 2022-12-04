@@ -41,7 +41,7 @@ import java.util.stream.Stream;
 )
 public class DashboardRetrieverImpl implements DashboardRetriever {
     private static final String[] STATUS_KEY =
-            {"pending", "doing", "unevaluated", "evaluated", "approved", "inactive", "denied"};
+            {"pending", "active", "completed", "inactive", "denied"};
     private static final String THU = "THU";
     private static final String TU = "TAM_UNG";
     private static final String CHI = "CHI";
