@@ -17,7 +17,7 @@ import java.util.List;
 )
 public class WorkMapper {
     public WorkMapperModel mapModelFromDTO(long companyId,
-                                               Work from) {
+                                           Work from) {
         WorkMapperModel to = new WorkMapperModel();
 
         to.setName(from.getName());

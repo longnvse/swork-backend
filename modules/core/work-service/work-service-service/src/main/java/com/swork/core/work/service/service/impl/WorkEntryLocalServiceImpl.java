@@ -171,7 +171,7 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
                                   String name) {
         return workEntryPersistence.fetchByProjectAndName(
                 projectId,
-                name.trim().replaceAll("\\s+", StringPool.BLANK));
+                name.trim().replaceAll("\\s+", StringPool.SPACE));
     }
 
     public List<WorkEntry> findByProjectId(long projectId) {
@@ -188,7 +188,7 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         return workEntryPersistence.fetchByParentIdAndName(
                 businessId,
                 parentId,
-                name.trim().replaceAll("\\s+", StringPool.BLANK));
+                name.trim().replaceAll("\\s+", StringPool.SPACE));
     }
 
     public List<WorkEntry> findByParentId(long businessId, long parentId) {

@@ -107,17 +107,19 @@ public class WorkValidator {
 
     private void validateExistName(long businessId,
                                    Work work) throws SW_BadRequestException {
-        WorkEntry workEntry = localService.findByPID_Name(
-                businessId,
-                GetterUtil.getLong(work.getParentId()),
-                work.getName());
+        if (Validator.isNotNull(work.getParentId())) {
+            WorkEntry workEntry = localService.findByPID_Name(
+                    businessId,
+                    GetterUtil.getLong(work.getParentId()),
+                    work.getName());
 
-        if (Validator.isNotNull(workEntry)) {
-            throw new SW_BadRequestException(languageService.getMessage(LanguageKeys.NAME_EXIST_IN_PARENT));
+            if (Validator.isNotNull(workEntry)) {
+                throw new SW_BadRequestException(languageService.getMessage(LanguageKeys.NAME_EXIST_IN_PARENT));
+            }
         }
 
         if (Validator.isNotNull(work.getProjectId())) {
-            workEntry = localService.findByP_Name(
+            WorkEntry workEntry = localService.findByP_Name(
                     GetterUtil.getLong(work.getProjectId()),
                     work.getName()
             );
