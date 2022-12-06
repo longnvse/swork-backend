@@ -136,6 +136,7 @@ public class WorkMemberMapper {
 
         AccountEntry accountEntry =
                 accountEntryLocalService.fetchAccountEntryByExternalReferenceCode(companyId, memberReferenceCode);
+
         if (Validator.isNotNull(accountEntry)) {
             to.setMemberId(accountEntry.getAccountId());
             to.setMemberType(Participate.Type.ACCOUNT.getValue());

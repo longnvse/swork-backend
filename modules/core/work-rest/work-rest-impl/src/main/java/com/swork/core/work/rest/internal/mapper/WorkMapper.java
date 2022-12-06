@@ -46,9 +46,9 @@ public class WorkMapper {
         to.setStartDate(from.getStartDate());
         to.setEndDate(from.getEndDate());
         to.setDescription(from.getDescription());
-        to.setParentId(from.getParentId());
-        to.setProjectId(from.getProjectId());
-        to.setPhaseId(from.getPhaseId());
+        to.setParentId(from.getParentId() != 0 ? from.getParentId() : null);
+        to.setPhaseId(from.getPhaseId() != 0 ? from.getPhaseId() : null);
+        to.setProjectId(from.getProjectId() != 0 ? from.getProjectId() : null);
         to.setProgressType(Work.ProgressType.create(from.getProgressType()));
         to.setProgress(from.getProgress());
         to.setIncompleteAmount(from.getIncompleteAmount());
