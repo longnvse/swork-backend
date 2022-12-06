@@ -1,6 +1,7 @@
 package com.swork.core.work.service.mapper.model;
 
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.util.GetterUtil;
 
 import java.util.Date;
 
@@ -121,7 +122,7 @@ public class WorkMapperModel {
     }
 
     public void setIncompleteAmount(Double incompleteAmount) {
-        this.incompleteAmount = incompleteAmount;
+        this.incompleteAmount = GetterUtil.getDouble(incompleteAmount);
     }
 
     public String getUnit() {

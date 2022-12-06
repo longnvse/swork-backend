@@ -73,7 +73,6 @@ public class DashboardRetrieverImpl implements DashboardRetriever {
         buckets.forEach(bucket -> keyValueStatus.put(bucket.getKey(), bucket.getDocCount()));
 
         return mapper.mapStatusTask(keyValueStatus);
-
     }
 
     @Override
