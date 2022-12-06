@@ -1,5 +1,6 @@
 package com.swork.core.work.rest.internal.mapper;
 
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.swork.core.project.service.constant.Type;
 import com.swork.core.work.rest.dto.v1_0.Work;
 import com.swork.core.work.service.mapper.model.WorkMapperModel;
@@ -46,9 +47,9 @@ public class WorkMapper {
         to.setStartDate(from.getStartDate());
         to.setEndDate(from.getEndDate());
         to.setDescription(from.getDescription());
-        to.setParentId(from.getParentId() != 0 ? from.getParentId() : null);
-        to.setPhaseId(from.getPhaseId() != 0 ? from.getPhaseId() : null);
-        to.setProjectId(from.getProjectId() != 0 ? from.getProjectId() : null);
+        to.setParentId(GetterUtil.getLong(from.getParentId()) != 0 ? from.getParentId() : null);
+        to.setPhaseId(GetterUtil.getLong(from.getPhaseId()) != 0 ? from.getPhaseId() : null);
+        to.setProjectId(GetterUtil.getLong(from.getProjectId()) != 0 ? from.getProjectId() : null);
         to.setProgressType(Work.ProgressType.create(from.getProgressType()));
         to.setProgress(from.getProgress());
         to.setIncompleteAmount(from.getIncompleteAmount());
