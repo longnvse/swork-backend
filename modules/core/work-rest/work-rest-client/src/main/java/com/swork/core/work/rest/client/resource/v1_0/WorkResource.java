@@ -27,13 +27,13 @@ public interface WorkResource {
 	}
 
 	public Page<Work> getWorksPage(
-			String search, Long projectId, Long phaseId, String filterString,
-			Pagination pagination, String sortString)
+			Boolean isTree, String search, Long projectId, Long phaseId,
+			String filterString, Pagination pagination, String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getWorksPageHttpResponse(
-			String search, Long projectId, Long phaseId, String filterString,
-			Pagination pagination, String sortString)
+			Boolean isTree, String search, Long projectId, Long phaseId,
+			String filterString, Pagination pagination, String sortString)
 		throws Exception;
 
 	public Work postWork(Work work) throws Exception;
@@ -162,12 +162,12 @@ public interface WorkResource {
 	public static class WorkResourceImpl implements WorkResource {
 
 		public Page<Work> getWorksPage(
-				String search, Long projectId, Long phaseId,
+				Boolean isTree, String search, Long projectId, Long phaseId,
 				String filterString, Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = getWorksPageHttpResponse(
-				search, projectId, phaseId, filterString, pagination,
+				isTree, search, projectId, phaseId, filterString, pagination,
 				sortString);
 
 			String content = httpResponse.getContent();
@@ -208,7 +208,7 @@ public interface WorkResource {
 		}
 
 		public HttpInvoker.HttpResponse getWorksPageHttpResponse(
-				String search, Long projectId, Long phaseId,
+				Boolean isTree, String search, Long projectId, Long phaseId,
 				String filterString, Pagination pagination, String sortString)
 			throws Exception {
 
@@ -232,6 +232,10 @@ public interface WorkResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (isTree != null) {
+				httpInvoker.parameter("isTree", String.valueOf(isTree));
+			}
 
 			if (search != null) {
 				httpInvoker.parameter("search", String.valueOf(search));
@@ -879,7 +883,7 @@ public interface WorkResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/swork/work-rest/v1.0works/report-process/by-amount/{workId}");
+						"/o/swork/work-rest/v1.0/works/report-process/by-amount/{workId}");
 
 			httpInvoker.path("workId", workId);
 
@@ -964,7 +968,7 @@ public interface WorkResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/swork/work-rest/v1.0works/approval/{workId}");
+						"/o/swork/work-rest/v1.0/works/approval/{workId}");
 
 			httpInvoker.path("workId", workId);
 

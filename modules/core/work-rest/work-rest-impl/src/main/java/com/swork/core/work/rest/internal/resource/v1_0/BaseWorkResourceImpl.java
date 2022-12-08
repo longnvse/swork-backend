@@ -67,6 +67,10 @@ public abstract class BaseWorkResourceImpl
 		value = {
 			@io.swagger.v3.oas.annotations.Parameter(
 				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "isTree"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
 				name = "search"
 			),
 			@io.swagger.v3.oas.annotations.Parameter(
@@ -103,6 +107,9 @@ public abstract class BaseWorkResourceImpl
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
 	public Page<Work> getWorksPage(
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.ws.rs.QueryParam("isTree")
+			Boolean isTree,
 			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
 			@javax.ws.rs.QueryParam("search")
 			String search,
@@ -366,7 +373,7 @@ public abstract class BaseWorkResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0works/report-process/by-amount/{workId}'  -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0/works/report-process/by-amount/{workId}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
 		description = "Update process a Project"
@@ -386,7 +393,7 @@ public abstract class BaseWorkResourceImpl
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Work")}
 	)
-	@javax.ws.rs.Path("works/report-process/by-amount/{workId}")
+	@javax.ws.rs.Path("/works/report-process/by-amount/{workId}")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
 	@Override
@@ -405,7 +412,7 @@ public abstract class BaseWorkResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0works/approval/{workId}'  -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0/works/approval/{workId}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
 		description = "Update status a Project"
@@ -425,7 +432,7 @@ public abstract class BaseWorkResourceImpl
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Work")}
 	)
-	@javax.ws.rs.Path("works/approval/{workId}")
+	@javax.ws.rs.Path("/works/approval/{workId}")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
 	@Override
@@ -489,7 +496,8 @@ public abstract class BaseWorkResourceImpl
 		throws Exception {
 
 		return getWorksPage(
-			search, Long.parseLong((String)parameters.get("projectId")),
+			Boolean.parseBoolean((String)parameters.get("isTree")), search,
+			Long.parseLong((String)parameters.get("projectId")),
 			Long.parseLong((String)parameters.get("phaseId")), filter,
 			pagination, sorts);
 	}

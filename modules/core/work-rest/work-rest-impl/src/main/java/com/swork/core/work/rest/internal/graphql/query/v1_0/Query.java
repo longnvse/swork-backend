@@ -45,12 +45,13 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {works(filter: ___, page: ___, pageSize: ___, phaseId: ___, projectId: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {works(filter: ___, isTree: ___, page: ___, pageSize: ___, phaseId: ___, projectId: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(
 		description = "Retrieves the Work. Results can be paginated, filtered, searched, and sorted."
 	)
 	public WorkPage works(
+			@GraphQLName("isTree") Boolean isTree,
 			@GraphQLName("search") String search,
 			@GraphQLName("projectId") Long projectId,
 			@GraphQLName("phaseId") Long phaseId,
@@ -65,7 +66,7 @@ public class Query {
 			this::_populateResourceContext,
 			workResource -> new WorkPage(
 				workResource.getWorksPage(
-					search, projectId, phaseId,
+					isTree, search, projectId, phaseId,
 					_filterBiFunction.apply(workResource, filterString),
 					Pagination.of(page, pageSize),
 					_sortsBiFunction.apply(workResource, sortsString))));
