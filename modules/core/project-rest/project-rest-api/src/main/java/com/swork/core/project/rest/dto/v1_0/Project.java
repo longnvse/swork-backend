@@ -781,7 +781,7 @@ public class Project implements Serializable {
 	public static enum Status {
 
 		APPROVED("approved"), DENIED("denied"), INACTIVE("inactive"),
-		PENDING("pending"), DOING("doing");
+		PENDING("pending"), ACTIVE("active");
 
 		@JsonCreator
 		public static Status create(String value) {

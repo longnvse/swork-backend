@@ -393,7 +393,7 @@ public class Project implements Cloneable, Serializable {
 	public static enum Status {
 
 		APPROVED("approved"), DENIED("denied"), INACTIVE("inactive"),
-		PENDING("pending"), DOING("doing");
+		PENDING("pending"), ACTIVE("active");
 
 		public static Status create(String value) {
 			for (Status status : values()) {
