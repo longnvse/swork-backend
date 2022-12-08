@@ -389,38 +389,35 @@ public interface PhaseEntryPersistence extends BasePersistence<PhaseEntry> {
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
-	 * Returns all the phase entries where businessId = &#63; and projectId = &#63;.
+	 * Returns all the phase entries where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @return the matching phase entries
 	 */
-	public java.util.List<PhaseEntry> findByP_(long businessId, long projectId);
+	public java.util.List<PhaseEntry> findByP_(long projectId);
 
 	/**
-	 * Returns a range of all the phase entries where businessId = &#63; and projectId = &#63;.
+	 * Returns a range of all the phase entries where projectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PhaseEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param start the lower bound of the range of phase entries
 	 * @param end the upper bound of the range of phase entries (not inclusive)
 	 * @return the range of matching phase entries
 	 */
 	public java.util.List<PhaseEntry> findByP_(
-		long businessId, long projectId, int start, int end);
+		long projectId, int start, int end);
 
 	/**
-	 * Returns an ordered range of all the phase entries where businessId = &#63; and projectId = &#63;.
+	 * Returns an ordered range of all the phase entries where projectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PhaseEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param start the lower bound of the range of phase entries
 	 * @param end the upper bound of the range of phase entries (not inclusive)
@@ -428,18 +425,17 @@ public interface PhaseEntryPersistence extends BasePersistence<PhaseEntry> {
 	 * @return the ordered range of matching phase entries
 	 */
 	public java.util.List<PhaseEntry> findByP_(
-		long businessId, long projectId, int start, int end,
+		long projectId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<PhaseEntry>
 			orderByComparator);
 
 	/**
-	 * Returns an ordered range of all the phase entries where businessId = &#63; and projectId = &#63;.
+	 * Returns an ordered range of all the phase entries where projectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PhaseEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param start the lower bound of the range of phase entries
 	 * @param end the upper bound of the range of phase entries (not inclusive)
@@ -448,99 +444,92 @@ public interface PhaseEntryPersistence extends BasePersistence<PhaseEntry> {
 	 * @return the ordered range of matching phase entries
 	 */
 	public java.util.List<PhaseEntry> findByP_(
-		long businessId, long projectId, int start, int end,
+		long projectId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<PhaseEntry>
 			orderByComparator,
 		boolean useFinderCache);
 
 	/**
-	 * Returns the first phase entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the first phase entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching phase entry
 	 * @throws NoSuchPhaseEntryException if a matching phase entry could not be found
 	 */
 	public PhaseEntry findByP__First(
-			long businessId, long projectId,
+			long projectId,
 			com.liferay.portal.kernel.util.OrderByComparator<PhaseEntry>
 				orderByComparator)
 		throws NoSuchPhaseEntryException;
 
 	/**
-	 * Returns the first phase entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the first phase entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching phase entry, or <code>null</code> if a matching phase entry could not be found
 	 */
 	public PhaseEntry fetchByP__First(
-		long businessId, long projectId,
+		long projectId,
 		com.liferay.portal.kernel.util.OrderByComparator<PhaseEntry>
 			orderByComparator);
 
 	/**
-	 * Returns the last phase entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the last phase entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching phase entry
 	 * @throws NoSuchPhaseEntryException if a matching phase entry could not be found
 	 */
 	public PhaseEntry findByP__Last(
-			long businessId, long projectId,
+			long projectId,
 			com.liferay.portal.kernel.util.OrderByComparator<PhaseEntry>
 				orderByComparator)
 		throws NoSuchPhaseEntryException;
 
 	/**
-	 * Returns the last phase entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the last phase entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching phase entry, or <code>null</code> if a matching phase entry could not be found
 	 */
 	public PhaseEntry fetchByP__Last(
-		long businessId, long projectId,
+		long projectId,
 		com.liferay.portal.kernel.util.OrderByComparator<PhaseEntry>
 			orderByComparator);
 
 	/**
-	 * Returns the phase entries before and after the current phase entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the phase entries before and after the current phase entry in the ordered set where projectId = &#63;.
 	 *
 	 * @param phaseId the primary key of the current phase entry
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next phase entry
 	 * @throws NoSuchPhaseEntryException if a phase entry with the primary key could not be found
 	 */
 	public PhaseEntry[] findByP__PrevAndNext(
-			long phaseId, long businessId, long projectId,
+			long phaseId, long projectId,
 			com.liferay.portal.kernel.util.OrderByComparator<PhaseEntry>
 				orderByComparator)
 		throws NoSuchPhaseEntryException;
 
 	/**
-	 * Removes all the phase entries where businessId = &#63; and projectId = &#63; from the database.
+	 * Removes all the phase entries where projectId = &#63; from the database.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 */
-	public void removeByP_(long businessId, long projectId);
+	public void removeByP_(long projectId);
 
 	/**
-	 * Returns the number of phase entries where businessId = &#63; and projectId = &#63;.
+	 * Returns the number of phase entries where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @return the number of matching phase entries
 	 */
-	public int countByP_(long businessId, long projectId);
+	public int countByP_(long projectId);
 
 	/**
 	 * Returns the phase entry where businessId = &#63; and projectId = &#63; and phaseName = &#63; or throws a <code>NoSuchPhaseEntryException</code> if it could not be found.

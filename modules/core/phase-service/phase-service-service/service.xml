@@ -45,7 +45,6 @@
         <column name="projectId" type="long"/>
 
         <finder name="P_" return-type="Collection">
-            <finder-column name="businessId"/>
             <finder-column name="projectId"/>
         </finder>
 
