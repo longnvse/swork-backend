@@ -18,13 +18,10 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.swork.core.project.service.constant.Type;
-import com.swork.core.work.service.mapper.model.WorkMapperModel;
 import com.swork.core.work.service.mapper.model.WorkMemberMapperModel;
 import com.swork.core.work.service.model.WorkMemberEntry;
-import com.swork.core.work.service.service.WorkMemberEntryLocalService;
 import com.swork.core.work.service.service.base.WorkMemberEntryLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.List;
 
@@ -54,13 +51,16 @@ public class WorkMemberEntryLocalServiceImpl
     }
 
 
-
     public List<WorkMemberEntry> findByW_MT_T(long workId, String memberType, String type) {
         return workMemberEntryPersistence.findByW_MT_T(workId, memberType, type);
     }
 
     public List<WorkMemberEntry> findByW_T(long workId, String type) {
         return workMemberEntryPersistence.findByW_T_(workId, type);
+    }
+
+    public long countHandles(long workId) {
+        return workMemberEntryPersistence.findByW_T_(workId, Type.HANDLE.getValue()).size();
     }
 
     public void deleteByWorkId(long workId) {

@@ -17,27 +17,41 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class WorkEntryListener extends BaseModelListener<WorkEntry> {
     @Override
+    public void onAfterCreate(WorkEntry model) throws ModelListenerException {
+        updateParentProgress(model);
+    }
+
+    @Override
     public void onAfterUpdate(WorkEntry originalModel, WorkEntry model) throws ModelListenerException {
         if (originalModel.getProgress() != model.getProgress()) {
-            long parentId = GetterUtil.getLong(model.getParentId());
+            updateParentProgress(model);
+        }
+    }
 
-            if (parentId != 0) {
-                workService.updateProgress(parentId);
-                return;
-            }
+    @Override
+    public void onAfterRemove(WorkEntry model) throws ModelListenerException {
+        updateParentProgress(model);
+    }
 
-            //update progress phase, project here
-            long projectId = GetterUtil.getLong(model.getProjectId());
+    private void updateParentProgress(WorkEntry workEntry) {
+        long parentId = GetterUtil.getLong(workEntry.getParentId());
 
-            if (projectId != 0) {
-                projectService.updateProgress(projectId);
-            }
+        if (parentId != 0) {
+            workService.updateProgress(parentId);
+            return;
+        }
 
-            long phaseId = GetterUtil.getLong(model.getPhaseId());
+        //update progress phase, project here
+        long projectId = GetterUtil.getLong(workEntry.getProjectId());
 
-            if (phaseId != 0) {
-                phaseService.updateProgress(phaseId);
-            }
+        if (projectId != 0) {
+            projectService.updateProgress(projectId);
+        }
+
+        long phaseId = GetterUtil.getLong(workEntry.getPhaseId());
+
+        if (phaseId != 0) {
+            phaseService.updateProgress(phaseId);
         }
     }
 

@@ -59,6 +59,14 @@ public class WorkEntryLocalServiceWrapper
 		return _workEntryLocalService.addWorkEntry(workEntry);
 	}
 
+	@Override
+	public long calcProgress(
+		java.util.List<com.swork.core.work.service.model.WorkEntry> workEntries,
+		String progressType) {
+
+		return _workEntryLocalService.calcProgress(workEntries, progressType);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

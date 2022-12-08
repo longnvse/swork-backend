@@ -7,6 +7,7 @@ import com.swork.core.project.service.internal.service.ProjectService;
 import com.swork.core.work.service.internal.service.WorkService;
 import com.swork.core.work.service.model.WorkEntry;
 import com.swork.core.work.service.service.WorkEntryLocalService;
+import com.swork.core.work.service.service.WorkMemberEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -41,7 +42,6 @@ public class WorkServiceImpl implements WorkService {
             return;
         }
 
-        //update progress phase, project here
         long projectId = GetterUtil.getLong(workEntry.getProjectId());
 
         if (projectId != 0) {
@@ -54,7 +54,6 @@ public class WorkServiceImpl implements WorkService {
             phaseService.updateProgress(phaseId);
         }
     }
-
     @Reference
     private WorkEntryLocalService localService;
     @Reference

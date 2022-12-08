@@ -84,6 +84,8 @@ public interface WorkEntryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public WorkEntry addWorkEntry(WorkEntry workEntry);
 
+	public long calcProgress(List<WorkEntry> workEntries, String progressType);
+
 	/**
 	 * @throws PortalException
 	 */
