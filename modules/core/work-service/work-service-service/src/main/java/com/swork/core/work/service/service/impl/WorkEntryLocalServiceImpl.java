@@ -46,6 +46,8 @@ import java.util.stream.Collectors;
 public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
     private static final String PENDING = "pending";
+    private static final String COMPLETED = "completed";
+    private static final String ACTIVE = "active";
     private static final String AVERAGE_WORKS = "averageWorks";
     private static final String PROPORTION_DATE = "proportionDate";
 
@@ -117,8 +119,8 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
     @Indexable(type = IndexableType.REINDEX)
     public WorkEntry updateProcessWorkEntry(long creatorId,
                                             long workId,
-                                            long process,
-                                              ServiceContext serviceContext) {
+                                            long progress,
+                                            ServiceContext serviceContext) {
 
         WorkEntry entry = fetchWorkEntry(workId);
 
@@ -129,7 +131,15 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
                 serviceContext
         );
 
-        entry.setProgress(process);
+        entry.setProgress(progress);
+
+        if (entry.getStatus().equals(ACTIVE)) {
+            entry.setStatus(ACTIVE);
+        }
+
+        if (progress >= 100) {
+            entry.setStatus(COMPLETED);
+        }
 
         return updateWorkEntry(entry);
 
@@ -255,6 +265,14 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
         if (Validator.isNotNull(workEntry)) {
             workEntry.setProgress(progress);
+
+            if (workEntry.getStatus().equals(ACTIVE)) {
+                workEntry.setStatus(ACTIVE);
+            }
+
+            if (progress >= 100) {
+                workEntry.setStatus(COMPLETED);
+            }
         }
 
         return updateWorkEntry(workEntry);
