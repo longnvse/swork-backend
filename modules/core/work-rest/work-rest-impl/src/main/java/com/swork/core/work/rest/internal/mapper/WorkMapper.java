@@ -45,7 +45,7 @@ public class WorkMapper {
         return to;
     }
 
-    public Work mapDTOFromEntry(WorkEntry from) {
+    public Work mapDTOFromEntry(WorkEntry from, boolean isTree) {
         Work to = new Work();
 
         to.setId(from.getWorkId());
@@ -98,6 +98,10 @@ public class WorkMapper {
 
         to.setHandles(workMemberMapper.mapHandlesFromEntries(handleEntries));
 
+        if (isTree) {
+            List<WorkEntry> children = localService.findByParentId(from.getBusinessId(), from.getWorkId());
+            to.setWorks(children.stream().map(workEntry -> mapDTOFromEntry(workEntry, true)).toArray(Work[]::new));
+        }
 
         return to;
     }

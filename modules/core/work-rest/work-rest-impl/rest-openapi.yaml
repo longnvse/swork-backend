@@ -82,7 +82,6 @@ components:
           type: string
         parentStatus:
           enum: [ pending,active, completed, inactive, denied]
-
           readOnly: true
         works:
           type: array
@@ -157,6 +156,11 @@ paths:
         Retrieves the Work. Results can be paginated, filtered, searched, and sorted.
       operationId: getWorksPage
       parameters:
+        - in: query
+          name: isTree
+          schema:
+            type: boolean
+          required: true
         - in: query
           name: filter
           schema:
