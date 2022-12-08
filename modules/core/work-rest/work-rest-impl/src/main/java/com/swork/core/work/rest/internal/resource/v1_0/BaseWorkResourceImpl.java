@@ -108,7 +108,6 @@ public abstract class BaseWorkResourceImpl
 	@Override
 	public Page<Work> getWorksPage(
 			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
-			@javax.validation.constraints.NotNull
 			@javax.ws.rs.QueryParam("isTree")
 			Boolean isTree,
 			@io.swagger.v3.oas.annotations.Parameter(hidden = true)

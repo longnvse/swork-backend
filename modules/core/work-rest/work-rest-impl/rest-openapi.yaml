@@ -160,7 +160,6 @@ paths:
           name: isTree
           schema:
             type: boolean
-          required: true
         - in: query
           name: filter
           schema:
