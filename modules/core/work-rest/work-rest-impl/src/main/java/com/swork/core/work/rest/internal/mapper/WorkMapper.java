@@ -1,11 +1,17 @@
 package com.swork.core.work.rest.internal.mapper;
 
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.Validator;
+import com.swork.core.phase.service.model.PhaseEntry;
+import com.swork.core.phase.service.service.PhaseEntryLocalService;
 import com.swork.core.project.service.constant.Type;
+import com.swork.core.project.service.model.ProjectEntry;
+import com.swork.core.project.service.service.ProjectEntryLocalService;
 import com.swork.core.work.rest.dto.v1_0.Work;
 import com.swork.core.work.service.mapper.model.WorkMapperModel;
 import com.swork.core.work.service.model.WorkEntry;
 import com.swork.core.work.service.model.WorkMemberEntry;
+import com.swork.core.work.service.service.WorkEntryLocalService;
 import com.swork.core.work.service.service.WorkMemberEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -48,8 +54,29 @@ public class WorkMapper {
         to.setEndDate(from.getEndDate());
         to.setDescription(from.getDescription());
         to.setParentId(GetterUtil.getLong(from.getParentId()) != 0 ? from.getParentId() : null);
+
+        WorkEntry parent = localService.fetchWorkEntry(from.getWorkId());
+
+        if (Validator.isNotNull(parent)) {
+            to.setParentName(parent.getName());
+        }
+
         to.setPhaseId(GetterUtil.getLong(from.getPhaseId()) != 0 ? from.getPhaseId() : null);
+
+        PhaseEntry phaseEntry = phaseEntryLocalService.fetchPhaseEntry(from.getPhaseId());
+
+        if (Validator.isNotNull(phaseEntry)) {
+            to.setPhaseName(phaseEntry.getPhaseName());
+        }
+
         to.setProjectId(GetterUtil.getLong(from.getProjectId()) != 0 ? from.getProjectId() : null);
+
+        ProjectEntry projectEntry = projectEntryLocalService.fetchProjectEntry(from.getProjectId());
+
+        if (Validator.isNotNull(projectEntry)) {
+            to.setProjectName(projectEntry.getName());
+        }
+
         to.setProgressType(Work.ProgressType.create(from.getProgressType()));
         to.setProgress(from.getProgress());
         to.setIncompleteAmount(from.getIncompleteAmount());
@@ -77,7 +104,12 @@ public class WorkMapper {
 
     @Reference
     private WorkMemberMapper workMemberMapper;
-
     @Reference
     private WorkMemberEntryLocalService memberEntryLocalService;
+    @Reference
+    private WorkEntryLocalService localService;
+    @Reference
+    private ProjectEntryLocalService projectEntryLocalService;
+    @Reference
+    private PhaseEntryLocalService phaseEntryLocalService;
 }
