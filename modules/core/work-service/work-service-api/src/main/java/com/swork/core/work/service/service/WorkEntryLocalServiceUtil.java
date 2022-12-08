@@ -68,6 +68,12 @@ public class WorkEntryLocalServiceUtil {
 		return getService().addWorkEntry(workEntry);
 	}
 
+	public static long calcProgress(
+		List<WorkEntry> workEntries, String progressType) {
+
+		return getService().calcProgress(workEntries, progressType);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

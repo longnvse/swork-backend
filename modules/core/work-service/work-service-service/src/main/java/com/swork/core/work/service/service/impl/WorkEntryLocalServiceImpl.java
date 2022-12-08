@@ -19,6 +19,7 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.swork.core.project.service.constant.Type;
 import com.swork.core.work.service.mapper.model.WorkMapperModel;
@@ -30,7 +31,10 @@ import org.osgi.service.component.annotations.Reference;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @author Brian Wing Shun Chan
@@ -42,6 +46,8 @@ import java.util.UUID;
 public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
     private static final String PENDING = "pending";
+    private static final String AVERAGE_WORKS = "averageWorks";
+    private static final String PROPORTION_DATE = "proportionDate";
 
     @Indexable(type = IndexableType.REINDEX)
     public WorkEntry addWorkEntry(long businessId,
@@ -172,6 +178,54 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         return workEntryPersistence.fetchByProjectAndName(
                 projectId,
                 name.trim().replaceAll("\\s+", StringPool.SPACE));
+    }
+
+    public long calcProgress(List<WorkEntry> workEntries, String progressType) {
+
+        if (progressType.equalsIgnoreCase(AVERAGE_WORKS)) {
+            long totalProgress = workEntries
+                    .stream()
+                    .reduce(
+                            GetterUtil.DEFAULT_LONG,
+                            (prevProgress, workEntry) -> prevProgress + workEntry.getProgress(),
+                            Long::sum);
+
+            return (long) Math.ceil(totalProgress * 1.0 / workEntries.size());
+        }
+
+        if (progressType.equalsIgnoreCase(PROPORTION_DATE)) {
+
+            Map<Long, Long> amountWorkMap =
+                    workEntries.stream().collect(Collectors.toMap(WorkEntry::getWorkId, workEntry -> {
+                        long numberHandlers = workMemberEntryLocalService.countHandles(workEntry.getWorkId());
+                        long handleDate = getDayDiff(workEntry.getStartDate(), workEntry.getEndDate());
+
+                        return numberHandlers * handleDate;
+                    }));
+
+
+            long totalAmountWork = workEntries.stream().reduce(
+                    GetterUtil.DEFAULT_LONG,
+                    (prevTotal, workEntry) -> prevTotal + amountWorkMap.get(workEntry.getWorkId()),
+                    Long::sum
+            );
+
+            double amountDone = workEntries
+                    .stream()
+                    .reduce(
+                            GetterUtil.DEFAULT_DOUBLE,
+                            (prevProgress, workEntry) -> prevProgress + (workEntry.getProgress() * amountWorkMap.get(workEntry.getWorkId()) * 1.0 / 100),
+                            Double::sum);
+
+            return (long) Math.ceil(amountDone * 100 / totalAmountWork);
+        }
+
+        return GetterUtil.DEFAULT_LONG;
+    }
+
+    private long getDayDiff(Date startDate, Date endDate) {
+        long diffInMillis = Math.abs(endDate.getTime() - startDate.getTime());
+        return TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS) + 1;
     }
 
     public List<WorkEntry> findByProjectId(long projectId) {
