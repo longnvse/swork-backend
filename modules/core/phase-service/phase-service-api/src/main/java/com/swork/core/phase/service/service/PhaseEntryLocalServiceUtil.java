@@ -256,10 +256,8 @@ public class PhaseEntryLocalServiceUtil {
 		return getService().fetchPhaseEntryByUuidAndGroupId(uuid, groupId);
 	}
 
-	public static List<PhaseEntry> findByProjectId(
-		long businessId, long projectId) {
-
-		return getService().findByProjectId(businessId, projectId);
+	public static List<PhaseEntry> findByProjectId(long projectId) {
+		return getService().findByProjectId(projectId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery

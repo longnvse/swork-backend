@@ -285,9 +285,9 @@ public class PhaseEntryLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.swork.core.phase.service.model.PhaseEntry>
-		findByProjectId(long businessId, long projectId) {
+		findByProjectId(long projectId) {
 
-		return _phaseEntryLocalService.findByProjectId(businessId, projectId);
+		return _phaseEntryLocalService.findByProjectId(projectId);
 	}
 
 	@Override

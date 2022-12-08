@@ -538,43 +538,40 @@ public class PhaseEntryUtil {
 	}
 
 	/**
-	 * Returns all the phase entries where businessId = &#63; and projectId = &#63;.
+	 * Returns all the phase entries where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @return the matching phase entries
 	 */
-	public static List<PhaseEntry> findByP_(long businessId, long projectId) {
-		return getPersistence().findByP_(businessId, projectId);
+	public static List<PhaseEntry> findByP_(long projectId) {
+		return getPersistence().findByP_(projectId);
 	}
 
 	/**
-	 * Returns a range of all the phase entries where businessId = &#63; and projectId = &#63;.
+	 * Returns a range of all the phase entries where projectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PhaseEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param start the lower bound of the range of phase entries
 	 * @param end the upper bound of the range of phase entries (not inclusive)
 	 * @return the range of matching phase entries
 	 */
 	public static List<PhaseEntry> findByP_(
-		long businessId, long projectId, int start, int end) {
+		long projectId, int start, int end) {
 
-		return getPersistence().findByP_(businessId, projectId, start, end);
+		return getPersistence().findByP_(projectId, start, end);
 	}
 
 	/**
-	 * Returns an ordered range of all the phase entries where businessId = &#63; and projectId = &#63;.
+	 * Returns an ordered range of all the phase entries where projectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PhaseEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param start the lower bound of the range of phase entries
 	 * @param end the upper bound of the range of phase entries (not inclusive)
@@ -582,21 +579,20 @@ public class PhaseEntryUtil {
 	 * @return the ordered range of matching phase entries
 	 */
 	public static List<PhaseEntry> findByP_(
-		long businessId, long projectId, int start, int end,
+		long projectId, int start, int end,
 		OrderByComparator<PhaseEntry> orderByComparator) {
 
 		return getPersistence().findByP_(
-			businessId, projectId, start, end, orderByComparator);
+			projectId, start, end, orderByComparator);
 	}
 
 	/**
-	 * Returns an ordered range of all the phase entries where businessId = &#63; and projectId = &#63;.
+	 * Returns an ordered range of all the phase entries where projectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PhaseEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param start the lower bound of the range of phase entries
 	 * @param end the upper bound of the range of phase entries (not inclusive)
@@ -605,124 +601,108 @@ public class PhaseEntryUtil {
 	 * @return the ordered range of matching phase entries
 	 */
 	public static List<PhaseEntry> findByP_(
-		long businessId, long projectId, int start, int end,
+		long projectId, int start, int end,
 		OrderByComparator<PhaseEntry> orderByComparator,
 		boolean useFinderCache) {
 
 		return getPersistence().findByP_(
-			businessId, projectId, start, end, orderByComparator,
-			useFinderCache);
+			projectId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
-	 * Returns the first phase entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the first phase entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching phase entry
 	 * @throws NoSuchPhaseEntryException if a matching phase entry could not be found
 	 */
 	public static PhaseEntry findByP__First(
-			long businessId, long projectId,
-			OrderByComparator<PhaseEntry> orderByComparator)
+			long projectId, OrderByComparator<PhaseEntry> orderByComparator)
 		throws com.swork.core.phase.service.exception.
 			NoSuchPhaseEntryException {
 
-		return getPersistence().findByP__First(
-			businessId, projectId, orderByComparator);
+		return getPersistence().findByP__First(projectId, orderByComparator);
 	}
 
 	/**
-	 * Returns the first phase entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the first phase entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching phase entry, or <code>null</code> if a matching phase entry could not be found
 	 */
 	public static PhaseEntry fetchByP__First(
-		long businessId, long projectId,
-		OrderByComparator<PhaseEntry> orderByComparator) {
+		long projectId, OrderByComparator<PhaseEntry> orderByComparator) {
 
-		return getPersistence().fetchByP__First(
-			businessId, projectId, orderByComparator);
+		return getPersistence().fetchByP__First(projectId, orderByComparator);
 	}
 
 	/**
-	 * Returns the last phase entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the last phase entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching phase entry
 	 * @throws NoSuchPhaseEntryException if a matching phase entry could not be found
 	 */
 	public static PhaseEntry findByP__Last(
-			long businessId, long projectId,
-			OrderByComparator<PhaseEntry> orderByComparator)
+			long projectId, OrderByComparator<PhaseEntry> orderByComparator)
 		throws com.swork.core.phase.service.exception.
 			NoSuchPhaseEntryException {
 
-		return getPersistence().findByP__Last(
-			businessId, projectId, orderByComparator);
+		return getPersistence().findByP__Last(projectId, orderByComparator);
 	}
 
 	/**
-	 * Returns the last phase entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the last phase entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching phase entry, or <code>null</code> if a matching phase entry could not be found
 	 */
 	public static PhaseEntry fetchByP__Last(
-		long businessId, long projectId,
-		OrderByComparator<PhaseEntry> orderByComparator) {
+		long projectId, OrderByComparator<PhaseEntry> orderByComparator) {
 
-		return getPersistence().fetchByP__Last(
-			businessId, projectId, orderByComparator);
+		return getPersistence().fetchByP__Last(projectId, orderByComparator);
 	}
 
 	/**
-	 * Returns the phase entries before and after the current phase entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the phase entries before and after the current phase entry in the ordered set where projectId = &#63;.
 	 *
 	 * @param phaseId the primary key of the current phase entry
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next phase entry
 	 * @throws NoSuchPhaseEntryException if a phase entry with the primary key could not be found
 	 */
 	public static PhaseEntry[] findByP__PrevAndNext(
-			long phaseId, long businessId, long projectId,
+			long phaseId, long projectId,
 			OrderByComparator<PhaseEntry> orderByComparator)
 		throws com.swork.core.phase.service.exception.
 			NoSuchPhaseEntryException {
 
 		return getPersistence().findByP__PrevAndNext(
-			phaseId, businessId, projectId, orderByComparator);
+			phaseId, projectId, orderByComparator);
 	}
 
 	/**
-	 * Removes all the phase entries where businessId = &#63; and projectId = &#63; from the database.
+	 * Removes all the phase entries where projectId = &#63; from the database.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 */
-	public static void removeByP_(long businessId, long projectId) {
-		getPersistence().removeByP_(businessId, projectId);
+	public static void removeByP_(long projectId) {
+		getPersistence().removeByP_(projectId);
 	}
 
 	/**
-	 * Returns the number of phase entries where businessId = &#63; and projectId = &#63;.
+	 * Returns the number of phase entries where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @return the number of matching phase entries
 	 */
-	public static int countByP_(long businessId, long projectId) {
-		return getPersistence().countByP_(businessId, projectId);
+	public static int countByP_(long projectId) {
+		return getPersistence().countByP_(projectId);
 	}
 
 	/**

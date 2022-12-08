@@ -1,5 +1,6 @@
 dependencies {
 	compile project(":modules:core:project-service:project-service-api")
+	compile project(":modules:core:phase-service:phase-service-api")
 	compile project(":modules:core:work-service:work-service-api")
 	compile project(":modules:common:common-util")
 

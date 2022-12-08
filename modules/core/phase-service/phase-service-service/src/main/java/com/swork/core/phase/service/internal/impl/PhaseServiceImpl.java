@@ -41,6 +41,13 @@ public class PhaseServiceImpl implements PhaseService {
 
     }
 
+    @Override
+    public void updateProgressByProjectId(long projectId) {
+        List<PhaseEntry> phaseEntries = localService.findByProjectId(projectId);
+
+        phaseEntries.forEach(phaseEntry -> updateProgress(phaseEntry.getPhaseId()));
+    }
+
     @Reference
     private ProjectEntryLocalService projectEntryLocalService;
     @Reference

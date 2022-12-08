@@ -1461,46 +1461,40 @@ public class PhaseEntryPersistenceImpl
 	private FinderPath _finderPathCountByP_;
 
 	/**
-	 * Returns all the phase entries where businessId = &#63; and projectId = &#63;.
+	 * Returns all the phase entries where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @return the matching phase entries
 	 */
 	@Override
-	public List<PhaseEntry> findByP_(long businessId, long projectId) {
-		return findByP_(
-			businessId, projectId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	public List<PhaseEntry> findByP_(long projectId) {
+		return findByP_(projectId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns a range of all the phase entries where businessId = &#63; and projectId = &#63;.
+	 * Returns a range of all the phase entries where projectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PhaseEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param start the lower bound of the range of phase entries
 	 * @param end the upper bound of the range of phase entries (not inclusive)
 	 * @return the range of matching phase entries
 	 */
 	@Override
-	public List<PhaseEntry> findByP_(
-		long businessId, long projectId, int start, int end) {
-
-		return findByP_(businessId, projectId, start, end, null);
+	public List<PhaseEntry> findByP_(long projectId, int start, int end) {
+		return findByP_(projectId, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the phase entries where businessId = &#63; and projectId = &#63;.
+	 * Returns an ordered range of all the phase entries where projectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PhaseEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param start the lower bound of the range of phase entries
 	 * @param end the upper bound of the range of phase entries (not inclusive)
@@ -1509,21 +1503,19 @@ public class PhaseEntryPersistenceImpl
 	 */
 	@Override
 	public List<PhaseEntry> findByP_(
-		long businessId, long projectId, int start, int end,
+		long projectId, int start, int end,
 		OrderByComparator<PhaseEntry> orderByComparator) {
 
-		return findByP_(
-			businessId, projectId, start, end, orderByComparator, true);
+		return findByP_(projectId, start, end, orderByComparator, true);
 	}
 
 	/**
-	 * Returns an ordered range of all the phase entries where businessId = &#63; and projectId = &#63;.
+	 * Returns an ordered range of all the phase entries where projectId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PhaseEntryModelImpl</code>.
 	 * </p>
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param start the lower bound of the range of phase entries
 	 * @param end the upper bound of the range of phase entries (not inclusive)
@@ -1533,7 +1525,7 @@ public class PhaseEntryPersistenceImpl
 	 */
 	@Override
 	public List<PhaseEntry> findByP_(
-		long businessId, long projectId, int start, int end,
+		long projectId, int start, int end,
 		OrderByComparator<PhaseEntry> orderByComparator,
 		boolean useFinderCache) {
 
@@ -1545,13 +1537,13 @@ public class PhaseEntryPersistenceImpl
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindByP_;
-				finderArgs = new Object[] {businessId, projectId};
+				finderArgs = new Object[] {projectId};
 			}
 		}
 		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByP_;
 			finderArgs = new Object[] {
-				businessId, projectId, start, end, orderByComparator
+				projectId, start, end, orderByComparator
 			};
 		}
 
@@ -1563,9 +1555,7 @@ public class PhaseEntryPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (PhaseEntry phaseEntry : list) {
-					if ((businessId != phaseEntry.getBusinessId()) ||
-						(projectId != phaseEntry.getProjectId())) {
-
+					if (projectId != phaseEntry.getProjectId()) {
 						list = null;
 
 						break;
@@ -1579,15 +1569,13 @@ public class PhaseEntryPersistenceImpl
 
 			if (orderByComparator != null) {
 				sb = new StringBundler(
-					4 + (orderByComparator.getOrderByFields().length * 2));
+					3 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				sb = new StringBundler(4);
+				sb = new StringBundler(3);
 			}
 
 			sb.append(_SQL_SELECT_PHASEENTRY_WHERE);
-
-			sb.append(_FINDER_COLUMN_P__BUSINESSID_2);
 
 			sb.append(_FINDER_COLUMN_P__PROJECTID_2);
 
@@ -1609,8 +1597,6 @@ public class PhaseEntryPersistenceImpl
 				Query query = session.createQuery(sql);
 
 				QueryPos queryPos = QueryPos.getInstance(query);
-
-				queryPos.add(businessId);
 
 				queryPos.add(projectId);
 
@@ -1635,9 +1621,8 @@ public class PhaseEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the first phase entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the first phase entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching phase entry
@@ -1645,25 +1630,20 @@ public class PhaseEntryPersistenceImpl
 	 */
 	@Override
 	public PhaseEntry findByP__First(
-			long businessId, long projectId,
-			OrderByComparator<PhaseEntry> orderByComparator)
+			long projectId, OrderByComparator<PhaseEntry> orderByComparator)
 		throws NoSuchPhaseEntryException {
 
-		PhaseEntry phaseEntry = fetchByP__First(
-			businessId, projectId, orderByComparator);
+		PhaseEntry phaseEntry = fetchByP__First(projectId, orderByComparator);
 
 		if (phaseEntry != null) {
 			return phaseEntry;
 		}
 
-		StringBundler sb = new StringBundler(6);
+		StringBundler sb = new StringBundler(4);
 
 		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("businessId=");
-		sb.append(businessId);
-
-		sb.append(", projectId=");
+		sb.append("projectId=");
 		sb.append(projectId);
 
 		sb.append("}");
@@ -1672,20 +1652,17 @@ public class PhaseEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the first phase entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the first phase entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching phase entry, or <code>null</code> if a matching phase entry could not be found
 	 */
 	@Override
 	public PhaseEntry fetchByP__First(
-		long businessId, long projectId,
-		OrderByComparator<PhaseEntry> orderByComparator) {
+		long projectId, OrderByComparator<PhaseEntry> orderByComparator) {
 
-		List<PhaseEntry> list = findByP_(
-			businessId, projectId, 0, 1, orderByComparator);
+		List<PhaseEntry> list = findByP_(projectId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -1695,9 +1672,8 @@ public class PhaseEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the last phase entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the last phase entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching phase entry
@@ -1705,25 +1681,20 @@ public class PhaseEntryPersistenceImpl
 	 */
 	@Override
 	public PhaseEntry findByP__Last(
-			long businessId, long projectId,
-			OrderByComparator<PhaseEntry> orderByComparator)
+			long projectId, OrderByComparator<PhaseEntry> orderByComparator)
 		throws NoSuchPhaseEntryException {
 
-		PhaseEntry phaseEntry = fetchByP__Last(
-			businessId, projectId, orderByComparator);
+		PhaseEntry phaseEntry = fetchByP__Last(projectId, orderByComparator);
 
 		if (phaseEntry != null) {
 			return phaseEntry;
 		}
 
-		StringBundler sb = new StringBundler(6);
+		StringBundler sb = new StringBundler(4);
 
 		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("businessId=");
-		sb.append(businessId);
-
-		sb.append(", projectId=");
+		sb.append("projectId=");
 		sb.append(projectId);
 
 		sb.append("}");
@@ -1732,26 +1703,24 @@ public class PhaseEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the last phase entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the last phase entry in the ordered set where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching phase entry, or <code>null</code> if a matching phase entry could not be found
 	 */
 	@Override
 	public PhaseEntry fetchByP__Last(
-		long businessId, long projectId,
-		OrderByComparator<PhaseEntry> orderByComparator) {
+		long projectId, OrderByComparator<PhaseEntry> orderByComparator) {
 
-		int count = countByP_(businessId, projectId);
+		int count = countByP_(projectId);
 
 		if (count == 0) {
 			return null;
 		}
 
 		List<PhaseEntry> list = findByP_(
-			businessId, projectId, count - 1, count, orderByComparator);
+			projectId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -1761,10 +1730,9 @@ public class PhaseEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the phase entries before and after the current phase entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 * Returns the phase entries before and after the current phase entry in the ordered set where projectId = &#63;.
 	 *
 	 * @param phaseId the primary key of the current phase entry
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next phase entry
@@ -1772,7 +1740,7 @@ public class PhaseEntryPersistenceImpl
 	 */
 	@Override
 	public PhaseEntry[] findByP__PrevAndNext(
-			long phaseId, long businessId, long projectId,
+			long phaseId, long projectId,
 			OrderByComparator<PhaseEntry> orderByComparator)
 		throws NoSuchPhaseEntryException {
 
@@ -1786,14 +1754,12 @@ public class PhaseEntryPersistenceImpl
 			PhaseEntry[] array = new PhaseEntryImpl[3];
 
 			array[0] = getByP__PrevAndNext(
-				session, phaseEntry, businessId, projectId, orderByComparator,
-				true);
+				session, phaseEntry, projectId, orderByComparator, true);
 
 			array[1] = phaseEntry;
 
 			array[2] = getByP__PrevAndNext(
-				session, phaseEntry, businessId, projectId, orderByComparator,
-				false);
+				session, phaseEntry, projectId, orderByComparator, false);
 
 			return array;
 		}
@@ -1806,23 +1772,21 @@ public class PhaseEntryPersistenceImpl
 	}
 
 	protected PhaseEntry getByP__PrevAndNext(
-		Session session, PhaseEntry phaseEntry, long businessId, long projectId,
+		Session session, PhaseEntry phaseEntry, long projectId,
 		OrderByComparator<PhaseEntry> orderByComparator, boolean previous) {
 
 		StringBundler sb = null;
 
 		if (orderByComparator != null) {
 			sb = new StringBundler(
-				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			sb = new StringBundler(4);
+			sb = new StringBundler(3);
 		}
 
 		sb.append(_SQL_SELECT_PHASEENTRY_WHERE);
-
-		sb.append(_FINDER_COLUMN_P__BUSINESSID_2);
 
 		sb.append(_FINDER_COLUMN_P__PROJECTID_2);
 
@@ -1895,8 +1859,6 @@ public class PhaseEntryPersistenceImpl
 
 		QueryPos queryPos = QueryPos.getInstance(query);
 
-		queryPos.add(businessId);
-
 		queryPos.add(projectId);
 
 		if (orderByComparator != null) {
@@ -1918,43 +1880,38 @@ public class PhaseEntryPersistenceImpl
 	}
 
 	/**
-	 * Removes all the phase entries where businessId = &#63; and projectId = &#63; from the database.
+	 * Removes all the phase entries where projectId = &#63; from the database.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 */
 	@Override
-	public void removeByP_(long businessId, long projectId) {
+	public void removeByP_(long projectId) {
 		for (PhaseEntry phaseEntry :
 				findByP_(
-					businessId, projectId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-					null)) {
+					projectId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 
 			remove(phaseEntry);
 		}
 	}
 
 	/**
-	 * Returns the number of phase entries where businessId = &#63; and projectId = &#63;.
+	 * Returns the number of phase entries where projectId = &#63;.
 	 *
-	 * @param businessId the business ID
 	 * @param projectId the project ID
 	 * @return the number of matching phase entries
 	 */
 	@Override
-	public int countByP_(long businessId, long projectId) {
+	public int countByP_(long projectId) {
 		FinderPath finderPath = _finderPathCountByP_;
 
-		Object[] finderArgs = new Object[] {businessId, projectId};
+		Object[] finderArgs = new Object[] {projectId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
 
 		if (count == null) {
-			StringBundler sb = new StringBundler(3);
+			StringBundler sb = new StringBundler(2);
 
 			sb.append(_SQL_COUNT_PHASEENTRY_WHERE);
-
-			sb.append(_FINDER_COLUMN_P__BUSINESSID_2);
 
 			sb.append(_FINDER_COLUMN_P__PROJECTID_2);
 
@@ -1968,8 +1925,6 @@ public class PhaseEntryPersistenceImpl
 				Query query = session.createQuery(sql);
 
 				QueryPos queryPos = QueryPos.getInstance(query);
-
-				queryPos.add(businessId);
 
 				queryPos.add(projectId);
 
@@ -1987,9 +1942,6 @@ public class PhaseEntryPersistenceImpl
 
 		return count.intValue();
 	}
-
-	private static final String _FINDER_COLUMN_P__BUSINESSID_2 =
-		"phaseEntry.businessId = ? AND ";
 
 	private static final String _FINDER_COLUMN_P__PROJECTID_2 =
 		"phaseEntry.projectId = ?";
@@ -3211,21 +3163,20 @@ public class PhaseEntryPersistenceImpl
 		_finderPathWithPaginationFindByP_ = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByP_",
 			new String[] {
-				Long.class.getName(), Long.class.getName(),
-				Integer.class.getName(), Integer.class.getName(),
-				OrderByComparator.class.getName()
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
 			},
-			new String[] {"businessId", "projectId"}, true);
+			new String[] {"projectId"}, true);
 
 		_finderPathWithoutPaginationFindByP_ = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByP_",
-			new String[] {Long.class.getName(), Long.class.getName()},
-			new String[] {"businessId", "projectId"}, true);
+			new String[] {Long.class.getName()}, new String[] {"projectId"},
+			true);
 
 		_finderPathCountByP_ = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByP_",
-			new String[] {Long.class.getName(), Long.class.getName()},
-			new String[] {"businessId", "projectId"}, false);
+			new String[] {Long.class.getName()}, new String[] {"projectId"},
+			false);
 
 		_finderPathFetchByB_P_N = new FinderPath(
 			FINDER_CLASS_NAME_ENTITY, "fetchByB_P_N",

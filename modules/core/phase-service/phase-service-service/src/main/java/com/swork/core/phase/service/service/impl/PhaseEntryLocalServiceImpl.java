@@ -115,8 +115,8 @@ public class PhaseEntryLocalServiceImpl extends PhaseEntryLocalServiceBaseImpl {
         return updatePhaseEntry(entry);
     }
 
-    public List<PhaseEntry> findByProjectId(long businessId, long projectId) {
-        return phaseEntryPersistence.findByP_(businessId, projectId);
+    public List<PhaseEntry> findByProjectId(long projectId) {
+        return phaseEntryPersistence.findByP_(projectId);
     }
 
     public PhaseEntry getByPhaseName(long businessId, long projectId, String phaseName) {
