@@ -47,11 +47,6 @@ public class WorkResourceImpl extends BaseWorkResourceImpl {
 				sorts,
 				getServiceContext());
 	}
-
-
-
-
-
 	@Override
 	public Work postWork(Work work) throws Exception {
 		validator.validateForAdd(
