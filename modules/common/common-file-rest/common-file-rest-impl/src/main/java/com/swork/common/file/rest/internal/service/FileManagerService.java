@@ -1,5 +1,7 @@
 package com.swork.common.file.rest.internal.service;
 
+import com.liferay.document.library.kernel.service.DLFileEntryLocalService;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.search.query.Queries;
 import com.swork.common.file.mapper.model.FileManagerMapperModel;
@@ -39,6 +41,32 @@ public class FileManagerService {
 
     }
 
+    private List<Long> getAllFileId(long customerId,
+                                    String parentCode) {
+
+        return fileManagerRetriever.getAllFileId(customerId, parentCode);
+    }
+
+    public void deleteFileManagerOfParent(long customerId,
+                                          String parentCode) {
+        List<Long> list = getAllFileId(customerId, parentCode);
+
+        list.stream().forEach(l -> {
+            FileManagerEntry fileManagerEntry = fileManagerEntryLocalService.getFileManagerEntryByFileId(l, customerId);
+
+            try {
+                fileManagerEntryLocalService.deleteFileManagerEntry(fileManagerEntry.getId());
+            } catch (PortalException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                dlFileEntryLocalService.deleteDLFileEntry(l);
+            } catch (PortalException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
 
     @Reference
     private FileManagerMapper mapper;
@@ -51,4 +79,7 @@ public class FileManagerService {
 
     @Reference
     private FileManagerRetriever fileManagerRetriever;
+
+    @Reference
+    private DLFileEntryLocalService dlFileEntryLocalService ;
 }
