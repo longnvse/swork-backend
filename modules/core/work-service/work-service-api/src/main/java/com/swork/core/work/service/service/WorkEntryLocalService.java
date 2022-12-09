@@ -365,7 +365,7 @@ public interface WorkEntryLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public WorkEntry updateProcessWorkEntry(
-		long creatorId, long workId, long process,
+		long creatorId, long workId, long progress,
 		ServiceContext serviceContext);
 
 	@Indexable(type = IndexableType.REINDEX)

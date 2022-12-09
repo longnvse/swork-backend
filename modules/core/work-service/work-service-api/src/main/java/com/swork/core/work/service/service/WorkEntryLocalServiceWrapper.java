@@ -497,11 +497,11 @@ public class WorkEntryLocalServiceWrapper
 
 	@Override
 	public com.swork.core.work.service.model.WorkEntry updateProcessWorkEntry(
-		long creatorId, long workId, long process,
+		long creatorId, long workId, long progress,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _workEntryLocalService.updateProcessWorkEntry(
-			creatorId, workId, process, serviceContext);
+			creatorId, workId, progress, serviceContext);
 	}
 
 	@Override

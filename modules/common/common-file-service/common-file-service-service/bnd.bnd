@@ -1,0 +1,6 @@
+Bundle-Name: common-file-service-service
+Bundle-SymbolicName: com.swork.common.file.service
+Bundle-Version: 1.0.0
+Liferay-Require-SchemaVersion: 1.0.0
+Liferay-Service: true
+-dsannotations-options: inherit

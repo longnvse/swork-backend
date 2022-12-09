@@ -431,11 +431,11 @@ public class WorkEntryLocalServiceUtil {
 	}
 
 	public static WorkEntry updateProcessWorkEntry(
-		long creatorId, long workId, long process,
+		long creatorId, long workId, long progress,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().updateProcessWorkEntry(
-			creatorId, workId, process, serviceContext);
+			creatorId, workId, progress, serviceContext);
 	}
 
 	public static WorkEntry updateProgress(long workId, long progress) {

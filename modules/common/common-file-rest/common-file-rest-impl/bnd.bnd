@@ -1,0 +1,3 @@
+Bundle-Name: common-file-rest-impl
+Bundle-SymbolicName: com.swork.common.file.rest.impl
+Bundle-Version: 1.0.0
