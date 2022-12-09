@@ -5,10 +5,10 @@ components:
             properties:
                 moduleId:
                     type: string
-                    example: "HRM"
+                    example: "PROJECT"
                 appId:
                     type: string
-                    example: "EMPLOYEE"
+                    example: "PROJECT"
             type: object
 
         FileRes:
@@ -79,10 +79,6 @@ components:
                 fileType:
                     type: string
                     readOnly: true
-                type:
-                    type: string
-                pkType:
-                    type: string
                 fileName:
                     type: string
                     readOnly: true

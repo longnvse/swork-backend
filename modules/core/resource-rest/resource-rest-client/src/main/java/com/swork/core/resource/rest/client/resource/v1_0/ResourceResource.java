@@ -35,13 +35,15 @@ public interface ResourceResource {
 		throws Exception;
 
 	public Page<Resource> getResourcePages(
-			Long projectId, Long phaseId, Long workId, String search,
-			String filterString, Pagination pagination, String sortString)
+			Long projectId, Long phaseId, Long workId, Long teamId,
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getResourcePagesHttpResponse(
-			Long projectId, Long phaseId, Long workId, String search,
-			String filterString, Pagination pagination, String sortString)
+			Long projectId, Long phaseId, Long workId, Long teamId,
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public Resource postResource(
@@ -259,13 +261,14 @@ public interface ResourceResource {
 		}
 
 		public Page<Resource> getResourcePages(
-				Long projectId, Long phaseId, Long workId, String search,
-				String filterString, Pagination pagination, String sortString)
+				Long projectId, Long phaseId, Long workId, Long teamId,
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				getResourcePagesHttpResponse(
-					projectId, phaseId, workId, search, filterString,
+					projectId, phaseId, workId, teamId, search, filterString,
 					pagination, sortString);
 
 			String content = httpResponse.getContent();
@@ -306,8 +309,9 @@ public interface ResourceResource {
 		}
 
 		public HttpInvoker.HttpResponse getResourcePagesHttpResponse(
-				Long projectId, Long phaseId, Long workId, String search,
-				String filterString, Pagination pagination, String sortString)
+				Long projectId, Long phaseId, Long workId, Long teamId,
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -341,6 +345,10 @@ public interface ResourceResource {
 
 			if (workId != null) {
 				httpInvoker.parameter("workId", String.valueOf(workId));
+			}
+
+			if (teamId != null) {
+				httpInvoker.parameter("teamId", String.valueOf(teamId));
 			}
 
 			if (search != null) {

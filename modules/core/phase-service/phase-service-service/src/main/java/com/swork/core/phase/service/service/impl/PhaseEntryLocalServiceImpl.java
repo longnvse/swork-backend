@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.Validator;
 import com.swork.core.phase.service.mapper.model.PhaseMapperModel;
 import com.swork.core.phase.service.model.PhaseEntry;
 import com.swork.core.phase.service.service.PhaseManageEntryLocalService;
@@ -103,8 +104,19 @@ public class PhaseEntryLocalServiceImpl extends PhaseEntryLocalServiceBaseImpl {
         return updatePhaseEntry(entry);
     }
 
-    public List<PhaseEntry> findByProjectId(long businessId, long projectId) {
-        return phaseEntryPersistence.findByP_(businessId, projectId);
+    @Indexable(type = IndexableType.REINDEX)
+    public PhaseEntry updateProgress(long phaseId, long progress) {
+        PhaseEntry entry = fetchPhaseEntry(phaseId);
+
+        if (Validator.isNotNull(entry)) {
+            entry.setProgress(progress);
+        }
+
+        return updatePhaseEntry(entry);
+    }
+
+    public List<PhaseEntry> findByProjectId(long projectId) {
+        return phaseEntryPersistence.findByP_(projectId);
     }
 
     public PhaseEntry getByPhaseName(long businessId, long projectId, String phaseName) {

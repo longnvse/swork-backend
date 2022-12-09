@@ -35,6 +35,7 @@ public class WorkService {
     public Page<Work> getWorkPages(long businessId,
                                    Long projectId,
                                    Long phaseId,
+                                   Boolean isTree,
                                    String search,
                                    Filter filter,
                                    Pagination pagination,
@@ -47,14 +48,16 @@ public class WorkService {
 
                     TermFilter businessIdFilter =
                             new TermFilter(SearchFields.BUSINESS_ID, String.valueOf(businessId));
-                    TermFilter parentIdFilter =
-                            new TermFilter(SearchFields.PARENT_ID, String.valueOf(GetterUtil.DEFAULT_LONG));
-
                     BooleanFilter booleanFilter =
                             booleanQuery.getPreBooleanFilter();
 
                     booleanFilter.add(businessIdFilter, BooleanClauseOccur.MUST);
-                    booleanFilter.add(parentIdFilter, BooleanClauseOccur.MUST);
+                    if (GetterUtil.getBoolean(isTree)) {
+                        TermFilter parentIdFilter =
+                                new TermFilter(SearchFields.PARENT_ID, String.valueOf(GetterUtil.DEFAULT_LONG));
+                        booleanFilter.add(parentIdFilter, BooleanClauseOccur.MUST);
+
+                    }
 
                     if (Validator.isNotNull(projectId)) {
                         TermFilter projectIdFilter =
@@ -85,7 +88,7 @@ public class WorkService {
                 document -> {
                     long workId = GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK));
 
-                    return mapper.mapDTOFromEntry(localService.getWorkEntry(workId));
+                    return mapper.mapDTOFromEntry(localService.getWorkEntry(workId), GetterUtil.getBoolean(isTree));
                 });
     }
 
@@ -98,7 +101,7 @@ public class WorkService {
 
         WorkEntry entry = localService.addWorkEntry(businessId, creatorId, workMapperModel, serviceContext);
 
-        return mapper.mapDTOFromEntry(entry);
+        return mapper.mapDTOFromEntry(entry, false);
     }
 
     public Work putWork(long creatorId,
@@ -110,18 +113,37 @@ public class WorkService {
 
         WorkEntry entry = localService.updateWorkEntry(creatorId, workId, workMapperModel, serviceContext);
 
-        return mapper.mapDTOFromEntry(entry);
+        return mapper.mapDTOFromEntry(entry, false);
     }
 
     public Work getWork(long workId) {
         WorkEntry entry = localService.fetchWorkEntry(workId);
 
-        return mapper.mapDTOFromEntry(entry);
+        return mapper.mapDTOFromEntry(entry, true);
     }
 
     public void deleteWork(long workId) throws PortalException {
         memberEntryLocalService.deleteByWorkId(workId);
         localService.deleteWorkEntry(workId);
+    }
+
+    public void updateStatus(long creatorId,
+                             long workId,
+                             String status,
+                             ServiceContext serviceContext) {
+        localService.updateStatus(creatorId, workId, status, serviceContext);
+    }
+
+    public void reportProgressByAmount(long creatorId,
+                                       long workId,
+                                       double completeAmount,
+                                       ServiceContext serviceContext) {
+        localService.reportProgressByAmount(
+                creatorId,
+                workId,
+                completeAmount,
+                serviceContext
+        );
     }
 
     @Reference

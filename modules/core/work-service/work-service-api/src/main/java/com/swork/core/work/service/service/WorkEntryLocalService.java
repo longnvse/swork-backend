@@ -68,7 +68,7 @@ public interface WorkEntryLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public WorkEntry addWorkEntry(
-		long creatorId, long businessId, WorkMapperModel model,
+		long businessId, long creatorId, WorkMapperModel model,
 		ServiceContext serviceContext);
 
 	/**
@@ -83,6 +83,8 @@ public interface WorkEntryLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public WorkEntry addWorkEntry(WorkEntry workEntry);
+
+	public long calcProgress(List<WorkEntry> workEntries, String progressType);
 
 	/**
 	 * @throws PortalException
@@ -241,8 +243,12 @@ public interface WorkEntryLocalService
 
 	public List<WorkEntry> findByParentId(long businessId, long parentId);
 
+	public List<WorkEntry> findByPhaseId(long phaseId);
+
 	public WorkEntry findByPID_Name(
 		long businessId, long parentId, String name);
+
+	public List<WorkEntry> findByProjectId(long projectId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -351,6 +357,24 @@ public interface WorkEntryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public WorkEntry getWorkEntryByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public WorkEntry reportProgressByAmount(
+		long creatorId, long workId, double completeAmount,
+		ServiceContext serviceContext);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public WorkEntry updateProcessWorkEntry(
+		long creatorId, long workId, long progress,
+		ServiceContext serviceContext);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public WorkEntry updateProgress(long workId, long progress);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public WorkEntry updateStatus(
+		long creatorId, long workId, String status,
+		ServiceContext serviceContext);
 
 	@Indexable(type = IndexableType.REINDEX)
 	public WorkEntry updateWorkEntry(

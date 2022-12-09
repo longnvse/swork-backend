@@ -58,7 +58,7 @@ public abstract class BaseFileManagerResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/common-file-rest/v2.0/file-managers'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/swork/common-file-rest/v2.0/file-managers'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
 		description = "Retrieves the Media File . Results can be paginated, filtered, searched, and sorted."
@@ -91,7 +91,7 @@ public abstract class BaseFileManagerResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/common-file-rest/v2.0/file-managers' -d $'{"fileId": ___, "metadata": ___, "parentCode": ___, "pkType": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/swork/common-file-rest/v2.0/file-managers' -d $'{"fileId": ___, "metadata": ___, "parentCode": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "FileManager")}
@@ -110,7 +110,7 @@ public abstract class BaseFileManagerResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/common-file-rest/v2.0/file-managers/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/swork/common-file-rest/v2.0/file-managers/batch'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {
@@ -154,7 +154,7 @@ public abstract class BaseFileManagerResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/common-file-rest/v2.0/file-managers/{fileId}'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/swork/common-file-rest/v2.0/file-managers/{fileId}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {
@@ -182,7 +182,7 @@ public abstract class BaseFileManagerResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/common-file-rest/v2.0/file-managers/{fileId}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/swork/common-file-rest/v2.0/file-managers/{fileId}/batch'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {
@@ -234,7 +234,7 @@ public abstract class BaseFileManagerResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/common-file-rest/v2.0/file-managers/{fileId}'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/swork/common-file-rest/v2.0/file-managers/{fileId}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {
@@ -264,7 +264,7 @@ public abstract class BaseFileManagerResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/common-file-rest/v2.0/file-managers/delete-parrent'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/swork/common-file-rest/v2.0/file-managers/delete-parrent'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {

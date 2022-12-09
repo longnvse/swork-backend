@@ -242,7 +242,7 @@ public interface PhaseEntryLocalService
 	public PhaseEntry fetchPhaseEntryByUuidAndGroupId(
 		String uuid, long groupId);
 
-	public List<PhaseEntry> findByProjectId(long businessId, long projectId);
+	public List<PhaseEntry> findByProjectId(long projectId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -378,5 +378,8 @@ public interface PhaseEntryLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public PhaseEntry updatePhaseEntry(PhaseEntry phaseEntry);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public PhaseEntry updateProgress(long phaseId, long progress);
 
 }

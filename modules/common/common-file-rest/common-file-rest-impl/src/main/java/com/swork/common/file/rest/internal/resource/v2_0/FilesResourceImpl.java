@@ -3,12 +3,14 @@ package com.swork.common.file.rest.internal.resource.v2_0;
 import com.liferay.document.library.kernel.service.DLAppService;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.multipart.MultipartBody;
 import com.swork.common.file.rest.dto.v2_0.FileData;
 import com.swork.common.file.rest.dto.v2_0.FileRes;
 import com.swork.common.file.rest.dto.v2_0.FileUpdate;
 import com.swork.common.file.rest.dto.v2_0.Metadata;
 import com.swork.common.file.rest.internal.service.CommonFileHepper;
+import com.swork.common.file.rest.internal.service.FileManagerService;
 import com.swork.common.file.rest.resource.v2_0.FilesResource;
 import com.swork.common.token.helper.api.CommonTokenHelper;
 import com.swork.common.token.model.UserTokenModel;
@@ -37,7 +39,7 @@ public class FilesResourceImpl extends BaseFilesResourceImpl {
                 getUserToken().getBusinessId(),
                 getUserToken().getFullName(),
                 metadata.getModuleId(),
-                metadata.getAppId(),
+                metadata.getModuleId(),
                 multipartBody,
                 getServiceContext());
 
@@ -92,5 +94,8 @@ public class FilesResourceImpl extends BaseFilesResourceImpl {
 
     @Reference
     DLAppService dlAppService;
+
+    @Reference
+    private FileManagerService fileManagerService;
 
 }

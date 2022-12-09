@@ -34,12 +34,12 @@ public class WorkEntryLocalServiceWrapper
 
 	@Override
 	public com.swork.core.work.service.model.WorkEntry addWorkEntry(
-		long creatorId, long businessId,
+		long businessId, long creatorId,
 		com.swork.core.work.service.mapper.model.WorkMapperModel model,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _workEntryLocalService.addWorkEntry(
-			creatorId, businessId, model, serviceContext);
+			businessId, creatorId, model, serviceContext);
 	}
 
 	/**
@@ -57,6 +57,14 @@ public class WorkEntryLocalServiceWrapper
 		com.swork.core.work.service.model.WorkEntry workEntry) {
 
 		return _workEntryLocalService.addWorkEntry(workEntry);
+	}
+
+	@Override
+	public long calcProgress(
+		java.util.List<com.swork.core.work.service.model.WorkEntry> workEntries,
+		String progressType) {
+
+		return _workEntryLocalService.calcProgress(workEntries, progressType);
 	}
 
 	/**
@@ -298,11 +306,25 @@ public class WorkEntryLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.swork.core.work.service.model.WorkEntry>
+		findByPhaseId(long phaseId) {
+
+		return _workEntryLocalService.findByPhaseId(phaseId);
+	}
+
+	@Override
 	public com.swork.core.work.service.model.WorkEntry findByPID_Name(
 		long businessId, long parentId, String name) {
 
 		return _workEntryLocalService.findByPID_Name(
 			businessId, parentId, name);
+	}
+
+	@Override
+	public java.util.List<com.swork.core.work.service.model.WorkEntry>
+		findByProjectId(long projectId) {
+
+		return _workEntryLocalService.findByProjectId(projectId);
 	}
 
 	@Override
@@ -462,6 +484,40 @@ public class WorkEntryLocalServiceWrapper
 
 		return _workEntryLocalService.getWorkEntryByUuidAndGroupId(
 			uuid, groupId);
+	}
+
+	@Override
+	public com.swork.core.work.service.model.WorkEntry reportProgressByAmount(
+		long creatorId, long workId, double completeAmount,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _workEntryLocalService.reportProgressByAmount(
+			creatorId, workId, completeAmount, serviceContext);
+	}
+
+	@Override
+	public com.swork.core.work.service.model.WorkEntry updateProcessWorkEntry(
+		long creatorId, long workId, long progress,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _workEntryLocalService.updateProcessWorkEntry(
+			creatorId, workId, progress, serviceContext);
+	}
+
+	@Override
+	public com.swork.core.work.service.model.WorkEntry updateProgress(
+		long workId, long progress) {
+
+		return _workEntryLocalService.updateProgress(workId, progress);
+	}
+
+	@Override
+	public com.swork.core.work.service.model.WorkEntry updateStatus(
+		long creatorId, long workId, String status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _workEntryLocalService.updateStatus(
+			creatorId, workId, status, serviceContext);
 	}
 
 	@Override

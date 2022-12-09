@@ -180,7 +180,6 @@ public abstract class BaseWorkResourceTestCase {
 		work.setParentName(regex);
 		work.setParentReferenceCode(regex);
 		work.setPhaseName(regex);
-		work.setProgressType(regex);
 		work.setProjectName(regex);
 		work.setUnit(regex);
 
@@ -197,7 +196,6 @@ public abstract class BaseWorkResourceTestCase {
 		Assert.assertEquals(regex, work.getParentName());
 		Assert.assertEquals(regex, work.getParentReferenceCode());
 		Assert.assertEquals(regex, work.getPhaseName());
-		Assert.assertEquals(regex, work.getProgressType());
 		Assert.assertEquals(regex, work.getProjectName());
 		Assert.assertEquals(regex, work.getUnit());
 	}
@@ -205,7 +203,7 @@ public abstract class BaseWorkResourceTestCase {
 	@Test
 	public void testGetWorksPage() throws Exception {
 		Page<Work> page = workResource.getWorksPage(
-			null, null, null, null, Pagination.of(1, 10), null);
+			null, null, null, null, null, Pagination.of(1, 10), null);
 
 		long totalCount = page.getTotalCount();
 
@@ -214,7 +212,7 @@ public abstract class BaseWorkResourceTestCase {
 		Work work2 = testGetWorksPage_addWork(randomWork());
 
 		page = workResource.getWorksPage(
-			null, null, null, null, Pagination.of(1, 10), null);
+			null, null, null, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
@@ -242,7 +240,7 @@ public abstract class BaseWorkResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Work> page = workResource.getWorksPage(
-				null, null, null,
+				null, null, null, null,
 				getFilterString(entityField, "between", work1),
 				Pagination.of(1, 2), null);
 
@@ -267,8 +265,9 @@ public abstract class BaseWorkResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Work> page = workResource.getWorksPage(
-				null, null, null, getFilterString(entityField, "eq", work1),
-				Pagination.of(1, 2), null);
+				null, null, null, null,
+				getFilterString(entityField, "eq", work1), Pagination.of(1, 2),
+				null);
 
 			assertEquals(
 				Collections.singletonList(work1), (List<Work>)page.getItems());
@@ -278,7 +277,7 @@ public abstract class BaseWorkResourceTestCase {
 	@Test
 	public void testGetWorksPageWithPagination() throws Exception {
 		Page<Work> totalPage = workResource.getWorksPage(
-			null, null, null, null, null, null);
+			null, null, null, null, null, null, null);
 
 		int totalCount = GetterUtil.getInteger(totalPage.getTotalCount());
 
@@ -289,14 +288,16 @@ public abstract class BaseWorkResourceTestCase {
 		Work work3 = testGetWorksPage_addWork(randomWork());
 
 		Page<Work> page1 = workResource.getWorksPage(
-			null, null, null, null, Pagination.of(1, totalCount + 2), null);
+			null, null, null, null, null, Pagination.of(1, totalCount + 2),
+			null);
 
 		List<Work> works1 = (List<Work>)page1.getItems();
 
 		Assert.assertEquals(works1.toString(), totalCount + 2, works1.size());
 
 		Page<Work> page2 = workResource.getWorksPage(
-			null, null, null, null, Pagination.of(2, totalCount + 2), null);
+			null, null, null, null, null, Pagination.of(2, totalCount + 2),
+			null);
 
 		Assert.assertEquals(totalCount + 3, page2.getTotalCount());
 
@@ -305,7 +306,8 @@ public abstract class BaseWorkResourceTestCase {
 		Assert.assertEquals(works2.toString(), 1, works2.size());
 
 		Page<Work> page3 = workResource.getWorksPage(
-			null, null, null, null, Pagination.of(1, totalCount + 3), null);
+			null, null, null, null, null, Pagination.of(1, totalCount + 3),
+			null);
 
 		assertContains(work1, (List<Work>)page3.getItems());
 		assertContains(work2, (List<Work>)page3.getItems());
@@ -409,14 +411,14 @@ public abstract class BaseWorkResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Work> ascPage = workResource.getWorksPage(
-				null, null, null, null, Pagination.of(1, 2),
+				null, null, null, null, null, Pagination.of(1, 2),
 				entityField.getName() + ":asc");
 
 			assertEquals(
 				Arrays.asList(work1, work2), (List<Work>)ascPage.getItems());
 
 			Page<Work> descPage = workResource.getWorksPage(
-				null, null, null, null, Pagination.of(1, 2),
+				null, null, null, null, null, Pagination.of(1, 2),
 				entityField.getName() + ":desc");
 
 			assertEquals(
@@ -611,6 +613,40 @@ public abstract class BaseWorkResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testPutReportAmount() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Work work = testPutReportAmount_addWork();
+
+		assertHttpResponseStatusCode(
+			204, workResource.putReportAmountHttpResponse(work.getId(), null));
+
+		assertHttpResponseStatusCode(
+			404, workResource.putReportAmountHttpResponse(0L, null));
+	}
+
+	protected Work testPutReportAmount_addWork() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testUpdateStatus() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Work work = testUpdateStatus_addWork();
+
+		assertHttpResponseStatusCode(
+			204, workResource.updateStatusHttpResponse(work.getId(), null));
+
+		assertHttpResponseStatusCode(
+			404, workResource.updateStatusHttpResponse(0L, null));
+	}
+
+	protected Work testUpdateStatus_addWork() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 
@@ -755,8 +791,8 @@ public abstract class BaseWorkResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("incompleteWork", additionalAssertFieldName)) {
-				if (work.getIncompleteWork() == null) {
+			if (Objects.equals("incompleteAmount", additionalAssertFieldName)) {
+				if (work.getIncompleteAmount() == null) {
 					valid = false;
 				}
 
@@ -1094,9 +1130,10 @@ public abstract class BaseWorkResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("incompleteWork", additionalAssertFieldName)) {
+			if (Objects.equals("incompleteAmount", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						work1.getIncompleteWork(), work2.getIncompleteWork())) {
+						work1.getIncompleteAmount(),
+						work2.getIncompleteAmount())) {
 
 					return false;
 				}
@@ -1508,7 +1545,7 @@ public abstract class BaseWorkResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("incompleteWork")) {
+		if (entityFieldName.equals("incompleteAmount")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -1581,11 +1618,8 @@ public abstract class BaseWorkResourceTestCase {
 		}
 
 		if (entityFieldName.equals("progressType")) {
-			sb.append("'");
-			sb.append(String.valueOf(work.getProgressType()));
-			sb.append("'");
-
-			return sb.toString();
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("projectId")) {
@@ -1705,7 +1739,7 @@ public abstract class BaseWorkResourceTestCase {
 				externalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
-				incompleteWork = RandomTestUtil.randomDouble();
+				incompleteAmount = RandomTestUtil.randomDouble();
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				parentId = RandomTestUtil.randomLong();
 				parentName = StringUtil.toLowerCase(
@@ -1717,8 +1751,6 @@ public abstract class BaseWorkResourceTestCase {
 				phaseName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				progress = RandomTestUtil.randomLong();
-				progressType = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
 				projectId = RandomTestUtil.randomLong();
 				projectName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());

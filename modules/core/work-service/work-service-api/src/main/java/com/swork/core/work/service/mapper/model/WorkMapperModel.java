@@ -1,6 +1,7 @@
 package com.swork.core.work.service.mapper.model;
 
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.util.GetterUtil;
 
 import java.util.Date;
 
@@ -11,6 +12,8 @@ public class WorkMapperModel {
     private Date endDate;
     private String description;
     private String progressType;
+    private Double incompleteAmount;
+    private String unit;
     private Long projectId;
     private Long phaseId;
     private Long parentId;
@@ -31,7 +34,7 @@ public class WorkMapperModel {
     }
 
     public void setName(String name) {
-        this.name = name.trim().replaceAll("\\s+", StringPool.BLANK);
+        this.name = name.trim().replaceAll("\\s+", StringPool.SPACE);
     }
 
     public Date getStartDate() {
@@ -112,5 +115,21 @@ public class WorkMapperModel {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public Double getIncompleteAmount() {
+        return incompleteAmount;
+    }
+
+    public void setIncompleteAmount(Double incompleteAmount) {
+        this.incompleteAmount = GetterUtil.getDouble(incompleteAmount);
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

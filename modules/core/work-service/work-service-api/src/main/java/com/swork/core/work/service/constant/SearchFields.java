@@ -25,5 +25,5 @@ public class SearchFields {
     public static final String PROGRESS = "progress";
     public static final String PARENT_ID = "parentId";
     public static final String PROJECT_ID = "projectId";
-    public static final String PHASE_ID = "projectId";
+    public static final String PHASE_ID = "phaseId";
 }

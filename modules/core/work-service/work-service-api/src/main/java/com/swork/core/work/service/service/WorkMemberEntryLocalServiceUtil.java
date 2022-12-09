@@ -69,6 +69,10 @@ public class WorkMemberEntryLocalServiceUtil {
 		return getService().addWorkMemberEntry(workMemberEntry);
 	}
 
+	public static long countHandles(long workId) {
+		return getService().countHandles(workId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

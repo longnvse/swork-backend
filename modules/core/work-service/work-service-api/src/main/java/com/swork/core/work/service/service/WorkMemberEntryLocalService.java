@@ -80,6 +80,8 @@ public interface WorkMemberEntryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public WorkMemberEntry addWorkMemberEntry(WorkMemberEntry workMemberEntry);
 
+	public long countHandles(long workId);
+
 	/**
 	 * @throws PortalException
 	 */

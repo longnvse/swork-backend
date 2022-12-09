@@ -76,13 +76,14 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {resource(filter: ___, page: ___, pageSize: ___, phaseId: ___, projectId: ___, search: ___, sorts: ___, workId: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {resource(filter: ___, page: ___, pageSize: ___, phaseId: ___, projectId: ___, search: ___, sorts: ___, teamId: ___, workId: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Get List Resource")
 	public ResourcePage resource(
 			@GraphQLName("projectId") Long projectId,
 			@GraphQLName("phaseId") Long phaseId,
 			@GraphQLName("workId") Long workId,
+			@GraphQLName("teamId") Long teamId,
 			@GraphQLName("search") String search,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
@@ -95,7 +96,7 @@ public class Query {
 			this::_populateResourceContext,
 			resourceResource -> new ResourcePage(
 				resourceResource.getResourcePages(
-					projectId, phaseId, workId, search,
+					projectId, phaseId, workId, teamId, search,
 					_filterBiFunction.apply(resourceResource, filterString),
 					Pagination.of(page, pageSize),
 					_sortsBiFunction.apply(resourceResource, sortsString))));

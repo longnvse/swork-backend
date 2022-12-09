@@ -60,6 +60,11 @@ public class WorkMemberEntryLocalServiceWrapper
 		return _workMemberEntryLocalService.addWorkMemberEntry(workMemberEntry);
 	}
 
+	@Override
+	public long countHandles(long workId) {
+		return _workMemberEntryLocalService.countHandles(workId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

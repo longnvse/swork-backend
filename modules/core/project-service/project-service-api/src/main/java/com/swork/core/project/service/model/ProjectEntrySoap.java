@@ -235,11 +235,11 @@ public class ProjectEntrySoap implements Serializable {
 		_status = status;
 	}
 
-	public Integer getProgress() {
+	public Long getProgress() {
 		return _progress;
 	}
 
-	public void setProgress(Integer progress) {
+	public void setProgress(Long progress) {
 		_progress = progress;
 	}
 
@@ -291,7 +291,7 @@ public class ProjectEntrySoap implements Serializable {
 	private long _budget;
 	private String _description;
 	private String _status;
-	private Integer _progress;
+	private Long _progress;
 	private Date _actualStartDate;
 	private Date _actualEndDate;
 	private String _progressType;

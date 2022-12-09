@@ -41,7 +41,7 @@ public abstract class BaseFilesResourceImpl implements FilesResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/common-file-rest/v2.0/files'  -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/swork/common-file-rest/v2.0/files'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.tags.Tags(
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Files")}
@@ -58,7 +58,7 @@ public abstract class BaseFilesResourceImpl implements FilesResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/common-file-rest/v2.0/files/{fileId}'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/swork/common-file-rest/v2.0/files/{fileId}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {

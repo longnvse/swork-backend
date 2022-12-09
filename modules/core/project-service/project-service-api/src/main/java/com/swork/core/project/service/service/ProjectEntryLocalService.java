@@ -387,6 +387,9 @@ public interface ProjectEntryLocalService
 		ServiceContext serviceContext);
 
 	@Indexable(type = IndexableType.REINDEX)
+	public ProjectEntry updateProgress(long projectId, long progress);
+
+	@Indexable(type = IndexableType.REINDEX)
 	@Transactional(
 		isolation = Isolation.PORTAL,
 		rollbackFor = {PortalException.class, SystemException.class}

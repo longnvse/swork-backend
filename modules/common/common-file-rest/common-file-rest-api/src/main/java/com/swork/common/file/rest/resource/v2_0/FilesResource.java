@@ -30,7 +30,7 @@ import org.osgi.annotation.versioning.ProviderType;
 /**
  * To access this resource, run:
  *
- *     curl -u your@email.com:yourpassword -D - http://localhost:8080/o/common-file-rest/v2.0
+ *     curl -u your@email.com:yourpassword -D - http://localhost:8080/o/swork/common-file-rest/v2.0
  *
  * @author longnv
  * @generated

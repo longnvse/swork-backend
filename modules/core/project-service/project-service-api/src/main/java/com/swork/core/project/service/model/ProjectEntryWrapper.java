@@ -167,7 +167,7 @@ public class ProjectEntryWrapper
 			setStatus(status);
 		}
 
-		Integer progress = (Integer)attributes.get("progress");
+		Long progress = (Long)attributes.get("progress");
 
 		if (progress != null) {
 			setProgress(progress);
@@ -369,7 +369,7 @@ public class ProjectEntryWrapper
 	 * @return the progress of this project entry
 	 */
 	@Override
-	public Integer getProgress() {
+	public Long getProgress() {
 		return model.getProgress();
 	}
 
@@ -594,7 +594,7 @@ public class ProjectEntryWrapper
 	 * @param progress the progress of this project entry
 	 */
 	@Override
-	public void setProgress(Integer progress) {
+	public void setProgress(Long progress) {
 		model.setProgress(progress);
 	}
 

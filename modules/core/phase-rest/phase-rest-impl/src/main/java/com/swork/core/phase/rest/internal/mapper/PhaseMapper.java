@@ -1,9 +1,12 @@
 package com.swork.core.phase.rest.internal.mapper;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.swork.core.phase.rest.dto.v1_0.Phase;
 import com.swork.core.phase.service.mapper.model.PhaseMapperModel;
 import com.swork.core.phase.service.model.PhaseEntry;
 import com.swork.core.phase.service.service.PhaseManageEntryLocalService;
+import com.swork.core.project.service.model.ProjectEntry;
+import com.swork.core.project.service.service.ProjectEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -26,6 +29,7 @@ public class PhaseMapper {
         to.setManages(from.getManages());
         to.setProjectId(from.getProjectId());
 
+
         return to;
     }
 
@@ -39,8 +43,13 @@ public class PhaseMapper {
         to.setStartDate(from.getStartDate());
         to.setEndDate(from.getEndDate());
         to.setProjectId(from.getProjectId());
-
         to.setProgress(from.getProgress());
+        ProjectEntry projectEntry = projectEntryLocalService.fetchProjectEntry(from.getProjectId());
+
+        if (Validator.isNotNull(projectEntry)) {
+            to.setProjectName(projectEntry.getName());
+        }
+
 
         if (Objects.equals(to.getProgress(), 100L)) {
             to.setStatus(Phase.Status.create(Phase.Status.INACTIVE.getValue()));
@@ -59,4 +68,6 @@ public class PhaseMapper {
     private PhaseManageEntryLocalService phaseManageEntryLocalService;
     @Reference
     private PhaseManageMapper phaseManageMapper;
+    @Reference
+    private ProjectEntryLocalService projectEntryLocalService;
 }

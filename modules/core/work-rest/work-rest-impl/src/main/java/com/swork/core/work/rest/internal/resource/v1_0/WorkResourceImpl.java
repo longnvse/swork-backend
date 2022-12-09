@@ -35,18 +35,18 @@ public class WorkResourceImpl extends BaseWorkResourceImpl {
 	}
 
 	@Override
-	public Page<Work> getWorksPage(String search, Long projectId, Long phaseId, Filter filter, Pagination pagination, Sort[] sorts) throws Exception {
+	public Page<Work> getWorksPage(Boolean isTree, String search, Long projectId, Long phaseId, Filter filter, Pagination pagination, Sort[] sorts) throws Exception {
 		return service.getWorkPages(
 				getUserToken().getBusinessId(),
 				projectId,
 				phaseId,
+				isTree,
 				search,
 				filter,
 				pagination,
 				sorts,
 				getServiceContext());
 	}
-
 	@Override
 	public Work postWork(Work work) throws Exception {
 		validator.validateForAdd(
@@ -93,6 +93,28 @@ public class WorkResourceImpl extends BaseWorkResourceImpl {
 				work,
 				getServiceContext()
 		);
+	}
+
+	@Override
+	public void putReportAmount(Long workId, Double completeAmount) {
+		service.reportProgressByAmount(
+				getUserToken().getAccountId(),
+				workId,
+				completeAmount,
+				getServiceContext()
+		);
+	}
+
+	@Override
+	public void updateStatus(Long workId, String status) throws Exception {
+		validator.validateForExist(workId);
+
+		service.updateStatus(
+				getUserToken().getAccountId(),
+				workId,
+				status,
+				getServiceContext());
+
 	}
 
 	public ServiceContext getServiceContext() {

@@ -63,7 +63,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {fileManager(fileId: ___){fileId, parentCode, fileType, type, pkType, fileName, fileSize, mineType, metadata}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {fileManager(fileId: ___){fileId, parentCode, fileType, fileName, fileSize, mineType, metadata}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public FileManager fileManager(@GraphQLName("fileId") Long fileId)

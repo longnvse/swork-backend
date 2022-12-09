@@ -534,7 +534,7 @@ public class ProjectSerDes {
 			else if (Objects.equals(jsonParserFieldName, "progress")) {
 				if (jsonParserFieldValue != null) {
 					project.setProgress(
-						Integer.valueOf((String)jsonParserFieldValue));
+						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "progressType")) {

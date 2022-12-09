@@ -27,13 +27,13 @@ public interface WorkResource {
 	}
 
 	public Page<Work> getWorksPage(
-			String search, Long projectId, Long phaseId, String filterString,
-			Pagination pagination, String sortString)
+			Boolean isTree, String search, Long projectId, Long phaseId,
+			String filterString, Pagination pagination, String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getWorksPageHttpResponse(
-			String search, Long projectId, Long phaseId, String filterString,
-			Pagination pagination, String sortString)
+			Boolean isTree, String search, Long projectId, Long phaseId,
+			String filterString, Pagination pagination, String sortString)
 		throws Exception;
 
 	public Work postWork(Work work) throws Exception;
@@ -75,6 +75,19 @@ public interface WorkResource {
 
 	public HttpInvoker.HttpResponse putWorkBatchHttpResponse(
 			String callbackURL, Object object)
+		throws Exception;
+
+	public void putReportAmount(Long workId, Double completeAmount)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putReportAmountHttpResponse(
+			Long workId, Double completeAmount)
+		throws Exception;
+
+	public void updateStatus(Long workId, String status) throws Exception;
+
+	public HttpInvoker.HttpResponse updateStatusHttpResponse(
+			Long workId, String status)
 		throws Exception;
 
 	public static class Builder {
@@ -149,12 +162,12 @@ public interface WorkResource {
 	public static class WorkResourceImpl implements WorkResource {
 
 		public Page<Work> getWorksPage(
-				String search, Long projectId, Long phaseId,
+				Boolean isTree, String search, Long projectId, Long phaseId,
 				String filterString, Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = getWorksPageHttpResponse(
-				search, projectId, phaseId, filterString, pagination,
+				isTree, search, projectId, phaseId, filterString, pagination,
 				sortString);
 
 			String content = httpResponse.getContent();
@@ -195,7 +208,7 @@ public interface WorkResource {
 		}
 
 		public HttpInvoker.HttpResponse getWorksPageHttpResponse(
-				String search, Long projectId, Long phaseId,
+				Boolean isTree, String search, Long projectId, Long phaseId,
 				String filterString, Pagination pagination, String sortString)
 			throws Exception {
 
@@ -219,6 +232,10 @@ public interface WorkResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (isTree != null) {
+				httpInvoker.parameter("isTree", String.valueOf(isTree));
+			}
 
 			if (search != null) {
 				httpInvoker.parameter("search", String.valueOf(search));
@@ -781,6 +798,179 @@ public interface WorkResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port + "/o/swork/work-rest/v1.0/works/batch");
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putReportAmount(Long workId, Double completeAmount)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse = putReportAmountHttpResponse(
+				workId, completeAmount);
+
+			String content = httpResponse.getContent();
+
+			if ((httpResponse.getStatusCode() / 100) != 2) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response content: " + content);
+				_logger.log(
+					Level.WARNING,
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.log(
+					Level.WARNING,
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+			else {
+				_logger.fine("HTTP response content: " + content);
+				_logger.fine(
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.fine(
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+			}
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse putReportAmountHttpResponse(
+				Long workId, Double completeAmount)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(completeAmount.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (completeAmount != null) {
+				httpInvoker.parameter(
+					"completeAmount", String.valueOf(completeAmount));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/swork/work-rest/v1.0/works/report-process/by-amount/{workId}");
+
+			httpInvoker.path("workId", workId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void updateStatus(Long workId, String status) throws Exception {
+			HttpInvoker.HttpResponse httpResponse = updateStatusHttpResponse(
+				workId, status);
+
+			String content = httpResponse.getContent();
+
+			if ((httpResponse.getStatusCode() / 100) != 2) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response content: " + content);
+				_logger.log(
+					Level.WARNING,
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.log(
+					Level.WARNING,
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+			else {
+				_logger.fine("HTTP response content: " + content);
+				_logger.fine(
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.fine(
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+			}
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse updateStatusHttpResponse(
+				Long workId, String status)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(status.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (status != null) {
+				httpInvoker.parameter("status", String.valueOf(status));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/swork/work-rest/v1.0/works/approval/{workId}");
+
+			httpInvoker.path("workId", workId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

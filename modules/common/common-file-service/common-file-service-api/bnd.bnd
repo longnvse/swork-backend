@@ -6,6 +6,7 @@ Export-Package:\
 	com.swork.common.file.model,\
 	com.swork.common.file.service,\
 	com.swork.common.file.mapper.model,\
+	com.swork.common.file.retriver,\
 	com.swork.common.file.service.persistence
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../common-file-service-service/service.xml

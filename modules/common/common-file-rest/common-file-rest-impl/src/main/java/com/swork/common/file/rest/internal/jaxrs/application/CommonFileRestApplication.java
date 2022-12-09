@@ -13,7 +13,7 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	property = {
 		"liferay.jackson=false",
-		"osgi.jaxrs.application.base=/common-file-rest",
+		"osgi.jaxrs.application.base=/swork/common-file-rest",
 		"osgi.jaxrs.extension.select=(osgi.jaxrs.name=Liferay.Vulcan)",
 		"osgi.jaxrs.name=CommonFileRest"
 	},

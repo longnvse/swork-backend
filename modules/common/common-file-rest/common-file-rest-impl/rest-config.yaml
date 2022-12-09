@@ -1,7 +1,7 @@
 apiDir: "../common-file-rest-api/src/main/java"
 apiPackagePath: "com.swork.common.file.rest"
 application:
-    baseURI: "/common-file-rest"
+    baseURI: "/swork/common-file-rest"
     className: "CommonFileRestApplication"
     name: "CommonFileRest"
 author: "longnv"

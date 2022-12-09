@@ -384,17 +384,17 @@ public class Project implements Serializable {
 	protected Participate[] participates;
 
 	@Schema
-	public Integer getProgress() {
+	public Long getProgress() {
 		return progress;
 	}
 
-	public void setProgress(Integer progress) {
+	public void setProgress(Long progress) {
 		this.progress = progress;
 	}
 
 	@JsonIgnore
 	public void setProgress(
-		UnsafeSupplier<Integer, Exception> progressUnsafeSupplier) {
+		UnsafeSupplier<Long, Exception> progressUnsafeSupplier) {
 
 		try {
 			progress = progressUnsafeSupplier.get();
@@ -409,7 +409,7 @@ public class Project implements Serializable {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected Integer progress;
+	protected Long progress;
 
 	@Schema
 	public String getProgressType() {
@@ -781,7 +781,7 @@ public class Project implements Serializable {
 	public static enum Status {
 
 		APPROVED("approved"), DENIED("denied"), INACTIVE("inactive"),
-		PENDING("pending"), DOING("doing");
+		PENDING("pending"), ACTIVE("active");
 
 		@JsonCreator
 		public static Status create(String value) {

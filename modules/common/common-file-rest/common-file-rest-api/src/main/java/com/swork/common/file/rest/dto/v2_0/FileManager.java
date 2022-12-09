@@ -241,60 +241,6 @@ public class FileManager implements Serializable {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String parentCode;
 
-	@Schema
-	public String getPkType() {
-		return pkType;
-	}
-
-	public void setPkType(String pkType) {
-		this.pkType = pkType;
-	}
-
-	@JsonIgnore
-	public void setPkType(
-		UnsafeSupplier<String, Exception> pkTypeUnsafeSupplier) {
-
-		try {
-			pkType = pkTypeUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String pkType;
-
-	@Schema
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	@JsonIgnore
-	public void setType(UnsafeSupplier<String, Exception> typeUnsafeSupplier) {
-		try {
-			type = typeUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String type;
-
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -408,34 +354,6 @@ public class FileManager implements Serializable {
 			sb.append("\"");
 
 			sb.append(_escape(parentCode));
-
-			sb.append("\"");
-		}
-
-		if (pkType != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"pkType\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(pkType));
-
-			sb.append("\"");
-		}
-
-		if (type != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"type\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(type));
 
 			sb.append("\"");
 		}

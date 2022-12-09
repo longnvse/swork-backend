@@ -250,7 +250,7 @@ public class ProjectEntryCacheModel
 		description = objectInput.readUTF();
 		status = objectInput.readUTF();
 
-		progress = objectInput.readInt();
+		progress = objectInput.readLong();
 		actualStartDate = objectInput.readLong();
 		actualEndDate = objectInput.readLong();
 		progressType = objectInput.readUTF();
@@ -319,7 +319,7 @@ public class ProjectEntryCacheModel
 			objectOutput.writeUTF(status);
 		}
 
-		objectOutput.writeInt(progress);
+		objectOutput.writeLong(progress);
 		objectOutput.writeLong(actualStartDate);
 		objectOutput.writeLong(actualEndDate);
 
@@ -349,7 +349,7 @@ public class ProjectEntryCacheModel
 	public long budget;
 	public String description;
 	public String status;
-	public int progress;
+	public long progress;
 	public long actualStartDate;
 	public long actualEndDate;
 	public String progressType;

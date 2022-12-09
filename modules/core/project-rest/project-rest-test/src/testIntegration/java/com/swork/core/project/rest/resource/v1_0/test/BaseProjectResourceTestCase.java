@@ -1522,7 +1522,7 @@ public abstract class BaseProjectResourceTestCase {
 					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				progress = RandomTestUtil.randomInt();
+				progress = RandomTestUtil.randomLong();
 				progressType = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				startDate = RandomTestUtil.nextDate();

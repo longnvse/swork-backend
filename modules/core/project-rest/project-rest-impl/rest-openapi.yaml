@@ -25,10 +25,11 @@ components:
           format: date
           type: string
         status:
-          enum: [ approved, denied, inactive, pending, doing ]
+          enum: [ approved, denied, inactive, pending, active ]
           readOnly: true
         progress:
           type: integer
+          format: int64
           readOnly: true
         manages:
           type: array
