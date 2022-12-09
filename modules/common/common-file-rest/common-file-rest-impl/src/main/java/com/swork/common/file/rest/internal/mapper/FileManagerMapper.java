@@ -2,6 +2,7 @@ package com.swork.common.file.rest.internal.mapper;
 
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.service.DLFileEntryLocalService;
+import com.liferay.portal.kernel.util.Validator;
 import com.swork.common.file.mapper.model.FileManagerMapperModel;
 import com.swork.common.file.model.FileManagerEntry;
 import com.swork.common.file.rest.dto.v2_0.FileManager;
@@ -52,6 +53,10 @@ public class FileManagerMapper {
         to.setFileType(from.getFileType());
         to.setFileName(from.getFileName());
         to.setFileSize(from.getFileSize());
+        DLFileEntry fileEntry = dlFileEntryLocalService.fetchDLFileEntry(from.getFileId());
+        if (Validator.isNotNull(fileEntry)){
+            to.setMineType(fileEntry.getMimeType());
+        }
 
         return to;
     }

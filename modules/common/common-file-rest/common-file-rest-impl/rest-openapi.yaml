@@ -145,6 +145,32 @@ paths:
                         application/xml:
                             schema:
                                 $ref: "#/components/schemas/FileRes"
+    /files/{fileId}/download:
+        get:
+            tags: ["Files"]
+            operationId: getFileDownload
+            parameters:
+                - in: path
+                  explode: false
+                  name: fileId
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+                  style: simple
+            responses:
+                200:
+                    description:
+                        "File URL Download"
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: pong
     /files/{fileId}:
         get:
             tags:

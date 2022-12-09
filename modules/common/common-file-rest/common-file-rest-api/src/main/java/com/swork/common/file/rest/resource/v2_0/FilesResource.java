@@ -45,6 +45,8 @@ public interface FilesResource {
 
 	public FileRes postFile(MultipartBody multipartBody) throws Exception;
 
+	public String getFileDownload(Long fileId) throws Exception;
+
 	public FileData getFileById(Long fileId) throws Exception;
 
 	public default void setContextAcceptLanguage(

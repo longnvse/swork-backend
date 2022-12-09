@@ -1,6 +1,7 @@
 package com.swork.common.file.rest.internal.resource.v2_0;
 
 import com.liferay.petra.function.UnsafeFunction;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.search.filter.Filter;
@@ -53,6 +54,36 @@ public abstract class BaseFilesResourceImpl implements FilesResource {
 	@Override
 	public FileRes postFile(MultipartBody multipartBody) throws Exception {
 		return new FileRes();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/swork/common-file-rest/v2.0/files/{fileId}/download'  -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Parameters(
+		value = {
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
+				name = "fileId"
+			)
+		}
+	)
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Files")}
+	)
+	@javax.ws.rs.GET
+	@javax.ws.rs.Path("/files/{fileId}/download")
+	@javax.ws.rs.Produces("text/plain")
+	@Override
+	public String getFileDownload(
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.PathParam("fileId")
+			Long fileId)
+		throws Exception {
+
+		return StringPool.BLANK;
 	}
 
 	/**

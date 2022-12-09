@@ -1,13 +1,16 @@
 package com.swork.common.file.rest.internal.resource.v2_0;
 
 import com.liferay.document.library.kernel.service.DLAppService;
+import com.liferay.document.library.util.DLURLHelperUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.vulcan.multipart.MultipartBody;
 import com.swork.common.file.rest.dto.v2_0.FileData;
 import com.swork.common.file.rest.dto.v2_0.FileRes;
-import com.swork.common.file.rest.dto.v2_0.FileUpdate;
 import com.swork.common.file.rest.dto.v2_0.Metadata;
 import com.swork.common.file.rest.internal.service.CommonFileHepper;
 import com.swork.common.file.rest.internal.service.FileManagerService;
@@ -65,10 +68,38 @@ public class FilesResourceImpl extends BaseFilesResourceImpl {
         to.setSize(entry.getSize());
         to.setTitle(entry.getTitle());
 
-
         return to;
     }
 
+    @Override
+    public String getFileDownload(
+            Long fileId)
+            throws Exception {
+
+        return getDownloadUrl(fileId, getThemeDisplay());
+    }
+
+    public ThemeDisplay getThemeDisplay() {
+
+        ThemeDisplay themeDisplay = new ThemeDisplay();
+        String remoteHost = contextHttpServletRequest.getServerName();
+        String scheme = contextHttpServletRequest.getScheme();
+        if (StringUtil.equals(remoteHost, "localhost"))
+            themeDisplay.setPortalURL("http://localhost:8080");
+        else
+
+            themeDisplay.setPortalURL("https" + "://" + remoteHost);
+
+        return themeDisplay;
+    }
+
+
+    public String getDownloadUrl(long fileId, ThemeDisplay themeDisplay) throws PortalException {
+        FileEntry fileEntry = this.dlAppService.getFileEntry(fileId);
+        FileVersion fileVersion = fileEntry.getFileVersion();
+        String queryString = "";
+        return DLURLHelperUtil.getDownloadURL(fileEntry, fileVersion, themeDisplay, queryString, true, true);
+    }
 
     public ServiceContext getServiceContext() {
         ServiceContext serviceContext = new ServiceContext();
