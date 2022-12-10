@@ -25,7 +25,7 @@ components:
           format: date
           type: string
         status:
-          enum: [ approved, denied, inactive, pending, active ]
+          enum: [ completed, denied, inactive, pending, active ]
           readOnly: true
         progress:
           type: integer

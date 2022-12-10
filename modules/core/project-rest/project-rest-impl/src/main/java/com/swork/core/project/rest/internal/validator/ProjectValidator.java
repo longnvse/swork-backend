@@ -168,7 +168,7 @@ public class ProjectValidator {
 
         if (Validator.isNotNull(projectEntry)) {
             switch (Project.Status.create(projectEntry.getStatus())) {
-                case APPROVED:
+                case ACTIVE:
                 case INACTIVE:
                 case DENIED:
                     throw new SW_BadRequestException(

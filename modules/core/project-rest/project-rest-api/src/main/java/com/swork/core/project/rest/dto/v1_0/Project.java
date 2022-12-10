@@ -780,7 +780,7 @@ public class Project implements Serializable {
 	@GraphQLName("Status")
 	public static enum Status {
 
-		APPROVED("approved"), DENIED("denied"), INACTIVE("inactive"),
+		COMPLETED("completed"), DENIED("denied"), INACTIVE("inactive"),
 		PENDING("pending"), ACTIVE("active");
 
 		@JsonCreator
