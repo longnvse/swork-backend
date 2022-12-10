@@ -46,8 +46,8 @@ public class ProjectEntryLocalServiceImpl
         extends ProjectEntryLocalServiceBaseImpl {
 
     private static final String PENDING = "pending";
-    private static final String APPROVED = "approved";
-    private static final String DOING = "doing";
+    private static final String COMPLETED = "completed";
+    private static final String ACTIVE = "active";
 
     @Transactional(
             isolation = Isolation.PORTAL,
@@ -149,9 +149,9 @@ public class ProjectEntryLocalServiceImpl
                 serviceContext);
 
         entry.setStatus(status);
-        if (status.equals(DOING))
+        if (status.equals(ACTIVE))
             entry.setActualStartDate(new Date());
-        else if (status.equals(APPROVED))
+        else if (status.equals(COMPLETED))
             entry.setActualEndDate(new Date());
 
         return updateProjectEntry(entry);
@@ -253,6 +253,15 @@ public class ProjectEntryLocalServiceImpl
 
         if (Validator.isNotNull(entry)) {
             entry.setProgress(progress);
+
+            if(entry.getStatus().equals(PENDING)){
+                entry.setStatus(ACTIVE);
+            }
+
+            if (progress >= 100) {
+                entry.setStatus(COMPLETED);
+            }
+
         }
 
         return updateProjectEntry(entry);
