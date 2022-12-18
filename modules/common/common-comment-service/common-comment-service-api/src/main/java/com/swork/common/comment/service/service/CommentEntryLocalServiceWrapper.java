@@ -264,6 +264,13 @@ public class CommentEntryLocalServiceWrapper
 		return _commentEntryLocalService.getActionableDynamicQuery();
 	}
 
+	@Override
+	public java.util.List<com.swork.common.comment.service.model.CommentEntry>
+		getByParentId(long parentId) {
+
+		return _commentEntryLocalService.getByParentId(parentId);
+	}
+
 	/**
 	 * Returns a range of all the comment entries.
 	 *

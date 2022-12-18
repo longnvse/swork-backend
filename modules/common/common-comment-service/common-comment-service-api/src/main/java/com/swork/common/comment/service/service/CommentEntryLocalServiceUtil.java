@@ -239,6 +239,10 @@ public class CommentEntryLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static List<CommentEntry> getByParentId(long parentId) {
+		return getService().getByParentId(parentId);
+	}
+
 	/**
 	 * Returns a range of all the comment entries.
 	 *

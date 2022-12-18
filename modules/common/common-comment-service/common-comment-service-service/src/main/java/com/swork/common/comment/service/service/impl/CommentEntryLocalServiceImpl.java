@@ -24,6 +24,7 @@ import com.swork.common.comment.service.service.base.CommentEntryLocalServiceBas
 import org.osgi.service.component.annotations.Component;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Brian Wing Shun Chan
@@ -75,6 +76,10 @@ public class CommentEntryLocalServiceImpl
         entry.setContent(content);
 
         return updateCommentEntry(entry);
+    }
+
+    public List<CommentEntry> getByParentId(long parentId) {
+        return commentEntryPersistence.findByPID(parentId);
     }
 
     private void createModifierAudit(long businessId,

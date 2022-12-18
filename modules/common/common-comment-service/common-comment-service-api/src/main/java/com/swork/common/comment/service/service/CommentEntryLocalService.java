@@ -223,6 +223,9 @@ public interface CommentEntryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommentEntry> getByParentId(long parentId);
+
 	/**
 	 * Returns a range of all the comment entries.
 	 *
