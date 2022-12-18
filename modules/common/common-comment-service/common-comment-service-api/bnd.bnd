@@ -1,0 +1,10 @@
+Bundle-Name: common-comment-service-api
+Bundle-SymbolicName: com.swork.common.comment.service.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.swork.common.comment.service.exception,\
+	com.swork.common.comment.service.model,\
+	com.swork.common.comment.service.service,\
+	com.swork.common.comment.service.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../common-comment-service-service/service.xml
