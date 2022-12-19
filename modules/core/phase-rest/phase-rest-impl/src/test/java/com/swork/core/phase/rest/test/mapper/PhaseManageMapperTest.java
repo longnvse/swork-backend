@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +19,6 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PhaseManageMapperTest {
-    @Mock
-    private AccountEntryLocalService accountEntryLocalService;
     @InjectMocks
     private PhaseManageMapper phaseManageMapper;
     @Test

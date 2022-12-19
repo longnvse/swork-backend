@@ -30,7 +30,6 @@ public class PhaseMapperTest {
     private PhaseManageEntryLocalService phaseManageEntryLocalService;
     @Mock
     private PhaseManageMapper phaseManageMapper;
-    @Rule
 
 
     @Test
