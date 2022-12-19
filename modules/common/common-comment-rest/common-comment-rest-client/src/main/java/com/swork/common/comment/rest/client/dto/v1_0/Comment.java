@@ -112,6 +112,48 @@ public class Comment implements Cloneable, Serializable {
 
 	protected String content;
 
+	public Long getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(Long creatorId) {
+		this.creatorId = creatorId;
+	}
+
+	public void setCreatorId(
+		UnsafeSupplier<Long, Exception> creatorIdUnsafeSupplier) {
+
+		try {
+			creatorId = creatorIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long creatorId;
+
+	public String getCreatorName() {
+		return creatorName;
+	}
+
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
+	}
+
+	public void setCreatorName(
+		UnsafeSupplier<String, Exception> creatorNameUnsafeSupplier) {
+
+		try {
+			creatorName = creatorNameUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String creatorName;
+
 	public Long getId() {
 		return id;
 	}

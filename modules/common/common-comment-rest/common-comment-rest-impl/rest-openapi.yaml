@@ -21,6 +21,13 @@ components:
           type: string
           enum: [ project, phase, work ]
           writeOnly: true
+        creatorId:
+          type: integer
+          format: int64
+          readOnly: true
+        creatorName:
+          type: string
+          readOnly: true
         comments:
           type: array
           items:
@@ -53,6 +60,14 @@ paths:
             type: string
             enum: [ project, phase, work ]
           required: true
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
       responses:
         200:
           description: The data returned

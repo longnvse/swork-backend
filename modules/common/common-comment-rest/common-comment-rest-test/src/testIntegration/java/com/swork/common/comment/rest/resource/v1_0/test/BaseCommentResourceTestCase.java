@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
@@ -33,6 +34,7 @@ import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.swork.common.comment.rest.client.dto.v1_0.Comment;
 import com.swork.common.comment.rest.client.http.HttpInvoker;
 import com.swork.common.comment.rest.client.pagination.Page;
+import com.swork.common.comment.rest.client.pagination.Pagination;
 import com.swork.common.comment.rest.client.resource.v1_0.CommentResource;
 import com.swork.common.comment.rest.client.serdes.v1_0.CommentSerDes;
 
@@ -166,6 +168,7 @@ public abstract class BaseCommentResourceTestCase {
 		Comment comment = randomComment();
 
 		comment.setContent(regex);
+		comment.setCreatorName(regex);
 
 		String json = CommentSerDes.toJSON(comment);
 
@@ -174,12 +177,13 @@ public abstract class BaseCommentResourceTestCase {
 		comment = CommentSerDes.toDTO(json);
 
 		Assert.assertEquals(regex, comment.getContent());
+		Assert.assertEquals(regex, comment.getCreatorName());
 	}
 
 	@Test
 	public void testGetCommentPages() throws Exception {
 		Page<Comment> page = commentResource.getCommentPages(
-			null, RandomTestUtil.randomString());
+			null, RandomTestUtil.randomString(), Pagination.of(1, 10));
 
 		long totalCount = page.getTotalCount();
 
@@ -187,7 +191,8 @@ public abstract class BaseCommentResourceTestCase {
 
 		Comment comment2 = testGetCommentPages_addComment(randomComment());
 
-		page = commentResource.getCommentPages(null, null);
+		page = commentResource.getCommentPages(
+			null, null, Pagination.of(1, 10));
 
 		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
@@ -198,6 +203,44 @@ public abstract class BaseCommentResourceTestCase {
 		commentResource.deleteComment(comment1.getId());
 
 		commentResource.deleteComment(comment2.getId());
+	}
+
+	@Test
+	public void testGetCommentPagesWithPagination() throws Exception {
+		Page<Comment> totalPage = commentResource.getCommentPages(
+			null, null, null);
+
+		int totalCount = GetterUtil.getInteger(totalPage.getTotalCount());
+
+		Comment comment1 = testGetCommentPages_addComment(randomComment());
+
+		Comment comment2 = testGetCommentPages_addComment(randomComment());
+
+		Comment comment3 = testGetCommentPages_addComment(randomComment());
+
+		Page<Comment> page1 = commentResource.getCommentPages(
+			null, null, Pagination.of(1, totalCount + 2));
+
+		List<Comment> comments1 = (List<Comment>)page1.getItems();
+
+		Assert.assertEquals(
+			comments1.toString(), totalCount + 2, comments1.size());
+
+		Page<Comment> page2 = commentResource.getCommentPages(
+			null, null, Pagination.of(2, totalCount + 2));
+
+		Assert.assertEquals(totalCount + 3, page2.getTotalCount());
+
+		List<Comment> comments2 = (List<Comment>)page2.getItems();
+
+		Assert.assertEquals(comments2.toString(), 1, comments2.size());
+
+		Page<Comment> page3 = commentResource.getCommentPages(
+			null, null, Pagination.of(1, totalCount + 3));
+
+		assertContains(comment1, (List<Comment>)page3.getItems());
+		assertContains(comment2, (List<Comment>)page3.getItems());
+		assertContains(comment3, (List<Comment>)page3.getItems());
 	}
 
 	protected Comment testGetCommentPages_addComment(Comment comment)
@@ -463,6 +506,22 @@ public abstract class BaseCommentResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("creatorId", additionalAssertFieldName)) {
+				if (comment.getCreatorId() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("creatorName", additionalAssertFieldName)) {
+				if (comment.getCreatorName() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("parentId", additionalAssertFieldName)) {
 				if (comment.getParentId() == null) {
 					valid = false;
@@ -594,6 +653,26 @@ public abstract class BaseCommentResourceTestCase {
 			if (Objects.equals("content", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						comment1.getContent(), comment2.getContent())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("creatorId", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						comment1.getCreatorId(), comment2.getCreatorId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("creatorName", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						comment1.getCreatorName(), comment2.getCreatorName())) {
 
 					return false;
 				}
@@ -739,6 +818,19 @@ public abstract class BaseCommentResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("creatorId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("creatorName")) {
+			sb.append("'");
+			sb.append(String.valueOf(comment.getCreatorName()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("id")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -795,6 +887,9 @@ public abstract class BaseCommentResourceTestCase {
 			{
 				classPkId = RandomTestUtil.randomLong();
 				content = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				creatorId = RandomTestUtil.randomLong();
+				creatorName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				parentId = RandomTestUtil.randomLong();
 			}

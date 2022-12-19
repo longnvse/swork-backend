@@ -72,6 +72,7 @@ public class CommentService {
 
     public Page<Comment> getCommentPages(Long classPkId,
                                          String classPkName,
+                                         Pagination pagination,
                                          ServiceContext serviceContext) throws Exception {
 
         return SearchUtil.search(
@@ -80,7 +81,7 @@ public class CommentService {
                     BooleanFilter booleanFilter = booleanQuery.getPreBooleanFilter();
 
                     TermFilter classPkIdFilter = new TermFilter(SearchFields.CLASS_PK_ID, String.valueOf(classPkId));
-                    TermFilter classPkNameFilter = new TermFilter(SearchFields.CLASS_PK_ID, classPkName);
+                    TermFilter classPkNameFilter = new TermFilter(SearchFields.CLASS_PK_NAME, classPkName);
                     TermFilter parentIdFilter = new TermFilter(SearchFields.PARENT_ID, String.valueOf(GetterUtil.DEFAULT_LONG));
 
                     booleanFilter.add(classPkIdFilter, BooleanClauseOccur.MUST);
@@ -90,7 +91,7 @@ public class CommentService {
                 null,
                 CommentEntry.class.getName(),
                 null,
-                Pagination.of(1, Integer.MAX_VALUE),
+                pagination,
                 queryConfig -> queryConfig.setSelectedFieldNames(
                         Field.ENTRY_CLASS_PK
                 ),

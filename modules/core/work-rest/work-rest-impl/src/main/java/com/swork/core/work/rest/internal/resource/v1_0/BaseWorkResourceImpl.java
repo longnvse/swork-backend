@@ -130,7 +130,7 @@ public abstract class BaseWorkResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/swork/work-rest/v1.0/works' -d $'{"actualEndDate": ___, "actualStartDate": ___, "complete": ___, "description": ___, "descriptionProgress": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "id": ___, "incompleteAmount": ___, "manages": ___, "name": ___, "parentReferenceCode": ___, "participates": ___, "phaseId": ___, "progressType": ___, "projectId": ___, "startDate": ___, "status": ___, "unit": ___, "works": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/swork/work-rest/v1.0/works' -d $'{"actualEndDate": ___, "actualStartDate": ___, "complete": ___, "description": ___, "descriptionProgress": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "id": ___, "incompleteAmount": ___, "manages": ___, "name": ___, "parentId": ___, "participates": ___, "phaseId": ___, "progressType": ___, "projectId": ___, "startDate": ___, "status": ___, "unit": ___, "works": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Create a new Work")
 	@io.swagger.v3.oas.annotations.tags.Tags(
@@ -296,7 +296,7 @@ public abstract class BaseWorkResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0/works/{workId}' -d $'{"actualEndDate": ___, "actualStartDate": ___, "complete": ___, "description": ___, "descriptionProgress": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "id": ___, "incompleteAmount": ___, "manages": ___, "name": ___, "parentReferenceCode": ___, "participates": ___, "phaseId": ___, "progressType": ___, "projectId": ___, "startDate": ___, "status": ___, "unit": ___, "works": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0/works/{workId}' -d $'{"actualEndDate": ___, "actualStartDate": ___, "complete": ___, "description": ___, "descriptionProgress": ___, "endDate": ___, "externalReferenceCode": ___, "handles": ___, "id": ___, "incompleteAmount": ___, "manages": ___, "name": ___, "parentId": ___, "participates": ___, "phaseId": ___, "progressType": ___, "projectId": ___, "startDate": ___, "status": ___, "unit": ___, "works": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Update a Work")
 	@io.swagger.v3.oas.annotations.Parameters(

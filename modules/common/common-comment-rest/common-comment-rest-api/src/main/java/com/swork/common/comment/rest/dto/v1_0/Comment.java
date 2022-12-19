@@ -170,6 +170,62 @@ public class Comment implements Serializable {
 	protected String content;
 
 	@Schema
+	public Long getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(Long creatorId) {
+		this.creatorId = creatorId;
+	}
+
+	@JsonIgnore
+	public void setCreatorId(
+		UnsafeSupplier<Long, Exception> creatorIdUnsafeSupplier) {
+
+		try {
+			creatorId = creatorIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Long creatorId;
+
+	@Schema
+	public String getCreatorName() {
+		return creatorName;
+	}
+
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
+	}
+
+	@JsonIgnore
+	public void setCreatorName(
+		UnsafeSupplier<String, Exception> creatorNameUnsafeSupplier) {
+
+		try {
+			creatorName = creatorNameUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String creatorName;
+
+	@Schema
 	public Long getId() {
 		return id;
 	}
@@ -304,6 +360,30 @@ public class Comment implements Serializable {
 			sb.append("\"");
 
 			sb.append(_escape(content));
+
+			sb.append("\"");
+		}
+
+		if (creatorId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"creatorId\": ");
+
+			sb.append(creatorId);
+		}
+
+		if (creatorName != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"creatorName\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(creatorName));
 
 			sb.append("\"");
 		}

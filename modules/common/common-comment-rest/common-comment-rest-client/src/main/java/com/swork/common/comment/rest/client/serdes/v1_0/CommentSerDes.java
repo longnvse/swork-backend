@@ -98,6 +98,30 @@ public class CommentSerDes {
 			sb.append("\"");
 		}
 
+		if (comment.getCreatorId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"creatorId\": ");
+
+			sb.append(comment.getCreatorId());
+		}
+
+		if (comment.getCreatorName() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"creatorName\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(comment.getCreatorName()));
+
+			sb.append("\"");
+		}
+
 		if (comment.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -164,6 +188,20 @@ public class CommentSerDes {
 			map.put("content", String.valueOf(comment.getContent()));
 		}
 
+		if (comment.getCreatorId() == null) {
+			map.put("creatorId", null);
+		}
+		else {
+			map.put("creatorId", String.valueOf(comment.getCreatorId()));
+		}
+
+		if (comment.getCreatorName() == null) {
+			map.put("creatorName", null);
+		}
+		else {
+			map.put("creatorName", String.valueOf(comment.getCreatorName()));
+		}
+
 		if (comment.getId() == null) {
 			map.put("id", null);
 		}
@@ -226,6 +264,17 @@ public class CommentSerDes {
 			else if (Objects.equals(jsonParserFieldName, "content")) {
 				if (jsonParserFieldValue != null) {
 					comment.setContent((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "creatorId")) {
+				if (jsonParserFieldValue != null) {
+					comment.setCreatorId(
+						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "creatorName")) {
+				if (jsonParserFieldValue != null) {
+					comment.setCreatorName((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {

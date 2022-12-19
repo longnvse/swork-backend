@@ -14,7 +14,6 @@
 
 package com.swork.account.service.service.impl;
 
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
@@ -149,13 +148,13 @@ public class AccountEntryLocalServiceImpl
     }
 
     public AccountEntry getAccount(String username) {
-        AccountEntry entry = accountEntryPersistence.fetchByUsername(username,false);
+        AccountEntry entry = accountEntryPersistence.fetchByUsername(username.toLowerCase(), false);
 
         if (Validator.isNotNull(entry)) {
             return entry;
         }
 
-        return accountEntryPersistence.fetchByEmail(username,false);
+        return accountEntryPersistence.fetchByEmail(username.toLowerCase(), false);
     }
 
     @Indexable(type = IndexableType.REINDEX)

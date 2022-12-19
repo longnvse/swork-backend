@@ -9,6 +9,7 @@ import com.liferay.portal.odata.filter.ExpressionConvert;
 import com.liferay.portal.odata.filter.FilterParserProvider;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.pagination.Pagination;
 
 import com.swork.common.comment.rest.dto.v1_0.Comment;
 
@@ -43,7 +44,8 @@ public interface CommentResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<Comment> getCommentPages(Long classPkId, String classPkName)
+	public Page<Comment> getCommentPages(
+			Long classPkId, String classPkName, Pagination pagination)
 		throws Exception;
 
 	public Comment postComment(Comment comment) throws Exception;

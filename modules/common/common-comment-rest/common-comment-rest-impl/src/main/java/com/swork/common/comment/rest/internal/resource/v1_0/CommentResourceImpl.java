@@ -2,6 +2,7 @@ package com.swork.common.comment.rest.internal.resource.v1_0;
 
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.pagination.Pagination;
 import com.swork.common.comment.rest.dto.v1_0.Comment;
 import com.swork.common.comment.rest.internal.service.CommentService;
 import com.swork.common.comment.rest.resource.v1_0.CommentResource;
@@ -20,10 +21,11 @@ import org.osgi.service.component.annotations.ServiceScope;
 )
 public class CommentResourceImpl extends BaseCommentResourceImpl {
     @Override
-    public Page<Comment> getCommentPages(Long classPkId, String classPkName) throws Exception {
+    public Page<Comment> getCommentPages(Long classPkId, String classPkName, Pagination pagination) throws Exception {
         return service.getCommentPages(
                 classPkId,
                 classPkName,
+                pagination,
                 getServiceContext()
         );
     }

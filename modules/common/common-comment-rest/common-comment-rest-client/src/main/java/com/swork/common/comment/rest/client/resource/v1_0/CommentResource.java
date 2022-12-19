@@ -3,6 +3,7 @@ package com.swork.common.comment.rest.client.resource.v1_0;
 import com.swork.common.comment.rest.client.dto.v1_0.Comment;
 import com.swork.common.comment.rest.client.http.HttpInvoker;
 import com.swork.common.comment.rest.client.pagination.Page;
+import com.swork.common.comment.rest.client.pagination.Pagination;
 import com.swork.common.comment.rest.client.problem.Problem;
 import com.swork.common.comment.rest.client.serdes.v1_0.CommentSerDes;
 
@@ -25,11 +26,12 @@ public interface CommentResource {
 		return new Builder();
 	}
 
-	public Page<Comment> getCommentPages(Long classPkId, String classPkName)
+	public Page<Comment> getCommentPages(
+			Long classPkId, String classPkName, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getCommentPagesHttpResponse(
-			Long classPkId, String classPkName)
+			Long classPkId, String classPkName, Pagination pagination)
 		throws Exception;
 
 	public Comment postComment(Comment comment) throws Exception;
@@ -145,11 +147,12 @@ public interface CommentResource {
 
 	public static class CommentResourceImpl implements CommentResource {
 
-		public Page<Comment> getCommentPages(Long classPkId, String classPkName)
+		public Page<Comment> getCommentPages(
+				Long classPkId, String classPkName, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = getCommentPagesHttpResponse(
-				classPkId, classPkName);
+				classPkId, classPkName, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -189,7 +192,7 @@ public interface CommentResource {
 		}
 
 		public HttpInvoker.HttpResponse getCommentPagesHttpResponse(
-				Long classPkId, String classPkName)
+				Long classPkId, String classPkName, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -220,6 +223,13 @@ public interface CommentResource {
 			if (classPkName != null) {
 				httpInvoker.parameter(
 					"classPkName", String.valueOf(classPkName));
+			}
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
 			}
 
 			httpInvoker.path(
