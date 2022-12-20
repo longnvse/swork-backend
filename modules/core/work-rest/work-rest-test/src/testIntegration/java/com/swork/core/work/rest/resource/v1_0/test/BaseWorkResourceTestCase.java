@@ -178,7 +178,6 @@ public abstract class BaseWorkResourceTestCase {
 		work.setExternalReferenceCode(regex);
 		work.setName(regex);
 		work.setParentName(regex);
-		work.setParentReferenceCode(regex);
 		work.setPhaseName(regex);
 		work.setProjectName(regex);
 		work.setUnit(regex);
@@ -194,7 +193,6 @@ public abstract class BaseWorkResourceTestCase {
 		Assert.assertEquals(regex, work.getExternalReferenceCode());
 		Assert.assertEquals(regex, work.getName());
 		Assert.assertEquals(regex, work.getParentName());
-		Assert.assertEquals(regex, work.getParentReferenceCode());
 		Assert.assertEquals(regex, work.getPhaseName());
 		Assert.assertEquals(regex, work.getProjectName());
 		Assert.assertEquals(regex, work.getUnit());
@@ -831,16 +829,6 @@ public abstract class BaseWorkResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals(
-					"parentReferenceCode", additionalAssertFieldName)) {
-
-				if (work.getParentReferenceCode() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("parentStatus", additionalAssertFieldName)) {
 				if (work.getParentStatus() == null) {
 					valid = false;
@@ -1172,19 +1160,6 @@ public abstract class BaseWorkResourceTestCase {
 			if (Objects.equals("parentName", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						work1.getParentName(), work2.getParentName())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals(
-					"parentReferenceCode", additionalAssertFieldName)) {
-
-				if (!Objects.deepEquals(
-						work1.getParentReferenceCode(),
-						work2.getParentReferenceCode())) {
 
 					return false;
 				}
@@ -1576,14 +1551,6 @@ public abstract class BaseWorkResourceTestCase {
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("parentReferenceCode")) {
-			sb.append("'");
-			sb.append(String.valueOf(work.getParentReferenceCode()));
-			sb.append("'");
-
-			return sb.toString();
-		}
-
 		if (entityFieldName.equals("parentStatus")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1743,8 +1710,6 @@ public abstract class BaseWorkResourceTestCase {
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				parentId = RandomTestUtil.randomLong();
 				parentName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				parentReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				percentage = RandomTestUtil.randomDouble();
 				phaseId = RandomTestUtil.randomLong();

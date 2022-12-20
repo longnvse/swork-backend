@@ -14,8 +14,6 @@ components:
         phaseId:
           format: int64
           type: integer
-        parentReferenceCode:
-          type: string
         progress:
           type: integer
           format: int64
@@ -40,7 +38,6 @@ components:
         parentId:
           format: int64
           type: integer
-          readOnly: true
         projectName:
           type: string
           readOnly: true
@@ -341,7 +338,6 @@ paths:
           schema:
             type: string
             enum: [ pending, active, completed, inactive,denied ]
-
       responses:
         204:
           description:

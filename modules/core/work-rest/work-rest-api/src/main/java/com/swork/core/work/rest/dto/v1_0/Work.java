@@ -409,7 +409,7 @@ public class Work implements Serializable {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long parentId;
 
 	@Schema
@@ -439,34 +439,6 @@ public class Work implements Serializable {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String parentName;
-
-	@Schema
-	public String getParentReferenceCode() {
-		return parentReferenceCode;
-	}
-
-	public void setParentReferenceCode(String parentReferenceCode) {
-		this.parentReferenceCode = parentReferenceCode;
-	}
-
-	@JsonIgnore
-	public void setParentReferenceCode(
-		UnsafeSupplier<String, Exception> parentReferenceCodeUnsafeSupplier) {
-
-		try {
-			parentReferenceCode = parentReferenceCodeUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String parentReferenceCode;
 
 	@Schema
 	@Valid
@@ -1080,20 +1052,6 @@ public class Work implements Serializable {
 			sb.append("\"");
 
 			sb.append(_escape(parentName));
-
-			sb.append("\"");
-		}
-
-		if (parentReferenceCode != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"parentReferenceCode\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(parentReferenceCode));
 
 			sb.append("\"");
 		}

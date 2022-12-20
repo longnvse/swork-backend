@@ -311,27 +311,6 @@ public class Work implements Cloneable, Serializable {
 
 	protected String parentName;
 
-	public String getParentReferenceCode() {
-		return parentReferenceCode;
-	}
-
-	public void setParentReferenceCode(String parentReferenceCode) {
-		this.parentReferenceCode = parentReferenceCode;
-	}
-
-	public void setParentReferenceCode(
-		UnsafeSupplier<String, Exception> parentReferenceCodeUnsafeSupplier) {
-
-		try {
-			parentReferenceCode = parentReferenceCodeUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String parentReferenceCode;
-
 	public ParentStatus getParentStatus() {
 		return parentStatus;
 	}
