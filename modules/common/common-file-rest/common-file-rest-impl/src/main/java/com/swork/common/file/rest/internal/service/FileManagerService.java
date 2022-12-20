@@ -3,6 +3,7 @@ package com.swork.common.file.rest.internal.service;
 import com.liferay.document.library.kernel.service.DLFileEntryLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.search.query.Queries;
 import com.swork.common.file.mapper.model.FileManagerMapperModel;
 import com.swork.common.file.model.FileManagerEntry;
@@ -21,14 +22,16 @@ public class FileManagerService {
     public FileManager postFileManager(long customerId,
                                        long userId,
                                        FileManager fileManager,
-                                       ServiceContext serviceContext) {
+                                       ThemeDisplay themeDisplay,
+                                       ServiceContext serviceContext
+    ) {
 
         FileManagerMapperModel model =
                 mapper.mapFromFileManagerMapperModelToFileManager(fileManager);
 
         FileManagerEntry fileManagerEntry = fileManagerEntryLocalService.addFileManager(customerId, userId, model, serviceContext);
 
-        return mapper.mapFromFileManagerToFileManagerEntry(fileManagerEntry);
+        return mapper.mapFromFileManagerToFileManagerEntry(fileManagerEntry, themeDisplay);
     }
 
     public List<FileManager> getAllDGFileManager(long customerId, String parentCode) {
@@ -47,26 +50,11 @@ public class FileManagerService {
         return fileManagerRetriever.getAllFileId(customerId, parentCode);
     }
 
-    public void deleteFileManagerOfParent(long customerId,
-                                          String parentCode) {
-        List<Long> list = getAllFileId(customerId, parentCode);
+    public void deleteFile(long id) throws PortalException {
+        FileManagerEntry entry = fileManagerEntryLocalService.deleteFileManagerEntry(id);
 
-        list.stream().forEach(l -> {
-            FileManagerEntry fileManagerEntry = fileManagerEntryLocalService.getFileManagerEntryByFileId(l, customerId);
-
-            try {
-                fileManagerEntryLocalService.deleteFileManagerEntry(fileManagerEntry.getId());
-            } catch (PortalException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                dlFileEntryLocalService.deleteDLFileEntry(l);
-            } catch (PortalException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        dlFileEntryLocalService.deleteDLFileEntry(entry.getFileId());
     }
-
 
     @Reference
     private FileManagerMapper mapper;
@@ -81,5 +69,5 @@ public class FileManagerService {
     private FileManagerRetriever fileManagerRetriever;
 
     @Reference
-    private DLFileEntryLocalService dlFileEntryLocalService ;
+    private DLFileEntryLocalService dlFileEntryLocalService;
 }

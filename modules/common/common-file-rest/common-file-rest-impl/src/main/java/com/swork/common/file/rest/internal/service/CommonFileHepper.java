@@ -12,6 +12,7 @@ import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.multipart.BinaryFile;
 import com.liferay.portal.vulcan.multipart.MultipartBody;
@@ -28,7 +29,7 @@ import java.util.logging.Logger;
 @Component(
         immediate = true, service = CommonFileHepper.class
 )
-public class CommonFileHepper  {
+public class CommonFileHepper {
 
     private final long PARENT_FOLDER_ID = 0l;
     private final String FILE_KEY = "file";
@@ -36,8 +37,8 @@ public class CommonFileHepper  {
     private static final Logger _logger = Logger.getLogger(CommonFileHepper.class.getName());
 
     public FileEntry uploadFile(long groupId,
-                                long customerId,
-                                String customerName,
+                                long businessId,
+                                String businessName,
                                 String moduleName,
                                 String appName,
                                 MultipartBody multipartBody,
@@ -46,6 +47,8 @@ public class CommonFileHepper  {
         FileEntry fileEntry = null;
 
         BinaryFile binaryFile = multipartBody.getBinaryFile(FILE_KEY);
+
+        long parentId = multipartBody.getValueAsInstanceOptional("parentId", Long.class).orElse(GetterUtil.DEFAULT_LONG);
 
         String fileName = binaryFile.getFileName();
         String contentType = binaryFile.getContentType();
@@ -57,7 +60,7 @@ public class CommonFileHepper  {
             serviceContext.setAddGuestPermissions(true);
 
 
-            DLFolder dlFolder = getAppFolder(groupId, customerId, customerName, moduleName, appName,  serviceContext);
+            DLFolder dlFolder = getAppFolder(groupId, businessId, businessName, moduleName, appName, serviceContext);
 
             String uniqueTitle = uniqueFileEntryTitleProvider.provide(
                     groupId,
@@ -79,6 +82,7 @@ public class CommonFileHepper  {
                     null,
                     null,
                     serviceContext);
+
 
         }
 
@@ -134,28 +138,28 @@ public class CommonFileHepper  {
     }
 
     public DLFolder getModuleFolder(long groupId,
-                                    long customerId,
-                                    String customerName,
+                                    long businessId,
+                                    String businessName,
                                     String moduleName,
                                     ServiceContext serviceContext)
             throws PortalException {
 
-        DLFolder rootFolder = getRootFolder(groupId, customerId, customerName, serviceContext);
+        DLFolder rootFolder = getRootFolder(groupId, businessId, businessName, serviceContext);
 
         return getFolder(groupId, rootFolder.getFolderId(), moduleName, serviceContext);
     }
 
     public DLFolder getAppFolder(long groupId,
-                                 long customerId,
-                                 String customerName,
+                                 long businessId,
+                                 String businessName,
                                  String moduleName,
                                  String appName,
                                  ServiceContext serviceContext)
             throws PortalException {
 
-        DLFolder moduleFolder = getModuleFolder(groupId, customerId, customerName, appName, serviceContext);
+        DLFolder moduleFolder = getModuleFolder(groupId, businessId, businessName, appName, serviceContext);
 
-        DLFolder appFolder =  getFolder(groupId, moduleFolder.getFolderId(), moduleName, serviceContext);
+        DLFolder appFolder = getFolder(groupId, moduleFolder.getFolderId(), moduleName, serviceContext);
 
         String folderByDay = StringPool.BLANK;
 

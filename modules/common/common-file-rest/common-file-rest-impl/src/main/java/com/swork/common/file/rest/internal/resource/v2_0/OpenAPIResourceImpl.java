@@ -68,8 +68,6 @@ public class OpenAPIResourceImpl {
 		{
 			add(FileManagerResourceImpl.class);
 
-			add(FilesResourceImpl.class);
-
 			add(OpenAPIResourceImpl.class);
 		}
 	};

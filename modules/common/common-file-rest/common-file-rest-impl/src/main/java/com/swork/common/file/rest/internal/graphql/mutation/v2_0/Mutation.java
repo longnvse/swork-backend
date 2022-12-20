@@ -8,8 +8,8 @@ import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.multipart.MultipartBody;
 
-import com.swork.common.file.rest.dto.v2_0.FileManager;
 import com.swork.common.file.rest.resource.v2_0.FileManagerResource;
 
 import java.util.function.BiFunction;
@@ -40,28 +40,23 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public FileManager createFileManager(
-			@GraphQLName("fileManager") FileManager fileManager)
+	@GraphQLName(
+		description = "null",
+		value = "postFileClassPkIdClassPkNameMultipartBody"
+	)
+	public boolean createFile(
+			@GraphQLName("classPkId") Long classPkId,
+			@GraphQLName("classPkName") String classPkName,
+			@GraphQLName("multipartBody") MultipartBody multipartBody)
 		throws Exception {
 
-		return _applyComponentServiceObjects(
+		_applyVoidComponentServiceObjects(
 			_fileManagerResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			fileManagerResource -> fileManagerResource.postFileManager(
-				fileManager));
-	}
+			fileManagerResource -> fileManagerResource.postFile(
+				classPkId, classPkName, multipartBody));
 
-	@GraphQLField
-	public Response createFileManagerBatch(
-			@GraphQLName("callbackURL") String callbackURL,
-			@GraphQLName("object") Object object)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_fileManagerResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			fileManagerResource -> fileManagerResource.postFileManagerBatch(
-				callbackURL, object));
+		return true;
 	}
 
 	@GraphQLField
@@ -89,20 +84,6 @@ public class Mutation {
 			this::_populateResourceContext,
 			fileManagerResource -> fileManagerResource.deleteFileManagerBatch(
 				fileId, callbackURL, object));
-	}
-
-	@GraphQLField
-	public boolean deleteMediaFiles(
-			@GraphQLName("parentCode") String parentCode)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_fileManagerResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			fileManagerResource -> fileManagerResource.deleteMediaFiles(
-				parentCode));
-
-		return true;
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R

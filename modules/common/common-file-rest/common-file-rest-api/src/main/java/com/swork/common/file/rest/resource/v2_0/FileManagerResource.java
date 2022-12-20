@@ -8,6 +8,7 @@ import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.odata.filter.ExpressionConvert;
 import com.liferay.portal.odata.filter.FilterParserProvider;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
+import com.liferay.portal.vulcan.multipart.MultipartBody;
 import com.liferay.portal.vulcan.pagination.Page;
 
 import com.swork.common.file.rest.dto.v2_0.FileManager;
@@ -43,13 +44,11 @@ public interface FileManagerResource {
 		return FactoryHolder.factory.create();
 	}
 
+	public void postFile(
+			Long classPkId, String classPkName, MultipartBody multipartBody)
+		throws Exception;
+
 	public Page<FileManager> getAllFileManager(String parentCode)
-		throws Exception;
-
-	public FileManager postFileManager(FileManager fileManager)
-		throws Exception;
-
-	public Response postFileManagerBatch(String callbackURL, Object object)
 		throws Exception;
 
 	public void deleteFileManager(Long fileId) throws Exception;
@@ -57,10 +56,6 @@ public interface FileManagerResource {
 	public Response deleteFileManagerBatch(
 			Long fileId, String callbackURL, Object object)
 		throws Exception;
-
-	public FileManager getFileManager(Long fileId) throws Exception;
-
-	public void deleteMediaFiles(String parentCode) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

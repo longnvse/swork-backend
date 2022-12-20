@@ -2,6 +2,7 @@ package com.swork.common.file.rest.internal.mapper;
 
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.service.DLFileEntryLocalService;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Validator;
 import com.swork.common.file.mapper.model.FileManagerMapperModel;
 import com.swork.common.file.model.FileManagerEntry;
@@ -15,7 +16,7 @@ import java.util.List;
 @Component(immediate = true, service = FileManagerMapper.class)
 public class FileManagerMapper {
 
-    public FileManager mapFromFileManagerToFileManagerEntry(FileManagerEntry from) {
+    public FileManager mapFromFileManagerToFileManagerEntry(FileManagerEntry from, ThemeDisplay themeDisplay) {
         FileManager to = new FileManager();
 
         to.setFileId(from.getFileId());

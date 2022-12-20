@@ -27,9 +27,6 @@ components:
           type: string
         address:
           type: string
-        password:
-          type: string
-          readOnly: true
         status:
           enum: [ active, inactive ]
     ChangePassword:

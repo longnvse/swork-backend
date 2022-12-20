@@ -139,20 +139,6 @@ public class AccountSerDes {
 			sb.append(account.getId());
 		}
 
-		if (account.getPassword() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"password\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(account.getPassword()));
-
-			sb.append("\"");
-		}
-
 		if (account.getPhoneNumber() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -271,13 +257,6 @@ public class AccountSerDes {
 			map.put("id", String.valueOf(account.getId()));
 		}
 
-		if (account.getPassword() == null) {
-			map.put("password", null);
-		}
-		else {
-			map.put("password", String.valueOf(account.getPassword()));
-		}
-
 		if (account.getPhoneNumber() == null) {
 			map.put("phoneNumber", null);
 		}
@@ -356,11 +335,6 @@ public class AccountSerDes {
 			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
 					account.setId(Long.valueOf((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "password")) {
-				if (jsonParserFieldValue != null) {
-					account.setPassword((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "phoneNumber")) {
