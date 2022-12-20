@@ -17,6 +17,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
@@ -226,6 +230,32 @@ public class Comment implements Serializable {
 	protected String creatorName;
 
 	@Schema
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	@JsonIgnore
+	public void setDate(UnsafeSupplier<Date, Exception> dateUnsafeSupplier) {
+		try {
+			date = dateUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Date date;
+
+	@Schema
 	public Long getId() {
 		return id;
 	}
@@ -306,6 +336,9 @@ public class Comment implements Serializable {
 
 		sb.append("{");
 
+		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
 		if (classPkId != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -384,6 +417,20 @@ public class Comment implements Serializable {
 			sb.append("\"");
 
 			sb.append(_escape(creatorName));
+
+			sb.append("\"");
+		}
+
+		if (date != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"date\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(date));
 
 			sb.append("\"");
 		}

@@ -12,4 +12,6 @@ public class SearchFields {
     public static final String CLASS_PK_ID = "classPkId";
     public static final String CLASS_PK_NAME = "classPkName";
     public static final String CREATOR_ID = "creatorId";
+    public static final String MODIFIED_DATE = "modifiedDate";
+    public static final String MODIFIED_DATE_SORTABLE = "modifiedDate_Date";
 }

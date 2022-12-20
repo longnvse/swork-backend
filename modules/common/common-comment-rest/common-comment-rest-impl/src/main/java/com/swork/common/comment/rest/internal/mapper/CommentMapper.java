@@ -1,5 +1,8 @@
 package com.swork.common.comment.rest.internal.mapper;
 
+import com.liferay.portal.kernel.util.Validator;
+import com.swork.account.service.model.AccountEntry;
+import com.swork.account.service.service.AccountEntryLocalServiceUtil;
 import com.swork.common.comment.rest.dto.v1_0.Comment;
 import com.swork.common.comment.service.model.CommentEntry;
 import com.swork.common.comment.service.service.CommentEntryLocalService;
@@ -18,7 +21,12 @@ public class CommentMapper {
 
         to.setId(from.getCommentId());
         to.setContent(from.getContent());
+        to.setCreatorId(from.getAccountId());
 
+        AccountEntry accountEntry = AccountEntryLocalServiceUtil.fetchAccountEntry(from.getAccountId());
+
+        to.setCreatorName(Validator.isNotNull(accountEntry) ? accountEntry.getFullName() : "Nhân viên đã bị xoá");
+        to.setDate(from.getCreateDate());
         List<CommentEntry> children = localService.getByParentId(from.getCommentId());
 
         to.setComments(mapEntriesToDTO(children));

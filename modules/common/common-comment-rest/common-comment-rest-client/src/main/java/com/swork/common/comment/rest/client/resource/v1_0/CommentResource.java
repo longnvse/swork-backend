@@ -27,11 +27,13 @@ public interface CommentResource {
 	}
 
 	public Page<Comment> getCommentPages(
-			Long classPkId, String classPkName, Pagination pagination)
+			Long classPkId, String classPkName, String search,
+			String filterString, Pagination pagination, String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getCommentPagesHttpResponse(
-			Long classPkId, String classPkName, Pagination pagination)
+			Long classPkId, String classPkName, String search,
+			String filterString, Pagination pagination, String sortString)
 		throws Exception;
 
 	public Comment postComment(Comment comment) throws Exception;
@@ -148,11 +150,13 @@ public interface CommentResource {
 	public static class CommentResourceImpl implements CommentResource {
 
 		public Page<Comment> getCommentPages(
-				Long classPkId, String classPkName, Pagination pagination)
+				Long classPkId, String classPkName, String search,
+				String filterString, Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = getCommentPagesHttpResponse(
-				classPkId, classPkName, pagination);
+				classPkId, classPkName, search, filterString, pagination,
+				sortString);
 
 			String content = httpResponse.getContent();
 
@@ -192,7 +196,8 @@ public interface CommentResource {
 		}
 
 		public HttpInvoker.HttpResponse getCommentPagesHttpResponse(
-				Long classPkId, String classPkName, Pagination pagination)
+				Long classPkId, String classPkName, String search,
+				String filterString, Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -225,11 +230,23 @@ public interface CommentResource {
 					"classPkName", String.valueOf(classPkName));
 			}
 
+			if (search != null) {
+				httpInvoker.parameter("search", String.valueOf(search));
+			}
+
+			if (filterString != null) {
+				httpInvoker.parameter("filter", filterString);
+			}
+
 			if (pagination != null) {
 				httpInvoker.parameter(
 					"page", String.valueOf(pagination.getPage()));
 				httpInvoker.parameter(
 					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			if (sortString != null) {
+				httpInvoker.parameter("sort", sortString);
 			}
 
 			httpInvoker.path(

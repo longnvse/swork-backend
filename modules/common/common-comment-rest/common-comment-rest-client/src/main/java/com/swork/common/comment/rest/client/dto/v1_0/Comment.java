@@ -5,6 +5,7 @@ import com.swork.common.comment.rest.client.serdes.v1_0.CommentSerDes;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -153,6 +154,25 @@ public class Comment implements Cloneable, Serializable {
 	}
 
 	protected String creatorName;
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public void setDate(UnsafeSupplier<Date, Exception> dateUnsafeSupplier) {
+		try {
+			date = dateUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date date;
 
 	public Long getId() {
 		return id;

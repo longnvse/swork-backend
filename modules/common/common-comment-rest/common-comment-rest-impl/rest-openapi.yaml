@@ -28,6 +28,10 @@ components:
         creatorName:
           type: string
           readOnly: true
+        date:
+          type: string
+          format: date-time
+          readOnly: true
         comments:
           type: array
           items:
@@ -61,6 +65,10 @@ paths:
             enum: [ project, phase, work ]
           required: true
         - in: query
+          name: filter
+          schema:
+            type: string
+        - in: query
           name: page
           schema:
             type: integer
@@ -68,6 +76,14 @@ paths:
           name: pageSize
           schema:
             type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: sort
+          schema:
+            type: string
       responses:
         200:
           description: The data returned

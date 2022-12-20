@@ -5,6 +5,7 @@ import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.BooleanFilter;
+import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.search.filter.TermFilter;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -72,7 +73,10 @@ public class CommentService {
 
     public Page<Comment> getCommentPages(Long classPkId,
                                          String classPkName,
+                                         String search,
+                                         Filter filter,
                                          Pagination pagination,
+                                         Sort[] sorts,
                                          ServiceContext serviceContext) throws Exception {
 
         return SearchUtil.search(
@@ -88,17 +92,15 @@ public class CommentService {
                     booleanFilter.add(classPkNameFilter, BooleanClauseOccur.MUST);
                     booleanFilter.add(parentIdFilter, BooleanClauseOccur.MUST);
                 },
-                null,
+                filter,
                 CommentEntry.class.getName(),
-                null,
+                search,
                 pagination,
                 queryConfig -> queryConfig.setSelectedFieldNames(
                         Field.ENTRY_CLASS_PK
                 ),
-                searchContext -> {
-                    searchContext.setCompanyId(serviceContext.getCompanyId());
-                },
-                new Sort[]{new Sort(Field.MODIFIED_DATE, true)},
+                searchContext -> searchContext.setCompanyId(serviceContext.getCompanyId()),
+                sorts,
                 document -> {
                     long commentId = GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK));
 

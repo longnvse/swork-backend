@@ -1,6 +1,7 @@
 dependencies {
 	compile project(":modules:common:common-comment-rest:common-comment-rest-api")
 	compile project(":modules:common:common-comment-service:common-comment-service-api")
+	compile project(":modules:auth:account-service:account-service-api")
 
 	compile project(":modules:common:common-exception-helper")
 	compile project(":modules:common:common-token-helper")

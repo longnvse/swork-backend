@@ -1,5 +1,6 @@
 package com.swork.common.comment.rest.resource.v1_0;
 
+import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ResourceActionLocalService;
@@ -45,7 +46,8 @@ public interface CommentResource {
 	}
 
 	public Page<Comment> getCommentPages(
-			Long classPkId, String classPkName, Pagination pagination)
+			Long classPkId, String classPkName, String search, Filter filter,
+			Pagination pagination, Sort[] sorts)
 		throws Exception;
 
 	public Comment postComment(Comment comment) throws Exception;

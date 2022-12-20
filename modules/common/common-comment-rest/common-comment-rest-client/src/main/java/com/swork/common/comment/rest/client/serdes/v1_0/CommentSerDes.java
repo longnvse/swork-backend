@@ -3,6 +3,9 @@ package com.swork.common.comment.rest.client.serdes.v1_0;
 import com.swork.common.comment.rest.client.dto.v1_0.Comment;
 import com.swork.common.comment.rest.client.json.BaseJSONParser;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
@@ -39,6 +42,9 @@ public class CommentSerDes {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("{");
+
+		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
 		if (comment.getClassPkId() != null) {
 			if (sb.length() > 1) {
@@ -122,6 +128,20 @@ public class CommentSerDes {
 			sb.append("\"");
 		}
 
+		if (comment.getDate() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"date\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(comment.getDate()));
+
+			sb.append("\"");
+		}
+
 		if (comment.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -159,6 +179,9 @@ public class CommentSerDes {
 		}
 
 		Map<String, String> map = new TreeMap<>();
+
+		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
 		if (comment.getClassPkId() == null) {
 			map.put("classPkId", null);
@@ -200,6 +223,13 @@ public class CommentSerDes {
 		}
 		else {
 			map.put("creatorName", String.valueOf(comment.getCreatorName()));
+		}
+
+		if (comment.getDate() == null) {
+			map.put("date", null);
+		}
+		else {
+			map.put("date", liferayToJSONDateFormat.format(comment.getDate()));
 		}
 
 		if (comment.getId() == null) {
@@ -275,6 +305,11 @@ public class CommentSerDes {
 			else if (Objects.equals(jsonParserFieldName, "creatorName")) {
 				if (jsonParserFieldValue != null) {
 					comment.setCreatorName((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "date")) {
+				if (jsonParserFieldValue != null) {
+					comment.setDate(toDate((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {

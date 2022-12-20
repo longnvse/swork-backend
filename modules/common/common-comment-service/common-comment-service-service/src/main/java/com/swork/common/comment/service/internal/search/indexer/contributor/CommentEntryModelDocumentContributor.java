@@ -27,5 +27,7 @@ public class CommentEntryModelDocumentContributor
         document.addText(SearchFields.CLASS_PK_NAME, baseModel.getClassPKName());
         document.addTextSortable(SearchFields.CLASS_PK_NAME, baseModel.getClassPKName());
 
+        document.addDate(SearchFields.MODIFIED_DATE, baseModel.getModifiedDate());
+        document.addDateSortable(SearchFields.MODIFIED_DATE, baseModel.getModifiedDate());
     }
 }

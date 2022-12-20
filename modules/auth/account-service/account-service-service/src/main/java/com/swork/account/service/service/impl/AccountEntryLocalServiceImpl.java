@@ -60,11 +60,11 @@ public class AccountEntryLocalServiceImpl
                 serviceContext
         );
 
-        entry.setUsername(username);
+        entry.setUsername(username.toLowerCase());
         entry.setPassword(password);
         entry.setFullName(fullName);
         entry.setDateOfBirth(dateOfBirth);
-        entry.setEmail(email.trim());
+        entry.setEmail(email.trim().toLowerCase());
         entry.setPhoneNumber(GetterUtil.getString(phoneNumber).trim());
         entry.setAddress(address);
         entry.setRole(Role.USER.getValue());
@@ -90,7 +90,7 @@ public class AccountEntryLocalServiceImpl
         );
 
         entry.setFullName("Admin");
-        entry.setEmail(email);
+        entry.setEmail(email.toLowerCase());
         entry.setPassword(password);
         entry.setRole(Role.ADMIN.getValue());
 
@@ -114,7 +114,7 @@ public class AccountEntryLocalServiceImpl
         );
 
         entry.setFullName("Admin");
-        entry.setEmail(email);
+        entry.setEmail(email.toLowerCase());
         entry.setPassword(password);
         entry.setRole(Role.SUPER_ADMIN.getValue());
 
@@ -139,7 +139,7 @@ public class AccountEntryLocalServiceImpl
         );
 
         entry.setFullName(fullName);
-        entry.setEmail(email.trim());
+        entry.setEmail(email.trim().toLowerCase());
         entry.setPhoneNumber(GetterUtil.getString(phoneNumber).trim());
         entry.setAddress(address);
         entry.setDateOfBirth(dateOfBirth);

@@ -45,7 +45,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {comment(classPkId: ___, classPkName: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {comment(classPkId: ___, classPkName: ___, filter: ___, page: ___, pageSize: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(
 		description = "Retrieves the Comment. Results can be paginated, filtered, searched, and sorted."
@@ -53,8 +53,11 @@ public class Query {
 	public CommentPage comment(
 			@GraphQLName("classPkId") Long classPkId,
 			@GraphQLName("classPkName") String classPkName,
+			@GraphQLName("search") String search,
+			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
+			@GraphQLName("page") int page,
+			@GraphQLName("sort") String sortsString)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
@@ -62,13 +65,16 @@ public class Query {
 			this::_populateResourceContext,
 			commentResource -> new CommentPage(
 				commentResource.getCommentPages(
-					classPkId, classPkName, Pagination.of(page, pageSize))));
+					classPkId, classPkName, search,
+					_filterBiFunction.apply(commentResource, filterString),
+					Pagination.of(page, pageSize),
+					_sortsBiFunction.apply(commentResource, sortsString))));
 	}
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {comment(commentId: ___){id, content, parentId, classPkId, classPkName, creatorId, creatorName, comments}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {comment(commentId: ___){id, content, parentId, classPkId, classPkName, creatorId, creatorName, date, comments}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Get an Comment")
 	public Comment comment(@GraphQLName("commentId") Long commentId)
