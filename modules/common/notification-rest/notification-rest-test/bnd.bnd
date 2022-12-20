@@ -1,0 +1,5 @@
+Bundle-Name: notification-rest-test
+Bundle-SymbolicName: com.swork.notification.rest.test
+Bundle-Version: 1.0.0
+-includeresource: com.swork.notification.rest.client.jar=../notification-rest-client/build/libs/com.swork.notification.rest.client-1.0.0.jar;lib:=true
+-provider-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}

@@ -1,0 +1,9 @@
+apiDir: "../notification-rest-api/src/main/java"
+apiPackagePath: "com.swork.notification.rest"
+application:
+    baseURI: "/notification-rest"
+    className: "NotificationRestApplication"
+    name: "NotificationRest"
+author: "ninhvv"
+clientDir: "../notification-rest-client/src/main/java"
+testDir: "../notification-rest-test/src/testIntegration/java"

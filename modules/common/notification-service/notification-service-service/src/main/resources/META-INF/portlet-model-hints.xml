@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.swork.notification.service.model.NotificationEntry">
+		<field name="uuid" type="String" />
+		<field name="externalReferenceCode" type="String" />
+		<field name="id" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="accountId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="editorId" type="long" />
+		<field name="category" type="String" />
+		<field name="name" type="String" />
+		<field name="description" type="String" />
+		<field name="status" type="String" />
+		<field name="receiverId" type="long" />
+		<field name="projectId" type="long" />
+	</model>
+</model-hints>

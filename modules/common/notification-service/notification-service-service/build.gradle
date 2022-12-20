@@ -1,0 +1,11 @@
+dependencies {
+	compile project(":modules:common:notification-service:notification-service-api")
+
+	compileOnly group: "com.liferay.portal", name: "release.portal.api"
+}
+
+buildService {
+	apiDir = "../notification-service-api/src/main/java"
+}
+
+group = "com.swork.notification.service"

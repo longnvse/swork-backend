@@ -1,0 +1,3 @@
+Bundle-Name: notification-rest-impl
+Bundle-SymbolicName: com.swork.notification.rest.impl
+Bundle-Version: 1.0.0
