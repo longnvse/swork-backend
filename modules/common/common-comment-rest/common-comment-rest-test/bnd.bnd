@@ -1,0 +1,5 @@
+Bundle-Name: common-comment-rest-test
+Bundle-SymbolicName: com.swork.common.comment.rest.test
+Bundle-Version: 1.0.0
+-includeresource: com.swork.common.comment.rest.client.jar=../common-comment-rest-client/build/libs/com.swork.common.comment.rest.client-1.0.0.jar;lib:=true
+-provider-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}

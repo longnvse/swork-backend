@@ -1,0 +1,12 @@
+dependencies {
+    compile project(":modules:common:common-comment-service:common-comment-service-api")
+    compile project(":modules:common:common-util")
+
+    compileOnly group: "com.liferay.portal", name: "release.portal.api", version: "7.4.3.13-ga13"
+}
+
+buildService {
+    apiDir = "../common-comment-service-api/src/main/java"
+}
+
+group = "com.swork.common.comment.service"

@@ -1,0 +1,6 @@
+Bundle-Name: common-comment-rest-api
+Bundle-SymbolicName: com.swork.common.comment.rest.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.swork.common.comment.rest.dto.v1_0,\
+	com.swork.common.comment.rest.resource.v1_0
