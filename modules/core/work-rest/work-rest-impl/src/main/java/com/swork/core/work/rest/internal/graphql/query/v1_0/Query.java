@@ -75,7 +75,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {work(workId: ___){id, externalReferenceCode, projectId, phaseId, parentReferenceCode, progress, name, startDate, endDate, actualStartDate, actualEndDate, parentName, parentId, projectName, phaseName, description, status, manages, participates, handles, percentage, progressType, unit, incompleteAmount, complete, descriptionProgress, parentStatus, works}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {work(workId: ___){id, externalReferenceCode, projectId, phaseId, progress, name, startDate, endDate, actualStartDate, actualEndDate, parentName, parentId, projectName, phaseName, description, status, manages, participates, handles, percentage, progressType, unit, incompleteAmount, complete, descriptionProgress, parentStatus, works}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Get an Work")
 	public Work work(@GraphQLName("workId") Long workId) throws Exception {

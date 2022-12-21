@@ -14,7 +14,6 @@
 
 package com.swork.account.service.service.impl;
 
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
@@ -61,11 +60,11 @@ public class AccountEntryLocalServiceImpl
                 serviceContext
         );
 
-        entry.setUsername(username);
+        entry.setUsername(username.toLowerCase());
         entry.setPassword(password);
         entry.setFullName(fullName);
         entry.setDateOfBirth(dateOfBirth);
-        entry.setEmail(email.trim());
+        entry.setEmail(email.trim().toLowerCase());
         entry.setPhoneNumber(GetterUtil.getString(phoneNumber).trim());
         entry.setAddress(address);
         entry.setRole(Role.USER.getValue());
@@ -91,7 +90,7 @@ public class AccountEntryLocalServiceImpl
         );
 
         entry.setFullName("Admin");
-        entry.setEmail(email);
+        entry.setEmail(email.toLowerCase());
         entry.setPassword(password);
         entry.setRole(Role.ADMIN.getValue());
 
@@ -115,7 +114,7 @@ public class AccountEntryLocalServiceImpl
         );
 
         entry.setFullName("Admin");
-        entry.setEmail(email);
+        entry.setEmail(email.toLowerCase());
         entry.setPassword(password);
         entry.setRole(Role.SUPER_ADMIN.getValue());
 
@@ -140,7 +139,7 @@ public class AccountEntryLocalServiceImpl
         );
 
         entry.setFullName(fullName);
-        entry.setEmail(email.trim());
+        entry.setEmail(email.trim().toLowerCase());
         entry.setPhoneNumber(GetterUtil.getString(phoneNumber).trim());
         entry.setAddress(address);
         entry.setDateOfBirth(dateOfBirth);
@@ -149,13 +148,13 @@ public class AccountEntryLocalServiceImpl
     }
 
     public AccountEntry getAccount(String username) {
-        AccountEntry entry = accountEntryPersistence.fetchByUsername(username,false);
+        AccountEntry entry = accountEntryPersistence.fetchByUsername(username.toLowerCase(), false);
 
         if (Validator.isNotNull(entry)) {
             return entry;
         }
 
-        return accountEntryPersistence.fetchByEmail(username,false);
+        return accountEntryPersistence.fetchByEmail(username.toLowerCase(), false);
     }
 
     @Indexable(type = IndexableType.REINDEX)

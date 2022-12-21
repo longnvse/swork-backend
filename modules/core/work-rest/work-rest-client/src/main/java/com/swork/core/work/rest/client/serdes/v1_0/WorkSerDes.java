@@ -242,20 +242,6 @@ public class WorkSerDes {
 			sb.append("\"");
 		}
 
-		if (work.getParentReferenceCode() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"parentReferenceCode\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(work.getParentReferenceCode()));
-
-			sb.append("\"");
-		}
-
 		if (work.getParentStatus() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -563,15 +549,6 @@ public class WorkSerDes {
 			map.put("parentName", String.valueOf(work.getParentName()));
 		}
 
-		if (work.getParentReferenceCode() == null) {
-			map.put("parentReferenceCode", null);
-		}
-		else {
-			map.put(
-				"parentReferenceCode",
-				String.valueOf(work.getParentReferenceCode()));
-		}
-
 		if (work.getParentStatus() == null) {
 			map.put("parentStatus", null);
 		}
@@ -775,13 +752,6 @@ public class WorkSerDes {
 			else if (Objects.equals(jsonParserFieldName, "parentName")) {
 				if (jsonParserFieldValue != null) {
 					work.setParentName((String)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(
-						jsonParserFieldName, "parentReferenceCode")) {
-
-				if (jsonParserFieldValue != null) {
-					work.setParentReferenceCode((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "parentStatus")) {
