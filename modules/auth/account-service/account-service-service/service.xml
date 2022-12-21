@@ -35,12 +35,14 @@
         <column name="fullName" type="String"/>
         <column name="phoneNumber" type="String"/>
         <column name="dateOfBirth" type="Date"/>
+        <column name="gender" type="Boolean"/>
         <column name="email" type="String"/>
         <column name="address" type="String"/>
         <column name="departmentId" type="Long"/>
         <column name="status" type="String"/>
         <column name="role" type="String"/>
         <column name="businessId" type="Long"/>
+        <column name="avatar" type="Long"/>
 
         <!-- Finder methods -->
 

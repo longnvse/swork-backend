@@ -534,66 +534,66 @@ public class FileManagerEntryUtil {
 	}
 
 	/**
-	 * Returns the file manager entry where fileId = &#63; and customerId = &#63; or throws a <code>NoSuchFileManagerEntryException</code> if it could not be found.
+	 * Returns the file manager entry where fileId = &#63; and businessId = &#63; or throws a <code>NoSuchFileManagerEntryException</code> if it could not be found.
 	 *
 	 * @param fileId the file ID
-	 * @param customerId the customer ID
+	 * @param businessId the business ID
 	 * @return the matching file manager entry
 	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
 	 */
-	public static FileManagerEntry findByF_C(long fileId, long customerId)
+	public static FileManagerEntry findByF_C(long fileId, long businessId)
 		throws com.swork.common.file.exception.NoSuchFileManagerEntryException {
 
-		return getPersistence().findByF_C(fileId, customerId);
+		return getPersistence().findByF_C(fileId, businessId);
 	}
 
 	/**
-	 * Returns the file manager entry where fileId = &#63; and customerId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the file manager entry where fileId = &#63; and businessId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param fileId the file ID
-	 * @param customerId the customer ID
+	 * @param businessId the business ID
 	 * @return the matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
 	 */
-	public static FileManagerEntry fetchByF_C(long fileId, long customerId) {
-		return getPersistence().fetchByF_C(fileId, customerId);
+	public static FileManagerEntry fetchByF_C(long fileId, long businessId) {
+		return getPersistence().fetchByF_C(fileId, businessId);
 	}
 
 	/**
-	 * Returns the file manager entry where fileId = &#63; and customerId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the file manager entry where fileId = &#63; and businessId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param fileId the file ID
-	 * @param customerId the customer ID
+	 * @param businessId the business ID
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
 	 */
 	public static FileManagerEntry fetchByF_C(
-		long fileId, long customerId, boolean useFinderCache) {
+		long fileId, long businessId, boolean useFinderCache) {
 
-		return getPersistence().fetchByF_C(fileId, customerId, useFinderCache);
+		return getPersistence().fetchByF_C(fileId, businessId, useFinderCache);
 	}
 
 	/**
-	 * Removes the file manager entry where fileId = &#63; and customerId = &#63; from the database.
+	 * Removes the file manager entry where fileId = &#63; and businessId = &#63; from the database.
 	 *
 	 * @param fileId the file ID
-	 * @param customerId the customer ID
+	 * @param businessId the business ID
 	 * @return the file manager entry that was removed
 	 */
-	public static FileManagerEntry removeByF_C(long fileId, long customerId)
+	public static FileManagerEntry removeByF_C(long fileId, long businessId)
 		throws com.swork.common.file.exception.NoSuchFileManagerEntryException {
 
-		return getPersistence().removeByF_C(fileId, customerId);
+		return getPersistence().removeByF_C(fileId, businessId);
 	}
 
 	/**
-	 * Returns the number of file manager entries where fileId = &#63; and customerId = &#63;.
+	 * Returns the number of file manager entries where fileId = &#63; and businessId = &#63;.
 	 *
 	 * @param fileId the file ID
-	 * @param customerId the customer ID
+	 * @param businessId the business ID
 	 * @return the number of matching file manager entries
 	 */
-	public static int countByF_C(long fileId, long customerId) {
-		return getPersistence().countByF_C(fileId, customerId);
+	public static int countByF_C(long fileId, long businessId) {
+		return getPersistence().countByF_C(fileId, businessId);
 	}
 
 	/**

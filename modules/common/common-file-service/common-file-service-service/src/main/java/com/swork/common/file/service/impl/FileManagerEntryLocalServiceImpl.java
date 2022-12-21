@@ -15,7 +15,6 @@
 package com.swork.common.file.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -36,11 +35,12 @@ import java.util.UUID;
 )
 public class FileManagerEntryLocalServiceImpl
         extends FileManagerEntryLocalServiceBaseImpl {
-
-
     @Indexable(type = IndexableType.REINDEX)
-    public FileManagerEntry addFileManager(long customerId,
-                                           long userId,
+    public FileManagerEntry addFileManager(long businessId,
+                                           long creatorId,
+                                           Long projectId,
+                                           Long phaseId,
+                                           Long workId,
                                            FileManagerMapperModel model,
                                            ServiceContext serviceContext) {
 
@@ -50,12 +50,15 @@ public class FileManagerEntryLocalServiceImpl
         Date current = new Date();
 
         createModifierAudit(
-                customerId,
-                userId,
+                businessId,
+                creatorId,
                 entry,
                 current,
-                userLocalService.fetchUser(serviceContext.getUserId()),
                 serviceContext);
+
+        entry.setProjectId(projectId);
+        entry.setPhaseId(phaseId);
+        entry.setWorkId(workId);
 
         addFileManagerData(entry, model);
 
@@ -63,68 +66,48 @@ public class FileManagerEntryLocalServiceImpl
     }
 
     @Indexable(type = IndexableType.REINDEX)
-    public FileManagerEntry updateFileManager(long fileManagerId,
-                                              FileManagerMapperModel model,
-                                              ServiceContext serviceContext) {
+    public FileManagerEntry updateFileName(long fileManagerId,
+                                           String name,
+                                           ServiceContext serviceContext) {
 
         FileManagerEntry entry = fileManagerEntryPersistence.fetchByPrimaryKey(fileManagerId);
 
-        addFileManagerData(entry, model);
+        entry.setFileName(name);
 
         return updateFileManagerEntry(entry);
-
     }
 
     public FileManagerEntry getFileManagerEntryByFileId(long fileId,
-                                                        long customerId) {
+                                                        long businessId) {
 
-        return fileManagerEntryPersistence.fetchByF_C(fileId, customerId);
+        return fileManagerEntryPersistence.fetchByF_C(fileId, businessId);
     }
 
     private void addFileManagerData(FileManagerEntry entry,
                                     FileManagerMapperModel model) {
 
         entry.setFileId(model.getFileId());
-        entry.setParentCode(model.getParentCode());
         entry.setFileType(model.getFileType());
-        entry.setType(model.getType());
-        entry.setPkType(model.getPkType());
         entry.setFileName(model.getFileName());
         entry.setFileSize(model.getFileSize());
+        entry.setMimeType(model.getMimeType());
         entry.setModuleId(model.getModuleId());
         entry.setAppId(model.getAppId());
     }
 
-    private void createModifierAudit(long customerId,
+    private void createModifierAudit(long businessId,
                                      long creatorId,
                                      FileManagerEntry entry,
                                      Date current,
-                                     User user,
                                      ServiceContext serviceContext) {
 
-        entry.setCustomerId(customerId);
+        entry.setBusinessId(businessId);
+        entry.setAccountId(creatorId);
         entry.setGroupId(serviceContext.getScopeGroupId());
         entry.setCompanyId(serviceContext.getCompanyId());
         entry.setCreateDate(serviceContext.getCreateDate(current));
         entry.setExternalReferenceCode(UUID.randomUUID().toString());
-
-        updateModifierAudit(creatorId, entry, current, user, serviceContext);
-    }
-
-    private void updateModifierAudit(long creatorId,
-                                     FileManagerEntry entry,
-                                     Date current,
-                                     User user,
-                                     ServiceContext serviceContext) {
-
-        if (user != null) {
-            entry.setUserName(user.getFullName());
-            entry.setUserUuid(user.getUserUuid());
-        }
-
-        entry.setModifiedDate(serviceContext.getModifiedDate(current));
-        entry.setUserId(serviceContext.getUserId());
-        entry.setCreatorId(creatorId);
+        entry.setModifiedDate(serviceContext.getCreateDate(current));
     }
 
 }

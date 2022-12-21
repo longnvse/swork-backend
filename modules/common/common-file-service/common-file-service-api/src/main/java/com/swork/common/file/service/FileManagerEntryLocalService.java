@@ -68,7 +68,8 @@ public interface FileManagerEntryLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public FileManagerEntry addFileManager(
-		long customerId, long userId, FileManagerMapperModel model,
+		long businessId, long creatorId, Long projectId, Long phaseId,
+		Long workId, FileManagerMapperModel model,
 		ServiceContext serviceContext);
 
 	/**
@@ -321,7 +322,7 @@ public interface FileManagerEntryLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public FileManagerEntry getFileManagerEntryByFileId(
-		long fileId, long customerId);
+		long fileId, long businessId);
 
 	/**
 	 * Returns the file manager entry matching the UUID and group.
@@ -354,11 +355,6 @@ public interface FileManagerEntryLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
-	@Indexable(type = IndexableType.REINDEX)
-	public FileManagerEntry updateFileManager(
-		long fileManagerId, FileManagerMapperModel model,
-		ServiceContext serviceContext);
-
 	/**
 	 * Updates the file manager entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -372,5 +368,9 @@ public interface FileManagerEntryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public FileManagerEntry updateFileManagerEntry(
 		FileManagerEntry fileManagerEntry);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public FileManagerEntry updateFileName(
+		long fileManagerId, String name, ServiceContext serviceContext);
 
 }

@@ -27,8 +27,24 @@ components:
           type: string
         address:
           type: string
+        gender:
+          type: boolean
+        avatar:
+          type: string
         status:
           enum: [ active, inactive ]
+
+    Metadata:
+      description: Metadata model
+      properties:
+        moduleId:
+          type: string
+          example: "PROJECT"
+        appId:
+          type: string
+          example: "PROJECT"
+      type: object
+
     ChangePassword:
       properties:
         oldPassword:
@@ -37,6 +53,7 @@ components:
           type: string
         newPasswordRepeat:
           type: string
+
     ResetPassword:
       properties:
         username:
@@ -283,6 +300,28 @@ paths:
         204:
           description:
             "Change Password"
+          content:
+            application/json: { }
+            application/xml: { }
+  "/accounts/account-info/avatar":
+    patch:
+      tags: [ "Account" ]
+      description: "Update avatar"
+      operationId: updateAvatar
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                metadata:
+                  $ref: "#/components/schemas/Metadata"
+                file:
+                  format: binary
+                  type: string
+      responses:
+        204:
+          description:
+            "Chage Avatar"
           content:
             application/json: { }
             application/xml: { }

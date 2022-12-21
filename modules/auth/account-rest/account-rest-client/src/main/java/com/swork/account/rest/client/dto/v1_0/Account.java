@@ -42,6 +42,27 @@ public class Account implements Cloneable, Serializable {
 
 	protected String address;
 
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public void setAvatar(
+		UnsafeSupplier<String, Exception> avatarUnsafeSupplier) {
+
+		try {
+			avatar = avatarUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String avatar;
+
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -146,6 +167,27 @@ public class Account implements Cloneable, Serializable {
 	}
 
 	protected String fullName;
+
+	public Boolean getGender() {
+		return gender;
+	}
+
+	public void setGender(Boolean gender) {
+		this.gender = gender;
+	}
+
+	public void setGender(
+		UnsafeSupplier<Boolean, Exception> genderUnsafeSupplier) {
+
+		try {
+			gender = genderUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean gender;
 
 	public Long getId() {
 		return id;

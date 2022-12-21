@@ -1,4 +1,4 @@
-package com.swork.common.file.rest.internal.resource.v2_0;
+package com.swork.common.file.rest.internal.resource.v1_0;
 
 import com.liferay.portal.vulcan.resource.OpenAPIResource;
 
@@ -28,14 +28,14 @@ import org.osgi.service.component.annotations.Reference;
  * @generated
  */
 @Component(
-	properties = "OSGI-INF/liferay/rest/v2_0/openapi.properties",
+	properties = "OSGI-INF/liferay/rest/v1_0/openapi.properties",
 	service = OpenAPIResourceImpl.class
 )
 @Generated("")
 @OpenAPIDefinition(
-	info = @Info(description = "FilesManagerRest REST API", license = @License(name = "Apache 2.0", url = "http://www.apache.org/licenses/LICENSE-2.0.html"), title = "FilesManagerRest", version = "v2.0")
+	info = @Info(description = "FilesManagerRest REST API", license = @License(name = "Apache 2.0", url = "http://www.apache.org/licenses/LICENSE-2.0.html"), title = "FilesManagerRest", version = "v1.0")
 )
-@Path("/v2.0")
+@Path("/v1.0")
 public class OpenAPIResourceImpl {
 
 	@GET

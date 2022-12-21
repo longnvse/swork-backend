@@ -8,6 +8,7 @@ import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.multipart.MultipartBody;
 
 import com.swork.account.rest.dto.v1_0.Account;
 import com.swork.account.rest.dto.v1_0.ChangePassword;
@@ -164,6 +165,22 @@ public class Mutation {
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource -> accountResource.resetPassword(resetPassword));
+
+		return true;
+	}
+
+	@GraphQLField(description = "Update avatar")
+	@GraphQLName(
+		description = "Update avatar", value = "updateAvatarMultipartBody"
+	)
+	public boolean updateAvatar(
+			@GraphQLName("multipartBody") MultipartBody multipartBody)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.updateAvatar(multipartBody));
 
 		return true;
 	}

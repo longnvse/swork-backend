@@ -1,10 +1,10 @@
-package com.swork.common.file.rest.internal.graphql.servlet.v2_0;
+package com.swork.common.file.rest.internal.graphql.servlet.v1_0;
 
 import com.liferay.portal.vulcan.graphql.servlet.ServletData;
 
-import com.swork.common.file.rest.internal.graphql.mutation.v2_0.Mutation;
-import com.swork.common.file.rest.internal.graphql.query.v2_0.Query;
-import com.swork.common.file.rest.resource.v2_0.FileManagerResource;
+import com.swork.common.file.rest.internal.graphql.mutation.v1_0.Mutation;
+import com.swork.common.file.rest.internal.graphql.query.v1_0.Query;
+import com.swork.common.file.rest.resource.v1_0.FileManagerResource;
 
 import javax.annotation.Generated;
 
@@ -39,7 +39,7 @@ public class ServletDataImpl implements ServletData {
 
 	@Override
 	public String getPath() {
-		return "/swork/common-file-rest-graphql/v2_0";
+		return "/swork/common-file-rest-graphql/v1_0";
 	}
 
 	@Override

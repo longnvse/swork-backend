@@ -56,12 +56,14 @@ public class AccountEntryWrapper
 		attributes.put("fullName", getFullName());
 		attributes.put("phoneNumber", getPhoneNumber());
 		attributes.put("dateOfBirth", getDateOfBirth());
+		attributes.put("gender", getGender());
 		attributes.put("email", getEmail());
 		attributes.put("address", getAddress());
 		attributes.put("departmentId", getDepartmentId());
 		attributes.put("status", getStatus());
 		attributes.put("role", getRole());
 		attributes.put("businessId", getBusinessId());
+		attributes.put("avatar", getAvatar());
 
 		return attributes;
 	}
@@ -147,6 +149,12 @@ public class AccountEntryWrapper
 			setDateOfBirth(dateOfBirth);
 		}
 
+		Boolean gender = (Boolean)attributes.get("gender");
+
+		if (gender != null) {
+			setGender(gender);
+		}
+
 		String email = (String)attributes.get("email");
 
 		if (email != null) {
@@ -182,6 +190,12 @@ public class AccountEntryWrapper
 		if (businessId != null) {
 			setBusinessId(businessId);
 		}
+
+		Long avatar = (Long)attributes.get("avatar");
+
+		if (avatar != null) {
+			setAvatar(avatar);
+		}
 	}
 
 	@Override
@@ -207,6 +221,16 @@ public class AccountEntryWrapper
 	@Override
 	public String getAddress() {
 		return model.getAddress();
+	}
+
+	/**
+	 * Returns the avatar of this account entry.
+	 *
+	 * @return the avatar of this account entry
+	 */
+	@Override
+	public Long getAvatar() {
+		return model.getAvatar();
 	}
 
 	/**
@@ -297,6 +321,16 @@ public class AccountEntryWrapper
 	@Override
 	public String getFullName() {
 		return model.getFullName();
+	}
+
+	/**
+	 * Returns the gender of this account entry.
+	 *
+	 * @return the gender of this account entry
+	 */
+	@Override
+	public Boolean getGender() {
+		return model.getGender();
 	}
 
 	/**
@@ -415,6 +449,16 @@ public class AccountEntryWrapper
 	}
 
 	/**
+	 * Sets the avatar of this account entry.
+	 *
+	 * @param avatar the avatar of this account entry
+	 */
+	@Override
+	public void setAvatar(Long avatar) {
+		model.setAvatar(avatar);
+	}
+
+	/**
 	 * Sets the business ID of this account entry.
 	 *
 	 * @param businessId the business ID of this account entry
@@ -502,6 +546,16 @@ public class AccountEntryWrapper
 	@Override
 	public void setFullName(String fullName) {
 		model.setFullName(fullName);
+	}
+
+	/**
+	 * Sets the gender of this account entry.
+	 *
+	 * @param gender the gender of this account entry
+	 */
+	@Override
+	public void setGender(Boolean gender) {
+		model.setGender(gender);
 	}
 
 	/**

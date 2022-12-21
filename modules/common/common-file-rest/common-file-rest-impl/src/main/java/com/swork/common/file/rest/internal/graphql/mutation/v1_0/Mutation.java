@@ -1,4 +1,4 @@
-package com.swork.common.file.rest.internal.graphql.mutation.v2_0;
+package com.swork.common.file.rest.internal.graphql.mutation.v1_0;
 
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
@@ -10,7 +10,7 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 import com.liferay.portal.vulcan.multipart.MultipartBody;
 
-import com.swork.common.file.rest.resource.v2_0.FileManagerResource;
+import com.swork.common.file.rest.resource.v1_0.FileManagerResource;
 
 import java.util.function.BiFunction;
 
@@ -19,7 +19,6 @@ import javax.annotation.Generated;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.ComponentServiceObjects;
@@ -42,11 +41,12 @@ public class Mutation {
 	@GraphQLField
 	@GraphQLName(
 		description = "null",
-		value = "postFileClassPkIdClassPkNameMultipartBody"
+		value = "postFileProjectIdPhaseIdWorkIdMultipartBody"
 	)
 	public boolean createFile(
-			@GraphQLName("classPkId") Long classPkId,
-			@GraphQLName("classPkName") String classPkName,
+			@GraphQLName("projectId") Long projectId,
+			@GraphQLName("phaseId") Long phaseId,
+			@GraphQLName("workId") Long workId,
 			@GraphQLName("multipartBody") MultipartBody multipartBody)
 		throws Exception {
 
@@ -54,36 +54,22 @@ public class Mutation {
 			_fileManagerResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			fileManagerResource -> fileManagerResource.postFile(
-				classPkId, classPkName, multipartBody));
+				projectId, phaseId, workId, multipartBody));
 
 		return true;
 	}
 
 	@GraphQLField
-	public boolean deleteFileManager(@GraphQLName("fileId") Long fileId)
+	public boolean deleteFileManagers(@GraphQLName("fileIds") Long[] fileIds)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
 			_fileManagerResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			fileManagerResource -> fileManagerResource.deleteFileManager(
-				fileId));
+			fileManagerResource -> fileManagerResource.deleteFileManagers(
+				fileIds));
 
 		return true;
-	}
-
-	@GraphQLField
-	public Response deleteFileManagerBatch(
-			@GraphQLName("fileId") Long fileId,
-			@GraphQLName("callbackURL") String callbackURL,
-			@GraphQLName("object") Object object)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_fileManagerResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			fileManagerResource -> fileManagerResource.deleteFileManagerBatch(
-				fileId, callbackURL, object));
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R

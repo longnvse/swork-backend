@@ -1469,18 +1469,18 @@ public class FileManagerEntryPersistenceImpl
 	private FinderPath _finderPathCountByF_C;
 
 	/**
-	 * Returns the file manager entry where fileId = &#63; and customerId = &#63; or throws a <code>NoSuchFileManagerEntryException</code> if it could not be found.
+	 * Returns the file manager entry where fileId = &#63; and businessId = &#63; or throws a <code>NoSuchFileManagerEntryException</code> if it could not be found.
 	 *
 	 * @param fileId the file ID
-	 * @param customerId the customer ID
+	 * @param businessId the business ID
 	 * @return the matching file manager entry
 	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
 	 */
 	@Override
-	public FileManagerEntry findByF_C(long fileId, long customerId)
+	public FileManagerEntry findByF_C(long fileId, long businessId)
 		throws NoSuchFileManagerEntryException {
 
-		FileManagerEntry fileManagerEntry = fetchByF_C(fileId, customerId);
+		FileManagerEntry fileManagerEntry = fetchByF_C(fileId, businessId);
 
 		if (fileManagerEntry == null) {
 			StringBundler sb = new StringBundler(6);
@@ -1490,8 +1490,8 @@ public class FileManagerEntryPersistenceImpl
 			sb.append("fileId=");
 			sb.append(fileId);
 
-			sb.append(", customerId=");
-			sb.append(customerId);
+			sb.append(", businessId=");
+			sb.append(businessId);
 
 			sb.append("}");
 
@@ -1506,33 +1506,33 @@ public class FileManagerEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the file manager entry where fileId = &#63; and customerId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the file manager entry where fileId = &#63; and businessId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param fileId the file ID
-	 * @param customerId the customer ID
+	 * @param businessId the business ID
 	 * @return the matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
 	 */
 	@Override
-	public FileManagerEntry fetchByF_C(long fileId, long customerId) {
-		return fetchByF_C(fileId, customerId, true);
+	public FileManagerEntry fetchByF_C(long fileId, long businessId) {
+		return fetchByF_C(fileId, businessId, true);
 	}
 
 	/**
-	 * Returns the file manager entry where fileId = &#63; and customerId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the file manager entry where fileId = &#63; and businessId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param fileId the file ID
-	 * @param customerId the customer ID
+	 * @param businessId the business ID
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
 	 */
 	@Override
 	public FileManagerEntry fetchByF_C(
-		long fileId, long customerId, boolean useFinderCache) {
+		long fileId, long businessId, boolean useFinderCache) {
 
 		Object[] finderArgs = null;
 
 		if (useFinderCache) {
-			finderArgs = new Object[] {fileId, customerId};
+			finderArgs = new Object[] {fileId, businessId};
 		}
 
 		Object result = null;
@@ -1545,7 +1545,7 @@ public class FileManagerEntryPersistenceImpl
 			FileManagerEntry fileManagerEntry = (FileManagerEntry)result;
 
 			if ((fileId != fileManagerEntry.getFileId()) ||
-				(customerId != fileManagerEntry.getCustomerId())) {
+				(businessId != fileManagerEntry.getBusinessId())) {
 
 				result = null;
 			}
@@ -1558,7 +1558,7 @@ public class FileManagerEntryPersistenceImpl
 
 			sb.append(_FINDER_COLUMN_F_C_FILEID_2);
 
-			sb.append(_FINDER_COLUMN_F_C_CUSTOMERID_2);
+			sb.append(_FINDER_COLUMN_F_C_BUSINESSID_2);
 
 			String sql = sb.toString();
 
@@ -1573,7 +1573,7 @@ public class FileManagerEntryPersistenceImpl
 
 				queryPos.add(fileId);
 
-				queryPos.add(customerId);
+				queryPos.add(businessId);
 
 				List<FileManagerEntry> list = query.list();
 
@@ -1589,7 +1589,7 @@ public class FileManagerEntryPersistenceImpl
 
 						if (_log.isWarnEnabled()) {
 							if (!useFinderCache) {
-								finderArgs = new Object[] {fileId, customerId};
+								finderArgs = new Object[] {fileId, businessId};
 							}
 
 							_log.warn(
@@ -1623,33 +1623,33 @@ public class FileManagerEntryPersistenceImpl
 	}
 
 	/**
-	 * Removes the file manager entry where fileId = &#63; and customerId = &#63; from the database.
+	 * Removes the file manager entry where fileId = &#63; and businessId = &#63; from the database.
 	 *
 	 * @param fileId the file ID
-	 * @param customerId the customer ID
+	 * @param businessId the business ID
 	 * @return the file manager entry that was removed
 	 */
 	@Override
-	public FileManagerEntry removeByF_C(long fileId, long customerId)
+	public FileManagerEntry removeByF_C(long fileId, long businessId)
 		throws NoSuchFileManagerEntryException {
 
-		FileManagerEntry fileManagerEntry = findByF_C(fileId, customerId);
+		FileManagerEntry fileManagerEntry = findByF_C(fileId, businessId);
 
 		return remove(fileManagerEntry);
 	}
 
 	/**
-	 * Returns the number of file manager entries where fileId = &#63; and customerId = &#63;.
+	 * Returns the number of file manager entries where fileId = &#63; and businessId = &#63;.
 	 *
 	 * @param fileId the file ID
-	 * @param customerId the customer ID
+	 * @param businessId the business ID
 	 * @return the number of matching file manager entries
 	 */
 	@Override
-	public int countByF_C(long fileId, long customerId) {
+	public int countByF_C(long fileId, long businessId) {
 		FinderPath finderPath = _finderPathCountByF_C;
 
-		Object[] finderArgs = new Object[] {fileId, customerId};
+		Object[] finderArgs = new Object[] {fileId, businessId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
 
@@ -1660,7 +1660,7 @@ public class FileManagerEntryPersistenceImpl
 
 			sb.append(_FINDER_COLUMN_F_C_FILEID_2);
 
-			sb.append(_FINDER_COLUMN_F_C_CUSTOMERID_2);
+			sb.append(_FINDER_COLUMN_F_C_BUSINESSID_2);
 
 			String sql = sb.toString();
 
@@ -1675,7 +1675,7 @@ public class FileManagerEntryPersistenceImpl
 
 				queryPos.add(fileId);
 
-				queryPos.add(customerId);
+				queryPos.add(businessId);
 
 				count = (Long)query.uniqueResult();
 
@@ -1695,8 +1695,8 @@ public class FileManagerEntryPersistenceImpl
 	private static final String _FINDER_COLUMN_F_C_FILEID_2 =
 		"fileManagerEntry.fileId = ? AND ";
 
-	private static final String _FINDER_COLUMN_F_C_CUSTOMERID_2 =
-		"fileManagerEntry.customerId = ?";
+	private static final String _FINDER_COLUMN_F_C_BUSINESSID_2 =
+		"fileManagerEntry.businessId = ?";
 
 	private FinderPath _finderPathFetchByC_ERC;
 	private FinderPath _finderPathCountByC_ERC;
@@ -1975,7 +1975,6 @@ public class FileManagerEntryPersistenceImpl
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("id", "id_");
-		dbColumnNames.put("type", "type_");
 
 		setDBColumnNames(dbColumnNames);
 
@@ -2008,7 +2007,7 @@ public class FileManagerEntryPersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByF_C,
 			new Object[] {
-				fileManagerEntry.getFileId(), fileManagerEntry.getCustomerId()
+				fileManagerEntry.getFileId(), fileManagerEntry.getBusinessId()
 			},
 			fileManagerEntry);
 
@@ -2105,7 +2104,7 @@ public class FileManagerEntryPersistenceImpl
 
 		args = new Object[] {
 			fileManagerEntryModelImpl.getFileId(),
-			fileManagerEntryModelImpl.getCustomerId()
+			fileManagerEntryModelImpl.getBusinessId()
 		};
 
 		finderCache.putResult(_finderPathCountByF_C, args, Long.valueOf(1));
@@ -2645,12 +2644,12 @@ public class FileManagerEntryPersistenceImpl
 		_finderPathFetchByF_C = new FinderPath(
 			FINDER_CLASS_NAME_ENTITY, "fetchByF_C",
 			new String[] {Long.class.getName(), Long.class.getName()},
-			new String[] {"fileId", "customerId"}, true);
+			new String[] {"fileId", "businessId"}, true);
 
 		_finderPathCountByF_C = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByF_C",
 			new String[] {Long.class.getName(), Long.class.getName()},
-			new String[] {"fileId", "customerId"}, false);
+			new String[] {"fileId", "businessId"}, false);
 
 		_finderPathFetchByC_ERC = new FinderPath(
 			FINDER_CLASS_NAME_ENTITY, "fetchByC_ERC",
@@ -2744,7 +2743,7 @@ public class FileManagerEntryPersistenceImpl
 		FileManagerEntryPersistenceImpl.class);
 
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
-		new String[] {"uuid", "id", "type"});
+		new String[] {"uuid", "id"});
 
 	@Override
 	protected FinderCache getFinderCache() {

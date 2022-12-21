@@ -1,4 +1,4 @@
-package com.swork.common.file.rest.internal.graphql.query.v2_0;
+package com.swork.common.file.rest.internal.graphql.query.v1_0;
 
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
@@ -10,9 +10,10 @@ import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.pagination.Pagination;
 
-import com.swork.common.file.rest.dto.v2_0.FileManager;
-import com.swork.common.file.rest.resource.v2_0.FileManagerResource;
+import com.swork.common.file.rest.dto.v1_0.FileManager;
+import com.swork.common.file.rest.resource.v1_0.FileManagerResource;
 
 import java.util.Map;
 import java.util.function.BiFunction;
@@ -44,20 +45,33 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {allFileManager(parentCode: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {fileManager(appId: ___, filter: ___, moduleId: ___, page: ___, pageSize: ___, phaseId: ___, projectId: ___, search: ___, sorts: ___, workId: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(
-		description = "Retrieves the Media File . Results can be paginated, filtered, searched, and sorted."
+		description = "Retrieves the File List . Results can be paginated, filtered, searched, and sorted."
 	)
-	public FileManagerPage allFileManager(
-			@GraphQLName("parentCode") String parentCode)
+	public FileManagerPage fileManager(
+			@GraphQLName("projectId") Long projectId,
+			@GraphQLName("phaseId") Long phaseId,
+			@GraphQLName("workId") Long workId,
+			@GraphQLName("moduleId") String moduleId,
+			@GraphQLName("appId") String appId,
+			@GraphQLName("search") String search,
+			@GraphQLName("filter") String filterString,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page,
+			@GraphQLName("sort") String sortsString)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
 			_fileManagerResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			fileManagerResource -> new FileManagerPage(
-				fileManagerResource.getAllFileManager(parentCode)));
+				fileManagerResource.getFileManagerPages(
+					projectId, phaseId, workId, moduleId, appId, search,
+					_filterBiFunction.apply(fileManagerResource, filterString),
+					Pagination.of(page, pageSize),
+					_sortsBiFunction.apply(fileManagerResource, sortsString))));
 	}
 
 	@GraphQLName("FileManagerPage")

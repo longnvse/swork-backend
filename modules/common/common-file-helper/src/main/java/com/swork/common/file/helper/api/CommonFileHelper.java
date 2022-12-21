@@ -1,4 +1,4 @@
-package com.swork.common.file.rest.internal.service;
+package com.swork.common.file.helper.api;
 
 import com.liferay.document.library.kernel.model.DLFolder;
 import com.liferay.document.library.kernel.service.DLAppService;
@@ -13,12 +13,14 @@ import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.multipart.BinaryFile;
 import com.liferay.portal.vulcan.multipart.MultipartBody;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
@@ -27,14 +29,11 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 @Component(
-        immediate = true, service = CommonFileHepper.class
+        immediate = true, service = CommonFileHelper.class
 )
-public class CommonFileHepper {
+public class CommonFileHelper {
 
-    private final long PARENT_FOLDER_ID = 0l;
-    private final String FILE_KEY = "file";
-
-    private static final Logger _logger = Logger.getLogger(CommonFileHepper.class.getName());
+    private static final Logger _logger = Logger.getLogger(CommonFileHelper.class.getName());
 
     public FileEntry uploadFile(long groupId,
                                 long businessId,
@@ -46,9 +45,8 @@ public class CommonFileHepper {
 
         FileEntry fileEntry = null;
 
+        String FILE_KEY = "file";
         BinaryFile binaryFile = multipartBody.getBinaryFile(FILE_KEY);
-
-        long parentId = multipartBody.getValueAsInstanceOptional("parentId", Long.class).orElse(GetterUtil.DEFAULT_LONG);
 
         String fileName = binaryFile.getFileName();
         String contentType = binaryFile.getContentType();
@@ -59,7 +57,6 @@ public class CommonFileHepper {
             serviceContext.setAddGroupPermissions(true);
             serviceContext.setAddGuestPermissions(true);
 
-
             DLFolder dlFolder = getAppFolder(groupId, businessId, businessName, moduleName, appName, serviceContext);
 
             String uniqueTitle = uniqueFileEntryTitleProvider.provide(
@@ -68,12 +65,11 @@ public class CommonFileHepper {
                     contentType,
                     fileName);
 
-
             fileEntry = dlAppService.addFileEntry(
                     UUID.randomUUID().toString(),
                     groupId,
                     dlFolder.getFolderId(),
-                    getFileName(fileName),
+                    uniqueTitle,
                     contentType,
                     uniqueTitle,
                     StringPool.BLANK,
@@ -82,8 +78,6 @@ public class CommonFileHepper {
                     null,
                     null,
                     serviceContext);
-
-
         }
 
         return fileEntry;
@@ -123,12 +117,25 @@ public class CommonFileHepper {
                 true);
     }
 
+    public ThemeDisplay getThemeDisplay(HttpServletRequest contextHttpServletRequest) {
+
+        ThemeDisplay themeDisplay = new ThemeDisplay();
+        String remoteHost = contextHttpServletRequest.getServerName();
+        if (StringUtil.equals(remoteHost, "localhost"))
+            themeDisplay.setPortalURL("http://localhost:8080");
+        else
+            themeDisplay.setPortalURL("https" + "://" + remoteHost);
+
+        return themeDisplay;
+    }
+
     public DLFolder getRootFolder(long groupId,
                                   long customerId,
                                   String customerName,
                                   ServiceContext serviceContext)
             throws PortalException {
 
+        long PARENT_FOLDER_ID = GetterUtil.DEFAULT_LONG;
         return getFolder(
                 groupId,
                 PARENT_FOLDER_ID,

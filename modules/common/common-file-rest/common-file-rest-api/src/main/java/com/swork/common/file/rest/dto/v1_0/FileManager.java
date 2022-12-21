@@ -1,4 +1,4 @@
-package com.swork.common.file.rest.dto.v2_0;
+package com.swork.common.file.rest.dto.v1_0;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,14 +15,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import javax.annotation.Generated;
-
-import javax.validation.Valid;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -43,6 +45,62 @@ public class FileManager implements Serializable {
 	public static FileManager unsafeToDTO(String json) {
 		return ObjectMapperUtil.unsafeReadValue(FileManager.class, json);
 	}
+
+	@Schema
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	@JsonIgnore
+	public void setCreateDate(
+		UnsafeSupplier<Date, Exception> createDateUnsafeSupplier) {
+
+		try {
+			createDate = createDateUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Date createDate;
+
+	@Schema
+	public Long getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(Long creatorId) {
+		this.creatorId = creatorId;
+	}
+
+	@JsonIgnore
+	public void setCreatorId(
+		UnsafeSupplier<Long, Exception> creatorIdUnsafeSupplier) {
+
+		try {
+			creatorId = creatorIdUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Long creatorId;
 
 	@Schema(description = "id of the file in the dlfileentry table.")
 	public Long getFileId() {
@@ -69,7 +127,7 @@ public class FileManager implements Serializable {
 	}
 
 	@GraphQLField(description = "id of the file in the dlfileentry table.")
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long fileId;
 
 	@Schema
@@ -101,17 +159,17 @@ public class FileManager implements Serializable {
 	protected String fileName;
 
 	@Schema
-	public String getFileSize() {
+	public Long getFileSize() {
 		return fileSize;
 	}
 
-	public void setFileSize(String fileSize) {
+	public void setFileSize(Long fileSize) {
 		this.fileSize = fileSize;
 	}
 
 	@JsonIgnore
 	public void setFileSize(
-		UnsafeSupplier<String, Exception> fileSizeUnsafeSupplier) {
+		UnsafeSupplier<Long, Exception> fileSizeUnsafeSupplier) {
 
 		try {
 			fileSize = fileSizeUnsafeSupplier.get();
@@ -126,7 +184,7 @@ public class FileManager implements Serializable {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected String fileSize;
+	protected Long fileSize;
 
 	@Schema
 	public String getFileType() {
@@ -157,21 +215,18 @@ public class FileManager implements Serializable {
 	protected String fileType;
 
 	@Schema
-	@Valid
-	public Metadata getMetadata() {
-		return metadata;
+	public Long getId() {
+		return id;
 	}
 
-	public void setMetadata(Metadata metadata) {
-		this.metadata = metadata;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@JsonIgnore
-	public void setMetadata(
-		UnsafeSupplier<Metadata, Exception> metadataUnsafeSupplier) {
-
+	public void setId(UnsafeSupplier<Long, Exception> idUnsafeSupplier) {
 		try {
-			metadata = metadataUnsafeSupplier.get();
+			id = idUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -182,8 +237,8 @@ public class FileManager implements Serializable {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Metadata metadata;
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Long id;
 
 	@Schema
 	public String getMineType() {
@@ -214,20 +269,20 @@ public class FileManager implements Serializable {
 	protected String mineType;
 
 	@Schema
-	public String getParentCode() {
-		return parentCode;
+	public String getUrlDownload() {
+		return urlDownload;
 	}
 
-	public void setParentCode(String parentCode) {
-		this.parentCode = parentCode;
+	public void setUrlDownload(String urlDownload) {
+		this.urlDownload = urlDownload;
 	}
 
 	@JsonIgnore
-	public void setParentCode(
-		UnsafeSupplier<String, Exception> parentCodeUnsafeSupplier) {
+	public void setUrlDownload(
+		UnsafeSupplier<String, Exception> urlDownloadUnsafeSupplier) {
 
 		try {
-			parentCode = parentCodeUnsafeSupplier.get();
+			urlDownload = urlDownloadUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -238,8 +293,8 @@ public class FileManager implements Serializable {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String parentCode;
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String urlDownload;
 
 	@Override
 	public boolean equals(Object object) {
@@ -267,6 +322,33 @@ public class FileManager implements Serializable {
 		StringBundler sb = new StringBundler();
 
 		sb.append("{");
+
+		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (createDate != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"createDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(createDate));
+
+			sb.append("\"");
+		}
+
+		if (creatorId != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"creatorId\": ");
+
+			sb.append(creatorId);
+		}
 
 		if (fileId != null) {
 			if (sb.length() > 1) {
@@ -299,11 +381,7 @@ public class FileManager implements Serializable {
 
 			sb.append("\"fileSize\": ");
 
-			sb.append("\"");
-
-			sb.append(_escape(fileSize));
-
-			sb.append("\"");
+			sb.append(fileSize);
 		}
 
 		if (fileType != null) {
@@ -320,14 +398,14 @@ public class FileManager implements Serializable {
 			sb.append("\"");
 		}
 
-		if (metadata != null) {
+		if (id != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"metadata\": ");
+			sb.append("\"id\": ");
 
-			sb.append(String.valueOf(metadata));
+			sb.append(id);
 		}
 
 		if (mineType != null) {
@@ -344,16 +422,16 @@ public class FileManager implements Serializable {
 			sb.append("\"");
 		}
 
-		if (parentCode != null) {
+		if (urlDownload != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"parentCode\": ");
+			sb.append("\"urlDownload\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(parentCode));
+			sb.append(_escape(urlDownload));
 
 			sb.append("\"");
 		}
@@ -365,7 +443,7 @@ public class FileManager implements Serializable {
 
 	@Schema(
 		accessMode = Schema.AccessMode.READ_ONLY,
-		defaultValue = "com.swork.common.file.rest.dto.v2_0.FileManager",
+		defaultValue = "com.swork.common.file.rest.dto.v1_0.FileManager",
 		name = "x-class-name"
 	)
 	public String xClassName;

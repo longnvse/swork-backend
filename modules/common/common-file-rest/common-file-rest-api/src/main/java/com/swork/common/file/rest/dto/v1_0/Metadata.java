@@ -1,4 +1,4 @@
-package com.swork.common.file.rest.dto.v2_0;
+package com.swork.common.file.rest.dto.v1_0;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -160,7 +160,7 @@ public class Metadata implements Serializable {
 
 	@Schema(
 		accessMode = Schema.AccessMode.READ_ONLY,
-		defaultValue = "com.swork.common.file.rest.dto.v2_0.Metadata",
+		defaultValue = "com.swork.common.file.rest.dto.v1_0.Metadata",
 		name = "x-class-name"
 	)
 	public String xClassName;

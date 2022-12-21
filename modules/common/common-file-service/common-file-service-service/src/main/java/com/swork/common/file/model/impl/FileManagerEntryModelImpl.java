@@ -19,13 +19,10 @@ import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -75,14 +72,14 @@ public class FileManagerEntryModelImpl
 	public static final Object[][] TABLE_COLUMNS = {
 		{"uuid_", Types.VARCHAR}, {"externalReferenceCode", Types.VARCHAR},
 		{"id_", Types.BIGINT}, {"groupId", Types.BIGINT},
-		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}, {"customerId", Types.BIGINT},
-		{"creatorId", Types.BIGINT}, {"fileId", Types.BIGINT},
-		{"parentCode", Types.VARCHAR}, {"fileType", Types.VARCHAR},
-		{"type_", Types.VARCHAR}, {"pkType", Types.VARCHAR},
-		{"fileName", Types.VARCHAR}, {"fileSize", Types.VARCHAR},
-		{"moduleId", Types.VARCHAR}, {"appId", Types.VARCHAR}
+		{"companyId", Types.BIGINT}, {"accountId", Types.BIGINT},
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"businessId", Types.BIGINT}, {"fileId", Types.BIGINT},
+		{"fileType", Types.VARCHAR}, {"fileName", Types.VARCHAR},
+		{"fileSize", Types.BIGINT}, {"mimeType", Types.VARCHAR},
+		{"moduleId", Types.VARCHAR}, {"appId", Types.VARCHAR},
+		{"projectId", Types.BIGINT}, {"phaseId", Types.BIGINT},
+		{"workId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -94,25 +91,24 @@ public class FileManagerEntryModelImpl
 		TABLE_COLUMNS_MAP.put("id_", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("groupId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("accountId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
-		TABLE_COLUMNS_MAP.put("customerId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("creatorId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("businessId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("fileId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("parentCode", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("fileType", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("type_", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("pkType", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("fileName", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("fileSize", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("fileSize", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("mimeType", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("moduleId", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("appId", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("projectId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("phaseId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("workId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_FileManager (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,customerId LONG,creatorId LONG,fileId LONG,parentCode VARCHAR(75) null,fileType VARCHAR(75) null,type_ VARCHAR(75) null,pkType VARCHAR(75) null,fileName VARCHAR(75) null,fileSize VARCHAR(75) null,moduleId VARCHAR(75) null,appId VARCHAR(75) null)";
+		"create table SW_FileManager (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedDate DATE null,businessId LONG,fileId LONG,fileType VARCHAR(75) null,fileName VARCHAR(75) null,fileSize LONG,mimeType VARCHAR(75) null,moduleId VARCHAR(75) null,appId VARCHAR(75) null,projectId LONG,phaseId LONG,workId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_FileManager";
 
@@ -132,13 +128,13 @@ public class FileManagerEntryModelImpl
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long COMPANYID_COLUMN_BITMASK = 1L;
+	public static final long BUSINESSID_COLUMN_BITMASK = 1L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long CUSTOMERID_COLUMN_BITMASK = 2L;
+	public static final long COMPANYID_COLUMN_BITMASK = 2L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
@@ -334,15 +330,11 @@ public class FileManagerEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"companyId",
 			(BiConsumer<FileManagerEntry, Long>)FileManagerEntry::setCompanyId);
-		attributeGetterFunctions.put("userId", FileManagerEntry::getUserId);
+		attributeGetterFunctions.put(
+			"accountId", FileManagerEntry::getAccountId);
 		attributeSetterBiConsumers.put(
-			"userId",
-			(BiConsumer<FileManagerEntry, Long>)FileManagerEntry::setUserId);
-		attributeGetterFunctions.put("userName", FileManagerEntry::getUserName);
-		attributeSetterBiConsumers.put(
-			"userName",
-			(BiConsumer<FileManagerEntry, String>)
-				FileManagerEntry::setUserName);
+			"accountId",
+			(BiConsumer<FileManagerEntry, Long>)FileManagerEntry::setAccountId);
 		attributeGetterFunctions.put(
 			"createDate", FileManagerEntry::getCreateDate);
 		attributeSetterBiConsumers.put(
@@ -356,39 +348,20 @@ public class FileManagerEntryModelImpl
 			(BiConsumer<FileManagerEntry, Date>)
 				FileManagerEntry::setModifiedDate);
 		attributeGetterFunctions.put(
-			"customerId", FileManagerEntry::getCustomerId);
+			"businessId", FileManagerEntry::getBusinessId);
 		attributeSetterBiConsumers.put(
-			"customerId",
+			"businessId",
 			(BiConsumer<FileManagerEntry, Long>)
-				FileManagerEntry::setCustomerId);
-		attributeGetterFunctions.put(
-			"creatorId", FileManagerEntry::getCreatorId);
-		attributeSetterBiConsumers.put(
-			"creatorId",
-			(BiConsumer<FileManagerEntry, Long>)FileManagerEntry::setCreatorId);
+				FileManagerEntry::setBusinessId);
 		attributeGetterFunctions.put("fileId", FileManagerEntry::getFileId);
 		attributeSetterBiConsumers.put(
 			"fileId",
 			(BiConsumer<FileManagerEntry, Long>)FileManagerEntry::setFileId);
-		attributeGetterFunctions.put(
-			"parentCode", FileManagerEntry::getParentCode);
-		attributeSetterBiConsumers.put(
-			"parentCode",
-			(BiConsumer<FileManagerEntry, String>)
-				FileManagerEntry::setParentCode);
 		attributeGetterFunctions.put("fileType", FileManagerEntry::getFileType);
 		attributeSetterBiConsumers.put(
 			"fileType",
 			(BiConsumer<FileManagerEntry, String>)
 				FileManagerEntry::setFileType);
-		attributeGetterFunctions.put("type", FileManagerEntry::getType);
-		attributeSetterBiConsumers.put(
-			"type",
-			(BiConsumer<FileManagerEntry, String>)FileManagerEntry::setType);
-		attributeGetterFunctions.put("pkType", FileManagerEntry::getPkType);
-		attributeSetterBiConsumers.put(
-			"pkType",
-			(BiConsumer<FileManagerEntry, String>)FileManagerEntry::setPkType);
 		attributeGetterFunctions.put("fileName", FileManagerEntry::getFileName);
 		attributeSetterBiConsumers.put(
 			"fileName",
@@ -397,8 +370,12 @@ public class FileManagerEntryModelImpl
 		attributeGetterFunctions.put("fileSize", FileManagerEntry::getFileSize);
 		attributeSetterBiConsumers.put(
 			"fileSize",
+			(BiConsumer<FileManagerEntry, Long>)FileManagerEntry::setFileSize);
+		attributeGetterFunctions.put("mimeType", FileManagerEntry::getMimeType);
+		attributeSetterBiConsumers.put(
+			"mimeType",
 			(BiConsumer<FileManagerEntry, String>)
-				FileManagerEntry::setFileSize);
+				FileManagerEntry::setMimeType);
 		attributeGetterFunctions.put("moduleId", FileManagerEntry::getModuleId);
 		attributeSetterBiConsumers.put(
 			"moduleId",
@@ -408,6 +385,19 @@ public class FileManagerEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"appId",
 			(BiConsumer<FileManagerEntry, String>)FileManagerEntry::setAppId);
+		attributeGetterFunctions.put(
+			"projectId", FileManagerEntry::getProjectId);
+		attributeSetterBiConsumers.put(
+			"projectId",
+			(BiConsumer<FileManagerEntry, Long>)FileManagerEntry::setProjectId);
+		attributeGetterFunctions.put("phaseId", FileManagerEntry::getPhaseId);
+		attributeSetterBiConsumers.put(
+			"phaseId",
+			(BiConsumer<FileManagerEntry, Long>)FileManagerEntry::setPhaseId);
+		attributeGetterFunctions.put("workId", FileManagerEntry::getWorkId);
+		attributeSetterBiConsumers.put(
+			"workId",
+			(BiConsumer<FileManagerEntry, Long>)FileManagerEntry::setWorkId);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -533,52 +523,17 @@ public class FileManagerEntryModelImpl
 	}
 
 	@Override
-	public long getUserId() {
-		return _userId;
+	public long getAccountId() {
+		return _accountId;
 	}
 
 	@Override
-	public void setUserId(long userId) {
+	public void setAccountId(long accountId) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_userId = userId;
-	}
-
-	@Override
-	public String getUserUuid() {
-		try {
-			User user = UserLocalServiceUtil.getUserById(getUserId());
-
-			return user.getUuid();
-		}
-		catch (PortalException portalException) {
-			return "";
-		}
-	}
-
-	@Override
-	public void setUserUuid(String userUuid) {
-	}
-
-	@Override
-	public String getUserName() {
-		if (_userName == null) {
-			return "";
-		}
-		else {
-			return _userName;
-		}
-	}
-
-	@Override
-	public void setUserName(String userName) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_userName = userName;
+		_accountId = accountId;
 	}
 
 	@Override
@@ -616,17 +571,17 @@ public class FileManagerEntryModelImpl
 	}
 
 	@Override
-	public long getCustomerId() {
-		return _customerId;
+	public long getBusinessId() {
+		return _businessId;
 	}
 
 	@Override
-	public void setCustomerId(long customerId) {
+	public void setBusinessId(long businessId) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_customerId = customerId;
+		_businessId = businessId;
 	}
 
 	/**
@@ -634,23 +589,9 @@ public class FileManagerEntryModelImpl
 	 *             #getColumnOriginalValue(String)}
 	 */
 	@Deprecated
-	public long getOriginalCustomerId() {
+	public long getOriginalBusinessId() {
 		return GetterUtil.getLong(
-			this.<Long>getColumnOriginalValue("customerId"));
-	}
-
-	@Override
-	public long getCreatorId() {
-		return _creatorId;
-	}
-
-	@Override
-	public void setCreatorId(long creatorId) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_creatorId = creatorId;
+			this.<Long>getColumnOriginalValue("businessId"));
 	}
 
 	@Override
@@ -677,25 +618,6 @@ public class FileManagerEntryModelImpl
 	}
 
 	@Override
-	public String getParentCode() {
-		if (_parentCode == null) {
-			return "";
-		}
-		else {
-			return _parentCode;
-		}
-	}
-
-	@Override
-	public void setParentCode(String parentCode) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_parentCode = parentCode;
-	}
-
-	@Override
 	public String getFileType() {
 		if (_fileType == null) {
 			return "";
@@ -712,44 +634,6 @@ public class FileManagerEntryModelImpl
 		}
 
 		_fileType = fileType;
-	}
-
-	@Override
-	public String getType() {
-		if (_type == null) {
-			return "";
-		}
-		else {
-			return _type;
-		}
-	}
-
-	@Override
-	public void setType(String type) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_type = type;
-	}
-
-	@Override
-	public String getPkType() {
-		if (_pkType == null) {
-			return "";
-		}
-		else {
-			return _pkType;
-		}
-	}
-
-	@Override
-	public void setPkType(String pkType) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_pkType = pkType;
 	}
 
 	@Override
@@ -772,22 +656,36 @@ public class FileManagerEntryModelImpl
 	}
 
 	@Override
-	public String getFileSize() {
-		if (_fileSize == null) {
-			return "";
-		}
-		else {
-			return _fileSize;
-		}
+	public Long getFileSize() {
+		return _fileSize;
 	}
 
 	@Override
-	public void setFileSize(String fileSize) {
+	public void setFileSize(Long fileSize) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
 		_fileSize = fileSize;
+	}
+
+	@Override
+	public String getMimeType() {
+		if (_mimeType == null) {
+			return "";
+		}
+		else {
+			return _mimeType;
+		}
+	}
+
+	@Override
+	public void setMimeType(String mimeType) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_mimeType = mimeType;
 	}
 
 	@Override
@@ -826,6 +724,48 @@ public class FileManagerEntryModelImpl
 		}
 
 		_appId = appId;
+	}
+
+	@Override
+	public Long getProjectId() {
+		return _projectId;
+	}
+
+	@Override
+	public void setProjectId(Long projectId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_projectId = projectId;
+	}
+
+	@Override
+	public Long getPhaseId() {
+		return _phaseId;
+	}
+
+	@Override
+	public void setPhaseId(Long phaseId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_phaseId = phaseId;
+	}
+
+	@Override
+	public Long getWorkId() {
+		return _workId;
+	}
+
+	@Override
+	public void setWorkId(Long workId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_workId = workId;
 	}
 
 	@Override
@@ -896,21 +836,20 @@ public class FileManagerEntryModelImpl
 		fileManagerEntryImpl.setId(getId());
 		fileManagerEntryImpl.setGroupId(getGroupId());
 		fileManagerEntryImpl.setCompanyId(getCompanyId());
-		fileManagerEntryImpl.setUserId(getUserId());
-		fileManagerEntryImpl.setUserName(getUserName());
+		fileManagerEntryImpl.setAccountId(getAccountId());
 		fileManagerEntryImpl.setCreateDate(getCreateDate());
 		fileManagerEntryImpl.setModifiedDate(getModifiedDate());
-		fileManagerEntryImpl.setCustomerId(getCustomerId());
-		fileManagerEntryImpl.setCreatorId(getCreatorId());
+		fileManagerEntryImpl.setBusinessId(getBusinessId());
 		fileManagerEntryImpl.setFileId(getFileId());
-		fileManagerEntryImpl.setParentCode(getParentCode());
 		fileManagerEntryImpl.setFileType(getFileType());
-		fileManagerEntryImpl.setType(getType());
-		fileManagerEntryImpl.setPkType(getPkType());
 		fileManagerEntryImpl.setFileName(getFileName());
 		fileManagerEntryImpl.setFileSize(getFileSize());
+		fileManagerEntryImpl.setMimeType(getMimeType());
 		fileManagerEntryImpl.setModuleId(getModuleId());
 		fileManagerEntryImpl.setAppId(getAppId());
+		fileManagerEntryImpl.setProjectId(getProjectId());
+		fileManagerEntryImpl.setPhaseId(getPhaseId());
+		fileManagerEntryImpl.setWorkId(getWorkId());
 
 		fileManagerEntryImpl.resetOriginalValues();
 
@@ -930,36 +869,34 @@ public class FileManagerEntryModelImpl
 			this.<Long>getColumnOriginalValue("groupId"));
 		fileManagerEntryImpl.setCompanyId(
 			this.<Long>getColumnOriginalValue("companyId"));
-		fileManagerEntryImpl.setUserId(
-			this.<Long>getColumnOriginalValue("userId"));
-		fileManagerEntryImpl.setUserName(
-			this.<String>getColumnOriginalValue("userName"));
+		fileManagerEntryImpl.setAccountId(
+			this.<Long>getColumnOriginalValue("accountId"));
 		fileManagerEntryImpl.setCreateDate(
 			this.<Date>getColumnOriginalValue("createDate"));
 		fileManagerEntryImpl.setModifiedDate(
 			this.<Date>getColumnOriginalValue("modifiedDate"));
-		fileManagerEntryImpl.setCustomerId(
-			this.<Long>getColumnOriginalValue("customerId"));
-		fileManagerEntryImpl.setCreatorId(
-			this.<Long>getColumnOriginalValue("creatorId"));
+		fileManagerEntryImpl.setBusinessId(
+			this.<Long>getColumnOriginalValue("businessId"));
 		fileManagerEntryImpl.setFileId(
 			this.<Long>getColumnOriginalValue("fileId"));
-		fileManagerEntryImpl.setParentCode(
-			this.<String>getColumnOriginalValue("parentCode"));
 		fileManagerEntryImpl.setFileType(
 			this.<String>getColumnOriginalValue("fileType"));
-		fileManagerEntryImpl.setType(
-			this.<String>getColumnOriginalValue("type_"));
-		fileManagerEntryImpl.setPkType(
-			this.<String>getColumnOriginalValue("pkType"));
 		fileManagerEntryImpl.setFileName(
 			this.<String>getColumnOriginalValue("fileName"));
 		fileManagerEntryImpl.setFileSize(
-			this.<String>getColumnOriginalValue("fileSize"));
+			this.<Long>getColumnOriginalValue("fileSize"));
+		fileManagerEntryImpl.setMimeType(
+			this.<String>getColumnOriginalValue("mimeType"));
 		fileManagerEntryImpl.setModuleId(
 			this.<String>getColumnOriginalValue("moduleId"));
 		fileManagerEntryImpl.setAppId(
 			this.<String>getColumnOriginalValue("appId"));
+		fileManagerEntryImpl.setProjectId(
+			this.<Long>getColumnOriginalValue("projectId"));
+		fileManagerEntryImpl.setPhaseId(
+			this.<Long>getColumnOriginalValue("phaseId"));
+		fileManagerEntryImpl.setWorkId(
+			this.<Long>getColumnOriginalValue("workId"));
 
 		return fileManagerEntryImpl;
 	}
@@ -1064,15 +1001,7 @@ public class FileManagerEntryModelImpl
 
 		fileManagerEntryCacheModel.companyId = getCompanyId();
 
-		fileManagerEntryCacheModel.userId = getUserId();
-
-		fileManagerEntryCacheModel.userName = getUserName();
-
-		String userName = fileManagerEntryCacheModel.userName;
-
-		if ((userName != null) && (userName.length() == 0)) {
-			fileManagerEntryCacheModel.userName = null;
-		}
+		fileManagerEntryCacheModel.accountId = getAccountId();
 
 		Date createDate = getCreateDate();
 
@@ -1092,19 +1021,9 @@ public class FileManagerEntryModelImpl
 			fileManagerEntryCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
-		fileManagerEntryCacheModel.customerId = getCustomerId();
-
-		fileManagerEntryCacheModel.creatorId = getCreatorId();
+		fileManagerEntryCacheModel.businessId = getBusinessId();
 
 		fileManagerEntryCacheModel.fileId = getFileId();
-
-		fileManagerEntryCacheModel.parentCode = getParentCode();
-
-		String parentCode = fileManagerEntryCacheModel.parentCode;
-
-		if ((parentCode != null) && (parentCode.length() == 0)) {
-			fileManagerEntryCacheModel.parentCode = null;
-		}
 
 		fileManagerEntryCacheModel.fileType = getFileType();
 
@@ -1112,22 +1031,6 @@ public class FileManagerEntryModelImpl
 
 		if ((fileType != null) && (fileType.length() == 0)) {
 			fileManagerEntryCacheModel.fileType = null;
-		}
-
-		fileManagerEntryCacheModel.type = getType();
-
-		String type = fileManagerEntryCacheModel.type;
-
-		if ((type != null) && (type.length() == 0)) {
-			fileManagerEntryCacheModel.type = null;
-		}
-
-		fileManagerEntryCacheModel.pkType = getPkType();
-
-		String pkType = fileManagerEntryCacheModel.pkType;
-
-		if ((pkType != null) && (pkType.length() == 0)) {
-			fileManagerEntryCacheModel.pkType = null;
 		}
 
 		fileManagerEntryCacheModel.fileName = getFileName();
@@ -1138,12 +1041,18 @@ public class FileManagerEntryModelImpl
 			fileManagerEntryCacheModel.fileName = null;
 		}
 
-		fileManagerEntryCacheModel.fileSize = getFileSize();
+		Long fileSize = getFileSize();
 
-		String fileSize = fileManagerEntryCacheModel.fileSize;
+		if (fileSize != null) {
+			fileManagerEntryCacheModel.fileSize = fileSize;
+		}
 
-		if ((fileSize != null) && (fileSize.length() == 0)) {
-			fileManagerEntryCacheModel.fileSize = null;
+		fileManagerEntryCacheModel.mimeType = getMimeType();
+
+		String mimeType = fileManagerEntryCacheModel.mimeType;
+
+		if ((mimeType != null) && (mimeType.length() == 0)) {
+			fileManagerEntryCacheModel.mimeType = null;
 		}
 
 		fileManagerEntryCacheModel.moduleId = getModuleId();
@@ -1160,6 +1069,24 @@ public class FileManagerEntryModelImpl
 
 		if ((appId != null) && (appId.length() == 0)) {
 			fileManagerEntryCacheModel.appId = null;
+		}
+
+		Long projectId = getProjectId();
+
+		if (projectId != null) {
+			fileManagerEntryCacheModel.projectId = projectId;
+		}
+
+		Long phaseId = getPhaseId();
+
+		if (phaseId != null) {
+			fileManagerEntryCacheModel.phaseId = phaseId;
+		}
+
+		Long workId = getWorkId();
+
+		if (workId != null) {
+			fileManagerEntryCacheModel.workId = workId;
 		}
 
 		return fileManagerEntryCacheModel;
@@ -1258,22 +1185,21 @@ public class FileManagerEntryModelImpl
 	private long _id;
 	private long _groupId;
 	private long _companyId;
-	private long _userId;
-	private String _userName;
+	private long _accountId;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
-	private long _customerId;
-	private long _creatorId;
+	private long _businessId;
 	private long _fileId;
-	private String _parentCode;
 	private String _fileType;
-	private String _type;
-	private String _pkType;
 	private String _fileName;
-	private String _fileSize;
+	private Long _fileSize;
+	private String _mimeType;
 	private String _moduleId;
 	private String _appId;
+	private Long _projectId;
+	private Long _phaseId;
+	private Long _workId;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1310,21 +1236,20 @@ public class FileManagerEntryModelImpl
 		_columnOriginalValues.put("id_", _id);
 		_columnOriginalValues.put("groupId", _groupId);
 		_columnOriginalValues.put("companyId", _companyId);
-		_columnOriginalValues.put("userId", _userId);
-		_columnOriginalValues.put("userName", _userName);
+		_columnOriginalValues.put("accountId", _accountId);
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
-		_columnOriginalValues.put("customerId", _customerId);
-		_columnOriginalValues.put("creatorId", _creatorId);
+		_columnOriginalValues.put("businessId", _businessId);
 		_columnOriginalValues.put("fileId", _fileId);
-		_columnOriginalValues.put("parentCode", _parentCode);
 		_columnOriginalValues.put("fileType", _fileType);
-		_columnOriginalValues.put("type_", _type);
-		_columnOriginalValues.put("pkType", _pkType);
 		_columnOriginalValues.put("fileName", _fileName);
 		_columnOriginalValues.put("fileSize", _fileSize);
+		_columnOriginalValues.put("mimeType", _mimeType);
 		_columnOriginalValues.put("moduleId", _moduleId);
 		_columnOriginalValues.put("appId", _appId);
+		_columnOriginalValues.put("projectId", _projectId);
+		_columnOriginalValues.put("phaseId", _phaseId);
+		_columnOriginalValues.put("workId", _workId);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1334,7 +1259,6 @@ public class FileManagerEntryModelImpl
 
 		attributeNames.put("uuid_", "uuid");
 		attributeNames.put("id_", "id");
-		attributeNames.put("type_", "type");
 
 		_attributeNames = Collections.unmodifiableMap(attributeNames);
 	}
@@ -1360,35 +1284,33 @@ public class FileManagerEntryModelImpl
 
 		columnBitmasks.put("companyId", 16L);
 
-		columnBitmasks.put("userId", 32L);
+		columnBitmasks.put("accountId", 32L);
 
-		columnBitmasks.put("userName", 64L);
+		columnBitmasks.put("createDate", 64L);
 
-		columnBitmasks.put("createDate", 128L);
+		columnBitmasks.put("modifiedDate", 128L);
 
-		columnBitmasks.put("modifiedDate", 256L);
+		columnBitmasks.put("businessId", 256L);
 
-		columnBitmasks.put("customerId", 512L);
+		columnBitmasks.put("fileId", 512L);
 
-		columnBitmasks.put("creatorId", 1024L);
+		columnBitmasks.put("fileType", 1024L);
 
-		columnBitmasks.put("fileId", 2048L);
+		columnBitmasks.put("fileName", 2048L);
 
-		columnBitmasks.put("parentCode", 4096L);
+		columnBitmasks.put("fileSize", 4096L);
 
-		columnBitmasks.put("fileType", 8192L);
+		columnBitmasks.put("mimeType", 8192L);
 
-		columnBitmasks.put("type_", 16384L);
+		columnBitmasks.put("moduleId", 16384L);
 
-		columnBitmasks.put("pkType", 32768L);
+		columnBitmasks.put("appId", 32768L);
 
-		columnBitmasks.put("fileName", 65536L);
+		columnBitmasks.put("projectId", 65536L);
 
-		columnBitmasks.put("fileSize", 131072L);
+		columnBitmasks.put("phaseId", 131072L);
 
-		columnBitmasks.put("moduleId", 262144L);
-
-		columnBitmasks.put("appId", 524288L);
+		columnBitmasks.put("workId", 262144L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

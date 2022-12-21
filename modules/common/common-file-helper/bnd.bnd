@@ -1,0 +1,4 @@
+Bundle-Name: common-file-helper
+Bundle-SymbolicName: com.swork.common.file.helper
+Bundle-Version: 1.0.0
+Export-Package: com.swork.common.file.helper.api

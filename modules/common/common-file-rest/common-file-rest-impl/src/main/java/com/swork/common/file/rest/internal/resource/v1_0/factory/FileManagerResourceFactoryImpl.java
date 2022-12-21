@@ -1,4 +1,4 @@
-package com.swork.common.file.rest.internal.resource.v2_0.factory;
+package com.swork.common.file.rest.internal.resource.v1_0.factory;
 
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
@@ -20,7 +20,7 @@ import com.liferay.portal.odata.filter.ExpressionConvert;
 import com.liferay.portal.odata.filter.FilterParserProvider;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 
-import com.swork.common.file.rest.resource.v2_0.FileManagerResource;
+import com.swork.common.file.rest.resource.v1_0.FileManagerResource;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

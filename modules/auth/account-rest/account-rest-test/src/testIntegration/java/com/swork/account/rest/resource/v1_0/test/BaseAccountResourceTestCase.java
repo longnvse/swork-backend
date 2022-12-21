@@ -174,6 +174,7 @@ public abstract class BaseAccountResourceTestCase {
 		Account account = randomAccount();
 
 		account.setAddress(regex);
+		account.setAvatar(regex);
 		account.setEmail(regex);
 		account.setExternalReferenceCode(regex);
 		account.setFullName(regex);
@@ -187,6 +188,7 @@ public abstract class BaseAccountResourceTestCase {
 		account = AccountSerDes.toDTO(json);
 
 		Assert.assertEquals(regex, account.getAddress());
+		Assert.assertEquals(regex, account.getAvatar());
 		Assert.assertEquals(regex, account.getEmail());
 		Assert.assertEquals(regex, account.getExternalReferenceCode());
 		Assert.assertEquals(regex, account.getFullName());
@@ -722,6 +724,23 @@ public abstract class BaseAccountResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testUpdateAvatar() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Account account = testUpdateAvatar_addAccount();
+
+		assertHttpResponseStatusCode(
+			204, accountResource.updateAvatarHttpResponse(null));
+
+		assertHttpResponseStatusCode(
+			404, accountResource.updateAvatarHttpResponse(null));
+	}
+
+	protected Account testUpdateAvatar_addAccount() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 
@@ -810,6 +829,14 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("avatar", additionalAssertFieldName)) {
+				if (account.getAvatar() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("createDate", additionalAssertFieldName)) {
 				if (account.getCreateDate() == null) {
 					valid = false;
@@ -846,6 +873,14 @@ public abstract class BaseAccountResourceTestCase {
 
 			if (Objects.equals("fullName", additionalAssertFieldName)) {
 				if (account.getFullName() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("gender", additionalAssertFieldName)) {
+				if (account.getGender() == null) {
 					valid = false;
 				}
 
@@ -976,6 +1011,16 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("avatar", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getAvatar(), account2.getAvatar())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("createDate", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getCreateDate(), account2.getCreateDate())) {
@@ -1022,6 +1067,16 @@ public abstract class BaseAccountResourceTestCase {
 			if (Objects.equals("fullName", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getFullName(), account2.getFullName())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("gender", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getGender(), account2.getGender())) {
 
 					return false;
 				}
@@ -1172,6 +1227,14 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("avatar")) {
+			sb.append("'");
+			sb.append(String.valueOf(account.getAvatar()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("createDate")) {
 			if (operator.equals("between")) {
 				sb = new StringBundler();
@@ -1258,6 +1321,11 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("gender")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("id")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1329,6 +1397,7 @@ public abstract class BaseAccountResourceTestCase {
 		return new Account() {
 			{
 				address = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				avatar = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				createDate = RandomTestUtil.nextDate();
 				dateOfBirth = RandomTestUtil.nextDate();
 				email =
@@ -1338,6 +1407,7 @@ public abstract class BaseAccountResourceTestCase {
 					RandomTestUtil.randomString());
 				fullName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
+				gender = RandomTestUtil.randomBoolean();
 				id = RandomTestUtil.randomLong();
 				phoneNumber = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
