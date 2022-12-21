@@ -58,7 +58,7 @@ public class NotificationEntryWrapper
 		attributes.put("description", getDescription());
 		attributes.put("status", getStatus());
 		attributes.put("receiverId", getReceiverId());
-		attributes.put("projectId", getProjectId());
+		attributes.put("subjectId", getSubjectId());
 
 		return attributes;
 	}
@@ -156,10 +156,10 @@ public class NotificationEntryWrapper
 			setReceiverId(receiverId);
 		}
 
-		Long projectId = (Long)attributes.get("projectId");
+		Long subjectId = (Long)attributes.get("subjectId");
 
-		if (projectId != null) {
-			setProjectId(projectId);
+		if (subjectId != null) {
+			setSubjectId(subjectId);
 		}
 	}
 
@@ -289,16 +289,6 @@ public class NotificationEntryWrapper
 	}
 
 	/**
-	 * Returns the project ID of this notification entry.
-	 *
-	 * @return the project ID of this notification entry
-	 */
-	@Override
-	public long getProjectId() {
-		return model.getProjectId();
-	}
-
-	/**
 	 * Returns the receiver ID of this notification entry.
 	 *
 	 * @return the receiver ID of this notification entry
@@ -316,6 +306,16 @@ public class NotificationEntryWrapper
 	@Override
 	public String getStatus() {
 		return model.getStatus();
+	}
+
+	/**
+	 * Returns the subject ID of this notification entry.
+	 *
+	 * @return the subject ID of this notification entry
+	 */
+	@Override
+	public long getSubjectId() {
+		return model.getSubjectId();
 	}
 
 	/**
@@ -464,16 +464,6 @@ public class NotificationEntryWrapper
 	}
 
 	/**
-	 * Sets the project ID of this notification entry.
-	 *
-	 * @param projectId the project ID of this notification entry
-	 */
-	@Override
-	public void setProjectId(long projectId) {
-		model.setProjectId(projectId);
-	}
-
-	/**
 	 * Sets the receiver ID of this notification entry.
 	 *
 	 * @param receiverId the receiver ID of this notification entry
@@ -491,6 +481,16 @@ public class NotificationEntryWrapper
 	@Override
 	public void setStatus(String status) {
 		model.setStatus(status);
+	}
+
+	/**
+	 * Sets the subject ID of this notification entry.
+	 *
+	 * @param subjectId the subject ID of this notification entry
+	 */
+	@Override
+	public void setSubjectId(long subjectId) {
+		model.setSubjectId(subjectId);
 	}
 
 	/**

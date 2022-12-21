@@ -68,8 +68,8 @@ public interface NotificationEntryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public NotificationEntry addNotification(
 		long businessId, long creatorId, String category, String name,
-		String description, String status, long receiverId,
-		long projectActiveId, ServiceContext serviceContext);
+		String description, String status, long receiverId, long subjectId,
+		ServiceContext serviceContext);
 
 	/**
 	 * Adds the notification entry to the database. Also notifies the appropriate model listeners.
@@ -240,6 +240,13 @@ public interface NotificationEntryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public NotificationEntry fetchNotificationEntryByUuidAndGroupId(
 		String uuid, long groupId);
+
+	public List<NotificationEntry> findByReceiver(long receiverId);
+
+	public List<NotificationEntry> findByReceiverAndStatus(
+		long receiverId, String status);
+
+	public List<NotificationEntry> findBySubjectId(long subjectId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();

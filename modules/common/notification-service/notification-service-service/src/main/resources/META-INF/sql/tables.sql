@@ -14,5 +14,5 @@ create table SW_Notification (
 	description VARCHAR(75) null,
 	status VARCHAR(75) null,
 	receiverId LONG,
-	projectId LONG
+	subjectId LONG
 );

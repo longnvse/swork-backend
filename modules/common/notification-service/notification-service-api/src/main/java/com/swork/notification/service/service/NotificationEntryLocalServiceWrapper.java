@@ -37,13 +37,12 @@ public class NotificationEntryLocalServiceWrapper
 	public com.swork.notification.service.model.NotificationEntry
 		addNotification(
 			long businessId, long creatorId, String category, String name,
-			String description, String status, long receiverId,
-			long projectActiveId,
+			String description, String status, long receiverId, long subjectId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _notificationEntryLocalService.addNotification(
 			businessId, creatorId, category, name, description, status,
-			receiverId, projectActiveId, serviceContext);
+			receiverId, subjectId, serviceContext);
 	}
 
 	/**
@@ -296,6 +295,31 @@ public class NotificationEntryLocalServiceWrapper
 
 		return _notificationEntryLocalService.
 			fetchNotificationEntryByUuidAndGroupId(uuid, groupId);
+	}
+
+	@Override
+	public java.util.List
+		<com.swork.notification.service.model.NotificationEntry> findByReceiver(
+			long receiverId) {
+
+		return _notificationEntryLocalService.findByReceiver(receiverId);
+	}
+
+	@Override
+	public java.util.List
+		<com.swork.notification.service.model.NotificationEntry>
+			findByReceiverAndStatus(long receiverId, String status) {
+
+		return _notificationEntryLocalService.findByReceiverAndStatus(
+			receiverId, status);
+	}
+
+	@Override
+	public java.util.List
+		<com.swork.notification.service.model.NotificationEntry>
+			findBySubjectId(long subjectId) {
+
+		return _notificationEntryLocalService.findBySubjectId(subjectId);
 	}
 
 	@Override

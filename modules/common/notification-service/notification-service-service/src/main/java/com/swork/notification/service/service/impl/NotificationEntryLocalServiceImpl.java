@@ -23,6 +23,7 @@ import com.swork.notification.service.service.base.NotificationEntryLocalService
 import org.osgi.service.component.annotations.Component;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -38,12 +39,12 @@ public class NotificationEntryLocalServiceImpl
     @Indexable(type = IndexableType.REINDEX)
     public NotificationEntry addNotification(long businessId,
                                              long creatorId,
-											 String category,
-											 String name,
-											 String description,
-											 String status,
-											 long receiverId,
-											 long projectActiveId,
+                                             String category,
+                                             String name,
+                                             String description,
+                                             String status,
+                                             long receiverId,
+                                             long subjectId,
                                              ServiceContext serviceContext) {
         NotificationEntry entry =
                 createNotificationEntry(
@@ -59,13 +60,12 @@ public class NotificationEntryLocalServiceImpl
                 currentDate,
                 serviceContext);
 
-		entry.setCategory(category);
-		entry.setName(name);
-		entry.setDescription(description);
-		entry.setStatus(status);
-		entry.setReceiverId(receiverId);
-		entry.setProjectId(projectActiveId);
-
+        entry.setCategory(category);
+        entry.setName(name);
+        entry.setDescription(description);
+        entry.setStatus(status);
+        entry.setReceiverId(receiverId);
+        entry.setSubjectId(subjectId);
 
         return addNotificationEntry(entry);
     }
@@ -74,7 +74,7 @@ public class NotificationEntryLocalServiceImpl
     public NotificationEntry updateStatusNotification(long creatorId,
                                                       long notificationId,
                                                       String status,
-                                                      ServiceContext serviceContext){
+                                                      ServiceContext serviceContext) {
 
         NotificationEntry entry = fetchNotificationEntry(notificationId);
 
@@ -85,10 +85,23 @@ public class NotificationEntryLocalServiceImpl
                 entry,
                 currentDate,
                 serviceContext);
+
         entry.setStatus(status);
 
         return updateNotificationEntry(entry);
 
+    }
+
+    public List<NotificationEntry> findByReceiver(long receiverId) {
+        return notificationEntryPersistence.findByR_V(receiverId);
+    }
+
+    public List<NotificationEntry> findByReceiverAndStatus(long receiverId, String status) {
+        return notificationEntryPersistence.findByR_S(receiverId, status);
+    }
+
+    public List<NotificationEntry> findBySubjectId(long subjectId) {
+        return notificationEntryPersistence.findByS_(subjectId);
     }
 
     private void createModifierAudit(long businessId,
@@ -101,7 +114,7 @@ public class NotificationEntryLocalServiceImpl
         entry.setCompanyId(serviceContext.getCompanyId());
         entry.setCreateDate(serviceContext.getCreateDate(current));
         entry.setAccountId(creatorId);
-		entry.setExternalReferenceCode(UUID.randomUUID().toString());
+        entry.setExternalReferenceCode(UUID.randomUUID().toString());
 
         updateModifierAudit(creatorId, entry, current, serviceContext);
     }

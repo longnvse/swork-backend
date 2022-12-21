@@ -3,7 +3,7 @@ package com.swork.notification.rest.client.pagination;
 import javax.annotation.Generated;
 
 /**
- * @author ninhvv
+ * @author longnv
  * @generated
  */
 @Generated("")

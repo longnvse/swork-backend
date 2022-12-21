@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 import javax.annotation.Generated;
 
 /**
- * @author ninhvv
+ * @author longnv
  * @generated
  */
 @Generated("")

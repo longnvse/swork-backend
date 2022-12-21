@@ -95,8 +95,8 @@ public class NotificationEntryCacheModel
 		sb.append(status);
 		sb.append(", receiverId=");
 		sb.append(receiverId);
-		sb.append(", projectId=");
-		sb.append(projectId);
+		sb.append(", subjectId=");
+		sb.append(subjectId);
 		sb.append("}");
 
 		return sb.toString();
@@ -179,7 +179,7 @@ public class NotificationEntryCacheModel
 		}
 
 		notificationEntryImpl.setReceiverId(receiverId);
-		notificationEntryImpl.setProjectId(projectId);
+		notificationEntryImpl.setSubjectId(subjectId);
 
 		notificationEntryImpl.resetOriginalValues();
 
@@ -210,7 +210,7 @@ public class NotificationEntryCacheModel
 
 		receiverId = objectInput.readLong();
 
-		projectId = objectInput.readLong();
+		subjectId = objectInput.readLong();
 	}
 
 	@Override
@@ -279,7 +279,7 @@ public class NotificationEntryCacheModel
 
 		objectOutput.writeLong(receiverId);
 
-		objectOutput.writeLong(projectId);
+		objectOutput.writeLong(subjectId);
 	}
 
 	public String uuid;
@@ -297,6 +297,6 @@ public class NotificationEntryCacheModel
 	public String description;
 	public String status;
 	public long receiverId;
-	public long projectId;
+	public long subjectId;
 
 }

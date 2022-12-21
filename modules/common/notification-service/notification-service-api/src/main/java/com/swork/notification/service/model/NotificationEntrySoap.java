@@ -48,7 +48,7 @@ public class NotificationEntrySoap implements Serializable {
 		soapModel.setDescription(model.getDescription());
 		soapModel.setStatus(model.getStatus());
 		soapModel.setReceiverId(model.getReceiverId());
-		soapModel.setProjectId(model.getProjectId());
+		soapModel.setSubjectId(model.getSubjectId());
 
 		return soapModel;
 	}
@@ -230,12 +230,12 @@ public class NotificationEntrySoap implements Serializable {
 		_receiverId = receiverId;
 	}
 
-	public long getProjectId() {
-		return _projectId;
+	public long getSubjectId() {
+		return _subjectId;
 	}
 
-	public void setProjectId(long projectId) {
-		_projectId = projectId;
+	public void setSubjectId(long subjectId) {
+		_subjectId = subjectId;
 	}
 
 	private String _uuid;
@@ -253,6 +253,6 @@ public class NotificationEntrySoap implements Serializable {
 	private String _description;
 	private String _status;
 	private long _receiverId;
-	private long _projectId;
+	private long _subjectId;
 
 }

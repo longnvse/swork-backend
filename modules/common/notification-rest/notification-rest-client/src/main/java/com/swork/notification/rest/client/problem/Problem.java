@@ -7,7 +7,7 @@ import java.util.Objects;
 import javax.annotation.Generated;
 
 /**
- * @author ninhvv
+ * @author longnv
  * @generated
  */
 @Generated("")

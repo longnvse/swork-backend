@@ -47,13 +47,12 @@ public class NotificationEntryLocalServiceUtil {
 	 */
 	public static NotificationEntry addNotification(
 		long businessId, long creatorId, String category, String name,
-		String description, String status, long receiverId,
-		long projectActiveId,
+		String description, String status, long receiverId, long subjectId,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().addNotification(
 			businessId, creatorId, category, name, description, status,
-			receiverId, projectActiveId, serviceContext);
+			receiverId, subjectId, serviceContext);
 	}
 
 	/**
@@ -262,6 +261,20 @@ public class NotificationEntryLocalServiceUtil {
 
 		return getService().fetchNotificationEntryByUuidAndGroupId(
 			uuid, groupId);
+	}
+
+	public static List<NotificationEntry> findByReceiver(long receiverId) {
+		return getService().findByReceiver(receiverId);
+	}
+
+	public static List<NotificationEntry> findByReceiverAndStatus(
+		long receiverId, String status) {
+
+		return getService().findByReceiverAndStatus(receiverId, status);
+	}
+
+	public static List<NotificationEntry> findBySubjectId(long subjectId) {
+		return getService().findBySubjectId(subjectId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery

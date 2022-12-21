@@ -905,6 +905,178 @@ public class NotificationEntryUtil {
 	}
 
 	/**
+	 * Returns all the notification entries where subjectId = &#63;.
+	 *
+	 * @param subjectId the subject ID
+	 * @return the matching notification entries
+	 */
+	public static List<NotificationEntry> findByS_(long subjectId) {
+		return getPersistence().findByS_(subjectId);
+	}
+
+	/**
+	 * Returns a range of all the notification entries where subjectId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>NotificationEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param subjectId the subject ID
+	 * @param start the lower bound of the range of notification entries
+	 * @param end the upper bound of the range of notification entries (not inclusive)
+	 * @return the range of matching notification entries
+	 */
+	public static List<NotificationEntry> findByS_(
+		long subjectId, int start, int end) {
+
+		return getPersistence().findByS_(subjectId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the notification entries where subjectId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>NotificationEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param subjectId the subject ID
+	 * @param start the lower bound of the range of notification entries
+	 * @param end the upper bound of the range of notification entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching notification entries
+	 */
+	public static List<NotificationEntry> findByS_(
+		long subjectId, int start, int end,
+		OrderByComparator<NotificationEntry> orderByComparator) {
+
+		return getPersistence().findByS_(
+			subjectId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the notification entries where subjectId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>NotificationEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param subjectId the subject ID
+	 * @param start the lower bound of the range of notification entries
+	 * @param end the upper bound of the range of notification entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching notification entries
+	 */
+	public static List<NotificationEntry> findByS_(
+		long subjectId, int start, int end,
+		OrderByComparator<NotificationEntry> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByS_(
+			subjectId, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first notification entry in the ordered set where subjectId = &#63;.
+	 *
+	 * @param subjectId the subject ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching notification entry
+	 * @throws NoSuchNotificationEntryException if a matching notification entry could not be found
+	 */
+	public static NotificationEntry findByS__First(
+			long subjectId,
+			OrderByComparator<NotificationEntry> orderByComparator)
+		throws com.swork.notification.service.exception.
+			NoSuchNotificationEntryException {
+
+		return getPersistence().findByS__First(subjectId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first notification entry in the ordered set where subjectId = &#63;.
+	 *
+	 * @param subjectId the subject ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching notification entry, or <code>null</code> if a matching notification entry could not be found
+	 */
+	public static NotificationEntry fetchByS__First(
+		long subjectId,
+		OrderByComparator<NotificationEntry> orderByComparator) {
+
+		return getPersistence().fetchByS__First(subjectId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last notification entry in the ordered set where subjectId = &#63;.
+	 *
+	 * @param subjectId the subject ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching notification entry
+	 * @throws NoSuchNotificationEntryException if a matching notification entry could not be found
+	 */
+	public static NotificationEntry findByS__Last(
+			long subjectId,
+			OrderByComparator<NotificationEntry> orderByComparator)
+		throws com.swork.notification.service.exception.
+			NoSuchNotificationEntryException {
+
+		return getPersistence().findByS__Last(subjectId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last notification entry in the ordered set where subjectId = &#63;.
+	 *
+	 * @param subjectId the subject ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching notification entry, or <code>null</code> if a matching notification entry could not be found
+	 */
+	public static NotificationEntry fetchByS__Last(
+		long subjectId,
+		OrderByComparator<NotificationEntry> orderByComparator) {
+
+		return getPersistence().fetchByS__Last(subjectId, orderByComparator);
+	}
+
+	/**
+	 * Returns the notification entries before and after the current notification entry in the ordered set where subjectId = &#63;.
+	 *
+	 * @param id the primary key of the current notification entry
+	 * @param subjectId the subject ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next notification entry
+	 * @throws NoSuchNotificationEntryException if a notification entry with the primary key could not be found
+	 */
+	public static NotificationEntry[] findByS__PrevAndNext(
+			long id, long subjectId,
+			OrderByComparator<NotificationEntry> orderByComparator)
+		throws com.swork.notification.service.exception.
+			NoSuchNotificationEntryException {
+
+		return getPersistence().findByS__PrevAndNext(
+			id, subjectId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the notification entries where subjectId = &#63; from the database.
+	 *
+	 * @param subjectId the subject ID
+	 */
+	public static void removeByS_(long subjectId) {
+		getPersistence().removeByS_(subjectId);
+	}
+
+	/**
+	 * Returns the number of notification entries where subjectId = &#63;.
+	 *
+	 * @param subjectId the subject ID
+	 * @return the number of matching notification entries
+	 */
+	public static int countByS_(long subjectId) {
+		return getPersistence().countByS_(subjectId);
+	}
+
+	/**
 	 * Returns the notification entry where companyId = &#63; and externalReferenceCode = &#63; or throws a <code>NoSuchNotificationEntryException</code> if it could not be found.
 	 *
 	 * @param companyId the company ID

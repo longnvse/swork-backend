@@ -7,13 +7,13 @@ import javax.ws.rs.core.Application;
 import org.osgi.service.component.annotations.Component;
 
 /**
- * @author ninhvv
+ * @author longnv
  * @generated
  */
 @Component(
 	property = {
 		"liferay.jackson=false",
-		"osgi.jaxrs.application.base=/notification-rest",
+		"osgi.jaxrs.application.base=/swork/notification-rest",
 		"osgi.jaxrs.extension.select=(osgi.jaxrs.name=Liferay.Vulcan)",
 		"osgi.jaxrs.name=NotificationRest"
 	},

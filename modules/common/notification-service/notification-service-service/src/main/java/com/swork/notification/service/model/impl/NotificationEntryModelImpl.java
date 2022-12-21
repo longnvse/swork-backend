@@ -77,7 +77,7 @@ public class NotificationEntryModelImpl
 		{"modifiedDate", Types.TIMESTAMP}, {"editorId", Types.BIGINT},
 		{"category", Types.VARCHAR}, {"name", Types.VARCHAR},
 		{"description", Types.VARCHAR}, {"status", Types.VARCHAR},
-		{"receiverId", Types.BIGINT}, {"projectId", Types.BIGINT}
+		{"receiverId", Types.BIGINT}, {"subjectId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -99,11 +99,11 @@ public class NotificationEntryModelImpl
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("status", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("receiverId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("projectId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("subjectId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_Notification (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,editorId LONG,category VARCHAR(75) null,name VARCHAR(75) null,description VARCHAR(75) null,status VARCHAR(75) null,receiverId LONG,projectId LONG)";
+		"create table SW_Notification (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,editorId LONG,category VARCHAR(75) null,name VARCHAR(75) null,description VARCHAR(75) null,status VARCHAR(75) null,receiverId LONG,subjectId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_Notification";
 
@@ -153,14 +153,20 @@ public class NotificationEntryModelImpl
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long UUID_COLUMN_BITMASK = 32L;
+	public static final long SUBJECTID_COLUMN_BITMASK = 32L;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
+	public static final long UUID_COLUMN_BITMASK = 64L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *		#getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long ID_COLUMN_BITMASK = 64L;
+	public static final long ID_COLUMN_BITMASK = 128L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -386,11 +392,11 @@ public class NotificationEntryModelImpl
 			(BiConsumer<NotificationEntry, Long>)
 				NotificationEntry::setReceiverId);
 		attributeGetterFunctions.put(
-			"projectId", NotificationEntry::getProjectId);
+			"subjectId", NotificationEntry::getSubjectId);
 		attributeSetterBiConsumers.put(
-			"projectId",
+			"subjectId",
 			(BiConsumer<NotificationEntry, Long>)
-				NotificationEntry::setProjectId);
+				NotificationEntry::setSubjectId);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -706,17 +712,27 @@ public class NotificationEntryModelImpl
 	}
 
 	@Override
-	public long getProjectId() {
-		return _projectId;
+	public long getSubjectId() {
+		return _subjectId;
 	}
 
 	@Override
-	public void setProjectId(long projectId) {
+	public void setSubjectId(long subjectId) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_projectId = projectId;
+		_subjectId = subjectId;
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public long getOriginalSubjectId() {
+		return GetterUtil.getLong(
+			this.<Long>getColumnOriginalValue("subjectId"));
 	}
 
 	@Override
@@ -798,7 +814,7 @@ public class NotificationEntryModelImpl
 		notificationEntryImpl.setDescription(getDescription());
 		notificationEntryImpl.setStatus(getStatus());
 		notificationEntryImpl.setReceiverId(getReceiverId());
-		notificationEntryImpl.setProjectId(getProjectId());
+		notificationEntryImpl.setSubjectId(getSubjectId());
 
 		notificationEntryImpl.resetOriginalValues();
 
@@ -839,8 +855,8 @@ public class NotificationEntryModelImpl
 			this.<String>getColumnOriginalValue("status"));
 		notificationEntryImpl.setReceiverId(
 			this.<Long>getColumnOriginalValue("receiverId"));
-		notificationEntryImpl.setProjectId(
-			this.<Long>getColumnOriginalValue("projectId"));
+		notificationEntryImpl.setSubjectId(
+			this.<Long>getColumnOriginalValue("subjectId"));
 
 		return notificationEntryImpl;
 	}
@@ -1009,7 +1025,7 @@ public class NotificationEntryModelImpl
 
 		notificationEntryCacheModel.receiverId = getReceiverId();
 
-		notificationEntryCacheModel.projectId = getProjectId();
+		notificationEntryCacheModel.subjectId = getSubjectId();
 
 		return notificationEntryCacheModel;
 	}
@@ -1118,7 +1134,7 @@ public class NotificationEntryModelImpl
 	private String _description;
 	private String _status;
 	private long _receiverId;
-	private long _projectId;
+	private long _subjectId;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1165,7 +1181,7 @@ public class NotificationEntryModelImpl
 		_columnOriginalValues.put("description", _description);
 		_columnOriginalValues.put("status", _status);
 		_columnOriginalValues.put("receiverId", _receiverId);
-		_columnOriginalValues.put("projectId", _projectId);
+		_columnOriginalValues.put("subjectId", _subjectId);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1220,7 +1236,7 @@ public class NotificationEntryModelImpl
 
 		columnBitmasks.put("receiverId", 16384L);
 
-		columnBitmasks.put("projectId", 32768L);
+		columnBitmasks.put("subjectId", 32768L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

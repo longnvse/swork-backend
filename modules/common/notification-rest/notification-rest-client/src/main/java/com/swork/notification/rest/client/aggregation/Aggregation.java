@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.annotation.Generated;
 
 /**
- * @author ninhvv
+ * @author longnv
  * @generated
  */
 @Generated("")

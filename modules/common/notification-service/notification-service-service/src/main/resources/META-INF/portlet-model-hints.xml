@@ -17,6 +17,6 @@
 		<field name="description" type="String" />
 		<field name="status" type="String" />
 		<field name="receiverId" type="long" />
-		<field name="projectId" type="long" />
+		<field name="subjectId" type="long" />
 	</model>
 </model-hints>

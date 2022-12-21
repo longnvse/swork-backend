@@ -30,6 +30,7 @@
         <column name="createDate" type="Date"/>
         <column name="modifiedDate" type="Date"/>
         <column name="editorId" type="long"/>
+        <column name="businessId" type="long"/>
 
         <!-- Other fields -->
 
@@ -38,8 +39,7 @@
         <column name="description" type="String"/>
         <column name="status" type="String"/>
         <column name="receiverId" type="long" />
-        <column name="projectId" type="long" />
-
+        <column name="subjectId" type="long" />
 
         <finder name="R_V" return-type="Collection">
             <finder-column name="receiverId"/>
@@ -50,6 +50,9 @@
             <finder-column name="status"/>
         </finder>
 
+        <finder name="S_" return-type="Collection">
+            <finder-column name="subjectId"/>
+        </finder>
 
     </entity>
 

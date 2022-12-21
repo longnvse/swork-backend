@@ -284,18 +284,18 @@ public interface NotificationEntryModel
 	public void setReceiverId(long receiverId);
 
 	/**
-	 * Returns the project ID of this notification entry.
+	 * Returns the subject ID of this notification entry.
 	 *
-	 * @return the project ID of this notification entry
+	 * @return the subject ID of this notification entry
 	 */
-	public long getProjectId();
+	public long getSubjectId();
 
 	/**
-	 * Sets the project ID of this notification entry.
+	 * Sets the subject ID of this notification entry.
 	 *
-	 * @param projectId the project ID of this notification entry
+	 * @param subjectId the subject ID of this notification entry
 	 */
-	public void setProjectId(long projectId);
+	public void setSubjectId(long subjectId);
 
 	@Override
 	public NotificationEntry cloneWithOriginalValues();

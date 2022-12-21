@@ -67,8 +67,8 @@ public class NotificationEntryTable extends BaseTable<NotificationEntryTable> {
 		"status", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<NotificationEntryTable, Long> receiverId = createColumn(
 		"receiverId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
-	public final Column<NotificationEntryTable, Long> projectId = createColumn(
-		"projectId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<NotificationEntryTable, Long> subjectId = createColumn(
+		"subjectId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private NotificationEntryTable() {
 		super("SW_Notification", NotificationEntryTable::new);
