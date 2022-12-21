@@ -53,6 +53,7 @@ public class NotificationEntryWrapper
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("editorId", getEditorId());
+		attributes.put("businessId", getBusinessId());
 		attributes.put("category", getCategory());
 		attributes.put("name", getName());
 		attributes.put("description", getDescription());
@@ -126,6 +127,12 @@ public class NotificationEntryWrapper
 			setEditorId(editorId);
 		}
 
+		Long businessId = (Long)attributes.get("businessId");
+
+		if (businessId != null) {
+			setBusinessId(businessId);
+		}
+
 		String category = (String)attributes.get("category");
 
 		if (category != null) {
@@ -176,6 +183,16 @@ public class NotificationEntryWrapper
 	@Override
 	public long getAccountId() {
 		return model.getAccountId();
+	}
+
+	/**
+	 * Returns the business ID of this notification entry.
+	 *
+	 * @return the business ID of this notification entry
+	 */
+	@Override
+	public long getBusinessId() {
+		return model.getBusinessId();
 	}
 
 	/**
@@ -351,6 +368,16 @@ public class NotificationEntryWrapper
 	@Override
 	public void setAccountId(long accountId) {
 		model.setAccountId(accountId);
+	}
+
+	/**
+	 * Sets the business ID of this notification entry.
+	 *
+	 * @param businessId the business ID of this notification entry
+	 */
+	@Override
+	public void setBusinessId(long businessId) {
+		model.setBusinessId(businessId);
 	}
 
 	/**

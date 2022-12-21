@@ -75,9 +75,10 @@ public class NotificationEntryModelImpl
 		{"companyId", Types.BIGINT}, {"accountId", Types.BIGINT},
 		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"editorId", Types.BIGINT},
-		{"category", Types.VARCHAR}, {"name", Types.VARCHAR},
-		{"description", Types.VARCHAR}, {"status", Types.VARCHAR},
-		{"receiverId", Types.BIGINT}, {"subjectId", Types.BIGINT}
+		{"businessId", Types.BIGINT}, {"category", Types.VARCHAR},
+		{"name", Types.VARCHAR}, {"description", Types.VARCHAR},
+		{"status", Types.VARCHAR}, {"receiverId", Types.BIGINT},
+		{"subjectId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -94,6 +95,7 @@ public class NotificationEntryModelImpl
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("editorId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("businessId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("category", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
@@ -103,7 +105,7 @@ public class NotificationEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_Notification (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,editorId LONG,category VARCHAR(75) null,name VARCHAR(75) null,description VARCHAR(75) null,status VARCHAR(75) null,receiverId LONG,subjectId LONG)";
+		"create table SW_Notification (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,editorId LONG,businessId LONG,category VARCHAR(75) null,name VARCHAR(75) null,description VARCHAR(75) null,status VARCHAR(75) null,receiverId LONG,subjectId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_Notification";
 
@@ -365,6 +367,12 @@ public class NotificationEntryModelImpl
 			(BiConsumer<NotificationEntry, Long>)
 				NotificationEntry::setEditorId);
 		attributeGetterFunctions.put(
+			"businessId", NotificationEntry::getBusinessId);
+		attributeSetterBiConsumers.put(
+			"businessId",
+			(BiConsumer<NotificationEntry, Long>)
+				NotificationEntry::setBusinessId);
+		attributeGetterFunctions.put(
 			"category", NotificationEntry::getCategory);
 		attributeSetterBiConsumers.put(
 			"category",
@@ -603,6 +611,20 @@ public class NotificationEntryModelImpl
 	}
 
 	@Override
+	public long getBusinessId() {
+		return _businessId;
+	}
+
+	@Override
+	public void setBusinessId(long businessId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_businessId = businessId;
+	}
+
+	@Override
 	public String getCategory() {
 		if (_category == null) {
 			return "";
@@ -809,6 +831,7 @@ public class NotificationEntryModelImpl
 		notificationEntryImpl.setCreateDate(getCreateDate());
 		notificationEntryImpl.setModifiedDate(getModifiedDate());
 		notificationEntryImpl.setEditorId(getEditorId());
+		notificationEntryImpl.setBusinessId(getBusinessId());
 		notificationEntryImpl.setCategory(getCategory());
 		notificationEntryImpl.setName(getName());
 		notificationEntryImpl.setDescription(getDescription());
@@ -845,6 +868,8 @@ public class NotificationEntryModelImpl
 			this.<Date>getColumnOriginalValue("modifiedDate"));
 		notificationEntryImpl.setEditorId(
 			this.<Long>getColumnOriginalValue("editorId"));
+		notificationEntryImpl.setBusinessId(
+			this.<Long>getColumnOriginalValue("businessId"));
 		notificationEntryImpl.setCategory(
 			this.<String>getColumnOriginalValue("category"));
 		notificationEntryImpl.setName(
@@ -991,6 +1016,8 @@ public class NotificationEntryModelImpl
 
 		notificationEntryCacheModel.editorId = getEditorId();
 
+		notificationEntryCacheModel.businessId = getBusinessId();
+
 		notificationEntryCacheModel.category = getCategory();
 
 		String category = notificationEntryCacheModel.category;
@@ -1129,6 +1156,7 @@ public class NotificationEntryModelImpl
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
 	private long _editorId;
+	private long _businessId;
 	private String _category;
 	private String _name;
 	private String _description;
@@ -1176,6 +1204,7 @@ public class NotificationEntryModelImpl
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
 		_columnOriginalValues.put("editorId", _editorId);
+		_columnOriginalValues.put("businessId", _businessId);
 		_columnOriginalValues.put("category", _category);
 		_columnOriginalValues.put("name", _name);
 		_columnOriginalValues.put("description", _description);
@@ -1226,17 +1255,19 @@ public class NotificationEntryModelImpl
 
 		columnBitmasks.put("editorId", 512L);
 
-		columnBitmasks.put("category", 1024L);
+		columnBitmasks.put("businessId", 1024L);
 
-		columnBitmasks.put("name", 2048L);
+		columnBitmasks.put("category", 2048L);
 
-		columnBitmasks.put("description", 4096L);
+		columnBitmasks.put("name", 4096L);
 
-		columnBitmasks.put("status", 8192L);
+		columnBitmasks.put("description", 8192L);
 
-		columnBitmasks.put("receiverId", 16384L);
+		columnBitmasks.put("status", 16384L);
 
-		columnBitmasks.put("subjectId", 32768L);
+		columnBitmasks.put("receiverId", 32768L);
+
+		columnBitmasks.put("subjectId", 65536L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

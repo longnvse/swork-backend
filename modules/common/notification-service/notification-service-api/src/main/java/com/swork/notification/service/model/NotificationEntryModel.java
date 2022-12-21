@@ -210,6 +210,20 @@ public interface NotificationEntryModel
 	public void setEditorId(long editorId);
 
 	/**
+	 * Returns the business ID of this notification entry.
+	 *
+	 * @return the business ID of this notification entry
+	 */
+	public long getBusinessId();
+
+	/**
+	 * Sets the business ID of this notification entry.
+	 *
+	 * @param businessId the business ID of this notification entry
+	 */
+	public void setBusinessId(long businessId);
+
+	/**
 	 * Returns the category of this notification entry.
 	 *
 	 * @return the category of this notification entry

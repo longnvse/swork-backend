@@ -56,6 +56,8 @@ public class NotificationEntryTable extends BaseTable<NotificationEntryTable> {
 			"modifiedDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<NotificationEntryTable, Long> editorId = createColumn(
 		"editorId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<NotificationEntryTable, Long> businessId = createColumn(
+		"businessId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<NotificationEntryTable, String> category = createColumn(
 		"category", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<NotificationEntryTable, String> name = createColumn(

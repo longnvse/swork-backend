@@ -63,7 +63,7 @@ public class NotificationEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(33);
+		StringBundler sb = new StringBundler(35);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -85,6 +85,8 @@ public class NotificationEntryCacheModel
 		sb.append(modifiedDate);
 		sb.append(", editorId=");
 		sb.append(editorId);
+		sb.append(", businessId=");
+		sb.append(businessId);
 		sb.append(", category=");
 		sb.append(category);
 		sb.append(", name=");
@@ -149,6 +151,7 @@ public class NotificationEntryCacheModel
 		}
 
 		notificationEntryImpl.setEditorId(editorId);
+		notificationEntryImpl.setBusinessId(businessId);
 
 		if (category == null) {
 			notificationEntryImpl.setCategory("");
@@ -203,6 +206,8 @@ public class NotificationEntryCacheModel
 		modifiedDate = objectInput.readLong();
 
 		editorId = objectInput.readLong();
+
+		businessId = objectInput.readLong();
 		category = objectInput.readUTF();
 		name = objectInput.readUTF();
 		description = objectInput.readUTF();
@@ -249,6 +254,8 @@ public class NotificationEntryCacheModel
 
 		objectOutput.writeLong(editorId);
 
+		objectOutput.writeLong(businessId);
+
 		if (category == null) {
 			objectOutput.writeUTF("");
 		}
@@ -292,6 +299,7 @@ public class NotificationEntryCacheModel
 	public long createDate;
 	public long modifiedDate;
 	public long editorId;
+	public long businessId;
 	public String category;
 	public String name;
 	public String description;

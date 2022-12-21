@@ -43,6 +43,7 @@ public class NotificationEntrySoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setEditorId(model.getEditorId());
+		soapModel.setBusinessId(model.getBusinessId());
 		soapModel.setCategory(model.getCategory());
 		soapModel.setName(model.getName());
 		soapModel.setDescription(model.getDescription());
@@ -190,6 +191,14 @@ public class NotificationEntrySoap implements Serializable {
 		_editorId = editorId;
 	}
 
+	public long getBusinessId() {
+		return _businessId;
+	}
+
+	public void setBusinessId(long businessId) {
+		_businessId = businessId;
+	}
+
 	public String getCategory() {
 		return _category;
 	}
@@ -248,6 +257,7 @@ public class NotificationEntrySoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _editorId;
+	private long _businessId;
 	private String _category;
 	private String _name;
 	private String _description;

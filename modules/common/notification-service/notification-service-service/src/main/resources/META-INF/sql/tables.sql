@@ -9,6 +9,7 @@ create table SW_Notification (
 	createDate DATE null,
 	modifiedDate DATE null,
 	editorId LONG,
+	businessId LONG,
 	category VARCHAR(75) null,
 	name VARCHAR(75) null,
 	description VARCHAR(75) null,
