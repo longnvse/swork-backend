@@ -24,6 +24,10 @@ dependencies {
     compileOnly group: "org.osgi", name: "org.osgi.service.component.annotations"
     compileOnly group: "org.osgi", name: "org.osgi.core"
 
+    testCompile group: "com.liferay.portal", name: "com.liferay.portal.test"
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '3.6.28'
+    testCompile group: "com.liferay.portal", name: "release.portal.api"
+
     compileOnly group: "com.liferay.portal", name: "release.portal.api"
 
     compileOnly group: 'javax.mail', name: 'mail', version: '1.4'
