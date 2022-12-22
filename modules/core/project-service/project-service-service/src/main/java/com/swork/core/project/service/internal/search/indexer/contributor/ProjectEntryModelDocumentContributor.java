@@ -71,18 +71,26 @@ public class ProjectEntryModelDocumentContributor
 
         document.addKeyword(SearchFields.PROJECT_MANAGE,
                 getMemberIdsByType(baseModel.getProjectId(), ACCOUNT, MANAGE));
-
+        document.addKeywordSortable(SearchFields.PROJECT_MANAGE,
+                getMemberIdsByType(baseModel.getProjectId(), ACCOUNT, MANAGE));
         document.addKeyword(SearchFields.STATUS, baseModel.getStatus());
         document.addKeywordSortable(SearchFields.STATUS, baseModel.getStatus());
 
         document.addKeyword(SearchFields.PROJECT_HANDLE_ACCOUNT,
                 getMemberIdsByType(baseModel.getProjectId(), ACCOUNT, HANDLE));
+        document.addKeywordSortable(SearchFields.PROJECT_HANDLE_ACCOUNT,
+                getMemberIdsByType(baseModel.getProjectId(), ACCOUNT, HANDLE));
         document.addKeyword(SearchFields.PROJECT_HANDLE_DEPARTMENT,
                 getMemberIdsByType(baseModel.getProjectId(), DEPARTMENT, HANDLE));
-
+        document.addKeywordSortable(SearchFields.PROJECT_HANDLE_DEPARTMENT,
+                getMemberIdsByType(baseModel.getProjectId(), DEPARTMENT, HANDLE));
         document.addKeyword(SearchFields.PROJECT_PARTICIPATE_ACCOUNT,
                 getMemberIdsByType(baseModel.getProjectId(), ACCOUNT, PARTICIPATE));
+        document.addKeywordSortable(SearchFields.PROJECT_PARTICIPATE_ACCOUNT,
+                getMemberIdsByType(baseModel.getProjectId(), ACCOUNT, PARTICIPATE));
         document.addKeyword(SearchFields.PROJECT_PARTICIPATE_DEPARTMENT,
+                getMemberIdsByType(baseModel.getProjectId(), DEPARTMENT, PARTICIPATE));
+        document.addKeywordSortable(SearchFields.PROJECT_PARTICIPATE_DEPARTMENT,
                 getMemberIdsByType(baseModel.getProjectId(), DEPARTMENT, PARTICIPATE));
 
         document.addDate(SearchFields.ACTUAL_TIME, baseModel.getActualEndDate());
