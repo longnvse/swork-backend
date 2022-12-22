@@ -12,10 +12,12 @@ create table SW_AccountEntry (
 	fullName VARCHAR(100) null,
 	phoneNumber VARCHAR(75) null,
 	dateOfBirth DATE null,
+	gender BOOLEAN,
 	email VARCHAR(75) null,
 	address VARCHAR(100) null,
 	departmentId LONG,
 	status VARCHAR(75) null,
 	role_ VARCHAR(75) null,
-	businessId LONG
+	businessId LONG,
+	avatar LONG
 );

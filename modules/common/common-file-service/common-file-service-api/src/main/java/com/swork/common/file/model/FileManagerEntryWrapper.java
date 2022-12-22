@@ -48,21 +48,20 @@ public class FileManagerEntryWrapper
 		attributes.put("id", getId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
+		attributes.put("accountId", getAccountId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("customerId", getCustomerId());
-		attributes.put("creatorId", getCreatorId());
+		attributes.put("businessId", getBusinessId());
 		attributes.put("fileId", getFileId());
-		attributes.put("parentCode", getParentCode());
 		attributes.put("fileType", getFileType());
-		attributes.put("type", getType());
-		attributes.put("pkType", getPkType());
 		attributes.put("fileName", getFileName());
 		attributes.put("fileSize", getFileSize());
+		attributes.put("mimeType", getMimeType());
 		attributes.put("moduleId", getModuleId());
 		attributes.put("appId", getAppId());
+		attributes.put("projectId", getProjectId());
+		attributes.put("phaseId", getPhaseId());
+		attributes.put("workId", getWorkId());
 
 		return attributes;
 	}
@@ -100,16 +99,10 @@ public class FileManagerEntryWrapper
 			setCompanyId(companyId);
 		}
 
-		Long userId = (Long)attributes.get("userId");
+		Long accountId = (Long)attributes.get("accountId");
 
-		if (userId != null) {
-			setUserId(userId);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
+		if (accountId != null) {
+			setAccountId(accountId);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -124,16 +117,10 @@ public class FileManagerEntryWrapper
 			setModifiedDate(modifiedDate);
 		}
 
-		Long customerId = (Long)attributes.get("customerId");
+		Long businessId = (Long)attributes.get("businessId");
 
-		if (customerId != null) {
-			setCustomerId(customerId);
-		}
-
-		Long creatorId = (Long)attributes.get("creatorId");
-
-		if (creatorId != null) {
-			setCreatorId(creatorId);
+		if (businessId != null) {
+			setBusinessId(businessId);
 		}
 
 		Long fileId = (Long)attributes.get("fileId");
@@ -142,28 +129,10 @@ public class FileManagerEntryWrapper
 			setFileId(fileId);
 		}
 
-		String parentCode = (String)attributes.get("parentCode");
-
-		if (parentCode != null) {
-			setParentCode(parentCode);
-		}
-
 		String fileType = (String)attributes.get("fileType");
 
 		if (fileType != null) {
 			setFileType(fileType);
-		}
-
-		String type = (String)attributes.get("type");
-
-		if (type != null) {
-			setType(type);
-		}
-
-		String pkType = (String)attributes.get("pkType");
-
-		if (pkType != null) {
-			setPkType(pkType);
 		}
 
 		String fileName = (String)attributes.get("fileName");
@@ -172,10 +141,16 @@ public class FileManagerEntryWrapper
 			setFileName(fileName);
 		}
 
-		String fileSize = (String)attributes.get("fileSize");
+		Long fileSize = (Long)attributes.get("fileSize");
 
 		if (fileSize != null) {
 			setFileSize(fileSize);
+		}
+
+		String mimeType = (String)attributes.get("mimeType");
+
+		if (mimeType != null) {
+			setMimeType(mimeType);
 		}
 
 		String moduleId = (String)attributes.get("moduleId");
@@ -189,11 +164,39 @@ public class FileManagerEntryWrapper
 		if (appId != null) {
 			setAppId(appId);
 		}
+
+		Long projectId = (Long)attributes.get("projectId");
+
+		if (projectId != null) {
+			setProjectId(projectId);
+		}
+
+		Long phaseId = (Long)attributes.get("phaseId");
+
+		if (phaseId != null) {
+			setPhaseId(phaseId);
+		}
+
+		Long workId = (Long)attributes.get("workId");
+
+		if (workId != null) {
+			setWorkId(workId);
+		}
 	}
 
 	@Override
 	public FileManagerEntry cloneWithOriginalValues() {
 		return wrap(model.cloneWithOriginalValues());
+	}
+
+	/**
+	 * Returns the account ID of this file manager entry.
+	 *
+	 * @return the account ID of this file manager entry
+	 */
+	@Override
+	public long getAccountId() {
+		return model.getAccountId();
 	}
 
 	/**
@@ -204,6 +207,16 @@ public class FileManagerEntryWrapper
 	@Override
 	public String getAppId() {
 		return model.getAppId();
+	}
+
+	/**
+	 * Returns the business ID of this file manager entry.
+	 *
+	 * @return the business ID of this file manager entry
+	 */
+	@Override
+	public long getBusinessId() {
+		return model.getBusinessId();
 	}
 
 	/**
@@ -224,26 +237,6 @@ public class FileManagerEntryWrapper
 	@Override
 	public Date getCreateDate() {
 		return model.getCreateDate();
-	}
-
-	/**
-	 * Returns the creator ID of this file manager entry.
-	 *
-	 * @return the creator ID of this file manager entry
-	 */
-	@Override
-	public long getCreatorId() {
-		return model.getCreatorId();
-	}
-
-	/**
-	 * Returns the customer ID of this file manager entry.
-	 *
-	 * @return the customer ID of this file manager entry
-	 */
-	@Override
-	public long getCustomerId() {
-		return model.getCustomerId();
 	}
 
 	/**
@@ -282,7 +275,7 @@ public class FileManagerEntryWrapper
 	 * @return the file size of this file manager entry
 	 */
 	@Override
-	public String getFileSize() {
+	public Long getFileSize() {
 		return model.getFileSize();
 	}
 
@@ -317,6 +310,16 @@ public class FileManagerEntryWrapper
 	}
 
 	/**
+	 * Returns the mime type of this file manager entry.
+	 *
+	 * @return the mime type of this file manager entry
+	 */
+	@Override
+	public String getMimeType() {
+		return model.getMimeType();
+	}
+
+	/**
 	 * Returns the modified date of this file manager entry.
 	 *
 	 * @return the modified date of this file manager entry
@@ -337,23 +340,13 @@ public class FileManagerEntryWrapper
 	}
 
 	/**
-	 * Returns the parent code of this file manager entry.
+	 * Returns the phase ID of this file manager entry.
 	 *
-	 * @return the parent code of this file manager entry
+	 * @return the phase ID of this file manager entry
 	 */
 	@Override
-	public String getParentCode() {
-		return model.getParentCode();
-	}
-
-	/**
-	 * Returns the pk type of this file manager entry.
-	 *
-	 * @return the pk type of this file manager entry
-	 */
-	@Override
-	public String getPkType() {
-		return model.getPkType();
+	public Long getPhaseId() {
+		return model.getPhaseId();
 	}
 
 	/**
@@ -367,43 +360,13 @@ public class FileManagerEntryWrapper
 	}
 
 	/**
-	 * Returns the type of this file manager entry.
+	 * Returns the project ID of this file manager entry.
 	 *
-	 * @return the type of this file manager entry
+	 * @return the project ID of this file manager entry
 	 */
 	@Override
-	public String getType() {
-		return model.getType();
-	}
-
-	/**
-	 * Returns the user ID of this file manager entry.
-	 *
-	 * @return the user ID of this file manager entry
-	 */
-	@Override
-	public long getUserId() {
-		return model.getUserId();
-	}
-
-	/**
-	 * Returns the user name of this file manager entry.
-	 *
-	 * @return the user name of this file manager entry
-	 */
-	@Override
-	public String getUserName() {
-		return model.getUserName();
-	}
-
-	/**
-	 * Returns the user uuid of this file manager entry.
-	 *
-	 * @return the user uuid of this file manager entry
-	 */
-	@Override
-	public String getUserUuid() {
-		return model.getUserUuid();
+	public Long getProjectId() {
+		return model.getProjectId();
 	}
 
 	/**
@@ -416,9 +379,29 @@ public class FileManagerEntryWrapper
 		return model.getUuid();
 	}
 
+	/**
+	 * Returns the work ID of this file manager entry.
+	 *
+	 * @return the work ID of this file manager entry
+	 */
+	@Override
+	public Long getWorkId() {
+		return model.getWorkId();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets the account ID of this file manager entry.
+	 *
+	 * @param accountId the account ID of this file manager entry
+	 */
+	@Override
+	public void setAccountId(long accountId) {
+		model.setAccountId(accountId);
 	}
 
 	/**
@@ -429,6 +412,16 @@ public class FileManagerEntryWrapper
 	@Override
 	public void setAppId(String appId) {
 		model.setAppId(appId);
+	}
+
+	/**
+	 * Sets the business ID of this file manager entry.
+	 *
+	 * @param businessId the business ID of this file manager entry
+	 */
+	@Override
+	public void setBusinessId(long businessId) {
+		model.setBusinessId(businessId);
 	}
 
 	/**
@@ -449,26 +442,6 @@ public class FileManagerEntryWrapper
 	@Override
 	public void setCreateDate(Date createDate) {
 		model.setCreateDate(createDate);
-	}
-
-	/**
-	 * Sets the creator ID of this file manager entry.
-	 *
-	 * @param creatorId the creator ID of this file manager entry
-	 */
-	@Override
-	public void setCreatorId(long creatorId) {
-		model.setCreatorId(creatorId);
-	}
-
-	/**
-	 * Sets the customer ID of this file manager entry.
-	 *
-	 * @param customerId the customer ID of this file manager entry
-	 */
-	@Override
-	public void setCustomerId(long customerId) {
-		model.setCustomerId(customerId);
 	}
 
 	/**
@@ -507,7 +480,7 @@ public class FileManagerEntryWrapper
 	 * @param fileSize the file size of this file manager entry
 	 */
 	@Override
-	public void setFileSize(String fileSize) {
+	public void setFileSize(Long fileSize) {
 		model.setFileSize(fileSize);
 	}
 
@@ -542,6 +515,16 @@ public class FileManagerEntryWrapper
 	}
 
 	/**
+	 * Sets the mime type of this file manager entry.
+	 *
+	 * @param mimeType the mime type of this file manager entry
+	 */
+	@Override
+	public void setMimeType(String mimeType) {
+		model.setMimeType(mimeType);
+	}
+
+	/**
 	 * Sets the modified date of this file manager entry.
 	 *
 	 * @param modifiedDate the modified date of this file manager entry
@@ -562,23 +545,13 @@ public class FileManagerEntryWrapper
 	}
 
 	/**
-	 * Sets the parent code of this file manager entry.
+	 * Sets the phase ID of this file manager entry.
 	 *
-	 * @param parentCode the parent code of this file manager entry
+	 * @param phaseId the phase ID of this file manager entry
 	 */
 	@Override
-	public void setParentCode(String parentCode) {
-		model.setParentCode(parentCode);
-	}
-
-	/**
-	 * Sets the pk type of this file manager entry.
-	 *
-	 * @param pkType the pk type of this file manager entry
-	 */
-	@Override
-	public void setPkType(String pkType) {
-		model.setPkType(pkType);
+	public void setPhaseId(Long phaseId) {
+		model.setPhaseId(phaseId);
 	}
 
 	/**
@@ -592,43 +565,13 @@ public class FileManagerEntryWrapper
 	}
 
 	/**
-	 * Sets the type of this file manager entry.
+	 * Sets the project ID of this file manager entry.
 	 *
-	 * @param type the type of this file manager entry
+	 * @param projectId the project ID of this file manager entry
 	 */
 	@Override
-	public void setType(String type) {
-		model.setType(type);
-	}
-
-	/**
-	 * Sets the user ID of this file manager entry.
-	 *
-	 * @param userId the user ID of this file manager entry
-	 */
-	@Override
-	public void setUserId(long userId) {
-		model.setUserId(userId);
-	}
-
-	/**
-	 * Sets the user name of this file manager entry.
-	 *
-	 * @param userName the user name of this file manager entry
-	 */
-	@Override
-	public void setUserName(String userName) {
-		model.setUserName(userName);
-	}
-
-	/**
-	 * Sets the user uuid of this file manager entry.
-	 *
-	 * @param userUuid the user uuid of this file manager entry
-	 */
-	@Override
-	public void setUserUuid(String userUuid) {
-		model.setUserUuid(userUuid);
+	public void setProjectId(Long projectId) {
+		model.setProjectId(projectId);
 	}
 
 	/**
@@ -639,6 +582,16 @@ public class FileManagerEntryWrapper
 	@Override
 	public void setUuid(String uuid) {
 		model.setUuid(uuid);
+	}
+
+	/**
+	 * Sets the work ID of this file manager entry.
+	 *
+	 * @param workId the work ID of this file manager entry
+	 */
+	@Override
+	public void setWorkId(Long workId) {
+		model.setWorkId(workId);
 	}
 
 	@Override

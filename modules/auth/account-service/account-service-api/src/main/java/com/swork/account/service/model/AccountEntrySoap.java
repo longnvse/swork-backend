@@ -46,12 +46,14 @@ public class AccountEntrySoap implements Serializable {
 		soapModel.setFullName(model.getFullName());
 		soapModel.setPhoneNumber(model.getPhoneNumber());
 		soapModel.setDateOfBirth(model.getDateOfBirth());
+		soapModel.setGender(model.getGender());
 		soapModel.setEmail(model.getEmail());
 		soapModel.setAddress(model.getAddress());
 		soapModel.setDepartmentId(model.getDepartmentId());
 		soapModel.setStatus(model.getStatus());
 		soapModel.setRole(model.getRole());
 		soapModel.setBusinessId(model.getBusinessId());
+		soapModel.setAvatar(model.getAvatar());
 
 		return soapModel;
 	}
@@ -209,6 +211,14 @@ public class AccountEntrySoap implements Serializable {
 		_dateOfBirth = dateOfBirth;
 	}
 
+	public Boolean getGender() {
+		return _gender;
+	}
+
+	public void setGender(Boolean gender) {
+		_gender = gender;
+	}
+
 	public String getEmail() {
 		return _email;
 	}
@@ -257,6 +267,14 @@ public class AccountEntrySoap implements Serializable {
 		_businessId = businessId;
 	}
 
+	public Long getAvatar() {
+		return _avatar;
+	}
+
+	public void setAvatar(Long avatar) {
+		_avatar = avatar;
+	}
+
 	private String _uuid;
 	private String _externalReferenceCode;
 	private long _accountId;
@@ -270,11 +288,13 @@ public class AccountEntrySoap implements Serializable {
 	private String _fullName;
 	private String _phoneNumber;
 	private Date _dateOfBirth;
+	private Boolean _gender;
 	private String _email;
 	private String _address;
 	private Long _departmentId;
 	private String _status;
 	private String _role;
 	private Long _businessId;
+	private Long _avatar;
 
 }

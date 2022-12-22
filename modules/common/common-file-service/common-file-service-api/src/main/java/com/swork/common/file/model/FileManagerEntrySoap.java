@@ -38,21 +38,20 @@ public class FileManagerEntrySoap implements Serializable {
 		soapModel.setId(model.getId());
 		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCompanyId(model.getCompanyId());
-		soapModel.setUserId(model.getUserId());
-		soapModel.setUserName(model.getUserName());
+		soapModel.setAccountId(model.getAccountId());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
-		soapModel.setCustomerId(model.getCustomerId());
-		soapModel.setCreatorId(model.getCreatorId());
+		soapModel.setBusinessId(model.getBusinessId());
 		soapModel.setFileId(model.getFileId());
-		soapModel.setParentCode(model.getParentCode());
 		soapModel.setFileType(model.getFileType());
-		soapModel.setType(model.getType());
-		soapModel.setPkType(model.getPkType());
 		soapModel.setFileName(model.getFileName());
 		soapModel.setFileSize(model.getFileSize());
+		soapModel.setMimeType(model.getMimeType());
 		soapModel.setModuleId(model.getModuleId());
 		soapModel.setAppId(model.getAppId());
+		soapModel.setProjectId(model.getProjectId());
+		soapModel.setPhaseId(model.getPhaseId());
+		soapModel.setWorkId(model.getWorkId());
 
 		return soapModel;
 	}
@@ -154,20 +153,12 @@ public class FileManagerEntrySoap implements Serializable {
 		_companyId = companyId;
 	}
 
-	public long getUserId() {
-		return _userId;
+	public long getAccountId() {
+		return _accountId;
 	}
 
-	public void setUserId(long userId) {
-		_userId = userId;
-	}
-
-	public String getUserName() {
-		return _userName;
-	}
-
-	public void setUserName(String userName) {
-		_userName = userName;
+	public void setAccountId(long accountId) {
+		_accountId = accountId;
 	}
 
 	public Date getCreateDate() {
@@ -186,20 +177,12 @@ public class FileManagerEntrySoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
-	public long getCustomerId() {
-		return _customerId;
+	public long getBusinessId() {
+		return _businessId;
 	}
 
-	public void setCustomerId(long customerId) {
-		_customerId = customerId;
-	}
-
-	public long getCreatorId() {
-		return _creatorId;
-	}
-
-	public void setCreatorId(long creatorId) {
-		_creatorId = creatorId;
+	public void setBusinessId(long businessId) {
+		_businessId = businessId;
 	}
 
 	public long getFileId() {
@@ -210,36 +193,12 @@ public class FileManagerEntrySoap implements Serializable {
 		_fileId = fileId;
 	}
 
-	public String getParentCode() {
-		return _parentCode;
-	}
-
-	public void setParentCode(String parentCode) {
-		_parentCode = parentCode;
-	}
-
 	public String getFileType() {
 		return _fileType;
 	}
 
 	public void setFileType(String fileType) {
 		_fileType = fileType;
-	}
-
-	public String getType() {
-		return _type;
-	}
-
-	public void setType(String type) {
-		_type = type;
-	}
-
-	public String getPkType() {
-		return _pkType;
-	}
-
-	public void setPkType(String pkType) {
-		_pkType = pkType;
 	}
 
 	public String getFileName() {
@@ -250,12 +209,20 @@ public class FileManagerEntrySoap implements Serializable {
 		_fileName = fileName;
 	}
 
-	public String getFileSize() {
+	public Long getFileSize() {
 		return _fileSize;
 	}
 
-	public void setFileSize(String fileSize) {
+	public void setFileSize(Long fileSize) {
 		_fileSize = fileSize;
+	}
+
+	public String getMimeType() {
+		return _mimeType;
+	}
+
+	public void setMimeType(String mimeType) {
+		_mimeType = mimeType;
 	}
 
 	public String getModuleId() {
@@ -274,25 +241,48 @@ public class FileManagerEntrySoap implements Serializable {
 		_appId = appId;
 	}
 
+	public Long getProjectId() {
+		return _projectId;
+	}
+
+	public void setProjectId(Long projectId) {
+		_projectId = projectId;
+	}
+
+	public Long getPhaseId() {
+		return _phaseId;
+	}
+
+	public void setPhaseId(Long phaseId) {
+		_phaseId = phaseId;
+	}
+
+	public Long getWorkId() {
+		return _workId;
+	}
+
+	public void setWorkId(Long workId) {
+		_workId = workId;
+	}
+
 	private String _uuid;
 	private String _externalReferenceCode;
 	private long _id;
 	private long _groupId;
 	private long _companyId;
-	private long _userId;
-	private String _userName;
+	private long _accountId;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private long _customerId;
-	private long _creatorId;
+	private long _businessId;
 	private long _fileId;
-	private String _parentCode;
 	private String _fileType;
-	private String _type;
-	private String _pkType;
 	private String _fileName;
-	private String _fileSize;
+	private Long _fileSize;
+	private String _mimeType;
 	private String _moduleId;
 	private String _appId;
+	private Long _projectId;
+	private Long _phaseId;
+	private Long _workId;
 
 }

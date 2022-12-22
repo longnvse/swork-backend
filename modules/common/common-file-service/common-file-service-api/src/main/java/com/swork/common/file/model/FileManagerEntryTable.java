@@ -45,38 +45,35 @@ public class FileManagerEntryTable extends BaseTable<FileManagerEntryTable> {
 		"groupId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<FileManagerEntryTable, Long> companyId = createColumn(
 		"companyId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
-	public final Column<FileManagerEntryTable, Long> userId = createColumn(
-		"userId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
-	public final Column<FileManagerEntryTable, String> userName = createColumn(
-		"userName", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<FileManagerEntryTable, Long> accountId = createColumn(
+		"accountId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<FileManagerEntryTable, Date> createDate = createColumn(
 		"createDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<FileManagerEntryTable, Date> modifiedDate =
 		createColumn(
 			"modifiedDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
-	public final Column<FileManagerEntryTable, Long> customerId = createColumn(
-		"customerId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
-	public final Column<FileManagerEntryTable, Long> creatorId = createColumn(
-		"creatorId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<FileManagerEntryTable, Long> businessId = createColumn(
+		"businessId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<FileManagerEntryTable, Long> fileId = createColumn(
 		"fileId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
-	public final Column<FileManagerEntryTable, String> parentCode =
-		createColumn(
-			"parentCode", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<FileManagerEntryTable, String> fileType = createColumn(
 		"fileType", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<FileManagerEntryTable, String> type = createColumn(
-		"type_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<FileManagerEntryTable, String> pkType = createColumn(
-		"pkType", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<FileManagerEntryTable, String> fileName = createColumn(
 		"fileName", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<FileManagerEntryTable, String> fileSize = createColumn(
-		"fileSize", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<FileManagerEntryTable, Long> fileSize = createColumn(
+		"fileSize", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<FileManagerEntryTable, String> mimeType = createColumn(
+		"mimeType", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<FileManagerEntryTable, String> moduleId = createColumn(
 		"moduleId", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<FileManagerEntryTable, String> appId = createColumn(
 		"appId", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<FileManagerEntryTable, Long> projectId = createColumn(
+		"projectId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<FileManagerEntryTable, Long> phaseId = createColumn(
+		"phaseId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<FileManagerEntryTable, Long> workId = createColumn(
+		"workId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private FileManagerEntryTable() {
 		super("SW_FileManager", FileManagerEntryTable::new);

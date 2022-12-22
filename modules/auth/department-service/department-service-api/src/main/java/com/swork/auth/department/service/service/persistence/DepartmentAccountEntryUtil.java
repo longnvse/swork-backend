@@ -732,6 +732,182 @@ public class DepartmentAccountEntryUtil {
 	}
 
 	/**
+	 * Returns all the department account entries where accountId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @return the matching department account entries
+	 */
+	public static List<DepartmentAccountEntry> findByAccountId(long accountId) {
+		return getPersistence().findByAccountId(accountId);
+	}
+
+	/**
+	 * Returns a range of all the department account entries where accountId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>DepartmentAccountEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param start the lower bound of the range of department account entries
+	 * @param end the upper bound of the range of department account entries (not inclusive)
+	 * @return the range of matching department account entries
+	 */
+	public static List<DepartmentAccountEntry> findByAccountId(
+		long accountId, int start, int end) {
+
+		return getPersistence().findByAccountId(accountId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the department account entries where accountId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>DepartmentAccountEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param start the lower bound of the range of department account entries
+	 * @param end the upper bound of the range of department account entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching department account entries
+	 */
+	public static List<DepartmentAccountEntry> findByAccountId(
+		long accountId, int start, int end,
+		OrderByComparator<DepartmentAccountEntry> orderByComparator) {
+
+		return getPersistence().findByAccountId(
+			accountId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the department account entries where accountId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>DepartmentAccountEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param start the lower bound of the range of department account entries
+	 * @param end the upper bound of the range of department account entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching department account entries
+	 */
+	public static List<DepartmentAccountEntry> findByAccountId(
+		long accountId, int start, int end,
+		OrderByComparator<DepartmentAccountEntry> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByAccountId(
+			accountId, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first department account entry in the ordered set where accountId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching department account entry
+	 * @throws NoSuchDepartmentAccountEntryException if a matching department account entry could not be found
+	 */
+	public static DepartmentAccountEntry findByAccountId_First(
+			long accountId,
+			OrderByComparator<DepartmentAccountEntry> orderByComparator)
+		throws com.swork.auth.department.service.exception.
+			NoSuchDepartmentAccountEntryException {
+
+		return getPersistence().findByAccountId_First(
+			accountId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first department account entry in the ordered set where accountId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching department account entry, or <code>null</code> if a matching department account entry could not be found
+	 */
+	public static DepartmentAccountEntry fetchByAccountId_First(
+		long accountId,
+		OrderByComparator<DepartmentAccountEntry> orderByComparator) {
+
+		return getPersistence().fetchByAccountId_First(
+			accountId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last department account entry in the ordered set where accountId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching department account entry
+	 * @throws NoSuchDepartmentAccountEntryException if a matching department account entry could not be found
+	 */
+	public static DepartmentAccountEntry findByAccountId_Last(
+			long accountId,
+			OrderByComparator<DepartmentAccountEntry> orderByComparator)
+		throws com.swork.auth.department.service.exception.
+			NoSuchDepartmentAccountEntryException {
+
+		return getPersistence().findByAccountId_Last(
+			accountId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last department account entry in the ordered set where accountId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching department account entry, or <code>null</code> if a matching department account entry could not be found
+	 */
+	public static DepartmentAccountEntry fetchByAccountId_Last(
+		long accountId,
+		OrderByComparator<DepartmentAccountEntry> orderByComparator) {
+
+		return getPersistence().fetchByAccountId_Last(
+			accountId, orderByComparator);
+	}
+
+	/**
+	 * Returns the department account entries before and after the current department account entry in the ordered set where accountId = &#63;.
+	 *
+	 * @param departmentAccountId the primary key of the current department account entry
+	 * @param accountId the account ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next department account entry
+	 * @throws NoSuchDepartmentAccountEntryException if a department account entry with the primary key could not be found
+	 */
+	public static DepartmentAccountEntry[] findByAccountId_PrevAndNext(
+			long departmentAccountId, long accountId,
+			OrderByComparator<DepartmentAccountEntry> orderByComparator)
+		throws com.swork.auth.department.service.exception.
+			NoSuchDepartmentAccountEntryException {
+
+		return getPersistence().findByAccountId_PrevAndNext(
+			departmentAccountId, accountId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the department account entries where accountId = &#63; from the database.
+	 *
+	 * @param accountId the account ID
+	 */
+	public static void removeByAccountId(long accountId) {
+		getPersistence().removeByAccountId(accountId);
+	}
+
+	/**
+	 * Returns the number of department account entries where accountId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @return the number of matching department account entries
+	 */
+	public static int countByAccountId(long accountId) {
+		return getPersistence().countByAccountId(accountId);
+	}
+
+	/**
 	 * Returns the department account entry where companyId = &#63; and externalReferenceCode = &#63; or throws a <code>NoSuchDepartmentAccountEntryException</code> if it could not be found.
 	 *
 	 * @param companyId the company ID

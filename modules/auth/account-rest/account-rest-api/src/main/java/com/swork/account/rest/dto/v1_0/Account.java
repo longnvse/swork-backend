@@ -78,6 +78,34 @@ public class Account implements Serializable {
 	protected String address;
 
 	@Schema
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	@JsonIgnore
+	public void setAvatar(
+		UnsafeSupplier<String, Exception> avatarUnsafeSupplier) {
+
+		try {
+			avatar = avatarUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String avatar;
+
+	@Schema
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -132,6 +160,34 @@ public class Account implements Serializable {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Date dateOfBirth;
+
+	@Schema
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	@JsonIgnore
+	public void setDepartmentName(
+		UnsafeSupplier<String, Exception> departmentNameUnsafeSupplier) {
+
+		try {
+			departmentName = departmentNameUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String departmentName;
 
 	@Schema
 	public String getEmail() {
@@ -218,6 +274,34 @@ public class Account implements Serializable {
 	protected String fullName;
 
 	@Schema
+	public Boolean getGender() {
+		return gender;
+	}
+
+	public void setGender(Boolean gender) {
+		this.gender = gender;
+	}
+
+	@JsonIgnore
+	public void setGender(
+		UnsafeSupplier<Boolean, Exception> genderUnsafeSupplier) {
+
+		try {
+			gender = genderUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean gender;
+
+	@Schema
 	public Long getId() {
 		return id;
 	}
@@ -242,34 +326,6 @@ public class Account implements Serializable {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long id;
-
-	@Schema
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	@JsonIgnore
-	public void setPassword(
-		UnsafeSupplier<String, Exception> passwordUnsafeSupplier) {
-
-		try {
-			password = passwordUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected String password;
 
 	@Schema
 	public String getPhoneNumber() {
@@ -409,6 +465,20 @@ public class Account implements Serializable {
 			sb.append("\"");
 		}
 
+		if (avatar != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"avatar\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(avatar));
+
+			sb.append("\"");
+		}
+
 		if (createDate != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -433,6 +503,20 @@ public class Account implements Serializable {
 			sb.append("\"");
 
 			sb.append(liferayToJSONDateFormat.format(dateOfBirth));
+
+			sb.append("\"");
+		}
+
+		if (departmentName != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"departmentName\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(departmentName));
 
 			sb.append("\"");
 		}
@@ -479,6 +563,16 @@ public class Account implements Serializable {
 			sb.append("\"");
 		}
 
+		if (gender != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"gender\": ");
+
+			sb.append(gender);
+		}
+
 		if (id != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -487,20 +581,6 @@ public class Account implements Serializable {
 			sb.append("\"id\": ");
 
 			sb.append(id);
-		}
-
-		if (password != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"password\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(password));
-
-			sb.append("\"");
 		}
 
 		if (phoneNumber != null) {

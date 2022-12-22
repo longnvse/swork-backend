@@ -38,7 +38,9 @@ public class ProjectHandleMapper {
         ProjectMemberMapperModel to = new ProjectMemberMapperModel();
 
         to.setMemberId(from.getMemberId());
-        to.setMemberType(from.getMemberType().getValue());
+        if (Validator.isNotNull(from.getMemberType())) {
+            to.setMemberType(from.getMemberType().getValue());
+        }
         to.setMemberReferenceCode(from.getMemberReferenceCode());
 
         return to;

@@ -1,6 +1,7 @@
 package com.swork.account.rest.internal.validator;
 
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.vulcan.multipart.MultipartBody;
 import com.swork.account.rest.dto.v1_0.Account;
 import com.swork.account.rest.dto.v1_0.ChangePassword;
 import com.swork.account.rest.dto.v1_0.ResetPassword;
@@ -24,6 +25,18 @@ public class AccountValidator {
     public static final String VALID_PHONE_NUMBER_REGEX = "^\\(?([0-9]{3})\\)?([ .-]?)([0-9]{3})\\2([0-9]{4})$";
     public static final String VALID_PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,20}$";
 
+    public static final long MAX_SIZE_AVATAR = 10485760;
+
+    public void validateForUpdateAvatar(MultipartBody multipartBody) throws SW_BadRequestException {
+        long fileSize = multipartBody.getBinaryFile("file").getSize();
+
+        if (fileSize <= MAX_SIZE_AVATAR) {
+            return;
+        }
+
+        throw new SW_BadRequestException(languageService.getMessage(LanguageKeys.AVATAR_INVALID_SIZE));
+
+    }
 
     public void validatorForPostAccount(Account account) throws SW_DataInputException,
             SW_FieldRequiredException, SW_FieldDuplicateException {

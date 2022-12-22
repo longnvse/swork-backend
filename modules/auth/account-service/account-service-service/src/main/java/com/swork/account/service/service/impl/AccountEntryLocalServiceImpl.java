@@ -45,6 +45,7 @@ public class AccountEntryLocalServiceImpl
                                         String password,
                                         String fullName,
                                         Date dateOfBirth,
+                                        Boolean gender,
                                         String email,
                                         String phoneNumber,
                                         String address,
@@ -68,6 +69,8 @@ public class AccountEntryLocalServiceImpl
         entry.setPhoneNumber(GetterUtil.getString(phoneNumber).trim());
         entry.setAddress(address);
         entry.setRole(Role.USER.getValue());
+        entry.setGender(gender);
+
         return addAccountEntry(entry);
 
     }
@@ -129,6 +132,7 @@ public class AccountEntryLocalServiceImpl
                                            String email,
                                            String phoneNumber,
                                            String address,
+                                           Boolean gender,
                                            ServiceContext serviceContext) {
         AccountEntry entry = fetchAccountEntry(accountId);
 
@@ -143,6 +147,7 @@ public class AccountEntryLocalServiceImpl
         entry.setPhoneNumber(GetterUtil.getString(phoneNumber).trim());
         entry.setAddress(address);
         entry.setDateOfBirth(dateOfBirth);
+        entry.setGender(gender);
 
         return updateAccountEntry(entry);
     }
@@ -166,6 +171,23 @@ public class AccountEntryLocalServiceImpl
         entry.setStatus(status);
 
         return updateAccountEntry(entry);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public AccountEntry updateAvatar(long accountId,
+                                     long fileId,
+                                     ServiceContext serviceContext) {
+        AccountEntry accountEntry = fetchAccountEntry(accountId);
+
+        updateModifierAudit(
+                accountEntry,
+                new Date(),
+                serviceContext
+        );
+
+        accountEntry.setAvatar(fileId);
+
+        return updateAccountEntry(accountEntry);
     }
 
     public AccountEntry findByEmail(String email) {

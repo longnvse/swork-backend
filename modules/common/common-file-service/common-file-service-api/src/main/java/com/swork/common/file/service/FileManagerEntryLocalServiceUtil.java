@@ -46,12 +46,14 @@ public class FileManagerEntryLocalServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.swork.common.file.service.impl.FileManagerEntryLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static FileManagerEntry addFileManager(
-		long customerId, long userId,
+		long businessId, long creatorId, Long projectId, Long phaseId,
+		Long workId,
 		com.swork.common.file.mapper.model.FileManagerMapperModel model,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().addFileManager(
-			customerId, userId, model, serviceContext);
+			businessId, creatorId, projectId, phaseId, workId, model,
+			serviceContext);
 	}
 
 	/**
@@ -364,9 +366,9 @@ public class FileManagerEntryLocalServiceUtil {
 	}
 
 	public static FileManagerEntry getFileManagerEntryByFileId(
-		long fileId, long customerId) {
+		long fileId, long businessId) {
 
-		return getService().getFileManagerEntryByFileId(fileId, customerId);
+		return getService().getFileManagerEntryByFileId(fileId, businessId);
 	}
 
 	/**
@@ -409,15 +411,6 @@ public class FileManagerEntryLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static FileManagerEntry updateFileManager(
-		long fileManagerId,
-		com.swork.common.file.mapper.model.FileManagerMapperModel model,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
-
-		return getService().updateFileManager(
-			fileManagerId, model, serviceContext);
-	}
-
 	/**
 	 * Updates the file manager entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -432,6 +425,13 @@ public class FileManagerEntryLocalServiceUtil {
 		FileManagerEntry fileManagerEntry) {
 
 		return getService().updateFileManagerEntry(fileManagerEntry);
+	}
+
+	public static FileManagerEntry updateFileName(
+		long fileManagerId, String name,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateFileName(fileManagerId, name, serviceContext);
 	}
 
 	public static FileManagerEntryLocalService getService() {

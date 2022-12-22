@@ -87,8 +87,8 @@ public interface AccountEntryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public AccountEntry addAccountEntry(
 		long creatorId, long businessId, String username, String password,
-		String fullName, Date dateOfBirth, String email, String phoneNumber,
-		String address, ServiceContext serviceContext);
+		String fullName, Date dateOfBirth, Boolean gender, String email,
+		String phoneNumber, String address, ServiceContext serviceContext);
 
 	@Indexable(type = IndexableType.REINDEX)
 	public AccountEntry addAccountSuperAdmin(
@@ -389,8 +389,12 @@ public interface AccountEntryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public AccountEntry updateAccountEntry(
 		long creatorId, long accountId, String fullName, Date dateOfBirth,
-		String email, String phoneNumber, String address,
+		String email, String phoneNumber, String address, Boolean gender,
 		ServiceContext serviceContext);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public AccountEntry updateAvatar(
+		long accountId, long fileId, ServiceContext serviceContext);
 
 	@Indexable(type = IndexableType.REINDEX)
 	public AccountEntry updateStatus(

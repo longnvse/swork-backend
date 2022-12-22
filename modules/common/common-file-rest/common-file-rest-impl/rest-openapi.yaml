@@ -1,319 +1,187 @@
 components:
-    schemas:
-        Metadata:
-            description: Metadata model
-            properties:
-                moduleId:
-                    type: string
-                    example: "PROJECT"
-                appId:
-                    type: string
-                    example: "PROJECT"
-            type: object
-
-        FileRes:
-            description: File model
-            properties:
-                id:
-                    format: int64
-                    readOnly: true
-                    type: integer
-                fileName:
-                    readOnly: true
-                    type: string
-                fileSize:
-                    readOnly: true
-                    type: string
-                mimeType:
-                    readOnly: true
-                    type: string
-                metadata:
-                    allOf:
-                        - $ref: "#/components/schemas/Metadata"
-
-        FileUpdate:
-            type: object
-            properties:
-                url:
-                    type: string
-                size:
-                    type: integer
-                    format: int64
-                    readOnly: true
-
-        FileData:
-            description: File Preview
-            properties:
-                id:
-                    format: int64
-                    readOnly: true
-                    type: integer
-                fileType:
-                    type: string
-                type:
-                    type: string
-                title:
-                    type: string
-                key:
-                    type: string
-                url:
-                    type: string
-                documentType:
-                    type: string
-                data:
-                    type: string
-                    format: binary
-                size:
-                    type: integer
-                    format: int64
-
-        FileManager:
-            description: upload file
-            properties:
-                fileId:
-                    description: id of the file in the dlfileentry table.
-                    type: integer
-                    format: int64
-                parentCode:
-                    type: string
-                fileType:
-                    type: string
-                    readOnly: true
-                fileName:
-                    type: string
-                    readOnly: true
-                fileSize:
-                    type: string
-                    readOnly: true
-                mineType:
-                    type: string
-                    readOnly: true
-                metadata:
-                    allOf:
-                        - $ref: "#/components/schemas/Metadata"
-
-        DocumentBrief:
-            properties:
-                id:
-                    type: integer
-                    format: int64
-                name:
-                    type: string
-                category:
-                    type: string
-                documentBriefs:
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/DocumentBrief"
-
-
+  schemas:
+    Metadata:
+      description: Metadata model
+      properties:
+        moduleId:
+          type: string
+          example: "PROJECT"
+        appId:
+          type: string
+          example: "PROJECT"
+      type: object
+    FileManager:
+      description: upload file
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        fileId:
+          description: id of the file in the dlfileentry table.
+          type: integer
+          format: int64
+          readOnly: true
+        fileType:
+          type: string
+          readOnly: true
+        fileName:
+          type: string
+          readOnly: true
+        fileSize:
+          type: integer
+          format: int64
+          readOnly: true
+        mineType:
+          type: string
+          readOnly: true
+        urlDownload:
+          type: string
+          readOnly: true
+        creatorId:
+          type: integer
+          format: int64
+          readOnly: true
+        createDate:
+          type: string
+          format: date-time
+          readOnly: true
+    FileDelete:
+      properties:
+        ids:
+          type: array
+          items:
+            type: integer
+            format: int64
 info:
-    description: "FilesManagerRest REST API"
-    license:
-        name: "Apache 2.0"
-        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-    title: "FilesManagerRest"
-    version: v2.0
+  description: "FilesManagerRest REST API"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  title: "FilesManagerRest"
+  version: v1.0
 openapi: 3.0.1
 
 paths:
-    /files:
-        post:
-            tags:
-                - Files
-            operationId: postFile
-            requestBody:
-                content:
-                    multipart/form-data:
-                        schema:
-                            properties:
-                                metadata:
-                                    $ref: "#/components/schemas/Metadata"
-                                file:
-                                    format: binary
-                                    type: string
-                required: true
-
-            responses:
-                200:
-                    description:
-                        "File"
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/FileRes"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/FileRes"
-    /files/{fileId}/download:
-        get:
-            tags: ["Files"]
-            operationId: getFileDownload
-            parameters:
-                - in: path
-                  explode: false
-                  name: fileId
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-            responses:
-                200:
-                    description:
-                        "File URL Download"
-                    content:
-                        text/plain:
-                            schema:
-                                type: string
-                                example: pong
-    /files/{fileId}:
-        get:
-            tags:
-                - Files
-            operationId: getFileById
-            parameters:
-                - in: path
-                  explode: false
-                  name: fileId
-                  required: true
-                  schema:
-                      description:
-                          The resource Id
-                      example: 30130
-                      format: int64
-                      minimum: 0
-                      type: integer
-                  style: simple
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/FileData"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/FileData"
-                    description: "getFileReview"
-
-    "/file-managers":
-        post:
-            operationId: postFileManager
-            summary: Add new File Manager
-
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/FileManager"
-
-                    application/xml:
-                        schema:
-                            $ref: "#/components/schemas/FileManager"
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/FileManager"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/FileManager"
-                    description: ""
-            tags: [ "FileManager" ]
-
-        get:
-            operationId: getAllFileManager
-            summary: Get list Media File
-            description: Retrieves the Media File . Results can be paginated, filtered, searched, and sorted.
-            tags: [ "FileManager" ]
-            parameters:
-
-
-                - in: query
-                  name: parentCode
-                  description: class parent name
-                  required: true
-                  schema:
-                      type: string
-            responses:
-                200:
-                    description: A paged array of file manager
-                    content:
-                        application/json:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/FileManager"
-                                type: array
-                        application/xml:
-                            schema:
-                                items:
-                                    $ref: "#/components/schemas/FileManager"
-                                type: array
-
-    "/file-managers/{fileId}":
-        delete:
-            operationId: deleteFileManager
-            summary: delete new File Manager
-            parameters:
-                - name: fileId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      format: int64
-
-            responses:
-                204:
-                    content:
-                        application/json: { }
-                        application/xml: { }
-                    description: ""
-            tags: [ "FileManager" ]
-        get:
-            operationId: getFileManager
-            summary: Get File Manager
-            parameters:
-                - in: path
-                  name: fileId
-                  description: File ID
-                  required: true
-                  schema:
-                      type: integer
-                      format: int64
-            responses:
-                200:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/FileManager"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/FileManager"
-                    description: ""
-
-            tags: [ "FileManager" ]
-    "/file-managers/delete-parrent":
-        delete:
-            operationId: deleteMediaFiles
-            summary: Delete dad id Media file by ID
-            parameters:
-
-                - in: query
-                  name: parentCode
-                  description: class parent name
-                  required: true
-                  schema:
-                      type: string
-
-            responses:
-                204:
-                    content:
-                        application/json: { }
-                        application/xml: { }
-                    description: ""
-            tags: [ "FileManager" ]
+  /files:
+    post:
+      tags:
+        - FileManager
+      operationId: postFile
+      parameters:
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: phaseId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: workId
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                metadata:
+                  $ref: "#/components/schemas/Metadata"
+                file:
+                  format: binary
+                  type: string
+        required: true
+      responses:
+        200:
+          description:
+            "File"
+          content:
+            application/json: { }
+            application/xml: { }
+  "/file-managers":
+    get:
+      operationId: getFileManagerPages
+      summary: Get list File Manager
+      description: Retrieves the File List . Results can be paginated, filtered, searched, and sorted.
+      tags: [ "FileManager" ]
+      parameters:
+        - in: query
+          name: projectId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: phaseId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: workId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: moduleId
+          schema:
+            type: string
+        - in: query
+          name: appId
+          schema:
+            type: string
+        - in: query
+          name: filter
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: sort
+          schema:
+            type: string
+      responses:
+        200:
+          description: A paged array of file manager
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/FileManager"
+                type: array
+            application/xml:
+              schema:
+                items:
+                  $ref: "#/components/schemas/FileManager"
+                type: array
+    delete:
+      operationId: deleteFileManagers
+      summary: delete new File Manager
+      parameters:
+        - name: fileIds
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+      responses:
+        204:
+          content:
+            application/json: { }
+            application/xml: { }
+          description: ""
+      tags: [ "FileManager" ]

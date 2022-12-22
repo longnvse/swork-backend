@@ -24,28 +24,28 @@
 		<!-- Audit fields -->
 
 		<column name="companyId" type="long"/>
-		<column name="userId" type="long"/>
-		<column name="userName" type="String"/>
+		<column name="accountId" type="long"/>
 		<column name="createDate" type="Date"/>
 		<column name="modifiedDate" type="Date"/>
-		<column name="customerId" type="long"/>
-		<column name="creatorId" type="long"/>
+		<column name="businessId" type="long"/>
 
 		<!-- Other fields -->
 
 		<column name="fileId" type="long"/>
-		<column name="parentCode" type="String"/>
 		<column name="fileType" type="String"/>
-		<column name="type" type="String"/>
-		<column name="pkType" type="String"/>
 		<column name="fileName" type="String"/>
-		<column name="fileSize" type="String"/>
+		<column name="fileSize" type="Long"/>
+		<column name="mimeType" type="String"/>
 		<column name="moduleId" type="String"/>
 		<column name="appId" type="String"/>
+		<column name="projectId" type="Long"/>
+		<column name="phaseId" type="Long"/>
+		<column name="workId" type="Long"/>
+
 
 		<finder name="F_C" return-type="FileManagerEntry">
 			<finder-column name="fileId"/>
-			<finder-column name="customerId"/>
+			<finder-column name="businessId"/>
 		</finder>
 
 	</entity>

@@ -56,7 +56,6 @@ public class WorkService {
                         TermFilter parentIdFilter =
                                 new TermFilter(SearchFields.PARENT_ID, String.valueOf(GetterUtil.DEFAULT_LONG));
                         booleanFilter.add(parentIdFilter, BooleanClauseOccur.MUST);
-
                     }
 
                     if (Validator.isNotNull(projectId)) {

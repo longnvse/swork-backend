@@ -35,12 +35,14 @@ public class FileManagerEntryLocalServiceWrapper
 
 	@Override
 	public com.swork.common.file.model.FileManagerEntry addFileManager(
-		long customerId, long userId,
+		long businessId, long creatorId, Long projectId, Long phaseId,
+		Long workId,
 		com.swork.common.file.mapper.model.FileManagerMapperModel model,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _fileManagerEntryLocalService.addFileManager(
-			customerId, userId, model, serviceContext);
+			businessId, creatorId, projectId, phaseId, workId, model,
+			serviceContext);
 	}
 
 	/**
@@ -410,10 +412,10 @@ public class FileManagerEntryLocalServiceWrapper
 
 	@Override
 	public com.swork.common.file.model.FileManagerEntry
-		getFileManagerEntryByFileId(long fileId, long customerId) {
+		getFileManagerEntryByFileId(long fileId, long businessId) {
 
 		return _fileManagerEntryLocalService.getFileManagerEntryByFileId(
-			fileId, customerId);
+			fileId, businessId);
 	}
 
 	/**
@@ -462,16 +464,6 @@ public class FileManagerEntryLocalServiceWrapper
 		return _fileManagerEntryLocalService.getPersistedModel(primaryKeyObj);
 	}
 
-	@Override
-	public com.swork.common.file.model.FileManagerEntry updateFileManager(
-		long fileManagerId,
-		com.swork.common.file.mapper.model.FileManagerMapperModel model,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
-
-		return _fileManagerEntryLocalService.updateFileManager(
-			fileManagerId, model, serviceContext);
-	}
-
 	/**
 	 * Updates the file manager entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -488,6 +480,15 @@ public class FileManagerEntryLocalServiceWrapper
 
 		return _fileManagerEntryLocalService.updateFileManagerEntry(
 			fileManagerEntry);
+	}
+
+	@Override
+	public com.swork.common.file.model.FileManagerEntry updateFileName(
+		long fileManagerId, String name,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _fileManagerEntryLocalService.updateFileName(
+			fileManagerId, name, serviceContext);
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.odata.filter.ExpressionConvert;
 import com.liferay.portal.odata.filter.FilterParserProvider;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
+import com.liferay.portal.vulcan.multipart.MultipartBody;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
@@ -78,6 +79,10 @@ public interface AccountResource {
 	public void putAccountInfo(Account account) throws Exception;
 
 	public void resetPassword(ResetPassword resetPassword) throws Exception;
+
+	public Response updateAvatar(MultipartBody multipartBody) throws Exception;
+
+	public Page<Account> getListAccount(Long[] accountIds) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

@@ -12,5 +12,6 @@ public class LanguageKeys {
     public static final String OLD_PASSWORD_INVALID = "account.old.password.invalid";
     public static final String NEW_PASSWORD_NOT_MATCH = "account.new.password.not.match";
     public static final String NEW_PASSWORD_INVALID = "account.new.password.invalid";
+    public static final String AVATAR_INVALID_SIZE = "account.avatar.invalid.size";
 
 }

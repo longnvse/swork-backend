@@ -1,24 +1,14 @@
 package com.swork.common.file.mapper.model;
 
 public class FileManagerMapperModel {
-    private long fileManagerId ;
-    private long fileId ;
-    private String parentCode ;
-    private String fileType ;
-    private String type ;
-    private String pkType;
+    private long fileId;
+    private String fileType;
+    private String type;
     private String fileName;
-    private String fileSize;
+    private Long fileSize;
+    private String mimeType;
     private String moduleId;
     private String appId;
-
-    public long getFileManagerId() {
-        return fileManagerId;
-    }
-
-    public void setFileManagerId(long fileManagerId) {
-        this.fileManagerId = fileManagerId;
-    }
 
     public long getFileId() {
         return fileId;
@@ -26,14 +16,6 @@ public class FileManagerMapperModel {
 
     public void setFileId(long fileId) {
         this.fileId = fileId;
-    }
-
-    public String getParentCode() {
-        return parentCode;
-    }
-
-    public void setParentCode(String parentCode) {
-        this.parentCode = parentCode;
     }
 
     public String getFileType() {
@@ -52,14 +34,6 @@ public class FileManagerMapperModel {
         this.type = type;
     }
 
-    public String getPkType() {
-        return pkType;
-    }
-
-    public void setPkType(String pkType) {
-        this.pkType = pkType;
-    }
-
     public String getFileName() {
         return fileName;
     }
@@ -68,11 +42,11 @@ public class FileManagerMapperModel {
         this.fileName = fileName;
     }
 
-    public String getFileSize() {
+    public Long getFileSize() {
         return fileSize;
     }
 
-    public void setFileSize(String fileSize) {
+    public void setFileSize(Long fileSize) {
         this.fileSize = fileSize;
     }
 
@@ -90,5 +64,13 @@ public class FileManagerMapperModel {
 
     public void setAppId(String appId) {
         this.appId = appId;
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
     }
 }

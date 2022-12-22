@@ -241,6 +241,8 @@ public interface DepartmentEntryLocalService
 	public DepartmentEntry fetchDepartmentEntryByUuidAndGroupId(
 		String uuid, long groupId);
 
+	public DepartmentEntry findByAccount(long accountId);
+
 	public DepartmentEntry findByName(String name);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

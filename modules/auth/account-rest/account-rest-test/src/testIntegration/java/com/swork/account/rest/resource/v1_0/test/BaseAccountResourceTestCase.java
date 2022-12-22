@@ -174,10 +174,11 @@ public abstract class BaseAccountResourceTestCase {
 		Account account = randomAccount();
 
 		account.setAddress(regex);
+		account.setAvatar(regex);
+		account.setDepartmentName(regex);
 		account.setEmail(regex);
 		account.setExternalReferenceCode(regex);
 		account.setFullName(regex);
-		account.setPassword(regex);
 		account.setPhoneNumber(regex);
 		account.setUsername(regex);
 
@@ -188,10 +189,11 @@ public abstract class BaseAccountResourceTestCase {
 		account = AccountSerDes.toDTO(json);
 
 		Assert.assertEquals(regex, account.getAddress());
+		Assert.assertEquals(regex, account.getAvatar());
+		Assert.assertEquals(regex, account.getDepartmentName());
 		Assert.assertEquals(regex, account.getEmail());
 		Assert.assertEquals(regex, account.getExternalReferenceCode());
 		Assert.assertEquals(regex, account.getFullName());
-		Assert.assertEquals(regex, account.getPassword());
 		Assert.assertEquals(regex, account.getPhoneNumber());
 		Assert.assertEquals(regex, account.getUsername());
 	}
@@ -724,6 +726,41 @@ public abstract class BaseAccountResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testUpdateAvatar() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testGetListAccount() throws Exception {
+		Page<Account> page = accountResource.getListAccount(null);
+
+		long totalCount = page.getTotalCount();
+
+		Account account1 = testGetListAccount_addAccount(randomAccount());
+
+		Account account2 = testGetListAccount_addAccount(randomAccount());
+
+		page = accountResource.getListAccount(null);
+
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
+
+		assertContains(account1, (List<Account>)page.getItems());
+		assertContains(account2, (List<Account>)page.getItems());
+		assertValid(page);
+
+		accountResource.deleteAccount(account1.getId());
+
+		accountResource.deleteAccount(account2.getId());
+	}
+
+	protected Account testGetListAccount_addAccount(Account account)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 
@@ -812,6 +849,14 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("avatar", additionalAssertFieldName)) {
+				if (account.getAvatar() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("createDate", additionalAssertFieldName)) {
 				if (account.getCreateDate() == null) {
 					valid = false;
@@ -822,6 +867,14 @@ public abstract class BaseAccountResourceTestCase {
 
 			if (Objects.equals("dateOfBirth", additionalAssertFieldName)) {
 				if (account.getDateOfBirth() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("departmentName", additionalAssertFieldName)) {
+				if (account.getDepartmentName() == null) {
 					valid = false;
 				}
 
@@ -854,8 +907,8 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("password", additionalAssertFieldName)) {
-				if (account.getPassword() == null) {
+			if (Objects.equals("gender", additionalAssertFieldName)) {
+				if (account.getGender() == null) {
 					valid = false;
 				}
 
@@ -986,6 +1039,16 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("avatar", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getAvatar(), account2.getAvatar())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("createDate", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getCreateDate(), account2.getCreateDate())) {
@@ -999,6 +1062,17 @@ public abstract class BaseAccountResourceTestCase {
 			if (Objects.equals("dateOfBirth", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getDateOfBirth(), account2.getDateOfBirth())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("departmentName", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getDepartmentName(),
+						account2.getDepartmentName())) {
 
 					return false;
 				}
@@ -1039,18 +1113,18 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("id", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(account1.getId(), account2.getId())) {
+			if (Objects.equals("gender", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getGender(), account2.getGender())) {
+
 					return false;
 				}
 
 				continue;
 			}
 
-			if (Objects.equals("password", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						account1.getPassword(), account2.getPassword())) {
-
+			if (Objects.equals("id", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(account1.getId(), account2.getId())) {
 					return false;
 				}
 
@@ -1192,6 +1266,14 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("avatar")) {
+			sb.append("'");
+			sb.append(String.valueOf(account.getAvatar()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("createDate")) {
 			if (operator.equals("between")) {
 				sb = new StringBundler();
@@ -1254,6 +1336,14 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("departmentName")) {
+			sb.append("'");
+			sb.append(String.valueOf(account.getDepartmentName()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("email")) {
 			sb.append("'");
 			sb.append(String.valueOf(account.getEmail()));
@@ -1278,17 +1368,14 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("id")) {
+		if (entityFieldName.equals("gender")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("password")) {
-			sb.append("'");
-			sb.append(String.valueOf(account.getPassword()));
-			sb.append("'");
-
-			return sb.toString();
+		if (entityFieldName.equals("id")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("phoneNumber")) {
@@ -1357,8 +1444,11 @@ public abstract class BaseAccountResourceTestCase {
 		return new Account() {
 			{
 				address = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				avatar = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				createDate = RandomTestUtil.nextDate();
 				dateOfBirth = RandomTestUtil.nextDate();
+				departmentName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				email =
 					StringUtil.toLowerCase(RandomTestUtil.randomString()) +
 						"@liferay.com";
@@ -1366,9 +1456,8 @@ public abstract class BaseAccountResourceTestCase {
 					RandomTestUtil.randomString());
 				fullName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
+				gender = RandomTestUtil.randomBoolean();
 				id = RandomTestUtil.randomLong();
-				password = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
 				phoneNumber = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				username = StringUtil.toLowerCase(

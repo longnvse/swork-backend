@@ -4,7 +4,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.search.spi.model.index.contributor.ModelIndexerWriterContributor;
 import com.liferay.portal.search.spi.model.registrar.ModelSearchRegistrarHelper;
-import com.swork.common.file.constant.SearchField;
+import com.swork.common.file.constant.SearchFields;
 import com.swork.common.file.model.FileManagerEntry;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
@@ -41,7 +41,7 @@ public class FileManagerEntrySearchRegistrar {
 
     @Reference(
             target = StringPool.OPEN_PARENTHESIS
-                    + SearchField.FILE_MANAGER_INDEXER_CLASS
+                    + SearchFields.FILE_MANAGER_INDEXER_CLASS
                     + StringPool.CLOSE_PARENTHESIS
     )
     protected ModelIndexerWriterContributor<FileManagerEntry>

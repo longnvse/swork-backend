@@ -76,10 +76,11 @@ public class AccountEntryModelImpl
 		{"modifiedDate", Types.TIMESTAMP}, {"creatorId", Types.BIGINT},
 		{"username", Types.VARCHAR}, {"password_", Types.VARCHAR},
 		{"fullName", Types.VARCHAR}, {"phoneNumber", Types.VARCHAR},
-		{"dateOfBirth", Types.TIMESTAMP}, {"email", Types.VARCHAR},
-		{"address", Types.VARCHAR}, {"departmentId", Types.BIGINT},
-		{"status", Types.VARCHAR}, {"role_", Types.VARCHAR},
-		{"businessId", Types.BIGINT}
+		{"dateOfBirth", Types.TIMESTAMP}, {"gender", Types.BOOLEAN},
+		{"email", Types.VARCHAR}, {"address", Types.VARCHAR},
+		{"departmentId", Types.BIGINT}, {"status", Types.VARCHAR},
+		{"role_", Types.VARCHAR}, {"businessId", Types.BIGINT},
+		{"avatar", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -99,16 +100,18 @@ public class AccountEntryModelImpl
 		TABLE_COLUMNS_MAP.put("fullName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("phoneNumber", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("dateOfBirth", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("gender", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("email", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("address", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("departmentId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("status", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("role_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("businessId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("avatar", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_AccountEntry (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,accountId LONG not null primary key,groupId LONG,companyId LONG,createDate DATE null,modifiedDate DATE null,creatorId LONG,username VARCHAR(75) null,password_ VARCHAR(75) null,fullName VARCHAR(100) null,phoneNumber VARCHAR(75) null,dateOfBirth DATE null,email VARCHAR(75) null,address VARCHAR(100) null,departmentId LONG,status VARCHAR(75) null,role_ VARCHAR(75) null,businessId LONG)";
+		"create table SW_AccountEntry (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,accountId LONG not null primary key,groupId LONG,companyId LONG,createDate DATE null,modifiedDate DATE null,creatorId LONG,username VARCHAR(75) null,password_ VARCHAR(75) null,fullName VARCHAR(100) null,phoneNumber VARCHAR(75) null,dateOfBirth DATE null,gender BOOLEAN,email VARCHAR(75) null,address VARCHAR(100) null,departmentId LONG,status VARCHAR(75) null,role_ VARCHAR(75) null,businessId LONG,avatar LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_AccountEntry";
 
@@ -367,6 +370,10 @@ public class AccountEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"dateOfBirth",
 			(BiConsumer<AccountEntry, Date>)AccountEntry::setDateOfBirth);
+		attributeGetterFunctions.put("gender", AccountEntry::getGender);
+		attributeSetterBiConsumers.put(
+			"gender",
+			(BiConsumer<AccountEntry, Boolean>)AccountEntry::setGender);
 		attributeGetterFunctions.put("email", AccountEntry::getEmail);
 		attributeSetterBiConsumers.put(
 			"email", (BiConsumer<AccountEntry, String>)AccountEntry::setEmail);
@@ -390,6 +397,9 @@ public class AccountEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"businessId",
 			(BiConsumer<AccountEntry, Long>)AccountEntry::setBusinessId);
+		attributeGetterFunctions.put("avatar", AccountEntry::getAvatar);
+		attributeSetterBiConsumers.put(
+			"avatar", (BiConsumer<AccountEntry, Long>)AccountEntry::setAvatar);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -671,6 +681,20 @@ public class AccountEntryModelImpl
 	}
 
 	@Override
+	public Boolean getGender() {
+		return _gender;
+	}
+
+	@Override
+	public void setGender(Boolean gender) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_gender = gender;
+	}
+
+	@Override
 	public String getEmail() {
 		if (_email == null) {
 			return "";
@@ -784,6 +808,20 @@ public class AccountEntryModelImpl
 	}
 
 	@Override
+	public Long getAvatar() {
+		return _avatar;
+	}
+
+	@Override
+	public void setAvatar(Long avatar) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_avatar = avatar;
+	}
+
+	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
 			PortalUtil.getClassNameId(AccountEntry.class.getName()));
@@ -858,12 +896,14 @@ public class AccountEntryModelImpl
 		accountEntryImpl.setFullName(getFullName());
 		accountEntryImpl.setPhoneNumber(getPhoneNumber());
 		accountEntryImpl.setDateOfBirth(getDateOfBirth());
+		accountEntryImpl.setGender(getGender());
 		accountEntryImpl.setEmail(getEmail());
 		accountEntryImpl.setAddress(getAddress());
 		accountEntryImpl.setDepartmentId(getDepartmentId());
 		accountEntryImpl.setStatus(getStatus());
 		accountEntryImpl.setRole(getRole());
 		accountEntryImpl.setBusinessId(getBusinessId());
+		accountEntryImpl.setAvatar(getAvatar());
 
 		accountEntryImpl.resetOriginalValues();
 
@@ -899,6 +939,8 @@ public class AccountEntryModelImpl
 			this.<String>getColumnOriginalValue("phoneNumber"));
 		accountEntryImpl.setDateOfBirth(
 			this.<Date>getColumnOriginalValue("dateOfBirth"));
+		accountEntryImpl.setGender(
+			this.<Boolean>getColumnOriginalValue("gender"));
 		accountEntryImpl.setEmail(this.<String>getColumnOriginalValue("email"));
 		accountEntryImpl.setAddress(
 			this.<String>getColumnOriginalValue("address"));
@@ -909,6 +951,7 @@ public class AccountEntryModelImpl
 		accountEntryImpl.setRole(this.<String>getColumnOriginalValue("role_"));
 		accountEntryImpl.setBusinessId(
 			this.<Long>getColumnOriginalValue("businessId"));
+		accountEntryImpl.setAvatar(this.<Long>getColumnOriginalValue("avatar"));
 
 		return accountEntryImpl;
 	}
@@ -1074,6 +1117,12 @@ public class AccountEntryModelImpl
 			accountEntryCacheModel.dateOfBirth = Long.MIN_VALUE;
 		}
 
+		Boolean gender = getGender();
+
+		if (gender != null) {
+			accountEntryCacheModel.gender = gender;
+		}
+
 		accountEntryCacheModel.email = getEmail();
 
 		String email = accountEntryCacheModel.email;
@@ -1116,6 +1165,12 @@ public class AccountEntryModelImpl
 
 		if (businessId != null) {
 			accountEntryCacheModel.businessId = businessId;
+		}
+
+		Long avatar = getAvatar();
+
+		if (avatar != null) {
+			accountEntryCacheModel.avatar = avatar;
 		}
 
 		return accountEntryCacheModel;
@@ -1222,12 +1277,14 @@ public class AccountEntryModelImpl
 	private String _fullName;
 	private String _phoneNumber;
 	private Date _dateOfBirth;
+	private Boolean _gender;
 	private String _email;
 	private String _address;
 	private Long _departmentId;
 	private String _status;
 	private String _role;
 	private Long _businessId;
+	private Long _avatar;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1272,12 +1329,14 @@ public class AccountEntryModelImpl
 		_columnOriginalValues.put("fullName", _fullName);
 		_columnOriginalValues.put("phoneNumber", _phoneNumber);
 		_columnOriginalValues.put("dateOfBirth", _dateOfBirth);
+		_columnOriginalValues.put("gender", _gender);
 		_columnOriginalValues.put("email", _email);
 		_columnOriginalValues.put("address", _address);
 		_columnOriginalValues.put("departmentId", _departmentId);
 		_columnOriginalValues.put("status", _status);
 		_columnOriginalValues.put("role_", _role);
 		_columnOriginalValues.put("businessId", _businessId);
+		_columnOriginalValues.put("avatar", _avatar);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1329,17 +1388,21 @@ public class AccountEntryModelImpl
 
 		columnBitmasks.put("dateOfBirth", 4096L);
 
-		columnBitmasks.put("email", 8192L);
+		columnBitmasks.put("gender", 8192L);
 
-		columnBitmasks.put("address", 16384L);
+		columnBitmasks.put("email", 16384L);
 
-		columnBitmasks.put("departmentId", 32768L);
+		columnBitmasks.put("address", 32768L);
 
-		columnBitmasks.put("status", 65536L);
+		columnBitmasks.put("departmentId", 65536L);
 
-		columnBitmasks.put("role_", 131072L);
+		columnBitmasks.put("status", 131072L);
 
-		columnBitmasks.put("businessId", 262144L);
+		columnBitmasks.put("role_", 262144L);
+
+		columnBitmasks.put("businessId", 524288L);
+
+		columnBitmasks.put("avatar", 1048576L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

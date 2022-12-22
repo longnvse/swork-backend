@@ -4,7 +4,9 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.vulcan.multipart.MultipartBody;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.swork.account.rest.dto.v1_0.Account;
@@ -14,17 +16,16 @@ import com.swork.account.rest.internal.odata.v1_0.AccountEntityModel;
 import com.swork.account.rest.internal.service.AccountService;
 import com.swork.account.rest.internal.validator.AccountValidator;
 import com.swork.account.rest.resource.v1_0.AccountResource;
-import com.swork.common.exception.model.SW_DataInputException;
-import com.swork.common.exception.model.SW_FieldDuplicateException;
-import com.swork.common.exception.model.SW_FieldRequiredException;
-import com.swork.common.exception.model.SW_NoSuchEntryException;
+import com.swork.common.file.helper.api.CommonFileHelper;
 import com.swork.common.token.helper.api.CommonTokenHelper;
 import com.swork.common.token.model.UserTokenModel;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 
 /**
  * @author Long Hip
@@ -49,18 +50,20 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
                 filter,
                 pagination,
                 sorts,
+                getThemeDisplay(),
                 getServiceContext()
         );
     }
 
     @Override
-    public Account postAccount(Account account) throws SW_DataInputException, SW_FieldDuplicateException, SW_FieldRequiredException {
+    public Account postAccount(Account account) throws PortalException {
         validator.validatorForPostAccount(account);
 
         return service.addAccount(
                 getUserToken().getAccountId(),
                 getUserToken().getBusinessId(),
                 account,
+                getThemeDisplay(),
                 getServiceContext()
         );
     }
@@ -76,24 +79,28 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
     public Account getAccount(Long accountId) throws Exception {
         validator.validatorAccountIsExists(accountId);
 
-        return service.getAccount(accountId);
+        return service.getAccount(accountId, getThemeDisplay());
     }
 
     @Override
-    public Account putAccount(Long accountId, Account account) throws SW_DataInputException, SW_NoSuchEntryException, SW_FieldDuplicateException, SW_FieldRequiredException {
+    public Account putAccount(Long accountId, Account account) throws PortalException {
         validator.validatorForPutAccount(accountId, account);
 
         return service.updateAccount(
                 getUserToken().getAccountId(),
                 accountId,
                 account,
+                getThemeDisplay(),
                 getServiceContext()
         );
     }
 
     @Override
     public Account getAccountInfo() throws PortalException {
-        return service.getAccount(getUserToken().getAccountId());
+        return service.getAccount(
+                getUserToken().getAccountId(),
+                getThemeDisplay()
+        );
     }
 
     @Override
@@ -121,6 +128,7 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
                 getUserToken().getAccountId(),
                 getUserToken().getAccountId(),
                 account,
+                getThemeDisplay(),
                 getServiceContext()
         );
     }
@@ -139,6 +147,31 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
         service.approvalAccount(accountId, status, getServiceContext());
     }
 
+
+    @Override
+    public Response updateAvatar(MultipartBody multipartBody) throws Exception {
+        validator.validateForUpdateAvatar(multipartBody);
+
+        String urlPreview = service.updateAvatar(
+                getUserToken().getBusinessId(),
+                getUserToken().getAccountId(),
+                multipartBody,
+                getThemeDisplay(),
+                getServiceContext()
+        );
+
+        return Response.ok(urlPreview).build();
+    }
+
+    @Override
+    public Page<Account> getListAccount(@NotNull Long[] accountIds) throws Exception {
+        return service.getListAccount(accountIds, getThemeDisplay());
+    }
+
+    public ThemeDisplay getThemeDisplay() {
+        return commonFileHelper.getThemeDisplay(contextHttpServletRequest);
+    }
+
     public ServiceContext getServiceContext() {
         ServiceContext serviceContext = new ServiceContext();
         serviceContext.setCompanyId(contextCompany.getCompanyId());
@@ -154,6 +187,8 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
 
     @Reference
     private CommonTokenHelper tokenHelper;
+    @Reference
+    private CommonFileHelper commonFileHelper;
 
     @Reference
     private AccountService service;

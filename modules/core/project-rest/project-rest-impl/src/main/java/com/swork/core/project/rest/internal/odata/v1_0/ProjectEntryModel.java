@@ -21,6 +21,12 @@ public class ProjectEntryModel implements EntityModel {
                 new StringEntityField(
                         SearchFields.WORK_NUMBER, locale -> Field.getSortableFieldName(SearchFields.WORK_NUMBER)),
                 new StringEntityField(
+                        SearchFields.PROJECT_HANDLE_ACCOUNT, locale -> Field.getSortableFieldName(SearchFields.PROJECT_HANDLE_ACCOUNT_STRING)),
+                new StringEntityField(
+                        SearchFields.PROJECT_MANAGE, locale -> Field.getSortableFieldName(SearchFields.PROJECT_MANAGE_STRING)),
+                new StringEntityField(
+                        SearchFields.PROJECT_PARTICIPATE_ACCOUNT, locale -> Field.getSortableFieldName(SearchFields.PROJECT_PARTICIPATE_ACCOUNT_STRING)),
+                new StringEntityField(
                         SearchFields.STATUS, locale -> SearchFields.STATUS + "_String_sortable"),
                 new StringEntityField(
                         Field.ENTRY_CLASS_PK,

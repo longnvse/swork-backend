@@ -63,7 +63,7 @@ public class AccountEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(39);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -91,6 +91,8 @@ public class AccountEntryCacheModel
 		sb.append(phoneNumber);
 		sb.append(", dateOfBirth=");
 		sb.append(dateOfBirth);
+		sb.append(", gender=");
+		sb.append(gender);
 		sb.append(", email=");
 		sb.append(email);
 		sb.append(", address=");
@@ -103,6 +105,8 @@ public class AccountEntryCacheModel
 		sb.append(role);
 		sb.append(", businessId=");
 		sb.append(businessId);
+		sb.append(", avatar=");
+		sb.append(avatar);
 		sb.append("}");
 
 		return sb.toString();
@@ -181,6 +185,8 @@ public class AccountEntryCacheModel
 			accountEntryImpl.setDateOfBirth(new Date(dateOfBirth));
 		}
 
+		accountEntryImpl.setGender(gender);
+
 		if (email == null) {
 			accountEntryImpl.setEmail("");
 		}
@@ -212,6 +218,7 @@ public class AccountEntryCacheModel
 		}
 
 		accountEntryImpl.setBusinessId(businessId);
+		accountEntryImpl.setAvatar(avatar);
 
 		accountEntryImpl.resetOriginalValues();
 
@@ -237,6 +244,8 @@ public class AccountEntryCacheModel
 		fullName = objectInput.readUTF();
 		phoneNumber = objectInput.readUTF();
 		dateOfBirth = objectInput.readLong();
+
+		gender = objectInput.readBoolean();
 		email = objectInput.readUTF();
 		address = objectInput.readUTF();
 
@@ -245,6 +254,8 @@ public class AccountEntryCacheModel
 		role = objectInput.readUTF();
 
 		businessId = objectInput.readLong();
+
+		avatar = objectInput.readLong();
 	}
 
 	@Override
@@ -303,6 +314,8 @@ public class AccountEntryCacheModel
 
 		objectOutput.writeLong(dateOfBirth);
 
+		objectOutput.writeBoolean(gender);
+
 		if (email == null) {
 			objectOutput.writeUTF("");
 		}
@@ -334,6 +347,8 @@ public class AccountEntryCacheModel
 		}
 
 		objectOutput.writeLong(businessId);
+
+		objectOutput.writeLong(avatar);
 	}
 
 	public String uuid;
@@ -349,11 +364,13 @@ public class AccountEntryCacheModel
 	public String fullName;
 	public String phoneNumber;
 	public long dateOfBirth;
+	public boolean gender;
 	public String email;
 	public String address;
 	public long departmentId;
 	public String status;
 	public String role;
 	public long businessId;
+	public long avatar;
 
 }
