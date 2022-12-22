@@ -19,7 +19,6 @@ import com.swork.auth.department.service.model.DepartmentAccountEntry;
 import com.swork.auth.department.service.service.base.DepartmentAccountEntryLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,11 +45,21 @@ public class DepartmentAccountEntryLocalServiceImpl
 		return addDepartmentAccountEntry(entry);
 	}
 
-	public List<DepartmentAccountEntry> getByDepartmentId(long departmentId){
+	public List<DepartmentAccountEntry> getByDepartmentId(long departmentId) {
 		return departmentAccountEntryPersistence.findByDepartmentId(departmentId);
 	}
 
-	public void deleteByDepartmentId(long departmentId){
+	public DepartmentAccountEntry getByAccountId(long accountId) {
+		List<DepartmentAccountEntry> departmentAccountEntries = departmentAccountEntryPersistence.findByAccountId(accountId);
+
+		if (!departmentAccountEntries.isEmpty()) {
+			return departmentAccountEntries.get(0);
+		}
+
+		return null;
+	}
+
+	public void deleteByDepartmentId(long departmentId) {
 		departmentAccountEntryPersistence.removeByDepartmentId(departmentId);
 	}
 

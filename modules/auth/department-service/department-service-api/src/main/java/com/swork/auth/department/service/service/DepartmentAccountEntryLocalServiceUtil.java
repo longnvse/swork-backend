@@ -278,6 +278,10 @@ public class DepartmentAccountEntryLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static DepartmentAccountEntry getByAccountId(long accountId) {
+		return getService().getByAccountId(accountId);
+	}
+
 	public static List<DepartmentAccountEntry> getByDepartmentId(
 		long departmentId) {
 

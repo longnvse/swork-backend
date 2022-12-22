@@ -312,6 +312,13 @@ public class DepartmentAccountEntryLocalServiceWrapper
 	}
 
 	@Override
+	public com.swork.auth.department.service.model.DepartmentAccountEntry
+		getByAccountId(long accountId) {
+
+		return _departmentAccountEntryLocalService.getByAccountId(accountId);
+	}
+
+	@Override
 	public java.util.List
 		<com.swork.auth.department.service.model.DepartmentAccountEntry>
 			getByDepartmentId(long departmentId) {

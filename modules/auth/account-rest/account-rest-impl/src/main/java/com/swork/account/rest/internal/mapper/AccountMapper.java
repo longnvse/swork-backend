@@ -3,6 +3,7 @@ package com.swork.account.rest.internal.mapper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.swork.account.rest.dto.v1_0.Account;
 import com.swork.account.service.model.AccountEntry;
 import com.swork.auth.department.service.model.DepartmentEntry;
@@ -27,9 +28,11 @@ public class AccountMapper {
         to.setDateOfBirth(from.getDateOfBirth());
         to.setGender(from.getGender());
 
-//        DepartmentEntry departmentEntry = departmentEntryLocalService.fetchDepartmentEntry(from.getDepartmentId());
-//
-//        to.setDepartmentName();
+        DepartmentEntry departmentEntry = departmentEntryLocalService.findByAccount(from.getAccountId());
+
+        if (Validator.isNotNull(departmentEntry)) {
+            to.setDepartmentName(departmentEntry.getName());
+        }
 
         if (GetterUtil.getLong(from.getAvatar()) != GetterUtil.DEFAULT_LONG) {
             to.setAvatar(commonFileHelper.getPreviewUrl(from.getAvatar(), themeDisplay));

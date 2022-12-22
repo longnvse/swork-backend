@@ -246,6 +246,9 @@ public interface DepartmentAccountEntryLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public DepartmentAccountEntry getByAccountId(long accountId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<DepartmentAccountEntry> getByDepartmentId(long departmentId);
 
 	/**

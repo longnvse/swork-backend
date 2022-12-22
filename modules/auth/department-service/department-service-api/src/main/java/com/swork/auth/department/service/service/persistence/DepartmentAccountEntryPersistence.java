@@ -535,6 +535,150 @@ public interface DepartmentAccountEntryPersistence
 	public int countByDepartmentId(long departmentId);
 
 	/**
+	 * Returns all the department account entries where accountId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @return the matching department account entries
+	 */
+	public java.util.List<DepartmentAccountEntry> findByAccountId(
+		long accountId);
+
+	/**
+	 * Returns a range of all the department account entries where accountId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>DepartmentAccountEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param start the lower bound of the range of department account entries
+	 * @param end the upper bound of the range of department account entries (not inclusive)
+	 * @return the range of matching department account entries
+	 */
+	public java.util.List<DepartmentAccountEntry> findByAccountId(
+		long accountId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the department account entries where accountId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>DepartmentAccountEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param start the lower bound of the range of department account entries
+	 * @param end the upper bound of the range of department account entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching department account entries
+	 */
+	public java.util.List<DepartmentAccountEntry> findByAccountId(
+		long accountId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<DepartmentAccountEntry>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the department account entries where accountId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>DepartmentAccountEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param accountId the account ID
+	 * @param start the lower bound of the range of department account entries
+	 * @param end the upper bound of the range of department account entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching department account entries
+	 */
+	public java.util.List<DepartmentAccountEntry> findByAccountId(
+		long accountId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<DepartmentAccountEntry>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first department account entry in the ordered set where accountId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching department account entry
+	 * @throws NoSuchDepartmentAccountEntryException if a matching department account entry could not be found
+	 */
+	public DepartmentAccountEntry findByAccountId_First(
+			long accountId,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<DepartmentAccountEntry> orderByComparator)
+		throws NoSuchDepartmentAccountEntryException;
+
+	/**
+	 * Returns the first department account entry in the ordered set where accountId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching department account entry, or <code>null</code> if a matching department account entry could not be found
+	 */
+	public DepartmentAccountEntry fetchByAccountId_First(
+		long accountId,
+		com.liferay.portal.kernel.util.OrderByComparator<DepartmentAccountEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the last department account entry in the ordered set where accountId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching department account entry
+	 * @throws NoSuchDepartmentAccountEntryException if a matching department account entry could not be found
+	 */
+	public DepartmentAccountEntry findByAccountId_Last(
+			long accountId,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<DepartmentAccountEntry> orderByComparator)
+		throws NoSuchDepartmentAccountEntryException;
+
+	/**
+	 * Returns the last department account entry in the ordered set where accountId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching department account entry, or <code>null</code> if a matching department account entry could not be found
+	 */
+	public DepartmentAccountEntry fetchByAccountId_Last(
+		long accountId,
+		com.liferay.portal.kernel.util.OrderByComparator<DepartmentAccountEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the department account entries before and after the current department account entry in the ordered set where accountId = &#63;.
+	 *
+	 * @param departmentAccountId the primary key of the current department account entry
+	 * @param accountId the account ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next department account entry
+	 * @throws NoSuchDepartmentAccountEntryException if a department account entry with the primary key could not be found
+	 */
+	public DepartmentAccountEntry[] findByAccountId_PrevAndNext(
+			long departmentAccountId, long accountId,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<DepartmentAccountEntry> orderByComparator)
+		throws NoSuchDepartmentAccountEntryException;
+
+	/**
+	 * Removes all the department account entries where accountId = &#63; from the database.
+	 *
+	 * @param accountId the account ID
+	 */
+	public void removeByAccountId(long accountId);
+
+	/**
+	 * Returns the number of department account entries where accountId = &#63;.
+	 *
+	 * @param accountId the account ID
+	 * @return the number of matching department account entries
+	 */
+	public int countByAccountId(long accountId);
+
+	/**
 	 * Returns the department account entry where companyId = &#63; and externalReferenceCode = &#63; or throws a <code>NoSuchDepartmentAccountEntryException</code> if it could not be found.
 	 *
 	 * @param companyId the company ID
