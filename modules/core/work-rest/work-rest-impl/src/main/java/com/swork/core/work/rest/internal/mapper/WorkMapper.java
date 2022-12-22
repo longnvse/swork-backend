@@ -63,7 +63,7 @@ public class WorkMapper {
 
         to.setPhaseId(GetterUtil.getLong(from.getPhaseId()) != 0 ? from.getPhaseId() : null);
 
-        PhaseEntry phaseEntry = phaseEntryLocalService.fetchPhaseEntry(from.getPhaseId());
+        PhaseEntry phaseEntry = phaseEntryLocalService.fetchPhaseEntry(GetterUtil.getLong(from.getPhaseId()));
 
         if (Validator.isNotNull(phaseEntry)) {
             to.setPhaseName(phaseEntry.getPhaseName());
