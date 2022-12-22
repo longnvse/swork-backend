@@ -16,6 +16,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -108,15 +109,15 @@ public class ProjectEntryModelDocumentContributor
         document.addNumberSortable(SearchFields.PROGRESS, baseModel.getProgress());
     }
 
-    private Long[] getMemberIdsByType(long projectId, String memberType, String type) {
-        List<ProjectMemberEntry> projectHandleEntries =
+    private String getMemberIdsByType(long projectId, String memberType, String type) {
+        List<ProjectMemberEntry> projectMemberEntries =
                 projectMemberEntryLocalService.findByP_MT_T(projectId, memberType, type);
 
-        return projectHandleEntries
+        return Arrays.toString(projectMemberEntries
                 .stream()
                 .mapToLong(ProjectMemberEntryModel::getMemberId)
                 .boxed()
-                .toArray(Long[]::new);
+                .toArray(Long[]::new));
     }
 
     @Reference
