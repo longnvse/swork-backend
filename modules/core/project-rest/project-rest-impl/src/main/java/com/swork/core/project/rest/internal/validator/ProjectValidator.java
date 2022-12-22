@@ -168,8 +168,8 @@ public class ProjectValidator {
 
         if (Validator.isNotNull(projectEntry)) {
             switch (Project.Status.create(projectEntry.getStatus())) {
-                case ACTIVE:
                 case INACTIVE:
+                case COMPLETED:
                 case DENIED:
                     throw new SW_BadRequestException(
                             languageService.getMessage(LanguageKeys.PROJECT_CANNOT_UPDATE));
