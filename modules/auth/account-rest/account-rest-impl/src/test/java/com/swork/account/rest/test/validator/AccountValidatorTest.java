@@ -29,8 +29,6 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class AccountValidatorTest {
     @Mock
-    LanguageService languageService;
-    @Mock
     AccountEntryLocalService localService;
     @InjectMocks
     AccountValidator accountValidator;
