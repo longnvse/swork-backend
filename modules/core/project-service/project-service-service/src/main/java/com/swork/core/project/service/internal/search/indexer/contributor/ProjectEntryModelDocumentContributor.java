@@ -16,6 +16,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -70,18 +71,26 @@ public class ProjectEntryModelDocumentContributor
 
         document.addKeyword(SearchFields.PROJECT_MANAGE,
                 getMemberIdsByType(baseModel.getProjectId(), ACCOUNT, MANAGE));
-
+        document.addKeywordSortable(SearchFields.PROJECT_MANAGE,
+                getMemberIdsByType(baseModel.getProjectId(), ACCOUNT, MANAGE));
         document.addKeyword(SearchFields.STATUS, baseModel.getStatus());
         document.addKeywordSortable(SearchFields.STATUS, baseModel.getStatus());
 
         document.addKeyword(SearchFields.PROJECT_HANDLE_ACCOUNT,
                 getMemberIdsByType(baseModel.getProjectId(), ACCOUNT, HANDLE));
+        document.addKeywordSortable(SearchFields.PROJECT_HANDLE_ACCOUNT,
+                getMemberIdsByType(baseModel.getProjectId(), ACCOUNT, HANDLE));
         document.addKeyword(SearchFields.PROJECT_HANDLE_DEPARTMENT,
                 getMemberIdsByType(baseModel.getProjectId(), DEPARTMENT, HANDLE));
-
+        document.addKeywordSortable(SearchFields.PROJECT_HANDLE_DEPARTMENT,
+                getMemberIdsByType(baseModel.getProjectId(), DEPARTMENT, HANDLE));
         document.addKeyword(SearchFields.PROJECT_PARTICIPATE_ACCOUNT,
                 getMemberIdsByType(baseModel.getProjectId(), ACCOUNT, PARTICIPATE));
+        document.addKeywordSortable(SearchFields.PROJECT_PARTICIPATE_ACCOUNT,
+                getMemberIdsByType(baseModel.getProjectId(), ACCOUNT, PARTICIPATE));
         document.addKeyword(SearchFields.PROJECT_PARTICIPATE_DEPARTMENT,
+                getMemberIdsByType(baseModel.getProjectId(), DEPARTMENT, PARTICIPATE));
+        document.addKeywordSortable(SearchFields.PROJECT_PARTICIPATE_DEPARTMENT,
                 getMemberIdsByType(baseModel.getProjectId(), DEPARTMENT, PARTICIPATE));
 
         document.addDate(SearchFields.ACTUAL_TIME, baseModel.getActualEndDate());
@@ -108,15 +117,15 @@ public class ProjectEntryModelDocumentContributor
         document.addNumberSortable(SearchFields.PROGRESS, baseModel.getProgress());
     }
 
-    private Long[] getMemberIdsByType(long projectId, String memberType, String type) {
-        List<ProjectMemberEntry> projectHandleEntries =
+    private String getMemberIdsByType(long projectId, String memberType, String type) {
+        List<ProjectMemberEntry> projectMemberEntries =
                 projectMemberEntryLocalService.findByP_MT_T(projectId, memberType, type);
 
-        return projectHandleEntries
+        return Arrays.toString(projectMemberEntries
                 .stream()
                 .mapToLong(ProjectMemberEntryModel::getMemberId)
                 .boxed()
-                .toArray(Long[]::new);
+                .toArray(Long[]::new));
     }
 
     @Reference

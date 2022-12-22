@@ -19,9 +19,6 @@ public class CookieService {
     private static final String COOKIE_NAME = "REFRESH_TOKEN";
 
     public void addRefreshTokenCookie(String refreshToken, HttpServletResponse response) {
-        SimpleDateFormat sdf = new SimpleDateFormat(DateUtil.ISO_8601_PATTERN);
-        TokenEntry tokenEntry = TokenEntryLocalServiceUtil.getByRefreshToken(refreshToken);
-
         String cookieString = stringNameValue(COOKIE_NAME, refreshToken) +
                 StringPool.SEMICOLON +
                 StringPool.SPACE +
@@ -31,10 +28,7 @@ public class CookieService {
                 stringNameValue("Path", StringPool.SLASH) +
                 StringPool.SEMICOLON +
                 StringPool.SPACE +
-                "HttpOnly" +
-                StringPool.SEMICOLON +
-                StringPool.SPACE +
-                stringNameValue("SameSite", "none");
+                "HttpOnly";
 
         response.setHeader("Set-Cookie", cookieString);
     }
@@ -64,10 +58,7 @@ public class CookieService {
                 stringNameValue("Path", StringPool.SLASH) +
                 StringPool.SEMICOLON +
                 StringPool.SPACE +
-                "HttpOnly" +
-                StringPool.SEMICOLON +
-                StringPool.SPACE +
-                stringNameValue("SameSite", "none");
+                "HttpOnly";
 
         response.setHeader("Set-Cookie", cookieString);
     }
