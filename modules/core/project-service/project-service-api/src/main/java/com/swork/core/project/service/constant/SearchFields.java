@@ -27,11 +27,14 @@ public class SearchFields {
     public static final String END_DATE = "endDate";
     public static final String END_DATE_SORT = "endDate_Number_sortable";
     public static final String PROJECT_MANAGE = "projectManage";
+    public static final String PROJECT_MANAGE_STRING = "projectManage_String";
     public static final String STATUS = "status";
     public static final String STATUS_SORT = "status_String_sortable";
     public static final String PROJECT_PARTICIPATE_ACCOUNT = "projectParticipateAccount";
+    public static final String PROJECT_PARTICIPATE_ACCOUNT_STRING = "projectParticipateAccount_String";
     public static final String PROJECT_PARTICIPATE_DEPARTMENT = "projectParticipateDepartment";
     public static final String PROJECT_HANDLE_ACCOUNT = "projectHandleAccount";
+    public static final String PROJECT_HANDLE_ACCOUNT_STRING = "projectHandleAccount_String";
     public static final String PROJECT_HANDLE_DEPARTMENT = "projectHandleDepartment";
 
     public static final String ACTUAL_TIME = "actualTime";
