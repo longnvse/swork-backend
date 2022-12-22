@@ -74,7 +74,6 @@ paths:
           schema:
             type: integer
             format: int64
-          required: true
         - in: query
           name: phaseId
           schema:
