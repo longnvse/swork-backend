@@ -31,7 +31,10 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component(immediate = true, service = AccountService.class)
 public class AccountService {
@@ -78,6 +81,18 @@ public class AccountService {
                     return mapper.mapDTOFromEntry(
                             localService.getAccountEntry(accountId), themeDisplay);
                 });
+    }
+
+    public Page<Account> getListAccount(Long[] accountIds, ThemeDisplay themeDisplay) {
+        List<Account> accounts = Arrays.stream(accountIds).map(accountId -> {
+            try {
+                return getAccount(accountId, themeDisplay);
+            } catch (PortalException e) {
+                return new Account();
+            }
+        }).collect(Collectors.toList());
+
+        return Page.of(accounts, Pagination.of(1, accounts.size()), accounts.size());
     }
 
     public Account addAccount(long creatorId,
@@ -129,7 +144,6 @@ public class AccountService {
     }
 
     public Account getAccount(long accountId, ThemeDisplay themeDisplay) throws PortalException {
-
         AccountEntry entry =
                 localService.getAccountEntry(accountId);
 
@@ -158,10 +172,11 @@ public class AccountService {
 
     private static final String METADATA_KEY = "metadata";
 
-    public void updateAvatar(long businessId,
-                             long accountId,
-                             MultipartBody multipartBody,
-                             ServiceContext serviceContext) throws IOException, PortalException {
+    public String updateAvatar(long businessId,
+                               long accountId,
+                               MultipartBody multipartBody,
+                               ThemeDisplay themeDisplay,
+                               ServiceContext serviceContext) throws IOException, PortalException {
         Metadata metadata = multipartBody.getValueAsInstance(METADATA_KEY, Metadata.class);
 
         FileEntry fileEntry = commonFileHelper.uploadFile(
@@ -184,6 +199,8 @@ public class AccountService {
                 fileEntry.getFileEntryId(),
                 serviceContext
         );
+
+        return commonFileHelper.getPreviewUrl(fileEntry.getFileEntryId(), themeDisplay);
     }
 
     @Reference

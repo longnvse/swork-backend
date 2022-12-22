@@ -80,7 +80,9 @@ public interface AccountResource {
 
 	public void resetPassword(ResetPassword resetPassword) throws Exception;
 
-	public void updateAvatar(MultipartBody multipartBody) throws Exception;
+	public Response updateAvatar(MultipartBody multipartBody) throws Exception;
+
+	public Page<Account> getListAccount(Long[] accountIds) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

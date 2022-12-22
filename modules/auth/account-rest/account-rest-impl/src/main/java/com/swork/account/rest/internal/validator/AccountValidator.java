@@ -28,7 +28,7 @@ public class AccountValidator {
     public static final long MAX_SIZE_AVATAR = 10485760;
 
     public void validateForUpdateAvatar(MultipartBody multipartBody) throws SW_BadRequestException {
-        long fileSize = multipartBody.getBinaryFile("key").getSize();
+        long fileSize = multipartBody.getBinaryFile("file").getSize();
 
         if (fileSize <= MAX_SIZE_AVATAR) {
             return;

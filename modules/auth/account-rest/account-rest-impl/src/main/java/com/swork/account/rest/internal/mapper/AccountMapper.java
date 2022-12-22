@@ -5,6 +5,8 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.swork.account.rest.dto.v1_0.Account;
 import com.swork.account.service.model.AccountEntry;
+import com.swork.auth.department.service.model.DepartmentEntry;
+import com.swork.auth.department.service.service.DepartmentEntryLocalService;
 import com.swork.common.file.helper.api.CommonFileHelper;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -24,6 +26,11 @@ public class AccountMapper {
         to.setAddress(from.getAddress());
         to.setDateOfBirth(from.getDateOfBirth());
         to.setGender(from.getGender());
+
+//        DepartmentEntry departmentEntry = departmentEntryLocalService.fetchDepartmentEntry(from.getDepartmentId());
+//
+//        to.setDepartmentName();
+
         if (GetterUtil.getLong(from.getAvatar()) != GetterUtil.DEFAULT_LONG) {
             to.setAvatar(commonFileHelper.getPreviewUrl(from.getAvatar(), themeDisplay));
         }
@@ -35,5 +42,8 @@ public class AccountMapper {
 
     @Reference
     private CommonFileHelper commonFileHelper;
+
+    @Reference
+    private DepartmentEntryLocalService departmentEntryLocalService;
 
 }

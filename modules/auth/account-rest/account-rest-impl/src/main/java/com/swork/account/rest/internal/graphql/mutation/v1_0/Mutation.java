@@ -173,16 +173,14 @@ public class Mutation {
 	@GraphQLName(
 		description = "Update avatar", value = "updateAvatarMultipartBody"
 	)
-	public boolean updateAvatar(
+	public Response updateAvatar(
 			@GraphQLName("multipartBody") MultipartBody multipartBody)
 		throws Exception {
 
-		_applyVoidComponentServiceObjects(
+		return _applyComponentServiceObjects(
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource -> accountResource.updateAvatar(multipartBody));
-
-		return true;
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R

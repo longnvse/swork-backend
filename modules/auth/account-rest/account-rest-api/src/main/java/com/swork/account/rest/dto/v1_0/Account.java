@@ -102,7 +102,7 @@ public class Account implements Serializable {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String avatar;
 
 	@Schema
@@ -160,6 +160,34 @@ public class Account implements Serializable {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Date dateOfBirth;
+
+	@Schema
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	@JsonIgnore
+	public void setDepartmentName(
+		UnsafeSupplier<String, Exception> departmentNameUnsafeSupplier) {
+
+		try {
+			departmentName = departmentNameUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String departmentName;
 
 	@Schema
 	public String getEmail() {
@@ -475,6 +503,20 @@ public class Account implements Serializable {
 			sb.append("\"");
 
 			sb.append(liferayToJSONDateFormat.format(dateOfBirth));
+
+			sb.append("\"");
+		}
+
+		if (departmentName != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"departmentName\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(departmentName));
 
 			sb.append("\"");
 		}

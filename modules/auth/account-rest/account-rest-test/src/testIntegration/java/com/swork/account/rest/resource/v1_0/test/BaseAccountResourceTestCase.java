@@ -175,6 +175,7 @@ public abstract class BaseAccountResourceTestCase {
 
 		account.setAddress(regex);
 		account.setAvatar(regex);
+		account.setDepartmentName(regex);
 		account.setEmail(regex);
 		account.setExternalReferenceCode(regex);
 		account.setFullName(regex);
@@ -189,6 +190,7 @@ public abstract class BaseAccountResourceTestCase {
 
 		Assert.assertEquals(regex, account.getAddress());
 		Assert.assertEquals(regex, account.getAvatar());
+		Assert.assertEquals(regex, account.getDepartmentName());
 		Assert.assertEquals(regex, account.getEmail());
 		Assert.assertEquals(regex, account.getExternalReferenceCode());
 		Assert.assertEquals(regex, account.getFullName());
@@ -726,17 +728,35 @@ public abstract class BaseAccountResourceTestCase {
 
 	@Test
 	public void testUpdateAvatar() throws Exception {
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Account account = testUpdateAvatar_addAccount();
-
-		assertHttpResponseStatusCode(
-			204, accountResource.updateAvatarHttpResponse(null));
-
-		assertHttpResponseStatusCode(
-			404, accountResource.updateAvatarHttpResponse(null));
+		Assert.assertTrue(false);
 	}
 
-	protected Account testUpdateAvatar_addAccount() throws Exception {
+	@Test
+	public void testGetListAccount() throws Exception {
+		Page<Account> page = accountResource.getListAccount(null);
+
+		long totalCount = page.getTotalCount();
+
+		Account account1 = testGetListAccount_addAccount(randomAccount());
+
+		Account account2 = testGetListAccount_addAccount(randomAccount());
+
+		page = accountResource.getListAccount(null);
+
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
+
+		assertContains(account1, (List<Account>)page.getItems());
+		assertContains(account2, (List<Account>)page.getItems());
+		assertValid(page);
+
+		accountResource.deleteAccount(account1.getId());
+
+		accountResource.deleteAccount(account2.getId());
+	}
+
+	protected Account testGetListAccount_addAccount(Account account)
+		throws Exception {
+
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
@@ -847,6 +867,14 @@ public abstract class BaseAccountResourceTestCase {
 
 			if (Objects.equals("dateOfBirth", additionalAssertFieldName)) {
 				if (account.getDateOfBirth() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("departmentName", additionalAssertFieldName)) {
+				if (account.getDepartmentName() == null) {
 					valid = false;
 				}
 
@@ -1034,6 +1062,17 @@ public abstract class BaseAccountResourceTestCase {
 			if (Objects.equals("dateOfBirth", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getDateOfBirth(), account2.getDateOfBirth())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("departmentName", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getDepartmentName(),
+						account2.getDepartmentName())) {
 
 					return false;
 				}
@@ -1297,6 +1336,14 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("departmentName")) {
+			sb.append("'");
+			sb.append(String.valueOf(account.getDepartmentName()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("email")) {
 			sb.append("'");
 			sb.append(String.valueOf(account.getEmail()));
@@ -1400,6 +1447,8 @@ public abstract class BaseAccountResourceTestCase {
 				avatar = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				createDate = RandomTestUtil.nextDate();
 				dateOfBirth = RandomTestUtil.nextDate();
+				departmentName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				email =
 					StringUtil.toLowerCase(RandomTestUtil.randomString()) +
 						"@liferay.com";

@@ -31,6 +31,10 @@ components:
           type: boolean
         avatar:
           type: string
+          readOnly: true
+        departmentName:
+          type: string
+          readOnly: true
         status:
           enum: [ active, inactive ]
 
@@ -319,9 +323,42 @@ paths:
                   format: binary
                   type: string
       responses:
-        204:
+        200:
           description:
             "Chage Avatar"
           content:
-            application/json: { }
-            application/xml: { }
+            application/json:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
+  "/accounts/account-list":
+    get:
+      tags: [ "Account" ]
+      description: Update an Account
+      operationId: getListAccount
+      parameters:
+        - in: query
+          name: accountIds
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+      responses:
+        200:
+          description:
+            "Get list an Account"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Account"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Account"

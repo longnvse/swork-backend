@@ -105,6 +105,27 @@ public class Account implements Cloneable, Serializable {
 
 	protected Date dateOfBirth;
 
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	public void setDepartmentName(
+		UnsafeSupplier<String, Exception> departmentNameUnsafeSupplier) {
+
+		try {
+			departmentName = departmentNameUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String departmentName;
+
 	public String getEmail() {
 		return email;
 	}

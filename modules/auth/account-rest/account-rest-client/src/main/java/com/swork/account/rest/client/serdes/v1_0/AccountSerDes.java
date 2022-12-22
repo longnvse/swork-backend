@@ -101,6 +101,20 @@ public class AccountSerDes {
 			sb.append("\"");
 		}
 
+		if (account.getDepartmentName() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"departmentName\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(account.getDepartmentName()));
+
+			sb.append("\"");
+		}
+
 		if (account.getEmail() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -258,6 +272,14 @@ public class AccountSerDes {
 				liferayToJSONDateFormat.format(account.getDateOfBirth()));
 		}
 
+		if (account.getDepartmentName() == null) {
+			map.put("departmentName", null);
+		}
+		else {
+			map.put(
+				"departmentName", String.valueOf(account.getDepartmentName()));
+		}
+
 		if (account.getEmail() == null) {
 			map.put("email", null);
 		}
@@ -355,6 +377,11 @@ public class AccountSerDes {
 				if (jsonParserFieldValue != null) {
 					account.setDateOfBirth(
 						toDate((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "departmentName")) {
+				if (jsonParserFieldValue != null) {
+					account.setDepartmentName((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "email")) {

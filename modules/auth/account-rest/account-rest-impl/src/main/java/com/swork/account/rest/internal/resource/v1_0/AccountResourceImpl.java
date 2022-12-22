@@ -23,7 +23,9 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 
 /**
  * @author Long Hip
@@ -147,15 +149,23 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
 
 
     @Override
-    public void updateAvatar(MultipartBody multipartBody) throws Exception {
+    public Response updateAvatar(MultipartBody multipartBody) throws Exception {
         validator.validateForUpdateAvatar(multipartBody);
 
-        service.updateAvatar(
+        String urlPreview = service.updateAvatar(
                 getUserToken().getBusinessId(),
                 getUserToken().getAccountId(),
                 multipartBody,
+                getThemeDisplay(),
                 getServiceContext()
         );
+
+        return Response.ok(urlPreview).build();
+    }
+
+    @Override
+    public Page<Account> getListAccount(@NotNull Long[] accountIds) throws Exception {
+        return service.getListAccount(accountIds, getThemeDisplay());
     }
 
     public ThemeDisplay getThemeDisplay() {
