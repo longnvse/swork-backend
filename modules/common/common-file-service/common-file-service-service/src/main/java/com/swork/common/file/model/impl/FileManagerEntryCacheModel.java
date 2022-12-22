@@ -63,7 +63,7 @@ public class FileManagerEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(41);
+		StringBundler sb = new StringBundler(39);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -75,36 +75,34 @@ public class FileManagerEntryCacheModel
 		sb.append(groupId);
 		sb.append(", companyId=");
 		sb.append(companyId);
-		sb.append(", userId=");
-		sb.append(userId);
-		sb.append(", userName=");
-		sb.append(userName);
+		sb.append(", accountId=");
+		sb.append(accountId);
 		sb.append(", createDate=");
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", customerId=");
-		sb.append(customerId);
-		sb.append(", creatorId=");
-		sb.append(creatorId);
+		sb.append(", businessId=");
+		sb.append(businessId);
 		sb.append(", fileId=");
 		sb.append(fileId);
-		sb.append(", parentCode=");
-		sb.append(parentCode);
 		sb.append(", fileType=");
 		sb.append(fileType);
-		sb.append(", type=");
-		sb.append(type);
-		sb.append(", pkType=");
-		sb.append(pkType);
 		sb.append(", fileName=");
 		sb.append(fileName);
 		sb.append(", fileSize=");
 		sb.append(fileSize);
+		sb.append(", mimeType=");
+		sb.append(mimeType);
 		sb.append(", moduleId=");
 		sb.append(moduleId);
 		sb.append(", appId=");
 		sb.append(appId);
+		sb.append(", projectId=");
+		sb.append(projectId);
+		sb.append(", phaseId=");
+		sb.append(phaseId);
+		sb.append(", workId=");
+		sb.append(workId);
 		sb.append("}");
 
 		return sb.toString();
@@ -132,14 +130,7 @@ public class FileManagerEntryCacheModel
 		fileManagerEntryImpl.setId(id);
 		fileManagerEntryImpl.setGroupId(groupId);
 		fileManagerEntryImpl.setCompanyId(companyId);
-		fileManagerEntryImpl.setUserId(userId);
-
-		if (userName == null) {
-			fileManagerEntryImpl.setUserName("");
-		}
-		else {
-			fileManagerEntryImpl.setUserName(userName);
-		}
+		fileManagerEntryImpl.setAccountId(accountId);
 
 		if (createDate == Long.MIN_VALUE) {
 			fileManagerEntryImpl.setCreateDate(null);
@@ -155,36 +146,14 @@ public class FileManagerEntryCacheModel
 			fileManagerEntryImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		fileManagerEntryImpl.setCustomerId(customerId);
-		fileManagerEntryImpl.setCreatorId(creatorId);
+		fileManagerEntryImpl.setBusinessId(businessId);
 		fileManagerEntryImpl.setFileId(fileId);
-
-		if (parentCode == null) {
-			fileManagerEntryImpl.setParentCode("");
-		}
-		else {
-			fileManagerEntryImpl.setParentCode(parentCode);
-		}
 
 		if (fileType == null) {
 			fileManagerEntryImpl.setFileType("");
 		}
 		else {
 			fileManagerEntryImpl.setFileType(fileType);
-		}
-
-		if (type == null) {
-			fileManagerEntryImpl.setType("");
-		}
-		else {
-			fileManagerEntryImpl.setType(type);
-		}
-
-		if (pkType == null) {
-			fileManagerEntryImpl.setPkType("");
-		}
-		else {
-			fileManagerEntryImpl.setPkType(pkType);
 		}
 
 		if (fileName == null) {
@@ -194,11 +163,13 @@ public class FileManagerEntryCacheModel
 			fileManagerEntryImpl.setFileName(fileName);
 		}
 
-		if (fileSize == null) {
-			fileManagerEntryImpl.setFileSize("");
+		fileManagerEntryImpl.setFileSize(fileSize);
+
+		if (mimeType == null) {
+			fileManagerEntryImpl.setMimeType("");
 		}
 		else {
-			fileManagerEntryImpl.setFileSize(fileSize);
+			fileManagerEntryImpl.setMimeType(mimeType);
 		}
 
 		if (moduleId == null) {
@@ -214,6 +185,10 @@ public class FileManagerEntryCacheModel
 		else {
 			fileManagerEntryImpl.setAppId(appId);
 		}
+
+		fileManagerEntryImpl.setProjectId(projectId);
+		fileManagerEntryImpl.setPhaseId(phaseId);
+		fileManagerEntryImpl.setWorkId(workId);
 
 		fileManagerEntryImpl.resetOriginalValues();
 
@@ -231,24 +206,26 @@ public class FileManagerEntryCacheModel
 
 		companyId = objectInput.readLong();
 
-		userId = objectInput.readLong();
-		userName = objectInput.readUTF();
+		accountId = objectInput.readLong();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 
-		customerId = objectInput.readLong();
-
-		creatorId = objectInput.readLong();
+		businessId = objectInput.readLong();
 
 		fileId = objectInput.readLong();
-		parentCode = objectInput.readUTF();
 		fileType = objectInput.readUTF();
-		type = objectInput.readUTF();
-		pkType = objectInput.readUTF();
 		fileName = objectInput.readUTF();
-		fileSize = objectInput.readUTF();
+
+		fileSize = objectInput.readLong();
+		mimeType = objectInput.readUTF();
 		moduleId = objectInput.readUTF();
 		appId = objectInput.readUTF();
+
+		projectId = objectInput.readLong();
+
+		phaseId = objectInput.readLong();
+
+		workId = objectInput.readLong();
 	}
 
 	@Override
@@ -273,50 +250,19 @@ public class FileManagerEntryCacheModel
 
 		objectOutput.writeLong(companyId);
 
-		objectOutput.writeLong(userId);
-
-		if (userName == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(userName);
-		}
-
+		objectOutput.writeLong(accountId);
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
-		objectOutput.writeLong(customerId);
-
-		objectOutput.writeLong(creatorId);
+		objectOutput.writeLong(businessId);
 
 		objectOutput.writeLong(fileId);
-
-		if (parentCode == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(parentCode);
-		}
 
 		if (fileType == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
 			objectOutput.writeUTF(fileType);
-		}
-
-		if (type == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(type);
-		}
-
-		if (pkType == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(pkType);
 		}
 
 		if (fileName == null) {
@@ -326,11 +272,13 @@ public class FileManagerEntryCacheModel
 			objectOutput.writeUTF(fileName);
 		}
 
-		if (fileSize == null) {
+		objectOutput.writeLong(fileSize);
+
+		if (mimeType == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeUTF(fileSize);
+			objectOutput.writeUTF(mimeType);
 		}
 
 		if (moduleId == null) {
@@ -346,6 +294,12 @@ public class FileManagerEntryCacheModel
 		else {
 			objectOutput.writeUTF(appId);
 		}
+
+		objectOutput.writeLong(projectId);
+
+		objectOutput.writeLong(phaseId);
+
+		objectOutput.writeLong(workId);
 	}
 
 	public String uuid;
@@ -353,20 +307,19 @@ public class FileManagerEntryCacheModel
 	public long id;
 	public long groupId;
 	public long companyId;
-	public long userId;
-	public String userName;
+	public long accountId;
 	public long createDate;
 	public long modifiedDate;
-	public long customerId;
-	public long creatorId;
+	public long businessId;
 	public long fileId;
-	public String parentCode;
 	public String fileType;
-	public String type;
-	public String pkType;
 	public String fileName;
-	public String fileSize;
+	public long fileSize;
+	public String mimeType;
 	public String moduleId;
 	public String appId;
+	public long projectId;
+	public long phaseId;
+	public long workId;
 
 }

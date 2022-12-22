@@ -60,6 +60,8 @@ public class AccountEntryTable extends BaseTable<AccountEntryTable> {
 		"phoneNumber", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<AccountEntryTable, Date> dateOfBirth = createColumn(
 		"dateOfBirth", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
+	public final Column<AccountEntryTable, Boolean> gender = createColumn(
+		"gender", Boolean.class, Types.BOOLEAN, Column.FLAG_DEFAULT);
 	public final Column<AccountEntryTable, String> email = createColumn(
 		"email", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<AccountEntryTable, String> address = createColumn(
@@ -72,6 +74,8 @@ public class AccountEntryTable extends BaseTable<AccountEntryTable> {
 		"role_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<AccountEntryTable, Long> businessId = createColumn(
 		"businessId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<AccountEntryTable, Long> avatar = createColumn(
+		"avatar", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private AccountEntryTable() {
 		super("SW_AccountEntry", AccountEntryTable::new);

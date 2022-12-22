@@ -16,9 +16,8 @@ package com.swork.common.file.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
-import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.model.ShardedModel;
-import com.liferay.portal.kernel.model.StagedAuditedModel;
+import com.liferay.portal.kernel.model.StagedModel;
 
 import java.util.Date;
 
@@ -37,8 +36,7 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface FileManagerEntryModel
-	extends BaseModel<FileManagerEntry>, GroupedModel, ShardedModel,
-			StagedAuditedModel {
+	extends BaseModel<FileManagerEntry>, ShardedModel, StagedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -111,7 +109,6 @@ public interface FileManagerEntryModel
 	 *
 	 * @return the group ID of this file manager entry
 	 */
-	@Override
 	public long getGroupId();
 
 	/**
@@ -119,7 +116,6 @@ public interface FileManagerEntryModel
 	 *
 	 * @param groupId the group ID of this file manager entry
 	 */
-	@Override
 	public void setGroupId(long groupId);
 
 	/**
@@ -139,53 +135,18 @@ public interface FileManagerEntryModel
 	public void setCompanyId(long companyId);
 
 	/**
-	 * Returns the user ID of this file manager entry.
+	 * Returns the account ID of this file manager entry.
 	 *
-	 * @return the user ID of this file manager entry
+	 * @return the account ID of this file manager entry
 	 */
-	@Override
-	public long getUserId();
+	public long getAccountId();
 
 	/**
-	 * Sets the user ID of this file manager entry.
+	 * Sets the account ID of this file manager entry.
 	 *
-	 * @param userId the user ID of this file manager entry
+	 * @param accountId the account ID of this file manager entry
 	 */
-	@Override
-	public void setUserId(long userId);
-
-	/**
-	 * Returns the user uuid of this file manager entry.
-	 *
-	 * @return the user uuid of this file manager entry
-	 */
-	@Override
-	public String getUserUuid();
-
-	/**
-	 * Sets the user uuid of this file manager entry.
-	 *
-	 * @param userUuid the user uuid of this file manager entry
-	 */
-	@Override
-	public void setUserUuid(String userUuid);
-
-	/**
-	 * Returns the user name of this file manager entry.
-	 *
-	 * @return the user name of this file manager entry
-	 */
-	@AutoEscape
-	@Override
-	public String getUserName();
-
-	/**
-	 * Sets the user name of this file manager entry.
-	 *
-	 * @param userName the user name of this file manager entry
-	 */
-	@Override
-	public void setUserName(String userName);
+	public void setAccountId(long accountId);
 
 	/**
 	 * Returns the create date of this file manager entry.
@@ -220,32 +181,18 @@ public interface FileManagerEntryModel
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
-	 * Returns the customer ID of this file manager entry.
+	 * Returns the business ID of this file manager entry.
 	 *
-	 * @return the customer ID of this file manager entry
+	 * @return the business ID of this file manager entry
 	 */
-	public long getCustomerId();
+	public long getBusinessId();
 
 	/**
-	 * Sets the customer ID of this file manager entry.
+	 * Sets the business ID of this file manager entry.
 	 *
-	 * @param customerId the customer ID of this file manager entry
+	 * @param businessId the business ID of this file manager entry
 	 */
-	public void setCustomerId(long customerId);
-
-	/**
-	 * Returns the creator ID of this file manager entry.
-	 *
-	 * @return the creator ID of this file manager entry
-	 */
-	public long getCreatorId();
-
-	/**
-	 * Sets the creator ID of this file manager entry.
-	 *
-	 * @param creatorId the creator ID of this file manager entry
-	 */
-	public void setCreatorId(long creatorId);
+	public void setBusinessId(long businessId);
 
 	/**
 	 * Returns the file ID of this file manager entry.
@@ -262,21 +209,6 @@ public interface FileManagerEntryModel
 	public void setFileId(long fileId);
 
 	/**
-	 * Returns the parent code of this file manager entry.
-	 *
-	 * @return the parent code of this file manager entry
-	 */
-	@AutoEscape
-	public String getParentCode();
-
-	/**
-	 * Sets the parent code of this file manager entry.
-	 *
-	 * @param parentCode the parent code of this file manager entry
-	 */
-	public void setParentCode(String parentCode);
-
-	/**
 	 * Returns the file type of this file manager entry.
 	 *
 	 * @return the file type of this file manager entry
@@ -290,36 +222,6 @@ public interface FileManagerEntryModel
 	 * @param fileType the file type of this file manager entry
 	 */
 	public void setFileType(String fileType);
-
-	/**
-	 * Returns the type of this file manager entry.
-	 *
-	 * @return the type of this file manager entry
-	 */
-	@AutoEscape
-	public String getType();
-
-	/**
-	 * Sets the type of this file manager entry.
-	 *
-	 * @param type the type of this file manager entry
-	 */
-	public void setType(String type);
-
-	/**
-	 * Returns the pk type of this file manager entry.
-	 *
-	 * @return the pk type of this file manager entry
-	 */
-	@AutoEscape
-	public String getPkType();
-
-	/**
-	 * Sets the pk type of this file manager entry.
-	 *
-	 * @param pkType the pk type of this file manager entry
-	 */
-	public void setPkType(String pkType);
 
 	/**
 	 * Returns the file name of this file manager entry.
@@ -341,15 +243,29 @@ public interface FileManagerEntryModel
 	 *
 	 * @return the file size of this file manager entry
 	 */
-	@AutoEscape
-	public String getFileSize();
+	public Long getFileSize();
 
 	/**
 	 * Sets the file size of this file manager entry.
 	 *
 	 * @param fileSize the file size of this file manager entry
 	 */
-	public void setFileSize(String fileSize);
+	public void setFileSize(Long fileSize);
+
+	/**
+	 * Returns the mime type of this file manager entry.
+	 *
+	 * @return the mime type of this file manager entry
+	 */
+	@AutoEscape
+	public String getMimeType();
+
+	/**
+	 * Sets the mime type of this file manager entry.
+	 *
+	 * @param mimeType the mime type of this file manager entry
+	 */
+	public void setMimeType(String mimeType);
 
 	/**
 	 * Returns the module ID of this file manager entry.
@@ -380,6 +296,48 @@ public interface FileManagerEntryModel
 	 * @param appId the app ID of this file manager entry
 	 */
 	public void setAppId(String appId);
+
+	/**
+	 * Returns the project ID of this file manager entry.
+	 *
+	 * @return the project ID of this file manager entry
+	 */
+	public Long getProjectId();
+
+	/**
+	 * Sets the project ID of this file manager entry.
+	 *
+	 * @param projectId the project ID of this file manager entry
+	 */
+	public void setProjectId(Long projectId);
+
+	/**
+	 * Returns the phase ID of this file manager entry.
+	 *
+	 * @return the phase ID of this file manager entry
+	 */
+	public Long getPhaseId();
+
+	/**
+	 * Sets the phase ID of this file manager entry.
+	 *
+	 * @param phaseId the phase ID of this file manager entry
+	 */
+	public void setPhaseId(Long phaseId);
+
+	/**
+	 * Returns the work ID of this file manager entry.
+	 *
+	 * @return the work ID of this file manager entry
+	 */
+	public Long getWorkId();
+
+	/**
+	 * Sets the work ID of this file manager entry.
+	 *
+	 * @param workId the work ID of this file manager entry
+	 */
+	public void setWorkId(Long workId);
 
 	@Override
 	public FileManagerEntry cloneWithOriginalValues();

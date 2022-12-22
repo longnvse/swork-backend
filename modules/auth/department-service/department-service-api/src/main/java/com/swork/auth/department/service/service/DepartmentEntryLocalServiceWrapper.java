@@ -295,6 +295,13 @@ public class DepartmentEntryLocalServiceWrapper
 	}
 
 	@Override
+	public com.swork.auth.department.service.model.DepartmentEntry
+		findByAccount(long accountId) {
+
+		return _departmentEntryLocalService.findByAccount(accountId);
+	}
+
+	@Override
 	public com.swork.auth.department.service.model.DepartmentEntry findByName(
 		String name) {
 

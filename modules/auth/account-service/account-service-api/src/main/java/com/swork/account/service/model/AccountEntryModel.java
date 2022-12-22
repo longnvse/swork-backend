@@ -255,6 +255,20 @@ public interface AccountEntryModel
 	public void setDateOfBirth(Date dateOfBirth);
 
 	/**
+	 * Returns the gender of this account entry.
+	 *
+	 * @return the gender of this account entry
+	 */
+	public Boolean getGender();
+
+	/**
+	 * Sets the gender of this account entry.
+	 *
+	 * @param gender the gender of this account entry
+	 */
+	public void setGender(Boolean gender);
+
+	/**
 	 * Returns the email of this account entry.
 	 *
 	 * @return the email of this account entry
@@ -341,6 +355,20 @@ public interface AccountEntryModel
 	 * @param businessId the business ID of this account entry
 	 */
 	public void setBusinessId(Long businessId);
+
+	/**
+	 * Returns the avatar of this account entry.
+	 *
+	 * @return the avatar of this account entry
+	 */
+	public Long getAvatar();
+
+	/**
+	 * Sets the avatar of this account entry.
+	 *
+	 * @param avatar the avatar of this account entry
+	 */
+	public void setAvatar(Long avatar);
 
 	@Override
 	public AccountEntry cloneWithOriginalValues();

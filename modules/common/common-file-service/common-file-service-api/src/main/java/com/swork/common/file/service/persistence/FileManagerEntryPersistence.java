@@ -391,54 +391,54 @@ public interface FileManagerEntryPersistence
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
-	 * Returns the file manager entry where fileId = &#63; and customerId = &#63; or throws a <code>NoSuchFileManagerEntryException</code> if it could not be found.
+	 * Returns the file manager entry where fileId = &#63; and businessId = &#63; or throws a <code>NoSuchFileManagerEntryException</code> if it could not be found.
 	 *
 	 * @param fileId the file ID
-	 * @param customerId the customer ID
+	 * @param businessId the business ID
 	 * @return the matching file manager entry
 	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
 	 */
-	public FileManagerEntry findByF_C(long fileId, long customerId)
+	public FileManagerEntry findByF_C(long fileId, long businessId)
 		throws NoSuchFileManagerEntryException;
 
 	/**
-	 * Returns the file manager entry where fileId = &#63; and customerId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the file manager entry where fileId = &#63; and businessId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param fileId the file ID
-	 * @param customerId the customer ID
+	 * @param businessId the business ID
 	 * @return the matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
 	 */
-	public FileManagerEntry fetchByF_C(long fileId, long customerId);
+	public FileManagerEntry fetchByF_C(long fileId, long businessId);
 
 	/**
-	 * Returns the file manager entry where fileId = &#63; and customerId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the file manager entry where fileId = &#63; and businessId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param fileId the file ID
-	 * @param customerId the customer ID
+	 * @param businessId the business ID
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
 	 */
 	public FileManagerEntry fetchByF_C(
-		long fileId, long customerId, boolean useFinderCache);
+		long fileId, long businessId, boolean useFinderCache);
 
 	/**
-	 * Removes the file manager entry where fileId = &#63; and customerId = &#63; from the database.
+	 * Removes the file manager entry where fileId = &#63; and businessId = &#63; from the database.
 	 *
 	 * @param fileId the file ID
-	 * @param customerId the customer ID
+	 * @param businessId the business ID
 	 * @return the file manager entry that was removed
 	 */
-	public FileManagerEntry removeByF_C(long fileId, long customerId)
+	public FileManagerEntry removeByF_C(long fileId, long businessId)
 		throws NoSuchFileManagerEntryException;
 
 	/**
-	 * Returns the number of file manager entries where fileId = &#63; and customerId = &#63;.
+	 * Returns the number of file manager entries where fileId = &#63; and businessId = &#63;.
 	 *
 	 * @param fileId the file ID
-	 * @param customerId the customer ID
+	 * @param businessId the business ID
 	 * @return the number of matching file manager entries
 	 */
-	public int countByF_C(long fileId, long customerId);
+	public int countByF_C(long fileId, long businessId);
 
 	/**
 	 * Returns the file manager entry where companyId = &#63; and externalReferenceCode = &#63; or throws a <code>NoSuchFileManagerEntryException</code> if it could not be found.

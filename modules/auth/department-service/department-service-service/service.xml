@@ -63,6 +63,10 @@
         <finder name="DepartmentId" return-type="Collection">
             <finder-column name="departmentId"/>
         </finder>
+
+        <finder name="AccountId" return-type="Collection">
+            <finder-column name="accountId"/>
+        </finder>
     </entity>
 
 

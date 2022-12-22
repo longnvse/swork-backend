@@ -20,7 +20,9 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.Validator;
 import com.swork.auth.department.service.mapper.model.DepartmentMapperModel;
+import com.swork.auth.department.service.model.DepartmentAccountEntry;
 import com.swork.auth.department.service.model.DepartmentEntry;
 import com.swork.auth.department.service.service.DepartmentAccountEntryLocalService;
 import com.swork.auth.department.service.service.base.DepartmentEntryLocalServiceBaseImpl;
@@ -109,6 +111,15 @@ public class DepartmentEntryLocalServiceImpl
         return departmentEntryPersistence.fetchByName(name);
     }
 
+    public DepartmentEntry findByAccount(long accountId) {
+        DepartmentAccountEntry departmentAccountEntry = departmentAccountEntryLocalService.getByAccountId(accountId);
+
+        if (Validator.isNotNull(departmentAccountEntry)) {
+            return fetchDepartmentEntry(departmentAccountEntry.getDepartmentId());
+        }
+
+        return null;
+    }
 
     private void createModifierAudit(long businessId,
                                      long accountId,

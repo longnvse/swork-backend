@@ -69,13 +69,13 @@ public class AccountEntryLocalServiceUtil {
 
 	public static AccountEntry addAccountEntry(
 		long creatorId, long businessId, String username, String password,
-		String fullName, java.util.Date dateOfBirth, String email,
-		String phoneNumber, String address,
+		String fullName, java.util.Date dateOfBirth, Boolean gender,
+		String email, String phoneNumber, String address,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().addAccountEntry(
 			creatorId, businessId, username, password, fullName, dateOfBirth,
-			email, phoneNumber, address, serviceContext);
+			gender, email, phoneNumber, address, serviceContext);
 	}
 
 	public static AccountEntry addAccountSuperAdmin(
@@ -453,12 +453,19 @@ public class AccountEntryLocalServiceUtil {
 	public static AccountEntry updateAccountEntry(
 		long creatorId, long accountId, String fullName,
 		java.util.Date dateOfBirth, String email, String phoneNumber,
-		String address,
+		String address, Boolean gender,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().updateAccountEntry(
 			creatorId, accountId, fullName, dateOfBirth, email, phoneNumber,
-			address, serviceContext);
+			address, gender, serviceContext);
+	}
+
+	public static AccountEntry updateAvatar(
+		long accountId, long fileId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateAvatar(accountId, fileId, serviceContext);
 	}
 
 	public static AccountEntry updateStatus(

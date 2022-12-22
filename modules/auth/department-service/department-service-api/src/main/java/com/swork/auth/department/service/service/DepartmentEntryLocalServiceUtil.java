@@ -262,6 +262,10 @@ public class DepartmentEntryLocalServiceUtil {
 		return getService().fetchDepartmentEntryByUuidAndGroupId(uuid, groupId);
 	}
 
+	public static DepartmentEntry findByAccount(long accountId) {
+		return getService().findByAccount(accountId);
+	}
+
 	public static DepartmentEntry findByName(String name) {
 		return getService().findByName(name);
 	}

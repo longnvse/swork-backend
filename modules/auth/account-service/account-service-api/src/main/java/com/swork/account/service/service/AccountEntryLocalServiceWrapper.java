@@ -62,13 +62,13 @@ public class AccountEntryLocalServiceWrapper
 	@Override
 	public com.swork.account.service.model.AccountEntry addAccountEntry(
 		long creatorId, long businessId, String username, String password,
-		String fullName, java.util.Date dateOfBirth, String email,
-		String phoneNumber, String address,
+		String fullName, java.util.Date dateOfBirth, Boolean gender,
+		String email, String phoneNumber, String address,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _accountEntryLocalService.addAccountEntry(
 			creatorId, businessId, username, password, fullName, dateOfBirth,
-			email, phoneNumber, address, serviceContext);
+			gender, email, phoneNumber, address, serviceContext);
 	}
 
 	@Override
@@ -523,12 +523,21 @@ public class AccountEntryLocalServiceWrapper
 	public com.swork.account.service.model.AccountEntry updateAccountEntry(
 		long creatorId, long accountId, String fullName,
 		java.util.Date dateOfBirth, String email, String phoneNumber,
-		String address,
+		String address, Boolean gender,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _accountEntryLocalService.updateAccountEntry(
 			creatorId, accountId, fullName, dateOfBirth, email, phoneNumber,
-			address, serviceContext);
+			address, gender, serviceContext);
+	}
+
+	@Override
+	public com.swork.account.service.model.AccountEntry updateAvatar(
+		long accountId, long fileId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _accountEntryLocalService.updateAvatar(
+			accountId, fileId, serviceContext);
 	}
 
 	@Override
