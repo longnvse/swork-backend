@@ -28,8 +28,6 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class BusinessValidatorTest {
     @Mock
-    LanguageService languageService;
-    @Mock
     BusinessEntryLocalService localService;
     @InjectMocks
     BusinessValidator businessValidator;
