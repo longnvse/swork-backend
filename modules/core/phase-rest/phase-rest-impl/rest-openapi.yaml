@@ -214,3 +214,34 @@ paths:
           content:
             application/json: { }
             application/xml: { }
+  "/phases/date/{phaseId}":
+    put:
+      tags: [ "Phase" ]
+      description: Update a Phase
+      operationId: updateDate
+      parameters:
+        - in: path
+          name: phaseId
+          required: true
+          schema:
+            format: int64
+            type: integer
+        - in: query
+          name: startDate
+          required: true
+          schema:
+            format: date
+            type: string
+        - in: query
+          name: endDate
+          required: true
+          schema:
+            format: date
+            type: string
+      responses:
+        204:
+          description:
+            "Phase was updated"
+          content:
+            application/json: { }
+            application/xml: { }

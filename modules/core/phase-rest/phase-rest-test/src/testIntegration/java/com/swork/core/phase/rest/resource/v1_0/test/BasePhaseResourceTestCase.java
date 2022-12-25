@@ -632,6 +632,24 @@ public abstract class BasePhaseResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testUpdateDate() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Phase phase = testUpdateDate_addPhase();
+
+		assertHttpResponseStatusCode(
+			204,
+			phaseResource.updateDateHttpResponse(phase.getId(), null, null));
+
+		assertHttpResponseStatusCode(
+			404, phaseResource.updateDateHttpResponse(0L, null, null));
+	}
+
+	protected Phase testUpdateDate_addPhase() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 

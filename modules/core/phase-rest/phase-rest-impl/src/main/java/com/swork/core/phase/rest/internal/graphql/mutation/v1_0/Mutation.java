@@ -12,6 +12,7 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 import com.swork.core.phase.rest.dto.v1_0.Phase;
 import com.swork.core.phase.rest.resource.v1_0.PhaseResource;
 
+import java.util.Date;
 import java.util.function.BiFunction;
 
 import javax.annotation.Generated;
@@ -112,6 +113,22 @@ public class Mutation {
 			_phaseResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			phaseResource -> phaseResource.putPhaseBatch(callbackURL, object));
+	}
+
+	@GraphQLField(description = "Update a Phase")
+	public boolean updateDate(
+			@GraphQLName("phaseId") Long phaseId,
+			@GraphQLName("startDate") Date startDate,
+			@GraphQLName("endDate") Date endDate)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_phaseResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			phaseResource -> phaseResource.updateDate(
+				phaseId, startDate, endDate));
+
+		return true;
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
