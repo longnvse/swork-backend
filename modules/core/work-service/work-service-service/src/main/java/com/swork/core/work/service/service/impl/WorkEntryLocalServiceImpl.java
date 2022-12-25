@@ -96,6 +96,27 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
     }
 
     @Indexable(type = IndexableType.REINDEX)
+    public WorkEntry updateDateWorkEntry(long creatorId,
+                                         long workId,
+                                         Date startDate,
+                                         Date endDate,
+                                         ServiceContext serviceContext) {
+        WorkEntry workEntry = fetchWorkEntry(workId);
+
+        updateModifierAudit(
+                creatorId,
+                workEntry,
+                new Date(),
+                serviceContext
+        );
+
+        workEntry.setStartDate(startDate);
+        workEntry.setEndDate(endDate);
+
+        return updateWorkEntry(workEntry);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
     public WorkEntry updateStatus(long creatorId,
                                   long workId,
                                   String status,

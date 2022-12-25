@@ -51,6 +51,54 @@ public class WorkValidator {
         validateParentWorkForDelete(businessId, workId);
     }
 
+    public void validateForUpdateDate(long workId,
+                                      Date startDate,
+                                      Date endDate) throws SW_NoSuchEntryException, SW_BadRequestException {
+        validateForExist(workId);
+
+        if (startDate.after(endDate)) {
+            throw new SW_BadRequestException(languageService.getMessage(LanguageKeys.INVALID_DATE));
+        }
+
+
+        WorkEntry work = localService.fetchWorkEntry(workId);
+
+        if (Validator.isNotNull(work.getParentId())) {
+            WorkEntry workEntry = localService.fetchWorkEntry(work.getParentId());
+            validateRangeDate(
+                    commonUtil.getStartOfDate(workEntry.getStartDate()),
+                    commonUtil.getEndOfDate(workEntry.getEndDate()),
+                    work.getStartDate(),
+                    work.getEndDate(),
+                    LanguageKeys.OUT_OF_DATE_PARENT
+            );
+        }
+
+        if (Validator.isNotNull(work.getPhaseId())) {
+            PhaseEntry phaseEntry = phaseEntryLocalService.fetchPhaseEntry(work.getPhaseId());
+
+            validateRangeDate(
+                    commonUtil.getStartOfDate(phaseEntry.getStartDate()),
+                    commonUtil.getEndOfDate(phaseEntry.getEndDate()),
+                    work.getStartDate(),
+                    work.getEndDate(),
+                    LanguageKeys.OUT_OF_DATE_PHASE
+            );
+        }
+
+        if (Validator.isNotNull(work.getProjectId())) {
+            ProjectEntry projectEntry = projectEntryLocalService.fetchProjectEntry(work.getProjectId());
+
+            validateRangeDate(
+                    commonUtil.getStartOfDate(projectEntry.getStartDate()),
+                    commonUtil.getEndOfDate(projectEntry.getEndDate()),
+                    work.getStartDate(),
+                    work.getEndDate(),
+                    LanguageKeys.OUT_OF_DATE_PROJECT
+            );
+        }
+    }
+
     private void validateParentWorkForDelete(long businessId,
                                              long workId) throws SW_BadRequestException {
         List<WorkEntry> workEntries = localService.findByParentId(businessId, workId);

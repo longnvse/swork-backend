@@ -348,5 +348,36 @@ paths:
           description:
             "Project detail"
           content:
-            application/json: {}
-            application/xml: {}
+            application/json: { }
+            application/xml: { }
+  "/works/date/{workId}":
+    put:
+      tags: [ "Work" ]
+      description: Update status a Project
+      operationId: updateDate
+      parameters:
+        - in: path
+          name: workId
+          required: true
+          schema:
+            format: int64
+            type: integer
+        - in: query
+          name: startDate
+          required: true
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: endDate
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        204:
+          description:
+            "Project detail"
+          content:
+            application/json: { }
+            application/xml: { }

@@ -6,6 +6,8 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
+import com.swork.common.exception.model.SW_BadRequestException;
+import com.swork.common.exception.model.SW_NoSuchEntryException;
 import com.swork.common.token.helper.api.CommonTokenHelper;
 import com.swork.common.token.model.UserTokenModel;
 import com.swork.core.work.rest.dto.v1_0.Work;
@@ -18,6 +20,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 import javax.ws.rs.core.MultivaluedMap;
+import java.util.Date;
 
 /**
  * @author longnv
@@ -46,6 +49,16 @@ public class WorkResourceImpl extends BaseWorkResourceImpl {
 				filter,
 				pagination,
 				sorts,
+				getServiceContext());
+	}
+
+	@Override
+	public void updateDate(Long workId, Date startDate, Date endDate) throws SW_NoSuchEntryException, SW_BadRequestException {
+		validator.validateForUpdateDate(workId, startDate, endDate);
+		service.updateDate(getUserToken().getAccountId(),
+				workId,
+				startDate,
+				endDate,
 				getServiceContext());
 	}
 

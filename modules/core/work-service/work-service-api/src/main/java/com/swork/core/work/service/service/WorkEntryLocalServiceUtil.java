@@ -434,6 +434,15 @@ public class WorkEntryLocalServiceUtil {
 			creatorId, workId, completeAmount, serviceContext);
 	}
 
+	public static WorkEntry updateDateWorkEntry(
+		long creatorId, long workId, java.util.Date startDate,
+		java.util.Date endDate,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateDateWorkEntry(
+			creatorId, workId, startDate, endDate, serviceContext);
+	}
+
 	public static WorkEntry updateProcessWorkEntry(
 		long creatorId, long workId, long progress,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {

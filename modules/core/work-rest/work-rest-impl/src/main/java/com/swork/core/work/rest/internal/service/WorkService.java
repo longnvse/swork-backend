@@ -25,6 +25,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import java.util.Collections;
+import java.util.Date;
 
 @Component(
         immediate = true,
@@ -132,6 +133,20 @@ public class WorkService {
                              String status,
                              ServiceContext serviceContext) {
         localService.updateStatus(creatorId, workId, status, serviceContext);
+    }
+
+    public void updateDate(long creatorId,
+                           long workId,
+                           Date startDate,
+                           Date endDate,
+                           ServiceContext serviceContext) {
+        localService.updateDateWorkEntry(
+                creatorId,
+                workId,
+                startDate,
+                endDate,
+                serviceContext
+        );
     }
 
     public void reportProgressByAmount(long creatorId,
