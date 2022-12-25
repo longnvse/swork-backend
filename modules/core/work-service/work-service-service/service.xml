@@ -58,13 +58,28 @@
             <finder-column name="projectId"/>
         </finder>
 
+        <finder name="ProjectId_ParentId" return-type="Collection">
+            <finder-column name="projectId"/>
+            <finder-column name="parentId"/>
+        </finder>
+
         <finder name="ProjectAndPhase" return-type="Collection">
             <finder-column name="projectId"/>
             <finder-column name="phaseId"/>
         </finder>
 
+        <finder name="ProjectId_PhaseId_ParentId" return-type="Collection">
+            <finder-column name="projectId"/>
+            <finder-column name="phaseId"/>
+            <finder-column name="parentId"/>
+        </finder>
+
         <finder name="PhaseId" return-type="Collection">
             <finder-column name="phaseId"/>
+        </finder>
+        <finder name="PhaseId_ParentId" return-type="Collection">
+            <finder-column name="phaseId"/>
+            <finder-column name="parentId"/>
         </finder>
 
         <finder name="ParentId" return-type="Collection">

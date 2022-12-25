@@ -243,12 +243,12 @@ public interface WorkEntryLocalService
 
 	public List<WorkEntry> findByParentId(long businessId, long parentId);
 
-	public List<WorkEntry> findByPhaseId(long phaseId);
+	public List<WorkEntry> findByPhaseId(long phaseId, boolean hasChildren);
 
 	public WorkEntry findByPID_Name(
 		long businessId, long parentId, String name);
 
-	public List<WorkEntry> findByProjectId(long projectId);
+	public List<WorkEntry> findByProjectId(long projectId, boolean hasChildren);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();

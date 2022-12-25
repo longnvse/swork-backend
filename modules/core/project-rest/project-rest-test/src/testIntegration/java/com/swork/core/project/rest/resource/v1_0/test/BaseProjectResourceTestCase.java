@@ -33,6 +33,7 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import com.swork.core.project.rest.client.dto.v1_0.GanttChart;
 import com.swork.core.project.rest.client.dto.v1_0.Project;
 import com.swork.core.project.rest.client.http.HttpInvoker;
 import com.swork.core.project.rest.client.pagination.Page;
@@ -718,6 +719,28 @@ public abstract class BaseProjectResourceTestCase {
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 
+	@Test
+	public void testGetGanttChartProject() throws Exception {
+		Project postProject = testGetProject_addProject();
+
+		GanttChart postGanttChart = testGetGanttChartProject_addGanttChart(
+			postProject.getId(), randomGanttChart());
+
+		GanttChart getGanttChart = projectResource.getGanttChartProject(
+			postProject.getId());
+
+		assertEquals(postGanttChart, getGanttChart);
+		assertValid(getGanttChart);
+	}
+
+	protected GanttChart testGetGanttChartProject_addGanttChart(
+			long projectId, GanttChart ganttChart)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	protected Project testGraphQLProject_addProject() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
@@ -762,6 +785,14 @@ public abstract class BaseProjectResourceTestCase {
 
 			assertEquals(project1, project2);
 		}
+	}
+
+	protected void assertEquals(
+		GanttChart ganttChart1, GanttChart ganttChart2) {
+
+		Assert.assertTrue(
+			ganttChart1 + " does not equal " + ganttChart2,
+			equals(ganttChart1, ganttChart2));
 	}
 
 	protected void assertEqualsIgnoringOrder(
@@ -966,7 +997,41 @@ public abstract class BaseProjectResourceTestCase {
 		Assert.assertTrue(valid);
 	}
 
+	protected void assertValid(GanttChart ganttChart) {
+		boolean valid = true;
+
+		for (String additionalAssertFieldName :
+				getAdditionalGanttChartAssertFieldNames()) {
+
+			if (Objects.equals("phases", additionalAssertFieldName)) {
+				if (ganttChart.getPhases() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("works", additionalAssertFieldName)) {
+				if (ganttChart.getWorks() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			throw new IllegalArgumentException(
+				"Invalid additional assert field name " +
+					additionalAssertFieldName);
+		}
+
+		Assert.assertTrue(valid);
+	}
+
 	protected String[] getAdditionalAssertFieldNames() {
+		return new String[0];
+	}
+
+	protected String[] getAdditionalGanttChartAssertFieldNames() {
 		return new String[0];
 	}
 
@@ -1260,6 +1325,42 @@ public abstract class BaseProjectResourceTestCase {
 		}
 
 		return false;
+	}
+
+	protected boolean equals(GanttChart ganttChart1, GanttChart ganttChart2) {
+		if (ganttChart1 == ganttChart2) {
+			return true;
+		}
+
+		for (String additionalAssertFieldName :
+				getAdditionalGanttChartAssertFieldNames()) {
+
+			if (Objects.equals("phases", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						ganttChart1.getPhases(), ganttChart2.getPhases())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("works", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						ganttChart1.getWorks(), ganttChart2.getWorks())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			throw new IllegalArgumentException(
+				"Invalid additional assert field name " +
+					additionalAssertFieldName);
+		}
+
+		return true;
 	}
 
 	protected java.lang.reflect.Field[] getDeclaredFields(Class clazz)
@@ -1617,6 +1718,13 @@ public abstract class BaseProjectResourceTestCase {
 
 	protected Project randomPatchProject() throws Exception {
 		return randomProject();
+	}
+
+	protected GanttChart randomGanttChart() throws Exception {
+		return new GanttChart() {
+			{
+			}
+		};
 	}
 
 	protected ProjectResource projectResource;

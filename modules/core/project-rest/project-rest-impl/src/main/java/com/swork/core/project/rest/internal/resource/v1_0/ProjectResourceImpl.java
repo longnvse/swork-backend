@@ -9,6 +9,7 @@ import com.liferay.portal.vulcan.pagination.Pagination;
 import com.swork.common.exception.model.SW_NoSuchEntryException;
 import com.swork.common.token.helper.api.CommonTokenHelper;
 import com.swork.common.token.model.UserTokenModel;
+import com.swork.core.project.rest.dto.v1_0.GanttChart;
 import com.swork.core.project.rest.dto.v1_0.Project;
 import com.swork.core.project.rest.internal.odata.v1_0.ProjectEntryModel;
 import com.swork.core.project.rest.internal.service.ProjectService;
@@ -48,6 +49,11 @@ public class ProjectResourceImpl extends BaseProjectResourceImpl {
 				sorts,
 				getServiceContext()
 		);
+	}
+
+	@Override
+	public GanttChart getGanttChartProject(Long projectId) {
+		return service.getGanttChartData(projectId);
 	}
 
 	@Override

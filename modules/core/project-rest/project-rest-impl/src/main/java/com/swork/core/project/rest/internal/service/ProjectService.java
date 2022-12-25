@@ -13,6 +13,9 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.util.SearchUtil;
+import com.swork.core.phase.service.model.PhaseEntry;
+import com.swork.core.phase.service.service.PhaseEntryLocalServiceUtil;
+import com.swork.core.project.rest.dto.v1_0.GanttChart;
 import com.swork.core.project.rest.dto.v1_0.Project;
 import com.swork.core.project.rest.internal.mapper.ProjectMapper;
 import com.swork.core.project.service.constant.SearchFields;
@@ -20,11 +23,14 @@ import com.swork.core.project.service.mapper.model.ProjectMapperModel;
 import com.swork.core.project.service.model.ProjectEntry;
 import com.swork.core.project.service.service.ProjectEntryLocalService;
 import com.swork.core.project.service.service.ProjectMemberEntryLocalService;
+import com.swork.core.work.service.model.WorkEntry;
+import com.swork.core.work.service.service.WorkEntryLocalServiceUtil;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 @Component(
         immediate = true,
@@ -157,6 +163,13 @@ public class ProjectService {
     public void deleteProject(long projectId) throws PortalException {
         projectMemberEntryLocalService.deleteByProjectId(projectId);
         localService.deleteProjectEntry(projectId);
+    }
+
+    public GanttChart getGanttChartData(long projectId) {
+        List<PhaseEntry> phaseEntries = PhaseEntryLocalServiceUtil.findByProjectId(projectId);
+        List<WorkEntry> workEntries = WorkEntryLocalServiceUtil.findByProjectId(projectId, false);
+
+        return mapper.mapGanttChartFromPhaseAndWork(phaseEntries, workEntries);
     }
 
     @Reference

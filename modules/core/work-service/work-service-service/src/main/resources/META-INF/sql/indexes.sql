@@ -6,9 +6,10 @@ create index IX_6DF7702 on SW_Work (businessId, projectId, phaseId, name[$COLUMN
 create index IX_76527087 on SW_Work (companyId, externalReferenceCode[$COLUMN_LENGTH:75$]);
 create index IX_7C330B0A on SW_Work (parentId, name[$COLUMN_LENGTH:100$]);
 create index IX_8CC370B on SW_Work (parentReferenceCode[$COLUMN_LENGTH:75$], name[$COLUMN_LENGTH:100$]);
-create index IX_6F2328F4 on SW_Work (phaseId);
+create index IX_19A6ED0D on SW_Work (phaseId, parentId);
 create index IX_FECF62D1 on SW_Work (projectId, name[$COLUMN_LENGTH:100$]);
-create index IX_27DBE554 on SW_Work (projectId, phaseId);
+create index IX_D8CC9F2B on SW_Work (projectId, parentId);
+create index IX_1567B16D on SW_Work (projectId, phaseId, parentId);
 create index IX_50FC5A66 on SW_Work (uuid_[$COLUMN_LENGTH:75$], companyId);
 create unique index IX_1A844268 on SW_Work (uuid_[$COLUMN_LENGTH:75$], groupId);
 

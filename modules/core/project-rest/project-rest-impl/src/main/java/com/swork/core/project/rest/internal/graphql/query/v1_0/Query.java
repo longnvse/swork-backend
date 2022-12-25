@@ -14,6 +14,7 @@ import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import com.swork.core.project.rest.dto.v1_0.Chart;
+import com.swork.core.project.rest.dto.v1_0.GanttChart;
 import com.swork.core.project.rest.dto.v1_0.Project;
 import com.swork.core.project.rest.resource.v1_0.ChartResource;
 import com.swork.core.project.rest.resource.v1_0.ProjectResource;
@@ -164,6 +165,22 @@ public class Query {
 			projectResource -> projectResource.getProject(projectId));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {ganttChartProject(projectId: ___){phases, works}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField(description = "Approval a Project")
+	public GanttChart ganttChartProject(
+			@GraphQLName("projectId") Long projectId)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_projectResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			projectResource -> projectResource.getGanttChartProject(projectId));
+	}
+
 	@GraphQLTypeExtension(Project.class)
 	public class GetDashboardStatusWorkTypeExtension {
 
@@ -218,6 +235,26 @@ public class Query {
 				Query.this::_populateResourceContext,
 				chartResource -> new ChartPage(
 					chartResource.getDashboardBurnDownWork(_project.getId())));
+		}
+
+		private Project _project;
+
+	}
+
+	@GraphQLTypeExtension(Project.class)
+	public class GetGanttChartProjectTypeExtension {
+
+		public GetGanttChartProjectTypeExtension(Project project) {
+			_project = project;
+		}
+
+		@GraphQLField(description = "Approval a Project")
+		public GanttChart ganttChartProject() throws Exception {
+			return _applyComponentServiceObjects(
+				_projectResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				projectResource -> projectResource.getGanttChartProject(
+					_project.getId()));
 		}
 
 		private Project _project;
