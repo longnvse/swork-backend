@@ -15,6 +15,7 @@ import com.liferay.portal.vulcan.pagination.Pagination;
 import com.swork.core.work.rest.dto.v1_0.Work;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -71,6 +72,9 @@ public interface WorkResource {
 		throws Exception;
 
 	public void updateStatus(Long workId, String status) throws Exception;
+
+	public void updateDate(Long workId, Date startDate, Date endDate)
+		throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

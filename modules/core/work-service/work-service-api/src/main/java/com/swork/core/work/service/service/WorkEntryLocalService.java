@@ -39,6 +39,7 @@ import com.swork.core.work.service.model.WorkEntry;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -361,6 +362,11 @@ public interface WorkEntryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public WorkEntry reportProgressByAmount(
 		long creatorId, long workId, double completeAmount,
+		ServiceContext serviceContext);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public WorkEntry updateDateWorkEntry(
+		long creatorId, long workId, Date startDate, Date endDate,
 		ServiceContext serviceContext);
 
 	@Indexable(type = IndexableType.REINDEX)

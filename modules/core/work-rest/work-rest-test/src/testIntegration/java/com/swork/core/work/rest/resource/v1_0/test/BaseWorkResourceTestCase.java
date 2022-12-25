@@ -645,6 +645,23 @@ public abstract class BaseWorkResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testUpdateDate() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Work work = testUpdateDate_addWork();
+
+		assertHttpResponseStatusCode(
+			204, workResource.updateDateHttpResponse(work.getId(), null, null));
+
+		assertHttpResponseStatusCode(
+			404, workResource.updateDateHttpResponse(0L, null, null));
+	}
+
+	protected Work testUpdateDate_addWork() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 

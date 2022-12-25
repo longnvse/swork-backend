@@ -496,6 +496,16 @@ public class WorkEntryLocalServiceWrapper
 	}
 
 	@Override
+	public com.swork.core.work.service.model.WorkEntry updateDateWorkEntry(
+		long creatorId, long workId, java.util.Date startDate,
+		java.util.Date endDate,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _workEntryLocalService.updateDateWorkEntry(
+			creatorId, workId, startDate, endDate, serviceContext);
+	}
+
+	@Override
 	public com.swork.core.work.service.model.WorkEntry updateProcessWorkEntry(
 		long creatorId, long workId, long progress,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
