@@ -51,6 +51,15 @@ components:
           type: string
         progressType:
           type: string
+        commentNumber:
+          type: integer
+          readOnly: true
+        attachNumber:
+          type: integer
+          readOnly: true
+        role:
+          type: string
+          readOnly: true
     Manage:
       properties:
         id:

@@ -61,6 +61,14 @@ public class CommentEntryLocalServiceWrapper
 			serviceContext);
 	}
 
+	@Override
+	public int countByClassPkIdAndClassPkName(
+		long classPkId, String classPkName) {
+
+		return _commentEntryLocalService.countByClassPkIdAndClassPkName(
+			classPkId, classPkName);
+	}
+
 	/**
 	 * Creates a new comment entry with the primary key. Does not add the comment entry to the database.
 	 *

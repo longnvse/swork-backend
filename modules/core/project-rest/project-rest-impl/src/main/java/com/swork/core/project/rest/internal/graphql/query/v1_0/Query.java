@@ -152,7 +152,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {project(projectId: ___){id, externalReferenceCode, name, code, budget, description, startDate, endDate, status, progress, manages, handles, participates, actualStartDate, actualEndDate, progressType}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {project(projectId: ___){id, externalReferenceCode, name, code, budget, description, startDate, endDate, status, progress, manages, handles, participates, actualStartDate, actualEndDate, progressType, commentNumber, attachNumber, role}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Get an Project")
 	public Project project(@GraphQLName("projectId") Long projectId)

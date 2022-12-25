@@ -398,7 +398,7 @@ public interface FileManagerEntryPersistence
 	 * @return the matching file manager entry
 	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
 	 */
-	public FileManagerEntry findByF_C(long fileId, long businessId)
+	public FileManagerEntry findByF_B(long fileId, long businessId)
 		throws NoSuchFileManagerEntryException;
 
 	/**
@@ -408,7 +408,7 @@ public interface FileManagerEntryPersistence
 	 * @param businessId the business ID
 	 * @return the matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
 	 */
-	public FileManagerEntry fetchByF_C(long fileId, long businessId);
+	public FileManagerEntry fetchByF_B(long fileId, long businessId);
 
 	/**
 	 * Returns the file manager entry where fileId = &#63; and businessId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -418,7 +418,7 @@ public interface FileManagerEntryPersistence
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
 	 */
-	public FileManagerEntry fetchByF_C(
+	public FileManagerEntry fetchByF_B(
 		long fileId, long businessId, boolean useFinderCache);
 
 	/**
@@ -428,7 +428,7 @@ public interface FileManagerEntryPersistence
 	 * @param businessId the business ID
 	 * @return the file manager entry that was removed
 	 */
-	public FileManagerEntry removeByF_C(long fileId, long businessId)
+	public FileManagerEntry removeByF_B(long fileId, long businessId)
 		throws NoSuchFileManagerEntryException;
 
 	/**
@@ -438,7 +438,472 @@ public interface FileManagerEntryPersistence
 	 * @param businessId the business ID
 	 * @return the number of matching file manager entries
 	 */
-	public int countByF_C(long fileId, long businessId);
+	public int countByF_B(long fileId, long businessId);
+
+	/**
+	 * Returns all the file manager entries where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @return the matching file manager entries
+	 */
+	public java.util.List<FileManagerEntry> findByB_PID(
+		long businessId, Long projectId);
+
+	/**
+	 * Returns a range of all the file manager entries where businessId = &#63; and projectId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @return the range of matching file manager entries
+	 */
+	public java.util.List<FileManagerEntry> findByB_PID(
+		long businessId, Long projectId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and projectId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching file manager entries
+	 */
+	public java.util.List<FileManagerEntry> findByB_PID(
+		long businessId, Long projectId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and projectId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching file manager entries
+	 */
+	public java.util.List<FileManagerEntry> findByB_PID(
+		long businessId, Long projectId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	public FileManagerEntry findByB_PID_First(
+			long businessId, Long projectId,
+			com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+				orderByComparator)
+		throws NoSuchFileManagerEntryException;
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	public FileManagerEntry fetchByB_PID_First(
+		long businessId, Long projectId,
+		com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	public FileManagerEntry findByB_PID_Last(
+			long businessId, Long projectId,
+			com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+				orderByComparator)
+		throws NoSuchFileManagerEntryException;
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	public FileManagerEntry fetchByB_PID_Last(
+		long businessId, Long projectId,
+		com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the file manager entries before and after the current file manager entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param id the primary key of the current file manager entry
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next file manager entry
+	 * @throws NoSuchFileManagerEntryException if a file manager entry with the primary key could not be found
+	 */
+	public FileManagerEntry[] findByB_PID_PrevAndNext(
+			long id, long businessId, Long projectId,
+			com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+				orderByComparator)
+		throws NoSuchFileManagerEntryException;
+
+	/**
+	 * Removes all the file manager entries where businessId = &#63; and projectId = &#63; from the database.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 */
+	public void removeByB_PID(long businessId, Long projectId);
+
+	/**
+	 * Returns the number of file manager entries where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @return the number of matching file manager entries
+	 */
+	public int countByB_PID(long businessId, Long projectId);
+
+	/**
+	 * Returns all the file manager entries where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @return the matching file manager entries
+	 */
+	public java.util.List<FileManagerEntry> findByB_PHID(
+		long businessId, Long phaseId);
+
+	/**
+	 * Returns a range of all the file manager entries where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @return the range of matching file manager entries
+	 */
+	public java.util.List<FileManagerEntry> findByB_PHID(
+		long businessId, Long phaseId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching file manager entries
+	 */
+	public java.util.List<FileManagerEntry> findByB_PHID(
+		long businessId, Long phaseId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching file manager entries
+	 */
+	public java.util.List<FileManagerEntry> findByB_PHID(
+		long businessId, Long phaseId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	public FileManagerEntry findByB_PHID_First(
+			long businessId, Long phaseId,
+			com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+				orderByComparator)
+		throws NoSuchFileManagerEntryException;
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	public FileManagerEntry fetchByB_PHID_First(
+		long businessId, Long phaseId,
+		com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	public FileManagerEntry findByB_PHID_Last(
+			long businessId, Long phaseId,
+			com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+				orderByComparator)
+		throws NoSuchFileManagerEntryException;
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	public FileManagerEntry fetchByB_PHID_Last(
+		long businessId, Long phaseId,
+		com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the file manager entries before and after the current file manager entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param id the primary key of the current file manager entry
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next file manager entry
+	 * @throws NoSuchFileManagerEntryException if a file manager entry with the primary key could not be found
+	 */
+	public FileManagerEntry[] findByB_PHID_PrevAndNext(
+			long id, long businessId, Long phaseId,
+			com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+				orderByComparator)
+		throws NoSuchFileManagerEntryException;
+
+	/**
+	 * Removes all the file manager entries where businessId = &#63; and phaseId = &#63; from the database.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 */
+	public void removeByB_PHID(long businessId, Long phaseId);
+
+	/**
+	 * Returns the number of file manager entries where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @return the number of matching file manager entries
+	 */
+	public int countByB_PHID(long businessId, Long phaseId);
+
+	/**
+	 * Returns all the file manager entries where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @return the matching file manager entries
+	 */
+	public java.util.List<FileManagerEntry> findByB_WID(
+		long businessId, Long workId);
+
+	/**
+	 * Returns a range of all the file manager entries where businessId = &#63; and workId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @return the range of matching file manager entries
+	 */
+	public java.util.List<FileManagerEntry> findByB_WID(
+		long businessId, Long workId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and workId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching file manager entries
+	 */
+	public java.util.List<FileManagerEntry> findByB_WID(
+		long businessId, Long workId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and workId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching file manager entries
+	 */
+	public java.util.List<FileManagerEntry> findByB_WID(
+		long businessId, Long workId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	public FileManagerEntry findByB_WID_First(
+			long businessId, Long workId,
+			com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+				orderByComparator)
+		throws NoSuchFileManagerEntryException;
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	public FileManagerEntry fetchByB_WID_First(
+		long businessId, Long workId,
+		com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	public FileManagerEntry findByB_WID_Last(
+			long businessId, Long workId,
+			com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+				orderByComparator)
+		throws NoSuchFileManagerEntryException;
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	public FileManagerEntry fetchByB_WID_Last(
+		long businessId, Long workId,
+		com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the file manager entries before and after the current file manager entry in the ordered set where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param id the primary key of the current file manager entry
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next file manager entry
+	 * @throws NoSuchFileManagerEntryException if a file manager entry with the primary key could not be found
+	 */
+	public FileManagerEntry[] findByB_WID_PrevAndNext(
+			long id, long businessId, Long workId,
+			com.liferay.portal.kernel.util.OrderByComparator<FileManagerEntry>
+				orderByComparator)
+		throws NoSuchFileManagerEntryException;
+
+	/**
+	 * Removes all the file manager entries where businessId = &#63; and workId = &#63; from the database.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 */
+	public void removeByB_WID(long businessId, Long workId);
+
+	/**
+	 * Returns the number of file manager entries where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @return the number of matching file manager entries
+	 */
+	public int countByB_WID(long businessId, Long workId);
 
 	/**
 	 * Returns the file manager entry where companyId = &#63; and externalReferenceCode = &#63; or throws a <code>NoSuchFileManagerEntryException</code> if it could not be found.

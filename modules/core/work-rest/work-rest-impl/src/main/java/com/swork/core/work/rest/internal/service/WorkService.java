@@ -35,6 +35,7 @@ public class WorkService {
     public Page<Work> getWorkPages(long businessId,
                                    Long projectId,
                                    Long phaseId,
+                                   Long parentId,
                                    Boolean isTree,
                                    String search,
                                    Filter filter,
@@ -52,9 +53,9 @@ public class WorkService {
                             booleanQuery.getPreBooleanFilter();
 
                     booleanFilter.add(businessIdFilter, BooleanClauseOccur.MUST);
-                    if (GetterUtil.getBoolean(isTree)) {
+                    if (Validator.isNotNull(parentId)) {
                         TermFilter parentIdFilter =
-                                new TermFilter(SearchFields.PARENT_ID, String.valueOf(GetterUtil.DEFAULT_LONG));
+                                new TermFilter(SearchFields.PARENT_ID, String.valueOf(parentId));
                         booleanFilter.add(parentIdFilter, BooleanClauseOccur.MUST);
                     }
 

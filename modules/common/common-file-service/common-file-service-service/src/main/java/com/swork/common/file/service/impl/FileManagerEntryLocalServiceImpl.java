@@ -80,7 +80,19 @@ public class FileManagerEntryLocalServiceImpl
     public FileManagerEntry getFileManagerEntryByFileId(long fileId,
                                                         long businessId) {
 
-        return fileManagerEntryPersistence.fetchByF_C(fileId, businessId);
+        return fileManagerEntryPersistence.fetchByF_B(fileId, businessId);
+    }
+
+    public int countByProjectId(long businessId, long projectId) {
+        return fileManagerEntryPersistence.countByB_PID(businessId, projectId);
+    }
+
+    public int countByPhaseId(long businessId, long phaseId) {
+        return fileManagerEntryPersistence.countByB_PHID(businessId, phaseId);
+    }
+
+    public int countByWorkId(long businessId, long workId) {
+        return fileManagerEntryPersistence.countByB_WID(businessId, workId);
     }
 
     private void addFileManagerData(FileManagerEntry entry,

@@ -86,6 +86,12 @@ public interface FileManagerEntryLocalService
 	public FileManagerEntry addFileManagerEntry(
 		FileManagerEntry fileManagerEntry);
 
+	public int countByPhaseId(long businessId, long phaseId);
+
+	public int countByProjectId(long businessId, long projectId);
+
+	public int countByWorkId(long businessId, long workId);
+
 	/**
 	 * Creates a new file manager entry with the primary key. Does not add the file manager entry to the database.
 	 *

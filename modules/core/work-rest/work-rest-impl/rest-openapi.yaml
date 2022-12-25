@@ -187,6 +187,11 @@ paths:
           schema:
             type: integer
             format: int64
+        - in: query
+          name: parentId
+          schema:
+            type: integer
+            format: int64
       responses:
         200:
           description: The data returned
@@ -345,4 +350,3 @@ paths:
           content:
             application/json: {}
             application/xml: {}
-

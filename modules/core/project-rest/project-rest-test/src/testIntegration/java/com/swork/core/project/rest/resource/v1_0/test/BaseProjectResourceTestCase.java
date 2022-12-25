@@ -178,6 +178,7 @@ public abstract class BaseProjectResourceTestCase {
 		project.setExternalReferenceCode(regex);
 		project.setName(regex);
 		project.setProgressType(regex);
+		project.setRole(regex);
 
 		String json = ProjectSerDes.toJSON(project);
 
@@ -190,6 +191,7 @@ public abstract class BaseProjectResourceTestCase {
 		Assert.assertEquals(regex, project.getExternalReferenceCode());
 		Assert.assertEquals(regex, project.getName());
 		Assert.assertEquals(regex, project.getProgressType());
+		Assert.assertEquals(regex, project.getRole());
 	}
 
 	@Test
@@ -809,6 +811,14 @@ public abstract class BaseProjectResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("attachNumber", additionalAssertFieldName)) {
+				if (project.getAttachNumber() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("budget", additionalAssertFieldName)) {
 				if (project.getBudget() == null) {
 					valid = false;
@@ -819,6 +829,14 @@ public abstract class BaseProjectResourceTestCase {
 
 			if (Objects.equals("code", additionalAssertFieldName)) {
 				if (project.getCode() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("commentNumber", additionalAssertFieldName)) {
+				if (project.getCommentNumber() == null) {
 					valid = false;
 				}
 
@@ -893,6 +911,14 @@ public abstract class BaseProjectResourceTestCase {
 
 			if (Objects.equals("progressType", additionalAssertFieldName)) {
 				if (project.getProgressType() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("role", additionalAssertFieldName)) {
+				if (project.getRole() == null) {
 					valid = false;
 				}
 
@@ -1027,6 +1053,17 @@ public abstract class BaseProjectResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("attachNumber", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						project1.getAttachNumber(),
+						project2.getAttachNumber())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("budget", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						project1.getBudget(), project2.getBudget())) {
@@ -1040,6 +1077,17 @@ public abstract class BaseProjectResourceTestCase {
 			if (Objects.equals("code", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						project1.getCode(), project2.getCode())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("commentNumber", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						project1.getCommentNumber(),
+						project2.getCommentNumber())) {
 
 					return false;
 				}
@@ -1143,6 +1191,16 @@ public abstract class BaseProjectResourceTestCase {
 				if (!Objects.deepEquals(
 						project1.getProgressType(),
 						project2.getProgressType())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("role", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						project1.getRole(), project2.getRole())) {
 
 					return false;
 				}
@@ -1330,6 +1388,11 @@ public abstract class BaseProjectResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("attachNumber")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("budget")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1341,6 +1404,11 @@ public abstract class BaseProjectResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("commentNumber")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("description")) {
@@ -1431,6 +1499,14 @@ public abstract class BaseProjectResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("role")) {
+			sb.append("'");
+			sb.append(String.valueOf(project.getRole()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("startDate")) {
 			if (operator.equals("between")) {
 				sb = new StringBundler();
@@ -1513,8 +1589,10 @@ public abstract class BaseProjectResourceTestCase {
 			{
 				actualEndDate = RandomTestUtil.nextDate();
 				actualStartDate = RandomTestUtil.nextDate();
+				attachNumber = RandomTestUtil.randomInt();
 				budget = RandomTestUtil.randomLong();
 				code = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				commentNumber = RandomTestUtil.randomInt();
 				description = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				endDate = RandomTestUtil.nextDate();
@@ -1525,6 +1603,7 @@ public abstract class BaseProjectResourceTestCase {
 				progress = RandomTestUtil.randomLong();
 				progressType = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
+				role = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				startDate = RandomTestUtil.nextDate();
 			}
 		};

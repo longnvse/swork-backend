@@ -201,7 +201,7 @@ public abstract class BaseWorkResourceTestCase {
 	@Test
 	public void testGetWorksPage() throws Exception {
 		Page<Work> page = workResource.getWorksPage(
-			null, null, null, null, null, Pagination.of(1, 10), null);
+			null, null, null, null, null, null, Pagination.of(1, 10), null);
 
 		long totalCount = page.getTotalCount();
 
@@ -210,7 +210,7 @@ public abstract class BaseWorkResourceTestCase {
 		Work work2 = testGetWorksPage_addWork(randomWork());
 
 		page = workResource.getWorksPage(
-			null, null, null, null, null, Pagination.of(1, 10), null);
+			null, null, null, null, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
@@ -238,7 +238,7 @@ public abstract class BaseWorkResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Work> page = workResource.getWorksPage(
-				null, null, null, null,
+				null, null, null, null, null,
 				getFilterString(entityField, "between", work1),
 				Pagination.of(1, 2), null);
 
@@ -263,7 +263,7 @@ public abstract class BaseWorkResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Work> page = workResource.getWorksPage(
-				null, null, null, null,
+				null, null, null, null, null,
 				getFilterString(entityField, "eq", work1), Pagination.of(1, 2),
 				null);
 
@@ -275,7 +275,7 @@ public abstract class BaseWorkResourceTestCase {
 	@Test
 	public void testGetWorksPageWithPagination() throws Exception {
 		Page<Work> totalPage = workResource.getWorksPage(
-			null, null, null, null, null, null, null);
+			null, null, null, null, null, null, null, null);
 
 		int totalCount = GetterUtil.getInteger(totalPage.getTotalCount());
 
@@ -286,16 +286,16 @@ public abstract class BaseWorkResourceTestCase {
 		Work work3 = testGetWorksPage_addWork(randomWork());
 
 		Page<Work> page1 = workResource.getWorksPage(
-			null, null, null, null, null, Pagination.of(1, totalCount + 2),
-			null);
+			null, null, null, null, null, null,
+			Pagination.of(1, totalCount + 2), null);
 
 		List<Work> works1 = (List<Work>)page1.getItems();
 
 		Assert.assertEquals(works1.toString(), totalCount + 2, works1.size());
 
 		Page<Work> page2 = workResource.getWorksPage(
-			null, null, null, null, null, Pagination.of(2, totalCount + 2),
-			null);
+			null, null, null, null, null, null,
+			Pagination.of(2, totalCount + 2), null);
 
 		Assert.assertEquals(totalCount + 3, page2.getTotalCount());
 
@@ -304,8 +304,8 @@ public abstract class BaseWorkResourceTestCase {
 		Assert.assertEquals(works2.toString(), 1, works2.size());
 
 		Page<Work> page3 = workResource.getWorksPage(
-			null, null, null, null, null, Pagination.of(1, totalCount + 3),
-			null);
+			null, null, null, null, null, null,
+			Pagination.of(1, totalCount + 3), null);
 
 		assertContains(work1, (List<Work>)page3.getItems());
 		assertContains(work2, (List<Work>)page3.getItems());
@@ -409,14 +409,14 @@ public abstract class BaseWorkResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Work> ascPage = workResource.getWorksPage(
-				null, null, null, null, null, Pagination.of(1, 2),
+				null, null, null, null, null, null, Pagination.of(1, 2),
 				entityField.getName() + ":asc");
 
 			assertEquals(
 				Arrays.asList(work1, work2), (List<Work>)ascPage.getItems());
 
 			Page<Work> descPage = workResource.getWorksPage(
-				null, null, null, null, null, Pagination.of(1, 2),
+				null, null, null, null, null, null, Pagination.of(1, 2),
 				entityField.getName() + ":desc");
 
 			assertEquals(

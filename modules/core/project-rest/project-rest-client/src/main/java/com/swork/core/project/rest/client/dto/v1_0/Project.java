@@ -63,6 +63,27 @@ public class Project implements Cloneable, Serializable {
 
 	protected Date actualStartDate;
 
+	public Integer getAttachNumber() {
+		return attachNumber;
+	}
+
+	public void setAttachNumber(Integer attachNumber) {
+		this.attachNumber = attachNumber;
+	}
+
+	public void setAttachNumber(
+		UnsafeSupplier<Integer, Exception> attachNumberUnsafeSupplier) {
+
+		try {
+			attachNumber = attachNumberUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Integer attachNumber;
+
 	public Long getBudget() {
 		return budget;
 	}
@@ -102,6 +123,27 @@ public class Project implements Cloneable, Serializable {
 	}
 
 	protected String code;
+
+	public Integer getCommentNumber() {
+		return commentNumber;
+	}
+
+	public void setCommentNumber(Integer commentNumber) {
+		this.commentNumber = commentNumber;
+	}
+
+	public void setCommentNumber(
+		UnsafeSupplier<Integer, Exception> commentNumberUnsafeSupplier) {
+
+		try {
+			commentNumber = commentNumberUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Integer commentNumber;
 
 	public String getDescription() {
 		return description;
@@ -308,6 +350,25 @@ public class Project implements Cloneable, Serializable {
 	}
 
 	protected String progressType;
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public void setRole(UnsafeSupplier<String, Exception> roleUnsafeSupplier) {
+		try {
+			role = roleUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String role;
 
 	public Date getStartDate() {
 		return startDate;

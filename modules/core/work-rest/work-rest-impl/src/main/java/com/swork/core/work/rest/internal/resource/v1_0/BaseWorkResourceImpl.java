@@ -83,6 +83,10 @@ public abstract class BaseWorkResourceImpl
 			),
 			@io.swagger.v3.oas.annotations.Parameter(
 				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "parentId"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
 				name = "filter"
 			),
 			@io.swagger.v3.oas.annotations.Parameter(
@@ -119,6 +123,9 @@ public abstract class BaseWorkResourceImpl
 			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
 			@javax.ws.rs.QueryParam("phaseId")
 			Long phaseId,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.ws.rs.QueryParam("parentId")
+			Long parentId,
 			@javax.ws.rs.core.Context Filter filter,
 			@javax.ws.rs.core.Context Pagination pagination,
 			@javax.ws.rs.core.Context Sort[] sorts)
@@ -498,7 +505,8 @@ public abstract class BaseWorkResourceImpl
 		return getWorksPage(
 			Boolean.parseBoolean((String)parameters.get("isTree")), search,
 			Long.parseLong((String)parameters.get("projectId")),
-			Long.parseLong((String)parameters.get("phaseId")), filter,
+			Long.parseLong((String)parameters.get("phaseId")),
+			Long.parseLong((String)parameters.get("parentId")), filter,
 			pagination, sorts);
 	}
 

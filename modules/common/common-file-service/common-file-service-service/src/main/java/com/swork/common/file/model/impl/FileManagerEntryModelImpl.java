@@ -158,14 +158,32 @@ public class FileManagerEntryModelImpl
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long UUID_COLUMN_BITMASK = 32L;
+	public static final long PHASEID_COLUMN_BITMASK = 32L;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
+	public static final long PROJECTID_COLUMN_BITMASK = 64L;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
+	public static final long UUID_COLUMN_BITMASK = 128L;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
+	public static final long WORKID_COLUMN_BITMASK = 256L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *		#getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long ID_COLUMN_BITMASK = 64L;
+	public static final long ID_COLUMN_BITMASK = 512L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -740,6 +758,16 @@ public class FileManagerEntryModelImpl
 		_projectId = projectId;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public Long getOriginalProjectId() {
+		return GetterUtil.getLong(
+			this.<Long>getColumnOriginalValue("projectId"));
+	}
+
 	@Override
 	public Long getPhaseId() {
 		return _phaseId;
@@ -754,6 +782,15 @@ public class FileManagerEntryModelImpl
 		_phaseId = phaseId;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public Long getOriginalPhaseId() {
+		return GetterUtil.getLong(this.<Long>getColumnOriginalValue("phaseId"));
+	}
+
 	@Override
 	public Long getWorkId() {
 		return _workId;
@@ -766,6 +803,15 @@ public class FileManagerEntryModelImpl
 		}
 
 		_workId = workId;
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public Long getOriginalWorkId() {
+		return GetterUtil.getLong(this.<Long>getColumnOriginalValue("workId"));
 	}
 
 	@Override

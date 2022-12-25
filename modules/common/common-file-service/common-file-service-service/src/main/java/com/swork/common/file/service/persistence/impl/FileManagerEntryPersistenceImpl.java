@@ -1465,8 +1465,8 @@ public class FileManagerEntryPersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"fileManagerEntry.companyId = ?";
 
-	private FinderPath _finderPathFetchByF_C;
-	private FinderPath _finderPathCountByF_C;
+	private FinderPath _finderPathFetchByF_B;
+	private FinderPath _finderPathCountByF_B;
 
 	/**
 	 * Returns the file manager entry where fileId = &#63; and businessId = &#63; or throws a <code>NoSuchFileManagerEntryException</code> if it could not be found.
@@ -1477,10 +1477,10 @@ public class FileManagerEntryPersistenceImpl
 	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
 	 */
 	@Override
-	public FileManagerEntry findByF_C(long fileId, long businessId)
+	public FileManagerEntry findByF_B(long fileId, long businessId)
 		throws NoSuchFileManagerEntryException {
 
-		FileManagerEntry fileManagerEntry = fetchByF_C(fileId, businessId);
+		FileManagerEntry fileManagerEntry = fetchByF_B(fileId, businessId);
 
 		if (fileManagerEntry == null) {
 			StringBundler sb = new StringBundler(6);
@@ -1513,8 +1513,8 @@ public class FileManagerEntryPersistenceImpl
 	 * @return the matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
 	 */
 	@Override
-	public FileManagerEntry fetchByF_C(long fileId, long businessId) {
-		return fetchByF_C(fileId, businessId, true);
+	public FileManagerEntry fetchByF_B(long fileId, long businessId) {
+		return fetchByF_B(fileId, businessId, true);
 	}
 
 	/**
@@ -1526,7 +1526,7 @@ public class FileManagerEntryPersistenceImpl
 	 * @return the matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
 	 */
 	@Override
-	public FileManagerEntry fetchByF_C(
+	public FileManagerEntry fetchByF_B(
 		long fileId, long businessId, boolean useFinderCache) {
 
 		Object[] finderArgs = null;
@@ -1538,7 +1538,7 @@ public class FileManagerEntryPersistenceImpl
 		Object result = null;
 
 		if (useFinderCache) {
-			result = finderCache.getResult(_finderPathFetchByF_C, finderArgs);
+			result = finderCache.getResult(_finderPathFetchByF_B, finderArgs);
 		}
 
 		if (result instanceof FileManagerEntry) {
@@ -1556,9 +1556,9 @@ public class FileManagerEntryPersistenceImpl
 
 			sb.append(_SQL_SELECT_FILEMANAGERENTRY_WHERE);
 
-			sb.append(_FINDER_COLUMN_F_C_FILEID_2);
+			sb.append(_FINDER_COLUMN_F_B_FILEID_2);
 
-			sb.append(_FINDER_COLUMN_F_C_BUSINESSID_2);
+			sb.append(_FINDER_COLUMN_F_B_BUSINESSID_2);
 
 			String sql = sb.toString();
 
@@ -1580,7 +1580,7 @@ public class FileManagerEntryPersistenceImpl
 				if (list.isEmpty()) {
 					if (useFinderCache) {
 						finderCache.putResult(
-							_finderPathFetchByF_C, finderArgs, list);
+							_finderPathFetchByF_B, finderArgs, list);
 					}
 				}
 				else {
@@ -1593,7 +1593,7 @@ public class FileManagerEntryPersistenceImpl
 							}
 
 							_log.warn(
-								"FileManagerEntryPersistenceImpl.fetchByF_C(long, long, boolean) with parameters (" +
+								"FileManagerEntryPersistenceImpl.fetchByF_B(long, long, boolean) with parameters (" +
 									StringUtil.merge(finderArgs) +
 										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
 						}
@@ -1630,10 +1630,10 @@ public class FileManagerEntryPersistenceImpl
 	 * @return the file manager entry that was removed
 	 */
 	@Override
-	public FileManagerEntry removeByF_C(long fileId, long businessId)
+	public FileManagerEntry removeByF_B(long fileId, long businessId)
 		throws NoSuchFileManagerEntryException {
 
-		FileManagerEntry fileManagerEntry = findByF_C(fileId, businessId);
+		FileManagerEntry fileManagerEntry = findByF_B(fileId, businessId);
 
 		return remove(fileManagerEntry);
 	}
@@ -1646,8 +1646,8 @@ public class FileManagerEntryPersistenceImpl
 	 * @return the number of matching file manager entries
 	 */
 	@Override
-	public int countByF_C(long fileId, long businessId) {
-		FinderPath finderPath = _finderPathCountByF_C;
+	public int countByF_B(long fileId, long businessId) {
+		FinderPath finderPath = _finderPathCountByF_B;
 
 		Object[] finderArgs = new Object[] {fileId, businessId};
 
@@ -1658,9 +1658,9 @@ public class FileManagerEntryPersistenceImpl
 
 			sb.append(_SQL_COUNT_FILEMANAGERENTRY_WHERE);
 
-			sb.append(_FINDER_COLUMN_F_C_FILEID_2);
+			sb.append(_FINDER_COLUMN_F_B_FILEID_2);
 
-			sb.append(_FINDER_COLUMN_F_C_BUSINESSID_2);
+			sb.append(_FINDER_COLUMN_F_B_BUSINESSID_2);
 
 			String sql = sb.toString();
 
@@ -1692,11 +1692,1633 @@ public class FileManagerEntryPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_F_C_FILEID_2 =
+	private static final String _FINDER_COLUMN_F_B_FILEID_2 =
 		"fileManagerEntry.fileId = ? AND ";
 
-	private static final String _FINDER_COLUMN_F_C_BUSINESSID_2 =
+	private static final String _FINDER_COLUMN_F_B_BUSINESSID_2 =
 		"fileManagerEntry.businessId = ?";
+
+	private FinderPath _finderPathWithPaginationFindByB_PID;
+	private FinderPath _finderPathWithoutPaginationFindByB_PID;
+	private FinderPath _finderPathCountByB_PID;
+
+	/**
+	 * Returns all the file manager entries where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @return the matching file manager entries
+	 */
+	@Override
+	public List<FileManagerEntry> findByB_PID(long businessId, Long projectId) {
+		return findByB_PID(
+			businessId, projectId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the file manager entries where businessId = &#63; and projectId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @return the range of matching file manager entries
+	 */
+	@Override
+	public List<FileManagerEntry> findByB_PID(
+		long businessId, Long projectId, int start, int end) {
+
+		return findByB_PID(businessId, projectId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and projectId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching file manager entries
+	 */
+	@Override
+	public List<FileManagerEntry> findByB_PID(
+		long businessId, Long projectId, int start, int end,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		return findByB_PID(
+			businessId, projectId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and projectId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching file manager entries
+	 */
+	@Override
+	public List<FileManagerEntry> findByB_PID(
+		long businessId, Long projectId, int start, int end,
+		OrderByComparator<FileManagerEntry> orderByComparator,
+		boolean useFinderCache) {
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByB_PID;
+				finderArgs = new Object[] {businessId, projectId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByB_PID;
+			finderArgs = new Object[] {
+				businessId, projectId, start, end, orderByComparator
+			};
+		}
+
+		List<FileManagerEntry> list = null;
+
+		if (useFinderCache) {
+			list = (List<FileManagerEntry>)finderCache.getResult(
+				finderPath, finderArgs);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (FileManagerEntry fileManagerEntry : list) {
+					if ((businessId != fileManagerEntry.getBusinessId()) ||
+						!Objects.equals(
+							projectId, fileManagerEntry.getProjectId())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					4 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(4);
+			}
+
+			sb.append(_SQL_SELECT_FILEMANAGERENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_B_PID_BUSINESSID_2);
+
+			sb.append(_FINDER_COLUMN_B_PID_PROJECTID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(FileManagerEntryModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(businessId);
+
+				queryPos.add(projectId.longValue());
+
+				list = (List<FileManagerEntry>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	@Override
+	public FileManagerEntry findByB_PID_First(
+			long businessId, Long projectId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws NoSuchFileManagerEntryException {
+
+		FileManagerEntry fileManagerEntry = fetchByB_PID_First(
+			businessId, projectId, orderByComparator);
+
+		if (fileManagerEntry != null) {
+			return fileManagerEntry;
+		}
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("businessId=");
+		sb.append(businessId);
+
+		sb.append(", projectId=");
+		sb.append(projectId);
+
+		sb.append("}");
+
+		throw new NoSuchFileManagerEntryException(sb.toString());
+	}
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	@Override
+	public FileManagerEntry fetchByB_PID_First(
+		long businessId, Long projectId,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		List<FileManagerEntry> list = findByB_PID(
+			businessId, projectId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	@Override
+	public FileManagerEntry findByB_PID_Last(
+			long businessId, Long projectId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws NoSuchFileManagerEntryException {
+
+		FileManagerEntry fileManagerEntry = fetchByB_PID_Last(
+			businessId, projectId, orderByComparator);
+
+		if (fileManagerEntry != null) {
+			return fileManagerEntry;
+		}
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("businessId=");
+		sb.append(businessId);
+
+		sb.append(", projectId=");
+		sb.append(projectId);
+
+		sb.append("}");
+
+		throw new NoSuchFileManagerEntryException(sb.toString());
+	}
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	@Override
+	public FileManagerEntry fetchByB_PID_Last(
+		long businessId, Long projectId,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		int count = countByB_PID(businessId, projectId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<FileManagerEntry> list = findByB_PID(
+			businessId, projectId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the file manager entries before and after the current file manager entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param id the primary key of the current file manager entry
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next file manager entry
+	 * @throws NoSuchFileManagerEntryException if a file manager entry with the primary key could not be found
+	 */
+	@Override
+	public FileManagerEntry[] findByB_PID_PrevAndNext(
+			long id, long businessId, Long projectId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws NoSuchFileManagerEntryException {
+
+		FileManagerEntry fileManagerEntry = findByPrimaryKey(id);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			FileManagerEntry[] array = new FileManagerEntryImpl[3];
+
+			array[0] = getByB_PID_PrevAndNext(
+				session, fileManagerEntry, businessId, projectId,
+				orderByComparator, true);
+
+			array[1] = fileManagerEntry;
+
+			array[2] = getByB_PID_PrevAndNext(
+				session, fileManagerEntry, businessId, projectId,
+				orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected FileManagerEntry getByB_PID_PrevAndNext(
+		Session session, FileManagerEntry fileManagerEntry, long businessId,
+		Long projectId, OrderByComparator<FileManagerEntry> orderByComparator,
+		boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(4);
+		}
+
+		sb.append(_SQL_SELECT_FILEMANAGERENTRY_WHERE);
+
+		sb.append(_FINDER_COLUMN_B_PID_BUSINESSID_2);
+
+		sb.append(_FINDER_COLUMN_B_PID_PROJECTID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(FileManagerEntryModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(businessId);
+
+		queryPos.add(projectId.longValue());
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						fileManagerEntry)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<FileManagerEntry> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the file manager entries where businessId = &#63; and projectId = &#63; from the database.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 */
+	@Override
+	public void removeByB_PID(long businessId, Long projectId) {
+		for (FileManagerEntry fileManagerEntry :
+				findByB_PID(
+					businessId, projectId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+					null)) {
+
+			remove(fileManagerEntry);
+		}
+	}
+
+	/**
+	 * Returns the number of file manager entries where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @return the number of matching file manager entries
+	 */
+	@Override
+	public int countByB_PID(long businessId, Long projectId) {
+		FinderPath finderPath = _finderPathCountByB_PID;
+
+		Object[] finderArgs = new Object[] {businessId, projectId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_COUNT_FILEMANAGERENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_B_PID_BUSINESSID_2);
+
+			sb.append(_FINDER_COLUMN_B_PID_PROJECTID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(businessId);
+
+				queryPos.add(projectId.longValue());
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_B_PID_BUSINESSID_2 =
+		"fileManagerEntry.businessId = ? AND ";
+
+	private static final String _FINDER_COLUMN_B_PID_PROJECTID_2 =
+		"fileManagerEntry.projectId = ?";
+
+	private FinderPath _finderPathWithPaginationFindByB_PHID;
+	private FinderPath _finderPathWithoutPaginationFindByB_PHID;
+	private FinderPath _finderPathCountByB_PHID;
+
+	/**
+	 * Returns all the file manager entries where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @return the matching file manager entries
+	 */
+	@Override
+	public List<FileManagerEntry> findByB_PHID(long businessId, Long phaseId) {
+		return findByB_PHID(
+			businessId, phaseId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the file manager entries where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @return the range of matching file manager entries
+	 */
+	@Override
+	public List<FileManagerEntry> findByB_PHID(
+		long businessId, Long phaseId, int start, int end) {
+
+		return findByB_PHID(businessId, phaseId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching file manager entries
+	 */
+	@Override
+	public List<FileManagerEntry> findByB_PHID(
+		long businessId, Long phaseId, int start, int end,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		return findByB_PHID(
+			businessId, phaseId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching file manager entries
+	 */
+	@Override
+	public List<FileManagerEntry> findByB_PHID(
+		long businessId, Long phaseId, int start, int end,
+		OrderByComparator<FileManagerEntry> orderByComparator,
+		boolean useFinderCache) {
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByB_PHID;
+				finderArgs = new Object[] {businessId, phaseId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByB_PHID;
+			finderArgs = new Object[] {
+				businessId, phaseId, start, end, orderByComparator
+			};
+		}
+
+		List<FileManagerEntry> list = null;
+
+		if (useFinderCache) {
+			list = (List<FileManagerEntry>)finderCache.getResult(
+				finderPath, finderArgs);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (FileManagerEntry fileManagerEntry : list) {
+					if ((businessId != fileManagerEntry.getBusinessId()) ||
+						!Objects.equals(
+							phaseId, fileManagerEntry.getPhaseId())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					4 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(4);
+			}
+
+			sb.append(_SQL_SELECT_FILEMANAGERENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_B_PHID_BUSINESSID_2);
+
+			sb.append(_FINDER_COLUMN_B_PHID_PHASEID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(FileManagerEntryModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(businessId);
+
+				queryPos.add(phaseId.longValue());
+
+				list = (List<FileManagerEntry>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	@Override
+	public FileManagerEntry findByB_PHID_First(
+			long businessId, Long phaseId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws NoSuchFileManagerEntryException {
+
+		FileManagerEntry fileManagerEntry = fetchByB_PHID_First(
+			businessId, phaseId, orderByComparator);
+
+		if (fileManagerEntry != null) {
+			return fileManagerEntry;
+		}
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("businessId=");
+		sb.append(businessId);
+
+		sb.append(", phaseId=");
+		sb.append(phaseId);
+
+		sb.append("}");
+
+		throw new NoSuchFileManagerEntryException(sb.toString());
+	}
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	@Override
+	public FileManagerEntry fetchByB_PHID_First(
+		long businessId, Long phaseId,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		List<FileManagerEntry> list = findByB_PHID(
+			businessId, phaseId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	@Override
+	public FileManagerEntry findByB_PHID_Last(
+			long businessId, Long phaseId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws NoSuchFileManagerEntryException {
+
+		FileManagerEntry fileManagerEntry = fetchByB_PHID_Last(
+			businessId, phaseId, orderByComparator);
+
+		if (fileManagerEntry != null) {
+			return fileManagerEntry;
+		}
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("businessId=");
+		sb.append(businessId);
+
+		sb.append(", phaseId=");
+		sb.append(phaseId);
+
+		sb.append("}");
+
+		throw new NoSuchFileManagerEntryException(sb.toString());
+	}
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	@Override
+	public FileManagerEntry fetchByB_PHID_Last(
+		long businessId, Long phaseId,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		int count = countByB_PHID(businessId, phaseId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<FileManagerEntry> list = findByB_PHID(
+			businessId, phaseId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the file manager entries before and after the current file manager entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param id the primary key of the current file manager entry
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next file manager entry
+	 * @throws NoSuchFileManagerEntryException if a file manager entry with the primary key could not be found
+	 */
+	@Override
+	public FileManagerEntry[] findByB_PHID_PrevAndNext(
+			long id, long businessId, Long phaseId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws NoSuchFileManagerEntryException {
+
+		FileManagerEntry fileManagerEntry = findByPrimaryKey(id);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			FileManagerEntry[] array = new FileManagerEntryImpl[3];
+
+			array[0] = getByB_PHID_PrevAndNext(
+				session, fileManagerEntry, businessId, phaseId,
+				orderByComparator, true);
+
+			array[1] = fileManagerEntry;
+
+			array[2] = getByB_PHID_PrevAndNext(
+				session, fileManagerEntry, businessId, phaseId,
+				orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected FileManagerEntry getByB_PHID_PrevAndNext(
+		Session session, FileManagerEntry fileManagerEntry, long businessId,
+		Long phaseId, OrderByComparator<FileManagerEntry> orderByComparator,
+		boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(4);
+		}
+
+		sb.append(_SQL_SELECT_FILEMANAGERENTRY_WHERE);
+
+		sb.append(_FINDER_COLUMN_B_PHID_BUSINESSID_2);
+
+		sb.append(_FINDER_COLUMN_B_PHID_PHASEID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(FileManagerEntryModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(businessId);
+
+		queryPos.add(phaseId.longValue());
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						fileManagerEntry)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<FileManagerEntry> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the file manager entries where businessId = &#63; and phaseId = &#63; from the database.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 */
+	@Override
+	public void removeByB_PHID(long businessId, Long phaseId) {
+		for (FileManagerEntry fileManagerEntry :
+				findByB_PHID(
+					businessId, phaseId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+					null)) {
+
+			remove(fileManagerEntry);
+		}
+	}
+
+	/**
+	 * Returns the number of file manager entries where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @return the number of matching file manager entries
+	 */
+	@Override
+	public int countByB_PHID(long businessId, Long phaseId) {
+		FinderPath finderPath = _finderPathCountByB_PHID;
+
+		Object[] finderArgs = new Object[] {businessId, phaseId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_COUNT_FILEMANAGERENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_B_PHID_BUSINESSID_2);
+
+			sb.append(_FINDER_COLUMN_B_PHID_PHASEID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(businessId);
+
+				queryPos.add(phaseId.longValue());
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_B_PHID_BUSINESSID_2 =
+		"fileManagerEntry.businessId = ? AND ";
+
+	private static final String _FINDER_COLUMN_B_PHID_PHASEID_2 =
+		"fileManagerEntry.phaseId = ?";
+
+	private FinderPath _finderPathWithPaginationFindByB_WID;
+	private FinderPath _finderPathWithoutPaginationFindByB_WID;
+	private FinderPath _finderPathCountByB_WID;
+
+	/**
+	 * Returns all the file manager entries where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @return the matching file manager entries
+	 */
+	@Override
+	public List<FileManagerEntry> findByB_WID(long businessId, Long workId) {
+		return findByB_WID(
+			businessId, workId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the file manager entries where businessId = &#63; and workId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @return the range of matching file manager entries
+	 */
+	@Override
+	public List<FileManagerEntry> findByB_WID(
+		long businessId, Long workId, int start, int end) {
+
+		return findByB_WID(businessId, workId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and workId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching file manager entries
+	 */
+	@Override
+	public List<FileManagerEntry> findByB_WID(
+		long businessId, Long workId, int start, int end,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		return findByB_WID(
+			businessId, workId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and workId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching file manager entries
+	 */
+	@Override
+	public List<FileManagerEntry> findByB_WID(
+		long businessId, Long workId, int start, int end,
+		OrderByComparator<FileManagerEntry> orderByComparator,
+		boolean useFinderCache) {
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByB_WID;
+				finderArgs = new Object[] {businessId, workId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByB_WID;
+			finderArgs = new Object[] {
+				businessId, workId, start, end, orderByComparator
+			};
+		}
+
+		List<FileManagerEntry> list = null;
+
+		if (useFinderCache) {
+			list = (List<FileManagerEntry>)finderCache.getResult(
+				finderPath, finderArgs);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (FileManagerEntry fileManagerEntry : list) {
+					if ((businessId != fileManagerEntry.getBusinessId()) ||
+						!Objects.equals(workId, fileManagerEntry.getWorkId())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					4 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(4);
+			}
+
+			sb.append(_SQL_SELECT_FILEMANAGERENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_B_WID_BUSINESSID_2);
+
+			sb.append(_FINDER_COLUMN_B_WID_WORKID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(FileManagerEntryModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(businessId);
+
+				queryPos.add(workId.longValue());
+
+				list = (List<FileManagerEntry>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	@Override
+	public FileManagerEntry findByB_WID_First(
+			long businessId, Long workId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws NoSuchFileManagerEntryException {
+
+		FileManagerEntry fileManagerEntry = fetchByB_WID_First(
+			businessId, workId, orderByComparator);
+
+		if (fileManagerEntry != null) {
+			return fileManagerEntry;
+		}
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("businessId=");
+		sb.append(businessId);
+
+		sb.append(", workId=");
+		sb.append(workId);
+
+		sb.append("}");
+
+		throw new NoSuchFileManagerEntryException(sb.toString());
+	}
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	@Override
+	public FileManagerEntry fetchByB_WID_First(
+		long businessId, Long workId,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		List<FileManagerEntry> list = findByB_WID(
+			businessId, workId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	@Override
+	public FileManagerEntry findByB_WID_Last(
+			long businessId, Long workId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws NoSuchFileManagerEntryException {
+
+		FileManagerEntry fileManagerEntry = fetchByB_WID_Last(
+			businessId, workId, orderByComparator);
+
+		if (fileManagerEntry != null) {
+			return fileManagerEntry;
+		}
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("businessId=");
+		sb.append(businessId);
+
+		sb.append(", workId=");
+		sb.append(workId);
+
+		sb.append("}");
+
+		throw new NoSuchFileManagerEntryException(sb.toString());
+	}
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	@Override
+	public FileManagerEntry fetchByB_WID_Last(
+		long businessId, Long workId,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		int count = countByB_WID(businessId, workId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<FileManagerEntry> list = findByB_WID(
+			businessId, workId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the file manager entries before and after the current file manager entry in the ordered set where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param id the primary key of the current file manager entry
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next file manager entry
+	 * @throws NoSuchFileManagerEntryException if a file manager entry with the primary key could not be found
+	 */
+	@Override
+	public FileManagerEntry[] findByB_WID_PrevAndNext(
+			long id, long businessId, Long workId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws NoSuchFileManagerEntryException {
+
+		FileManagerEntry fileManagerEntry = findByPrimaryKey(id);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			FileManagerEntry[] array = new FileManagerEntryImpl[3];
+
+			array[0] = getByB_WID_PrevAndNext(
+				session, fileManagerEntry, businessId, workId,
+				orderByComparator, true);
+
+			array[1] = fileManagerEntry;
+
+			array[2] = getByB_WID_PrevAndNext(
+				session, fileManagerEntry, businessId, workId,
+				orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected FileManagerEntry getByB_WID_PrevAndNext(
+		Session session, FileManagerEntry fileManagerEntry, long businessId,
+		Long workId, OrderByComparator<FileManagerEntry> orderByComparator,
+		boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(4);
+		}
+
+		sb.append(_SQL_SELECT_FILEMANAGERENTRY_WHERE);
+
+		sb.append(_FINDER_COLUMN_B_WID_BUSINESSID_2);
+
+		sb.append(_FINDER_COLUMN_B_WID_WORKID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(FileManagerEntryModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(businessId);
+
+		queryPos.add(workId.longValue());
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						fileManagerEntry)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<FileManagerEntry> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the file manager entries where businessId = &#63; and workId = &#63; from the database.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 */
+	@Override
+	public void removeByB_WID(long businessId, Long workId) {
+		for (FileManagerEntry fileManagerEntry :
+				findByB_WID(
+					businessId, workId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+					null)) {
+
+			remove(fileManagerEntry);
+		}
+	}
+
+	/**
+	 * Returns the number of file manager entries where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @return the number of matching file manager entries
+	 */
+	@Override
+	public int countByB_WID(long businessId, Long workId) {
+		FinderPath finderPath = _finderPathCountByB_WID;
+
+		Object[] finderArgs = new Object[] {businessId, workId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_COUNT_FILEMANAGERENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_B_WID_BUSINESSID_2);
+
+			sb.append(_FINDER_COLUMN_B_WID_WORKID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(businessId);
+
+				queryPos.add(workId.longValue());
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_B_WID_BUSINESSID_2 =
+		"fileManagerEntry.businessId = ? AND ";
+
+	private static final String _FINDER_COLUMN_B_WID_WORKID_2 =
+		"fileManagerEntry.workId = ?";
 
 	private FinderPath _finderPathFetchByC_ERC;
 	private FinderPath _finderPathCountByC_ERC;
@@ -2005,7 +3627,7 @@ public class FileManagerEntryPersistenceImpl
 			fileManagerEntry);
 
 		finderCache.putResult(
-			_finderPathFetchByF_C,
+			_finderPathFetchByF_B,
 			new Object[] {
 				fileManagerEntry.getFileId(), fileManagerEntry.getBusinessId()
 			},
@@ -2107,9 +3729,9 @@ public class FileManagerEntryPersistenceImpl
 			fileManagerEntryModelImpl.getBusinessId()
 		};
 
-		finderCache.putResult(_finderPathCountByF_C, args, Long.valueOf(1));
+		finderCache.putResult(_finderPathCountByF_B, args, Long.valueOf(1));
 		finderCache.putResult(
-			_finderPathFetchByF_C, args, fileManagerEntryModelImpl);
+			_finderPathFetchByF_B, args, fileManagerEntryModelImpl);
 
 		args = new Object[] {
 			fileManagerEntryModelImpl.getCompanyId(),
@@ -2641,15 +4263,72 @@ public class FileManagerEntryPersistenceImpl
 			new String[] {String.class.getName(), Long.class.getName()},
 			new String[] {"uuid_", "companyId"}, false);
 
-		_finderPathFetchByF_C = new FinderPath(
-			FINDER_CLASS_NAME_ENTITY, "fetchByF_C",
+		_finderPathFetchByF_B = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByF_B",
 			new String[] {Long.class.getName(), Long.class.getName()},
 			new String[] {"fileId", "businessId"}, true);
 
-		_finderPathCountByF_C = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByF_C",
+		_finderPathCountByF_B = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByF_B",
 			new String[] {Long.class.getName(), Long.class.getName()},
 			new String[] {"fileId", "businessId"}, false);
+
+		_finderPathWithPaginationFindByB_PID = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByB_PID",
+			new String[] {
+				Long.class.getName(), Long.class.getName(),
+				Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			},
+			new String[] {"businessId", "projectId"}, true);
+
+		_finderPathWithoutPaginationFindByB_PID = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByB_PID",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"businessId", "projectId"}, true);
+
+		_finderPathCountByB_PID = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByB_PID",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"businessId", "projectId"}, false);
+
+		_finderPathWithPaginationFindByB_PHID = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByB_PHID",
+			new String[] {
+				Long.class.getName(), Long.class.getName(),
+				Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			},
+			new String[] {"businessId", "phaseId"}, true);
+
+		_finderPathWithoutPaginationFindByB_PHID = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByB_PHID",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"businessId", "phaseId"}, true);
+
+		_finderPathCountByB_PHID = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByB_PHID",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"businessId", "phaseId"}, false);
+
+		_finderPathWithPaginationFindByB_WID = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByB_WID",
+			new String[] {
+				Long.class.getName(), Long.class.getName(),
+				Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			},
+			new String[] {"businessId", "workId"}, true);
+
+		_finderPathWithoutPaginationFindByB_WID = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByB_WID",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"businessId", "workId"}, true);
+
+		_finderPathCountByB_WID = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByB_WID",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"businessId", "workId"}, false);
 
 		_finderPathFetchByC_ERC = new FinderPath(
 			FINDER_CLASS_NAME_ENTITY, "fetchByC_ERC",

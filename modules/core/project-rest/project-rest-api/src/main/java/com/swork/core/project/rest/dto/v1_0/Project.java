@@ -107,6 +107,34 @@ public class Project implements Serializable {
 	protected Date actualStartDate;
 
 	@Schema
+	public Integer getAttachNumber() {
+		return attachNumber;
+	}
+
+	public void setAttachNumber(Integer attachNumber) {
+		this.attachNumber = attachNumber;
+	}
+
+	@JsonIgnore
+	public void setAttachNumber(
+		UnsafeSupplier<Integer, Exception> attachNumberUnsafeSupplier) {
+
+		try {
+			attachNumber = attachNumberUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Integer attachNumber;
+
+	@Schema
 	public Long getBudget() {
 		return budget;
 	}
@@ -159,6 +187,34 @@ public class Project implements Serializable {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String code;
+
+	@Schema
+	public Integer getCommentNumber() {
+		return commentNumber;
+	}
+
+	public void setCommentNumber(Integer commentNumber) {
+		this.commentNumber = commentNumber;
+	}
+
+	@JsonIgnore
+	public void setCommentNumber(
+		UnsafeSupplier<Integer, Exception> commentNumberUnsafeSupplier) {
+
+		try {
+			commentNumber = commentNumberUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Integer commentNumber;
 
 	@Schema
 	public String getDescription() {
@@ -440,6 +496,32 @@ public class Project implements Serializable {
 	protected String progressType;
 
 	@Schema
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	@JsonIgnore
+	public void setRole(UnsafeSupplier<String, Exception> roleUnsafeSupplier) {
+		try {
+			role = roleUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String role;
+
+	@Schema
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -563,6 +645,16 @@ public class Project implements Serializable {
 			sb.append("\"");
 		}
 
+		if (attachNumber != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"attachNumber\": ");
+
+			sb.append(attachNumber);
+		}
+
 		if (budget != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -585,6 +677,16 @@ public class Project implements Serializable {
 			sb.append(_escape(code));
 
 			sb.append("\"");
+		}
+
+		if (commentNumber != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"commentNumber\": ");
+
+			sb.append(commentNumber);
 		}
 
 		if (description != null) {
@@ -733,6 +835,20 @@ public class Project implements Serializable {
 			sb.append("\"");
 
 			sb.append(_escape(progressType));
+
+			sb.append("\"");
+		}
+
+		if (role != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"role\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(role));
 
 			sb.append("\"");
 		}
