@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.swork.common.util.api.CommonUtil;
 import com.swork.core.project.service.constant.Type;
 import com.swork.core.work.service.mapper.model.WorkMapperModel;
 import com.swork.core.work.service.model.WorkEntry;
@@ -110,8 +111,8 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
                 serviceContext
         );
 
-        workEntry.setStartDate(startDate);
-        workEntry.setEndDate(endDate);
+        workEntry.setStartDate(commonUtil.getStartOfDate(startDate));
+        workEntry.setEndDate(commonUtil.getEndOfDate(endDate));
 
         return updateWorkEntry(workEntry);
     }
@@ -154,7 +155,7 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
         entry.setProgress(progress);
 
-        if (entry.getStatus().equals(ACTIVE)) {
+        if (entry.getStatus().equals(PENDING)) {
             entry.setStatus(ACTIVE);
         }
 
@@ -170,8 +171,8 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
     private void setDataEntry(WorkEntry entry, WorkMapperModel model) {
         entry.setName(model.getName());
-        entry.setStartDate(model.getStartDate());
-        entry.setEndDate(model.getEndDate());
+        entry.setStartDate(commonUtil.getStartOfDate(model.getStartDate()));
+        entry.setEndDate(commonUtil.getEndOfDate(model.getEndDate()));
         entry.setDescription(model.getDescription());
         entry.setProgressType(model.getProgressType());
         entry.setIncompleteAmount(model.getIncompleteAmount());
@@ -295,7 +296,7 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         if (Validator.isNotNull(workEntry)) {
             workEntry.setProgress(progress);
 
-            if (workEntry.getStatus().equals(ACTIVE)) {
+            if (workEntry.getStatus().equals(PENDING)) {
                 workEntry.setStatus(ACTIVE);
             }
 
@@ -360,4 +361,6 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
     @Reference
     private WorkMemberEntryLocalService workMemberEntryLocalService;
+    @Reference
+    private CommonUtil commonUtil;
 }

@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.Validator;
+import com.swork.common.util.api.CommonUtil;
 import com.swork.core.project.service.constant.Type;
 import com.swork.core.project.service.mapper.model.ProjectMapperModel;
 import com.swork.core.project.service.model.ProjectEntry;
@@ -285,10 +286,8 @@ public class ProjectEntryLocalServiceImpl
         entry.setName(model.getName());
         entry.setBudget(model.getBudget());
         entry.setDescription(model.getDescription());
-        entry.setStartDate(model.getStartDate());
-        entry.setEndDate(model.getEndDate());
-        entry.setActualEndDate(model.getActualEndDate());
-        entry.setActualStartDate(model.getActualStartDate());
+        entry.setStartDate(commonUtil.getStartOfDate(model.getStartDate()));
+        entry.setEndDate(commonUtil.getEndOfDate(model.getEndDate()));
         entry.setProgressType(model.getProgressType());
     }
 
@@ -319,4 +318,6 @@ public class ProjectEntryLocalServiceImpl
 
     @Reference
     private ProjectMemberEntryLocalService projectMemberEntryLocalService;
+    @Reference
+    private CommonUtil commonUtil;
 }
