@@ -55,7 +55,7 @@ public class WorkMapper {
         to.setDescription(from.getDescription());
         to.setParentId(GetterUtil.getLong(from.getParentId()) != 0 ? from.getParentId() : null);
 
-        WorkEntry parent = localService.fetchWorkEntry(from.getParentId());
+        WorkEntry parent = localService.fetchWorkEntry(GetterUtil.getLong(from.getParentId()));
 
         if (Validator.isNotNull(parent)) {
             to.setParentName(parent.getName());
@@ -71,7 +71,7 @@ public class WorkMapper {
 
         to.setProjectId(GetterUtil.getLong(from.getProjectId()) != 0 ? from.getProjectId() : null);
 
-        ProjectEntry projectEntry = projectEntryLocalService.fetchProjectEntry(from.getProjectId());
+        ProjectEntry projectEntry = projectEntryLocalService.fetchProjectEntry(GetterUtil.getLong(from.getProjectId()));
 
         if (Validator.isNotNull(projectEntry)) {
             to.setProjectName(projectEntry.getName());

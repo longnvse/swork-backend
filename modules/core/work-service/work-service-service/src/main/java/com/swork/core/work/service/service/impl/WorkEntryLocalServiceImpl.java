@@ -238,12 +238,20 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         return TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS) + 1;
     }
 
-    public List<WorkEntry> findByProjectId(long projectId) {
-        return workEntryPersistence.findByProjectId(projectId);
+    public List<WorkEntry> findByProjectId(long projectId, boolean hasChildren) {
+        if (hasChildren) {
+            return workEntryPersistence.findByProjectId(projectId);
+        }
+
+        return workEntryPersistence.findByProjectId_PhaseId_ParentId(projectId, GetterUtil.DEFAULT_LONG, GetterUtil.DEFAULT_LONG);
     }
 
-    public List<WorkEntry> findByPhaseId(long phaseId) {
-        return workEntryPersistence.findByPhaseId(phaseId);
+    public List<WorkEntry> findByPhaseId(long phaseId, boolean hasChildren) {
+        if (hasChildren) {
+            return workEntryPersistence.findByPhaseId(phaseId);
+        }
+
+        return workEntryPersistence.findByPhaseId_ParentId(phaseId, GetterUtil.DEFAULT_LONG);
     }
 
     public WorkEntry findByPID_Name(long businessId,

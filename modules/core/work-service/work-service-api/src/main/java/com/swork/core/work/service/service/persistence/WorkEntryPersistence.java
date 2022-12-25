@@ -532,6 +532,161 @@ public interface WorkEntryPersistence extends BasePersistence<WorkEntry> {
 	public int countByProjectId(Long projectId);
 
 	/**
+	 * Returns all the work entries where projectId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @return the matching work entries
+	 */
+	public java.util.List<WorkEntry> findByProjectId_ParentId(
+		Long projectId, Long parentId);
+
+	/**
+	 * Returns a range of all the work entries where projectId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @return the range of matching work entries
+	 */
+	public java.util.List<WorkEntry> findByProjectId_ParentId(
+		Long projectId, Long parentId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the work entries where projectId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching work entries
+	 */
+	public java.util.List<WorkEntry> findByProjectId_ParentId(
+		Long projectId, Long parentId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the work entries where projectId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching work entries
+	 */
+	public java.util.List<WorkEntry> findByProjectId_ParentId(
+		Long projectId, Long parentId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first work entry in the ordered set where projectId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	public WorkEntry findByProjectId_ParentId_First(
+			Long projectId, Long parentId,
+			com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+				orderByComparator)
+		throws NoSuchWorkEntryException;
+
+	/**
+	 * Returns the first work entry in the ordered set where projectId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	public WorkEntry fetchByProjectId_ParentId_First(
+		Long projectId, Long parentId,
+		com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the last work entry in the ordered set where projectId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	public WorkEntry findByProjectId_ParentId_Last(
+			Long projectId, Long parentId,
+			com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+				orderByComparator)
+		throws NoSuchWorkEntryException;
+
+	/**
+	 * Returns the last work entry in the ordered set where projectId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	public WorkEntry fetchByProjectId_ParentId_Last(
+		Long projectId, Long parentId,
+		com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the work entries before and after the current work entry in the ordered set where projectId = &#63; and parentId = &#63;.
+	 *
+	 * @param workId the primary key of the current work entry
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next work entry
+	 * @throws NoSuchWorkEntryException if a work entry with the primary key could not be found
+	 */
+	public WorkEntry[] findByProjectId_ParentId_PrevAndNext(
+			long workId, Long projectId, Long parentId,
+			com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+				orderByComparator)
+		throws NoSuchWorkEntryException;
+
+	/**
+	 * Removes all the work entries where projectId = &#63; and parentId = &#63; from the database.
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 */
+	public void removeByProjectId_ParentId(Long projectId, Long parentId);
+
+	/**
+	 * Returns the number of work entries where projectId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @return the number of matching work entries
+	 */
+	public int countByProjectId_ParentId(Long projectId, Long parentId);
+
+	/**
 	 * Returns all the work entries where projectId = &#63; and phaseId = &#63;.
 	 *
 	 * @param projectId the project ID
@@ -687,6 +842,174 @@ public interface WorkEntryPersistence extends BasePersistence<WorkEntry> {
 	public int countByProjectAndPhase(Long projectId, Long phaseId);
 
 	/**
+	 * Returns all the work entries where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @return the matching work entries
+	 */
+	public java.util.List<WorkEntry> findByProjectId_PhaseId_ParentId(
+		Long projectId, Long phaseId, Long parentId);
+
+	/**
+	 * Returns a range of all the work entries where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @return the range of matching work entries
+	 */
+	public java.util.List<WorkEntry> findByProjectId_PhaseId_ParentId(
+		Long projectId, Long phaseId, Long parentId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the work entries where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching work entries
+	 */
+	public java.util.List<WorkEntry> findByProjectId_PhaseId_ParentId(
+		Long projectId, Long phaseId, Long parentId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the work entries where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching work entries
+	 */
+	public java.util.List<WorkEntry> findByProjectId_PhaseId_ParentId(
+		Long projectId, Long phaseId, Long parentId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first work entry in the ordered set where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	public WorkEntry findByProjectId_PhaseId_ParentId_First(
+			Long projectId, Long phaseId, Long parentId,
+			com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+				orderByComparator)
+		throws NoSuchWorkEntryException;
+
+	/**
+	 * Returns the first work entry in the ordered set where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	public WorkEntry fetchByProjectId_PhaseId_ParentId_First(
+		Long projectId, Long phaseId, Long parentId,
+		com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the last work entry in the ordered set where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	public WorkEntry findByProjectId_PhaseId_ParentId_Last(
+			Long projectId, Long phaseId, Long parentId,
+			com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+				orderByComparator)
+		throws NoSuchWorkEntryException;
+
+	/**
+	 * Returns the last work entry in the ordered set where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	public WorkEntry fetchByProjectId_PhaseId_ParentId_Last(
+		Long projectId, Long phaseId, Long parentId,
+		com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the work entries before and after the current work entry in the ordered set where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param workId the primary key of the current work entry
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next work entry
+	 * @throws NoSuchWorkEntryException if a work entry with the primary key could not be found
+	 */
+	public WorkEntry[] findByProjectId_PhaseId_ParentId_PrevAndNext(
+			long workId, Long projectId, Long phaseId, Long parentId,
+			com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+				orderByComparator)
+		throws NoSuchWorkEntryException;
+
+	/**
+	 * Removes all the work entries where projectId = &#63; and phaseId = &#63; and parentId = &#63; from the database.
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 */
+	public void removeByProjectId_PhaseId_ParentId(
+		Long projectId, Long phaseId, Long parentId);
+
+	/**
+	 * Returns the number of work entries where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @return the number of matching work entries
+	 */
+	public int countByProjectId_PhaseId_ParentId(
+		Long projectId, Long phaseId, Long parentId);
+
+	/**
 	 * Returns all the work entries where phaseId = &#63;.
 	 *
 	 * @param phaseId the phase ID
@@ -828,6 +1151,161 @@ public interface WorkEntryPersistence extends BasePersistence<WorkEntry> {
 	 * @return the number of matching work entries
 	 */
 	public int countByPhaseId(Long phaseId);
+
+	/**
+	 * Returns all the work entries where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @return the matching work entries
+	 */
+	public java.util.List<WorkEntry> findByPhaseId_ParentId(
+		Long phaseId, Long parentId);
+
+	/**
+	 * Returns a range of all the work entries where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @return the range of matching work entries
+	 */
+	public java.util.List<WorkEntry> findByPhaseId_ParentId(
+		Long phaseId, Long parentId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the work entries where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching work entries
+	 */
+	public java.util.List<WorkEntry> findByPhaseId_ParentId(
+		Long phaseId, Long parentId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the work entries where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching work entries
+	 */
+	public java.util.List<WorkEntry> findByPhaseId_ParentId(
+		Long phaseId, Long parentId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first work entry in the ordered set where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	public WorkEntry findByPhaseId_ParentId_First(
+			Long phaseId, Long parentId,
+			com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+				orderByComparator)
+		throws NoSuchWorkEntryException;
+
+	/**
+	 * Returns the first work entry in the ordered set where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	public WorkEntry fetchByPhaseId_ParentId_First(
+		Long phaseId, Long parentId,
+		com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the last work entry in the ordered set where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	public WorkEntry findByPhaseId_ParentId_Last(
+			Long phaseId, Long parentId,
+			com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+				orderByComparator)
+		throws NoSuchWorkEntryException;
+
+	/**
+	 * Returns the last work entry in the ordered set where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	public WorkEntry fetchByPhaseId_ParentId_Last(
+		Long phaseId, Long parentId,
+		com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the work entries before and after the current work entry in the ordered set where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param workId the primary key of the current work entry
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next work entry
+	 * @throws NoSuchWorkEntryException if a work entry with the primary key could not be found
+	 */
+	public WorkEntry[] findByPhaseId_ParentId_PrevAndNext(
+			long workId, Long phaseId, Long parentId,
+			com.liferay.portal.kernel.util.OrderByComparator<WorkEntry>
+				orderByComparator)
+		throws NoSuchWorkEntryException;
+
+	/**
+	 * Removes all the work entries where phaseId = &#63; and parentId = &#63; from the database.
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 */
+	public void removeByPhaseId_ParentId(Long phaseId, Long parentId);
+
+	/**
+	 * Returns the number of work entries where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @return the number of matching work entries
+	 */
+	public int countByPhaseId_ParentId(Long phaseId, Long parentId);
 
 	/**
 	 * Returns all the work entries where businessId = &#63; and parentId = &#63;.

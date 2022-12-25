@@ -12,6 +12,7 @@ import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
+import com.swork.core.project.rest.dto.v1_0.GanttChart;
 import com.swork.core.project.rest.dto.v1_0.Project;
 
 import java.util.Collections;
@@ -79,6 +80,8 @@ public interface ProjectResource {
 	public void updateActualDateProject(
 			Long projectId, Date actualStartDate, Date actualEndDate)
 		throws Exception;
+
+	public GanttChart getGanttChartProject(Long projectId) throws Exception;
 
 	public void updateMemberProject(Long projectId, Project project)
 		throws Exception;

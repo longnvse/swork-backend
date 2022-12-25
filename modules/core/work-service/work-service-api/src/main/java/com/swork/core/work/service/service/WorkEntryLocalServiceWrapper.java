@@ -307,9 +307,9 @@ public class WorkEntryLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.swork.core.work.service.model.WorkEntry>
-		findByPhaseId(long phaseId) {
+		findByPhaseId(long phaseId, boolean hasChildren) {
 
-		return _workEntryLocalService.findByPhaseId(phaseId);
+		return _workEntryLocalService.findByPhaseId(phaseId, hasChildren);
 	}
 
 	@Override
@@ -322,9 +322,9 @@ public class WorkEntryLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.swork.core.work.service.model.WorkEntry>
-		findByProjectId(long projectId) {
+		findByProjectId(long projectId, boolean hasChildren) {
 
-		return _workEntryLocalService.findByProjectId(projectId);
+		return _workEntryLocalService.findByProjectId(projectId, hasChildren);
 	}
 
 	@Override

@@ -1,10 +1,12 @@
 package com.swork.core.project.rest.client.resource.v1_0;
 
+import com.swork.core.project.rest.client.dto.v1_0.GanttChart;
 import com.swork.core.project.rest.client.dto.v1_0.Project;
 import com.swork.core.project.rest.client.http.HttpInvoker;
 import com.swork.core.project.rest.client.pagination.Page;
 import com.swork.core.project.rest.client.pagination.Pagination;
 import com.swork.core.project.rest.client.problem.Problem;
+import com.swork.core.project.rest.client.serdes.v1_0.GanttChartSerDes;
 import com.swork.core.project.rest.client.serdes.v1_0.ProjectSerDes;
 
 import java.text.DateFormat;
@@ -110,6 +112,12 @@ public interface ProjectResource {
 	public HttpInvoker.HttpResponse updateActualDateProjectHttpResponse(
 			Long projectId, java.util.Date actualStartDate,
 			java.util.Date actualEndDate)
+		throws Exception;
+
+	public GanttChart getGanttChartProject(Long projectId) throws Exception;
+
+	public HttpInvoker.HttpResponse getGanttChartProjectHttpResponse(
+			Long projectId)
 		throws Exception;
 
 	public void updateMemberProject(Long projectId, Project project)
@@ -1203,6 +1211,87 @@ public interface ProjectResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/swork/project-rest/v1.0/projects/actual-date/{projectId}");
+
+			httpInvoker.path("projectId", projectId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public GanttChart getGanttChartProject(Long projectId)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				getGanttChartProjectHttpResponse(projectId);
+
+			String content = httpResponse.getContent();
+
+			if ((httpResponse.getStatusCode() / 100) != 2) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response content: " + content);
+				_logger.log(
+					Level.WARNING,
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.log(
+					Level.WARNING,
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+			else {
+				_logger.fine("HTTP response content: " + content);
+				_logger.fine(
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.fine(
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+			}
+
+			try {
+				return GanttChartSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse getGanttChartProjectHttpResponse(
+				Long projectId)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/swork/project-rest/v1.0/projects/gantt-chart/{projectId}");
 
 			httpInvoker.path("projectId", projectId);
 

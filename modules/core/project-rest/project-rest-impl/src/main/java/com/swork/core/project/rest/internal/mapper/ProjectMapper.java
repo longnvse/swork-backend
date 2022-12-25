@@ -3,17 +3,19 @@ package com.swork.core.project.rest.internal.mapper;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.swork.common.comment.service.service.CommentEntryLocalServiceUtil;
 import com.swork.common.file.service.FileManagerEntryLocalServiceUtil;
-import com.swork.core.project.rest.dto.v1_0.Handle;
-import com.swork.core.project.rest.dto.v1_0.Participate;
-import com.swork.core.project.rest.dto.v1_0.Project;
+import com.swork.core.phase.service.model.PhaseEntry;
+import com.swork.core.project.rest.dto.v1_0.*;
 import com.swork.core.project.service.constant.Type;
 import com.swork.core.project.service.mapper.model.ProjectMapperModel;
 import com.swork.core.project.service.model.ProjectEntry;
 import com.swork.core.project.service.service.ProjectMemberEntryLocalService;
+import com.swork.core.work.service.model.WorkEntry;
+import com.swork.core.work.service.service.WorkEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 @Component(
@@ -121,13 +123,57 @@ public class ProjectMapper {
         return null;
     }
 
+    public Phase mapPhaseFromPhaseEntry(PhaseEntry phaseEntry) {
+        Phase to = new Phase();
+
+        to.setId(phaseEntry.getPhaseId());
+        to.setName(phaseEntry.getPhaseName());
+        to.setProgress(phaseEntry.getProgress());
+        to.setStatus(phaseEntry.getStatus());
+        to.setStartDate(phaseEntry.getStartDate());
+        to.setEndDate(phaseEntry.getEndDate());
+
+        List<WorkEntry> workEntries = workEntryLocalService.findByPhaseId(phaseEntry.getPhaseId(), false);
+
+        to.setWorks(workEntries.stream().map(this::mapWorkFromWorkEntry).toArray(Work[]::new));
+
+        return to;
+    }
+
+    public Work mapWorkFromWorkEntry(WorkEntry workEntry) {
+        Work to = new Work();
+
+        to.setId(workEntry.getWorkId());
+        to.setName(workEntry.getName());
+        to.setProgress(workEntry.getProgress());
+        to.setStatus(workEntry.getStatus());
+        to.setStartDate(workEntry.getStartDate());
+        to.setEndDate(workEntry.getEndDate());
+
+        List<WorkEntry> workEntries = workEntryLocalService.findByParentId(workEntry.getBusinessId(), workEntry.getWorkId());
+
+        to.setWorks(workEntries.stream().map(this::mapWorkFromWorkEntry).toArray(Work[]::new));
+
+        return to;
+    }
+
+    public GanttChart mapGanttChartFromPhaseAndWork(List<PhaseEntry> phaseEntries,
+                                                    List<WorkEntry> workEntries) {
+        GanttChart to = new GanttChart();
+        to.setPhases(phaseEntries.stream().map(this::mapPhaseFromPhaseEntry).toArray(Phase[]::new));
+        to.setWorks(workEntries.stream().map(this::mapWorkFromWorkEntry).toArray(Work[]::new));
+
+        return to;
+    }
+
     @Reference
     private ProjectHandleMapper projectHandleMapper;
     @Reference
     private ProjectManageMapper projectManageMapper;
     @Reference
     private ProjectParticipateMapper projectParticipateMapper;
-
     @Reference
     private ProjectMemberEntryLocalService memberEntryLocalService;
+    @Reference
+    private WorkEntryLocalService workEntryLocalService;
 }

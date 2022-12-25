@@ -33,7 +33,7 @@ public class PhaseServiceImpl implements PhaseService {
             return;
         }
 
-        List<WorkEntry> workEntries = workEntryLocalService.findByPhaseId(phaseId);
+        List<WorkEntry> workEntries = workEntryLocalService.findByPhaseId(phaseId,true);
 
         long progress = workEntryLocalService.calcProgress(workEntries, projectEntry.getProgressType());
 
