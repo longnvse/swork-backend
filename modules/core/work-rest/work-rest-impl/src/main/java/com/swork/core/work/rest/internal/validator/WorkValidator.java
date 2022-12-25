@@ -68,8 +68,8 @@ public class WorkValidator {
             validateRangeDate(
                     commonUtil.getStartOfDate(workEntry.getStartDate()),
                     commonUtil.getEndOfDate(workEntry.getEndDate()),
-                    work.getStartDate(),
-                    work.getEndDate(),
+                    startDate,
+                    endDate,
                     LanguageKeys.OUT_OF_DATE_PARENT
             );
         }
@@ -80,8 +80,8 @@ public class WorkValidator {
             validateRangeDate(
                     commonUtil.getStartOfDate(phaseEntry.getStartDate()),
                     commonUtil.getEndOfDate(phaseEntry.getEndDate()),
-                    work.getStartDate(),
-                    work.getEndDate(),
+                    startDate,
+                    endDate,
                     LanguageKeys.OUT_OF_DATE_PHASE
             );
         }
@@ -92,8 +92,8 @@ public class WorkValidator {
             validateRangeDate(
                     commonUtil.getStartOfDate(projectEntry.getStartDate()),
                     commonUtil.getEndOfDate(projectEntry.getEndDate()),
-                    work.getStartDate(),
-                    work.getEndDate(),
+                    startDate,
+                    endDate,
                     LanguageKeys.OUT_OF_DATE_PROJECT
             );
         }
