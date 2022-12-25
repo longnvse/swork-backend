@@ -55,7 +55,7 @@ public class WorkMapper {
         to.setDescription(from.getDescription());
         to.setParentId(GetterUtil.getLong(from.getParentId()) != 0 ? from.getParentId() : null);
 
-        WorkEntry parent = localService.fetchWorkEntry(from.getWorkId());
+        WorkEntry parent = localService.fetchWorkEntry(from.getParentId());
 
         if (Validator.isNotNull(parent)) {
             to.setParentName(parent.getName());
