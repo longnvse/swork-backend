@@ -22,6 +22,7 @@ build & deploy:
   only:
     - develop
     - master
+    - main
     - merge_requests
 
 integration test:
@@ -98,3 +99,4 @@ Deploy Prod:
     - echo "Deployed"
   only:
     - master
+    - main
