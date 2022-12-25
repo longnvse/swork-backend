@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.swork.common.file.model.FileManagerEntry">
+		<field name="uuid" type="String" />
+		<field name="externalReferenceCode" type="String" />
+		<field name="id" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="accountId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="businessId" type="long" />
+		<field name="fileId" type="long" />
+		<field name="fileType" type="String" />
+		<field name="fileName" type="String" />
+		<field name="fileSize" type="Long" />
+		<field name="mimeType" type="String" />
+		<field name="moduleId" type="String" />
+		<field name="appId" type="String" />
+		<field name="projectId" type="Long" />
+		<field name="phaseId" type="Long" />
+		<field name="workId" type="Long" />
+	</model>
+</model-hints>

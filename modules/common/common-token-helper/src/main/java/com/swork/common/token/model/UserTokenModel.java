@@ -1,85 +1,67 @@
 package com.swork.common.token.model;
 
 public class UserTokenModel {
-  private long userId;
-  private String screenName;
-  private String fullName;
-  private String email;
-  private long customerId;
-  private String customer;
-  private long employeeId;
-  private long accountId;
-  private AccountTokenModel account;
+    private String username;
+    private String fullName;
+    private String email;
+    private String role;
+    private long accountId;
+    private long businessId;
+    private Long departmentId;
 
-  public long getUserId() {
-    return userId;
-  }
+    public String getUsername() {
+        return username;
+    }
 
-  public void setUserId(long userId) {
-    this.userId = userId;
-  }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-  public String getScreenName() {
-    return screenName;
-  }
+    public String getFullName() {
+        return fullName;
+    }
 
-  public void setScreenName(String screenName) {
-    this.screenName = screenName;
-  }
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
-  public String getFullName() {
-    return fullName;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-  public String getEmail() {
-    return email;
-  }
+    public String getRole() {
+        return role;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-  public long getCustomerId() {
-    return customerId;
-  }
+    public long getAccountId() {
+        return accountId;
+    }
 
-  public void setCustomerId(long customerId) {
-    this.customerId = customerId;
-  }
+    public void setAccountId(long accountId) {
+        this.accountId = accountId;
+    }
 
-  public AccountTokenModel getAccount() {
-    return account;
-  }
+    public long getBusinessId() {
+        return businessId;
+    }
 
-  public void setAccount(AccountTokenModel account) {
-    this.account = account;
-  }
+    public void setBusinessId(long businessId) {
+        this.businessId = businessId;
+    }
 
-  public String getCustomer() {
-    return customer;
-  }
+    public Long getDepartmentId() {
+        return departmentId;
+    }
 
-  public void setCustomer(String customer) {
-    this.customer = customer;
-  }
-
-  public long getEmployeeId() {
-    return employeeId;
-  }
-
-  public void setEmployeeId(long employeeId) {
-    this.employeeId = employeeId;
-  }
-
-  public long getAccountId() {
-    return accountId;
-  }
-
-  public void setAccountId(long accountId) {
-    this.accountId = accountId;
-  }
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+    }
 }

@@ -1459,33 +1459,29 @@ public class AccountEntryPersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"accountEntry.companyId = ?";
 
-	private FinderPath _finderPathFetchByU_P;
-	private FinderPath _finderPathCountByU_P;
+	private FinderPath _finderPathFetchByUsername;
+	private FinderPath _finderPathCountByUsername;
 
 	/**
-	 * Returns the account entry where username = &#63; and password = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
+	 * Returns the account entry where username = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
 	 *
 	 * @param username the username
-	 * @param password the password
 	 * @return the matching account entry
 	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
 	 */
 	@Override
-	public AccountEntry findByU_P(String username, String password)
+	public AccountEntry findByUsername(String username)
 		throws NoSuchAccountEntryException {
 
-		AccountEntry accountEntry = fetchByU_P(username, password);
+		AccountEntry accountEntry = fetchByUsername(username);
 
 		if (accountEntry == null) {
-			StringBundler sb = new StringBundler(6);
+			StringBundler sb = new StringBundler(4);
 
 			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
 			sb.append("username=");
 			sb.append(username);
-
-			sb.append(", password=");
-			sb.append(password);
 
 			sb.append("}");
 
@@ -1500,79 +1496,64 @@ public class AccountEntryPersistenceImpl
 	}
 
 	/**
-	 * Returns the account entry where username = &#63; and password = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the account entry where username = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param username the username
-	 * @param password the password
 	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
 	 */
 	@Override
-	public AccountEntry fetchByU_P(String username, String password) {
-		return fetchByU_P(username, password, true);
+	public AccountEntry fetchByUsername(String username) {
+		return fetchByUsername(username, true);
 	}
 
 	/**
-	 * Returns the account entry where username = &#63; and password = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the account entry where username = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param username the username
-	 * @param password the password
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
 	 */
 	@Override
-	public AccountEntry fetchByU_P(
-		String username, String password, boolean useFinderCache) {
+	public AccountEntry fetchByUsername(
+		String username, boolean useFinderCache) {
 
 		username = Objects.toString(username, "");
-		password = Objects.toString(password, "");
 
 		Object[] finderArgs = null;
 
 		if (useFinderCache) {
-			finderArgs = new Object[] {username, password};
+			finderArgs = new Object[] {username};
 		}
 
 		Object result = null;
 
 		if (useFinderCache) {
-			result = finderCache.getResult(_finderPathFetchByU_P, finderArgs);
+			result = finderCache.getResult(
+				_finderPathFetchByUsername, finderArgs);
 		}
 
 		if (result instanceof AccountEntry) {
 			AccountEntry accountEntry = (AccountEntry)result;
 
-			if (!Objects.equals(username, accountEntry.getUsername()) ||
-				!Objects.equals(password, accountEntry.getPassword())) {
-
+			if (!Objects.equals(username, accountEntry.getUsername())) {
 				result = null;
 			}
 		}
 
 		if (result == null) {
-			StringBundler sb = new StringBundler(4);
+			StringBundler sb = new StringBundler(3);
 
 			sb.append(_SQL_SELECT_ACCOUNTENTRY_WHERE);
 
 			boolean bindUsername = false;
 
 			if (username.isEmpty()) {
-				sb.append(_FINDER_COLUMN_U_P_USERNAME_3);
+				sb.append(_FINDER_COLUMN_USERNAME_USERNAME_3);
 			}
 			else {
 				bindUsername = true;
 
-				sb.append(_FINDER_COLUMN_U_P_USERNAME_2);
-			}
-
-			boolean bindPassword = false;
-
-			if (password.isEmpty()) {
-				sb.append(_FINDER_COLUMN_U_P_PASSWORD_3);
-			}
-			else {
-				bindPassword = true;
-
-				sb.append(_FINDER_COLUMN_U_P_PASSWORD_2);
+				sb.append(_FINDER_COLUMN_USERNAME_USERNAME_2);
 			}
 
 			String sql = sb.toString();
@@ -1590,16 +1571,12 @@ public class AccountEntryPersistenceImpl
 					queryPos.add(username);
 				}
 
-				if (bindPassword) {
-					queryPos.add(password);
-				}
-
 				List<AccountEntry> list = query.list();
 
 				if (list.isEmpty()) {
 					if (useFinderCache) {
 						finderCache.putResult(
-							_finderPathFetchByU_P, finderArgs, list);
+							_finderPathFetchByUsername, finderArgs, list);
 					}
 				}
 				else {
@@ -1608,11 +1585,11 @@ public class AccountEntryPersistenceImpl
 
 						if (_log.isWarnEnabled()) {
 							if (!useFinderCache) {
-								finderArgs = new Object[] {username, password};
+								finderArgs = new Object[] {username};
 							}
 
 							_log.warn(
-								"AccountEntryPersistenceImpl.fetchByU_P(String, String, boolean) with parameters (" +
+								"AccountEntryPersistenceImpl.fetchByUsername(String, boolean) with parameters (" +
 									StringUtil.merge(finderArgs) +
 										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
 						}
@@ -1642,64 +1619,50 @@ public class AccountEntryPersistenceImpl
 	}
 
 	/**
-	 * Removes the account entry where username = &#63; and password = &#63; from the database.
+	 * Removes the account entry where username = &#63; from the database.
 	 *
 	 * @param username the username
-	 * @param password the password
 	 * @return the account entry that was removed
 	 */
 	@Override
-	public AccountEntry removeByU_P(String username, String password)
+	public AccountEntry removeByUsername(String username)
 		throws NoSuchAccountEntryException {
 
-		AccountEntry accountEntry = findByU_P(username, password);
+		AccountEntry accountEntry = findByUsername(username);
 
 		return remove(accountEntry);
 	}
 
 	/**
-	 * Returns the number of account entries where username = &#63; and password = &#63;.
+	 * Returns the number of account entries where username = &#63;.
 	 *
 	 * @param username the username
-	 * @param password the password
 	 * @return the number of matching account entries
 	 */
 	@Override
-	public int countByU_P(String username, String password) {
+	public int countByUsername(String username) {
 		username = Objects.toString(username, "");
-		password = Objects.toString(password, "");
 
-		FinderPath finderPath = _finderPathCountByU_P;
+		FinderPath finderPath = _finderPathCountByUsername;
 
-		Object[] finderArgs = new Object[] {username, password};
+		Object[] finderArgs = new Object[] {username};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
 
 		if (count == null) {
-			StringBundler sb = new StringBundler(3);
+			StringBundler sb = new StringBundler(2);
 
 			sb.append(_SQL_COUNT_ACCOUNTENTRY_WHERE);
 
 			boolean bindUsername = false;
 
 			if (username.isEmpty()) {
-				sb.append(_FINDER_COLUMN_U_P_USERNAME_3);
+				sb.append(_FINDER_COLUMN_USERNAME_USERNAME_3);
 			}
 			else {
 				bindUsername = true;
 
-				sb.append(_FINDER_COLUMN_U_P_USERNAME_2);
-			}
-
-			boolean bindPassword = false;
-
-			if (password.isEmpty()) {
-				sb.append(_FINDER_COLUMN_U_P_PASSWORD_3);
-			}
-			else {
-				bindPassword = true;
-
-				sb.append(_FINDER_COLUMN_U_P_PASSWORD_2);
+				sb.append(_FINDER_COLUMN_USERNAME_USERNAME_2);
 			}
 
 			String sql = sb.toString();
@@ -1717,8 +1680,243 @@ public class AccountEntryPersistenceImpl
 					queryPos.add(username);
 				}
 
-				if (bindPassword) {
-					queryPos.add(password);
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_USERNAME_USERNAME_2 =
+		"accountEntry.username = ?";
+
+	private static final String _FINDER_COLUMN_USERNAME_USERNAME_3 =
+		"(accountEntry.username IS NULL OR accountEntry.username = '')";
+
+	private FinderPath _finderPathFetchByEmail;
+	private FinderPath _finderPathCountByEmail;
+
+	/**
+	 * Returns the account entry where email = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
+	 *
+	 * @param email the email
+	 * @return the matching account entry
+	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
+	 */
+	@Override
+	public AccountEntry findByEmail(String email)
+		throws NoSuchAccountEntryException {
+
+		AccountEntry accountEntry = fetchByEmail(email);
+
+		if (accountEntry == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("email=");
+			sb.append(email);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchAccountEntryException(sb.toString());
+		}
+
+		return accountEntry;
+	}
+
+	/**
+	 * Returns the account entry where email = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param email the email
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	@Override
+	public AccountEntry fetchByEmail(String email) {
+		return fetchByEmail(email, true);
+	}
+
+	/**
+	 * Returns the account entry where email = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param email the email
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	@Override
+	public AccountEntry fetchByEmail(String email, boolean useFinderCache) {
+		email = Objects.toString(email, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {email};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(_finderPathFetchByEmail, finderArgs);
+		}
+
+		if (result instanceof AccountEntry) {
+			AccountEntry accountEntry = (AccountEntry)result;
+
+			if (!Objects.equals(email, accountEntry.getEmail())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_ACCOUNTENTRY_WHERE);
+
+			boolean bindEmail = false;
+
+			if (email.isEmpty()) {
+				sb.append(_FINDER_COLUMN_EMAIL_EMAIL_3);
+			}
+			else {
+				bindEmail = true;
+
+				sb.append(_FINDER_COLUMN_EMAIL_EMAIL_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindEmail) {
+					queryPos.add(email);
+				}
+
+				List<AccountEntry> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByEmail, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {email};
+							}
+
+							_log.warn(
+								"AccountEntryPersistenceImpl.fetchByEmail(String, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					AccountEntry accountEntry = list.get(0);
+
+					result = accountEntry;
+
+					cacheResult(accountEntry);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (AccountEntry)result;
+		}
+	}
+
+	/**
+	 * Removes the account entry where email = &#63; from the database.
+	 *
+	 * @param email the email
+	 * @return the account entry that was removed
+	 */
+	@Override
+	public AccountEntry removeByEmail(String email)
+		throws NoSuchAccountEntryException {
+
+		AccountEntry accountEntry = findByEmail(email);
+
+		return remove(accountEntry);
+	}
+
+	/**
+	 * Returns the number of account entries where email = &#63;.
+	 *
+	 * @param email the email
+	 * @return the number of matching account entries
+	 */
+	@Override
+	public int countByEmail(String email) {
+		email = Objects.toString(email, "");
+
+		FinderPath finderPath = _finderPathCountByEmail;
+
+		Object[] finderArgs = new Object[] {email};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_ACCOUNTENTRY_WHERE);
+
+			boolean bindEmail = false;
+
+			if (email.isEmpty()) {
+				sb.append(_FINDER_COLUMN_EMAIL_EMAIL_3);
+			}
+			else {
+				bindEmail = true;
+
+				sb.append(_FINDER_COLUMN_EMAIL_EMAIL_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindEmail) {
+					queryPos.add(email);
 				}
 
 				count = (Long)query.uniqueResult();
@@ -1736,17 +1934,252 @@ public class AccountEntryPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_U_P_USERNAME_2 =
-		"accountEntry.username = ? AND ";
+	private static final String _FINDER_COLUMN_EMAIL_EMAIL_2 =
+		"accountEntry.email = ?";
 
-	private static final String _FINDER_COLUMN_U_P_USERNAME_3 =
-		"(accountEntry.username IS NULL OR accountEntry.username = '') AND ";
+	private static final String _FINDER_COLUMN_EMAIL_EMAIL_3 =
+		"(accountEntry.email IS NULL OR accountEntry.email = '')";
 
-	private static final String _FINDER_COLUMN_U_P_PASSWORD_2 =
-		"accountEntry.password = ?";
+	private FinderPath _finderPathFetchByPhone;
+	private FinderPath _finderPathCountByPhone;
 
-	private static final String _FINDER_COLUMN_U_P_PASSWORD_3 =
-		"(accountEntry.password IS NULL OR accountEntry.password = '')";
+	/**
+	 * Returns the account entry where phoneNumber = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the matching account entry
+	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
+	 */
+	@Override
+	public AccountEntry findByPhone(String phoneNumber)
+		throws NoSuchAccountEntryException {
+
+		AccountEntry accountEntry = fetchByPhone(phoneNumber);
+
+		if (accountEntry == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("phoneNumber=");
+			sb.append(phoneNumber);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchAccountEntryException(sb.toString());
+		}
+
+		return accountEntry;
+	}
+
+	/**
+	 * Returns the account entry where phoneNumber = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	@Override
+	public AccountEntry fetchByPhone(String phoneNumber) {
+		return fetchByPhone(phoneNumber, true);
+	}
+
+	/**
+	 * Returns the account entry where phoneNumber = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param phoneNumber the phone number
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	@Override
+	public AccountEntry fetchByPhone(
+		String phoneNumber, boolean useFinderCache) {
+
+		phoneNumber = Objects.toString(phoneNumber, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {phoneNumber};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(_finderPathFetchByPhone, finderArgs);
+		}
+
+		if (result instanceof AccountEntry) {
+			AccountEntry accountEntry = (AccountEntry)result;
+
+			if (!Objects.equals(phoneNumber, accountEntry.getPhoneNumber())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_ACCOUNTENTRY_WHERE);
+
+			boolean bindPhoneNumber = false;
+
+			if (phoneNumber.isEmpty()) {
+				sb.append(_FINDER_COLUMN_PHONE_PHONENUMBER_3);
+			}
+			else {
+				bindPhoneNumber = true;
+
+				sb.append(_FINDER_COLUMN_PHONE_PHONENUMBER_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindPhoneNumber) {
+					queryPos.add(phoneNumber);
+				}
+
+				List<AccountEntry> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByPhone, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {phoneNumber};
+							}
+
+							_log.warn(
+								"AccountEntryPersistenceImpl.fetchByPhone(String, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					AccountEntry accountEntry = list.get(0);
+
+					result = accountEntry;
+
+					cacheResult(accountEntry);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (AccountEntry)result;
+		}
+	}
+
+	/**
+	 * Removes the account entry where phoneNumber = &#63; from the database.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the account entry that was removed
+	 */
+	@Override
+	public AccountEntry removeByPhone(String phoneNumber)
+		throws NoSuchAccountEntryException {
+
+		AccountEntry accountEntry = findByPhone(phoneNumber);
+
+		return remove(accountEntry);
+	}
+
+	/**
+	 * Returns the number of account entries where phoneNumber = &#63;.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the number of matching account entries
+	 */
+	@Override
+	public int countByPhone(String phoneNumber) {
+		phoneNumber = Objects.toString(phoneNumber, "");
+
+		FinderPath finderPath = _finderPathCountByPhone;
+
+		Object[] finderArgs = new Object[] {phoneNumber};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_ACCOUNTENTRY_WHERE);
+
+			boolean bindPhoneNumber = false;
+
+			if (phoneNumber.isEmpty()) {
+				sb.append(_FINDER_COLUMN_PHONE_PHONENUMBER_3);
+			}
+			else {
+				bindPhoneNumber = true;
+
+				sb.append(_FINDER_COLUMN_PHONE_PHONENUMBER_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindPhoneNumber) {
+					queryPos.add(phoneNumber);
+				}
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_PHONE_PHONENUMBER_2 =
+		"accountEntry.phoneNumber = ?";
+
+	private static final String _FINDER_COLUMN_PHONE_PHONENUMBER_3 =
+		"(accountEntry.phoneNumber IS NULL OR accountEntry.phoneNumber = '')";
 
 	private FinderPath _finderPathFetchByC_ERC;
 	private FinderPath _finderPathCountByC_ERC;
@@ -2025,6 +2458,7 @@ public class AccountEntryPersistenceImpl
 
 		dbColumnNames.put("uuid", "uuid_");
 		dbColumnNames.put("password", "password_");
+		dbColumnNames.put("role", "role_");
 
 		setDBColumnNames(dbColumnNames);
 
@@ -2052,11 +2486,16 @@ public class AccountEntryPersistenceImpl
 			accountEntry);
 
 		finderCache.putResult(
-			_finderPathFetchByU_P,
-			new Object[] {
-				accountEntry.getUsername(), accountEntry.getPassword()
-			},
+			_finderPathFetchByUsername,
+			new Object[] {accountEntry.getUsername()}, accountEntry);
+
+		finderCache.putResult(
+			_finderPathFetchByEmail, new Object[] {accountEntry.getEmail()},
 			accountEntry);
+
+		finderCache.putResult(
+			_finderPathFetchByPhone,
+			new Object[] {accountEntry.getPhoneNumber()}, accountEntry);
 
 		finderCache.putResult(
 			_finderPathFetchByC_ERC,
@@ -2146,14 +2585,24 @@ public class AccountEntryPersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByUUID_G, args, accountEntryModelImpl);
 
-		args = new Object[] {
-			accountEntryModelImpl.getUsername(),
-			accountEntryModelImpl.getPassword()
-		};
+		args = new Object[] {accountEntryModelImpl.getUsername()};
 
-		finderCache.putResult(_finderPathCountByU_P, args, Long.valueOf(1));
 		finderCache.putResult(
-			_finderPathFetchByU_P, args, accountEntryModelImpl);
+			_finderPathCountByUsername, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByUsername, args, accountEntryModelImpl);
+
+		args = new Object[] {accountEntryModelImpl.getEmail()};
+
+		finderCache.putResult(_finderPathCountByEmail, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByEmail, args, accountEntryModelImpl);
+
+		args = new Object[] {accountEntryModelImpl.getPhoneNumber()};
+
+		finderCache.putResult(_finderPathCountByPhone, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByPhone, args, accountEntryModelImpl);
 
 		args = new Object[] {
 			accountEntryModelImpl.getCompanyId(),
@@ -2680,15 +3129,35 @@ public class AccountEntryPersistenceImpl
 			new String[] {String.class.getName(), Long.class.getName()},
 			new String[] {"uuid_", "companyId"}, false);
 
-		_finderPathFetchByU_P = new FinderPath(
-			FINDER_CLASS_NAME_ENTITY, "fetchByU_P",
-			new String[] {String.class.getName(), String.class.getName()},
-			new String[] {"username", "password_"}, true);
+		_finderPathFetchByUsername = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByUsername",
+			new String[] {String.class.getName()}, new String[] {"username"},
+			true);
 
-		_finderPathCountByU_P = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByU_P",
-			new String[] {String.class.getName(), String.class.getName()},
-			new String[] {"username", "password_"}, false);
+		_finderPathCountByUsername = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUsername",
+			new String[] {String.class.getName()}, new String[] {"username"},
+			false);
+
+		_finderPathFetchByEmail = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByEmail",
+			new String[] {String.class.getName()}, new String[] {"email"},
+			true);
+
+		_finderPathCountByEmail = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByEmail",
+			new String[] {String.class.getName()}, new String[] {"email"},
+			false);
+
+		_finderPathFetchByPhone = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByPhone",
+			new String[] {String.class.getName()}, new String[] {"phoneNumber"},
+			true);
+
+		_finderPathCountByPhone = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByPhone",
+			new String[] {String.class.getName()}, new String[] {"phoneNumber"},
+			false);
 
 		_finderPathFetchByC_ERC = new FinderPath(
 			FINDER_CLASS_NAME_ENTITY, "fetchByC_ERC",
@@ -2782,7 +3251,7 @@ public class AccountEntryPersistenceImpl
 		AccountEntryPersistenceImpl.class);
 
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
-		new String[] {"uuid", "password"});
+		new String[] {"uuid", "password", "role"});
 
 	@Override
 	protected FinderCache getFinderCache() {

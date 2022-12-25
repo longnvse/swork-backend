@@ -1,0 +1,163 @@
+components:
+  schemas:
+    Department:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/Member'
+    Member:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        memberId:
+          type: integer
+          format: int64
+        memberName:
+          type: string
+          readOnly: true
+info:
+  description: "DepartmentRest REST API"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  title: "DepartmentRest"
+  version: v1.0
+openapi: 3.0.1
+
+paths:
+  "/departments":
+    get:
+      tags: [ "Department" ]
+      description:
+        Retrieves the department. Results can be paginated, filtered, searched, and sorted.
+      operationId: getDepartmentPages
+      parameters:
+        - in: query
+          name: filter
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: sort
+          schema:
+            type: string
+      responses:
+        200:
+          description: The data returned
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Department"
+                type: array
+            application/xml:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Department"
+                type: array
+    post:
+      operationId: postDepartment
+      tags: [ "Department" ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Department'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Department'
+      responses:
+        200:
+          description: "Create a Department"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Department'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Department'
+  "/departments/{id}":
+    get:
+      operationId: getDepartment
+      tags: [ "Department" ]
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        200:
+          description: "Get Department by Id"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Department'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Department'
+    delete:
+      operationId: deleteDepartment
+      tags: [ "Department" ]
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        204:
+          description: "Delete a Department"
+          content:
+            application/json: { }
+            application/xml: { }
+    put:
+      operationId: putDepartment
+      tags: [ "Department" ]
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+            format: int64
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Department'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Department'
+      responses:
+        200:
+          description: "Update a Department"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Department'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Department'

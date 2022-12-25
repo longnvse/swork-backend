@@ -1,0 +1,12 @@
+Bundle-Name: business-service-api
+Bundle-SymbolicName: com.swork.business.service.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.swork.business.service.exception,\
+	com.swork.business.service.model,\
+	com.swork.business.service.service,\
+	com.swork.business.service.service.persistence,\
+	com.swork.business.service.mapper.model,\
+
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../business-service-service/service.xml

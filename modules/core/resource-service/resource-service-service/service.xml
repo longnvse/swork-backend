@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN"
+        "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder
+        dependency-injector="ds"
+        auto-namespace-tables="false"
+        package-path="com.swork.core.resource.service">
+    <namespace>SW_RESOURCE</namespace>
+    <!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
+    <entity local-service="true"
+            name="ResourceEntry"
+            table="SW_Resource"
+            external-reference-code="true"
+            remote-service="false"
+            uuid="true">
+
+        <!-- PK fields -->
+
+        <column name="resourceId" primary="true" type="long"/>
+
+        <!-- Group instance -->
+
+        <column name="groupId" type="long"/>
+
+        <!-- Audit fields -->
+
+        <column name="companyId" type="long"/>
+        <column name="accountId" type="long"/>
+        <column name="createDate" type="Date"/>
+        <column name="modifiedDate" type="Date"/>
+        <column name="businessId" type="long"/>
+        <column name="modifiedId" type="long"/>
+
+
+        <column name="workId" type="Long"/>
+        <column name="phaseId" type="Long"/>
+        <column name="projectId" type="Long"/>
+        <column name="resourceTypeName" type="String"/>
+        <column name="teamId" type="long"/>
+        <column name="teamName" type="String"/>
+        <column name="quantity" type="double"/>
+        <column name="unit" type="String"/>
+        <column name="dateResource" type="Date"/>
+        <column name="totalAmount" type="Long"/>
+
+        <finder name="B_W" return-type="Collection">
+            <finder-column name="businessId"/>
+            <finder-column name="workId"/>
+        </finder>
+
+        <finder name="B_PH" return-type="Collection">
+            <finder-column name="businessId"/>
+            <finder-column name="phaseId"/>
+        </finder>
+
+        <finder name="B_P" return-type="Collection">
+            <finder-column name="businessId"/>
+            <finder-column name="projectId"/>
+        </finder>
+
+        <finder name="B_Team" return-type="Collection">
+            <finder-column name="businessId"/>
+            <finder-column name="teamId"/>
+        </finder>
+
+        <finder name="B_W_PH_P" return-type="Collection">
+            <finder-column name="businessId"/>
+            <finder-column name="workId"/>
+            <finder-column name="phaseId"/>
+            <finder-column name="projectId"/>
+        </finder>
+    </entity>
+
+    <entity local-service="true"
+            name="TeamEntry"
+            table="SW_Team"
+            external-reference-code="true"
+            remote-service="false"
+            uuid="true">
+
+        <!-- PK fields -->
+
+        <column name="teamId" primary="true" type="long"/>
+
+        <!-- Group instance -->
+
+        <column name="groupId" type="long"/>
+
+        <!-- Audit fields -->
+
+        <column name="companyId" type="long"/>
+        <column name="accountId" type="long"/>
+        <column name="createDate" type="Date"/>
+        <column name="modifiedDate" type="Date"/>
+        <column name="businessId" type="long"/>
+        <column name="modifiedId" type="long"/>
+
+
+        <column name="name" type="String"/>
+        <column name="description" type="String"/>
+        <column name="isActive" type="Boolean"/>
+        <column name="phaseId" type="Long"/>
+        <column name="projectId" type="Long"/>
+        <column name="totalIncoming" type="Long"/>
+        <column name="totalSpending" type="Long"/>
+
+        <finder name="B_C" return-type="Collection">
+            <finder-column name="businessId"/>
+            <finder-column name="name"/>
+        </finder>
+
+        <finder name="B_N_P" return-type="TeamEntry">
+            <finder-column name="businessId"/>
+            <finder-column name="name"/>
+            <finder-column name="projectId"/>
+        </finder>
+
+        <finder name="B_N_PH" return-type="TeamEntry">
+            <finder-column name="businessId"/>
+            <finder-column name="name"/>
+            <finder-column name="phaseId"/>
+        </finder>
+
+        <finder name="B_PH" return-type="Collection">
+            <finder-column name="businessId"/>
+            <finder-column name="phaseId"/>
+        </finder>
+
+        <finder name="B_P" return-type="Collection">
+            <finder-column name="businessId"/>
+            <finder-column name="projectId"/>
+        </finder>
+    </entity>
+
+    <entity local-service="true"
+            name="TeamMemberEntry"
+            table="SW_TeamMember"
+            external-reference-code="true"
+            remote-service="false"
+            uuid="true">
+
+        <!-- PK fields -->
+
+        <column name="teamMemberId" primary="true" type="long"/>
+        <column name="companyId" type="long"/>
+
+        <!-- Other fields -->
+
+        <column name="memberId" type="Long"/>
+        <column name="memberName" type="String"/>
+        <column name="isAdmin" type="Boolean"/>
+        <column name="teamId" type="long"/>
+
+        <finder name="Team" return-type="Collection">
+            <finder-column name="teamId"/>
+            <finder-column name="isAdmin"/>
+        </finder>
+    </entity>
+</service-builder>

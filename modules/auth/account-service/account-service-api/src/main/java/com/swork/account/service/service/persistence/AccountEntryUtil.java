@@ -532,66 +532,177 @@ public class AccountEntryUtil {
 	}
 
 	/**
-	 * Returns the account entry where username = &#63; and password = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
+	 * Returns the account entry where username = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
 	 *
 	 * @param username the username
-	 * @param password the password
 	 * @return the matching account entry
 	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
 	 */
-	public static AccountEntry findByU_P(String username, String password)
+	public static AccountEntry findByUsername(String username)
 		throws com.swork.account.service.exception.NoSuchAccountEntryException {
 
-		return getPersistence().findByU_P(username, password);
+		return getPersistence().findByUsername(username);
 	}
 
 	/**
-	 * Returns the account entry where username = &#63; and password = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the account entry where username = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param username the username
-	 * @param password the password
 	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
 	 */
-	public static AccountEntry fetchByU_P(String username, String password) {
-		return getPersistence().fetchByU_P(username, password);
+	public static AccountEntry fetchByUsername(String username) {
+		return getPersistence().fetchByUsername(username);
 	}
 
 	/**
-	 * Returns the account entry where username = &#63; and password = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the account entry where username = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param username the username
-	 * @param password the password
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
 	 */
-	public static AccountEntry fetchByU_P(
-		String username, String password, boolean useFinderCache) {
+	public static AccountEntry fetchByUsername(
+		String username, boolean useFinderCache) {
 
-		return getPersistence().fetchByU_P(username, password, useFinderCache);
+		return getPersistence().fetchByUsername(username, useFinderCache);
 	}
 
 	/**
-	 * Removes the account entry where username = &#63; and password = &#63; from the database.
+	 * Removes the account entry where username = &#63; from the database.
 	 *
 	 * @param username the username
-	 * @param password the password
 	 * @return the account entry that was removed
 	 */
-	public static AccountEntry removeByU_P(String username, String password)
+	public static AccountEntry removeByUsername(String username)
 		throws com.swork.account.service.exception.NoSuchAccountEntryException {
 
-		return getPersistence().removeByU_P(username, password);
+		return getPersistence().removeByUsername(username);
 	}
 
 	/**
-	 * Returns the number of account entries where username = &#63; and password = &#63;.
+	 * Returns the number of account entries where username = &#63;.
 	 *
 	 * @param username the username
-	 * @param password the password
 	 * @return the number of matching account entries
 	 */
-	public static int countByU_P(String username, String password) {
-		return getPersistence().countByU_P(username, password);
+	public static int countByUsername(String username) {
+		return getPersistence().countByUsername(username);
+	}
+
+	/**
+	 * Returns the account entry where email = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
+	 *
+	 * @param email the email
+	 * @return the matching account entry
+	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
+	 */
+	public static AccountEntry findByEmail(String email)
+		throws com.swork.account.service.exception.NoSuchAccountEntryException {
+
+		return getPersistence().findByEmail(email);
+	}
+
+	/**
+	 * Returns the account entry where email = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param email the email
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	public static AccountEntry fetchByEmail(String email) {
+		return getPersistence().fetchByEmail(email);
+	}
+
+	/**
+	 * Returns the account entry where email = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param email the email
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	public static AccountEntry fetchByEmail(
+		String email, boolean useFinderCache) {
+
+		return getPersistence().fetchByEmail(email, useFinderCache);
+	}
+
+	/**
+	 * Removes the account entry where email = &#63; from the database.
+	 *
+	 * @param email the email
+	 * @return the account entry that was removed
+	 */
+	public static AccountEntry removeByEmail(String email)
+		throws com.swork.account.service.exception.NoSuchAccountEntryException {
+
+		return getPersistence().removeByEmail(email);
+	}
+
+	/**
+	 * Returns the number of account entries where email = &#63;.
+	 *
+	 * @param email the email
+	 * @return the number of matching account entries
+	 */
+	public static int countByEmail(String email) {
+		return getPersistence().countByEmail(email);
+	}
+
+	/**
+	 * Returns the account entry where phoneNumber = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the matching account entry
+	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
+	 */
+	public static AccountEntry findByPhone(String phoneNumber)
+		throws com.swork.account.service.exception.NoSuchAccountEntryException {
+
+		return getPersistence().findByPhone(phoneNumber);
+	}
+
+	/**
+	 * Returns the account entry where phoneNumber = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	public static AccountEntry fetchByPhone(String phoneNumber) {
+		return getPersistence().fetchByPhone(phoneNumber);
+	}
+
+	/**
+	 * Returns the account entry where phoneNumber = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param phoneNumber the phone number
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	public static AccountEntry fetchByPhone(
+		String phoneNumber, boolean useFinderCache) {
+
+		return getPersistence().fetchByPhone(phoneNumber, useFinderCache);
+	}
+
+	/**
+	 * Removes the account entry where phoneNumber = &#63; from the database.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the account entry that was removed
+	 */
+	public static AccountEntry removeByPhone(String phoneNumber)
+		throws com.swork.account.service.exception.NoSuchAccountEntryException {
+
+		return getPersistence().removeByPhone(phoneNumber);
+	}
+
+	/**
+	 * Returns the number of account entries where phoneNumber = &#63;.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the number of matching account entries
+	 */
+	public static int countByPhone(String phoneNumber) {
+		return getPersistence().countByPhone(phoneNumber);
 	}
 
 	/**

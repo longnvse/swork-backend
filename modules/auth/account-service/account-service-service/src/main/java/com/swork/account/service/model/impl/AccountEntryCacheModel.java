@@ -63,7 +63,7 @@ public class AccountEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -89,12 +89,24 @@ public class AccountEntryCacheModel
 		sb.append(fullName);
 		sb.append(", phoneNumber=");
 		sb.append(phoneNumber);
+		sb.append(", dateOfBirth=");
+		sb.append(dateOfBirth);
+		sb.append(", gender=");
+		sb.append(gender);
 		sb.append(", email=");
 		sb.append(email);
 		sb.append(", address=");
 		sb.append(address);
 		sb.append(", departmentId=");
 		sb.append(departmentId);
+		sb.append(", status=");
+		sb.append(status);
+		sb.append(", role=");
+		sb.append(role);
+		sb.append(", businessId=");
+		sb.append(businessId);
+		sb.append(", avatar=");
+		sb.append(avatar);
 		sb.append("}");
 
 		return sb.toString();
@@ -159,7 +171,21 @@ public class AccountEntryCacheModel
 			accountEntryImpl.setFullName(fullName);
 		}
 
-		accountEntryImpl.setPhoneNumber(phoneNumber);
+		if (phoneNumber == null) {
+			accountEntryImpl.setPhoneNumber("");
+		}
+		else {
+			accountEntryImpl.setPhoneNumber(phoneNumber);
+		}
+
+		if (dateOfBirth == Long.MIN_VALUE) {
+			accountEntryImpl.setDateOfBirth(null);
+		}
+		else {
+			accountEntryImpl.setDateOfBirth(new Date(dateOfBirth));
+		}
+
+		accountEntryImpl.setGender(gender);
 
 		if (email == null) {
 			accountEntryImpl.setEmail("");
@@ -176,6 +202,23 @@ public class AccountEntryCacheModel
 		}
 
 		accountEntryImpl.setDepartmentId(departmentId);
+
+		if (status == null) {
+			accountEntryImpl.setStatus("");
+		}
+		else {
+			accountEntryImpl.setStatus(status);
+		}
+
+		if (role == null) {
+			accountEntryImpl.setRole("");
+		}
+		else {
+			accountEntryImpl.setRole(role);
+		}
+
+		accountEntryImpl.setBusinessId(businessId);
+		accountEntryImpl.setAvatar(avatar);
 
 		accountEntryImpl.resetOriginalValues();
 
@@ -199,12 +242,20 @@ public class AccountEntryCacheModel
 		username = objectInput.readUTF();
 		password = objectInput.readUTF();
 		fullName = objectInput.readUTF();
+		phoneNumber = objectInput.readUTF();
+		dateOfBirth = objectInput.readLong();
 
-		phoneNumber = objectInput.readInt();
+		gender = objectInput.readBoolean();
 		email = objectInput.readUTF();
 		address = objectInput.readUTF();
 
 		departmentId = objectInput.readLong();
+		status = objectInput.readUTF();
+		role = objectInput.readUTF();
+
+		businessId = objectInput.readLong();
+
+		avatar = objectInput.readLong();
 	}
 
 	@Override
@@ -254,7 +305,16 @@ public class AccountEntryCacheModel
 			objectOutput.writeUTF(fullName);
 		}
 
-		objectOutput.writeInt(phoneNumber);
+		if (phoneNumber == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(phoneNumber);
+		}
+
+		objectOutput.writeLong(dateOfBirth);
+
+		objectOutput.writeBoolean(gender);
 
 		if (email == null) {
 			objectOutput.writeUTF("");
@@ -271,6 +331,24 @@ public class AccountEntryCacheModel
 		}
 
 		objectOutput.writeLong(departmentId);
+
+		if (status == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(status);
+		}
+
+		if (role == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(role);
+		}
+
+		objectOutput.writeLong(businessId);
+
+		objectOutput.writeLong(avatar);
 	}
 
 	public String uuid;
@@ -284,9 +362,15 @@ public class AccountEntryCacheModel
 	public String username;
 	public String password;
 	public String fullName;
-	public int phoneNumber;
+	public String phoneNumber;
+	public long dateOfBirth;
+	public boolean gender;
 	public String email;
 	public String address;
 	public long departmentId;
+	public String status;
+	public String role;
+	public long businessId;
+	public long avatar;
 
 }

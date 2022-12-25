@@ -1,0 +1,14 @@
+Bundle-Name: resource-service-api
+Bundle-SymbolicName: com.swork.core.resource.service.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.swork.core.resource.service.exception,\
+	com.swork.core.resource.service.model,\
+	com.swork.core.resource.service.service,\
+	com.swork.core.resource.service.service.persistence,\
+	com.swork.core.resource.service.mapper.model,\
+	com.swork.core.resource.service.retriever,\
+	com.swork.core.resource.service.constant
+
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../resource-service-service/service.xml

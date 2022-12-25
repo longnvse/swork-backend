@@ -1,0 +1,9 @@
+apiDir: "../work-rest-api/src/main/java"
+apiPackagePath: "com.swork.core.work.rest"
+application:
+    baseURI: "/swork/work-rest"
+    className: "WorkRestApplication"
+    name: "WorkRest"
+author: "longnv"
+clientDir: "../work-rest-client/src/main/java"
+testDir: "../work-rest-test/src/testIntegration/java"

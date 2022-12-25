@@ -174,8 +174,12 @@ public abstract class BaseAccountResourceTestCase {
 		Account account = randomAccount();
 
 		account.setAddress(regex);
+		account.setAvatar(regex);
+		account.setDepartmentName(regex);
 		account.setEmail(regex);
+		account.setExternalReferenceCode(regex);
 		account.setFullName(regex);
+		account.setPhoneNumber(regex);
 		account.setUsername(regex);
 
 		String json = AccountSerDes.toJSON(account);
@@ -185,8 +189,12 @@ public abstract class BaseAccountResourceTestCase {
 		account = AccountSerDes.toDTO(json);
 
 		Assert.assertEquals(regex, account.getAddress());
+		Assert.assertEquals(regex, account.getAvatar());
+		Assert.assertEquals(regex, account.getDepartmentName());
 		Assert.assertEquals(regex, account.getEmail());
+		Assert.assertEquals(regex, account.getExternalReferenceCode());
 		Assert.assertEquals(regex, account.getFullName());
+		Assert.assertEquals(regex, account.getPhoneNumber());
 		Assert.assertEquals(regex, account.getUsername());
 	}
 
@@ -609,6 +617,150 @@ public abstract class BaseAccountResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testApprovalAccount() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Account account = testApprovalAccount_addAccount();
+
+		assertHttpResponseStatusCode(
+			204,
+			accountResource.approvalAccountHttpResponse(account.getId(), null));
+
+		assertHttpResponseStatusCode(
+			404, accountResource.approvalAccountHttpResponse(0L, null));
+	}
+
+	protected Account testApprovalAccount_addAccount() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGetAccountInfo() throws Exception {
+		Account postAccount = testGetAccountInfo_addAccount();
+
+		Account getAccount = accountResource.getAccountInfo();
+
+		assertEquals(postAccount, getAccount);
+		assertValid(getAccount);
+	}
+
+	protected Account testGetAccountInfo_addAccount() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetAccountInfo() throws Exception {
+		Account account = testGraphQLAccount_addAccount();
+
+		Assert.assertTrue(
+			equals(
+				account,
+				AccountSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"accountInfo",
+								new HashMap<String, Object>() {
+									{
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/accountInfo"))));
+	}
+
+	@Test
+	public void testGraphQLGetAccountInfoNotFound() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testPatchAccountPassword() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Account account = testPatchAccountPassword_addAccount();
+
+		assertHttpResponseStatusCode(
+			204, accountResource.patchAccountPasswordHttpResponse(null));
+
+		assertHttpResponseStatusCode(
+			404, accountResource.patchAccountPasswordHttpResponse(null));
+	}
+
+	protected Account testPatchAccountPassword_addAccount() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testPutAccountInfo() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Account account = testPutAccountInfo_addAccount();
+
+		assertHttpResponseStatusCode(
+			204, accountResource.putAccountInfoHttpResponse(account));
+
+		assertHttpResponseStatusCode(
+			404, accountResource.putAccountInfoHttpResponse(account));
+	}
+
+	protected Account testPutAccountInfo_addAccount() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testResetPassword() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Account account = testResetPassword_addAccount();
+
+		assertHttpResponseStatusCode(
+			204, accountResource.resetPasswordHttpResponse(null));
+
+		assertHttpResponseStatusCode(
+			404, accountResource.resetPasswordHttpResponse(null));
+	}
+
+	protected Account testResetPassword_addAccount() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testUpdateAvatar() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testGetListAccount() throws Exception {
+		Page<Account> page = accountResource.getListAccount(null);
+
+		long totalCount = page.getTotalCount();
+
+		Account account1 = testGetListAccount_addAccount(randomAccount());
+
+		Account account2 = testGetListAccount_addAccount(randomAccount());
+
+		page = accountResource.getListAccount(null);
+
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
+
+		assertContains(account1, (List<Account>)page.getItems());
+		assertContains(account2, (List<Account>)page.getItems());
+		assertValid(page);
+
+		accountResource.deleteAccount(account1.getId());
+
+		accountResource.deleteAccount(account2.getId());
+	}
+
+	protected Account testGetListAccount_addAccount(Account account)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 
@@ -697,8 +849,32 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("avatar", additionalAssertFieldName)) {
+				if (account.getAvatar() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("createDate", additionalAssertFieldName)) {
 				if (account.getCreateDate() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("dateOfBirth", additionalAssertFieldName)) {
+				if (account.getDateOfBirth() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("departmentName", additionalAssertFieldName)) {
+				if (account.getDepartmentName() == null) {
 					valid = false;
 				}
 
@@ -713,6 +889,16 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"externalReferenceCode", additionalAssertFieldName)) {
+
+				if (account.getExternalReferenceCode() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("fullName", additionalAssertFieldName)) {
 				if (account.getFullName() == null) {
 					valid = false;
@@ -721,8 +907,24 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("gender", additionalAssertFieldName)) {
+				if (account.getGender() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("phoneNumber", additionalAssertFieldName)) {
 				if (account.getPhoneNumber() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("status", additionalAssertFieldName)) {
+				if (account.getStatus() == null) {
 					valid = false;
 				}
 
@@ -837,9 +1039,40 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("avatar", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getAvatar(), account2.getAvatar())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("createDate", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getCreateDate(), account2.getCreateDate())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("dateOfBirth", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getDateOfBirth(), account2.getDateOfBirth())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("departmentName", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getDepartmentName(),
+						account2.getDepartmentName())) {
 
 					return false;
 				}
@@ -857,9 +1090,32 @@ public abstract class BaseAccountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"externalReferenceCode", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						account1.getExternalReferenceCode(),
+						account2.getExternalReferenceCode())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("fullName", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getFullName(), account2.getFullName())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("gender", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getGender(), account2.getGender())) {
 
 					return false;
 				}
@@ -878,6 +1134,16 @@ public abstract class BaseAccountResourceTestCase {
 			if (Objects.equals("phoneNumber", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						account1.getPhoneNumber(), account2.getPhoneNumber())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("status", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						account1.getStatus(), account2.getStatus())) {
 
 					return false;
 				}
@@ -1000,6 +1266,14 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("avatar")) {
+			sb.append("'");
+			sb.append(String.valueOf(account.getAvatar()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("createDate")) {
 			if (operator.equals("between")) {
 				sb = new StringBundler();
@@ -1031,9 +1305,56 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("dateOfBirth")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(account.getDateOfBirth(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(account.getDateOfBirth(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(_dateFormat.format(account.getDateOfBirth()));
+			}
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("departmentName")) {
+			sb.append("'");
+			sb.append(String.valueOf(account.getDepartmentName()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("email")) {
 			sb.append("'");
 			sb.append(String.valueOf(account.getEmail()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("externalReferenceCode")) {
+			sb.append("'");
+			sb.append(String.valueOf(account.getExternalReferenceCode()));
 			sb.append("'");
 
 			return sb.toString();
@@ -1047,12 +1368,25 @@ public abstract class BaseAccountResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("gender")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("id")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("phoneNumber")) {
+			sb.append("'");
+			sb.append(String.valueOf(account.getPhoneNumber()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("status")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -1110,14 +1444,22 @@ public abstract class BaseAccountResourceTestCase {
 		return new Account() {
 			{
 				address = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				avatar = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				createDate = RandomTestUtil.nextDate();
+				dateOfBirth = RandomTestUtil.nextDate();
+				departmentName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				email =
 					StringUtil.toLowerCase(RandomTestUtil.randomString()) +
 						"@liferay.com";
+				externalReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				fullName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
+				gender = RandomTestUtil.randomBoolean();
 				id = RandomTestUtil.randomLong();
-				phoneNumber = RandomTestUtil.randomInt();
+				phoneNumber = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				username = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 			}

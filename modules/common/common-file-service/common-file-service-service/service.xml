@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder dependency-injector="ds"
+				 auto-namespace-tables="false"
+				 package-path="com.swork.common.file">
+	<namespace>FIle</namespace>
+	<!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
+	<entity local-service="true"
+			name="FileManagerEntry"
+			table="SW_FileManager"
+			remote-service="false"
+			external-reference-code="true"
+			uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="id" primary="true" type="long"/>
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long"/>
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long"/>
+		<column name="accountId" type="long"/>
+		<column name="createDate" type="Date"/>
+		<column name="modifiedDate" type="Date"/>
+		<column name="businessId" type="long"/>
+
+		<!-- Other fields -->
+
+		<column name="fileId" type="long"/>
+		<column name="fileType" type="String"/>
+		<column name="fileName" type="String"/>
+		<column name="fileSize" type="Long"/>
+		<column name="mimeType" type="String"/>
+		<column name="moduleId" type="String"/>
+		<column name="appId" type="String"/>
+		<column name="projectId" type="Long"/>
+		<column name="phaseId" type="Long"/>
+		<column name="workId" type="Long"/>
+
+
+		<finder name="F_B" return-type="FileManagerEntry">
+			<finder-column name="fileId"/>
+			<finder-column name="businessId"/>
+		</finder>
+
+		<finder name="B_PID" return-type="Collection">
+			<finder-column name="businessId"/>
+			<finder-column name="projectId"/>
+		</finder>
+
+		<finder name="B_PHID" return-type="Collection">
+			<finder-column name="businessId"/>
+			<finder-column name="phaseId"/>
+		</finder>
+
+		<finder name="B_WID" return-type="Collection">
+			<finder-column name="businessId"/>
+			<finder-column name="workId"/>
+		</finder>
+
+	</entity>
+</service-builder>

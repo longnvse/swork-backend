@@ -390,54 +390,138 @@ public interface AccountEntryPersistence extends BasePersistence<AccountEntry> {
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
-	 * Returns the account entry where username = &#63; and password = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
+	 * Returns the account entry where username = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
 	 *
 	 * @param username the username
-	 * @param password the password
 	 * @return the matching account entry
 	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
 	 */
-	public AccountEntry findByU_P(String username, String password)
+	public AccountEntry findByUsername(String username)
 		throws NoSuchAccountEntryException;
 
 	/**
-	 * Returns the account entry where username = &#63; and password = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the account entry where username = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param username the username
-	 * @param password the password
 	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
 	 */
-	public AccountEntry fetchByU_P(String username, String password);
+	public AccountEntry fetchByUsername(String username);
 
 	/**
-	 * Returns the account entry where username = &#63; and password = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the account entry where username = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param username the username
-	 * @param password the password
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
 	 */
-	public AccountEntry fetchByU_P(
-		String username, String password, boolean useFinderCache);
+	public AccountEntry fetchByUsername(
+		String username, boolean useFinderCache);
 
 	/**
-	 * Removes the account entry where username = &#63; and password = &#63; from the database.
+	 * Removes the account entry where username = &#63; from the database.
 	 *
 	 * @param username the username
-	 * @param password the password
 	 * @return the account entry that was removed
 	 */
-	public AccountEntry removeByU_P(String username, String password)
+	public AccountEntry removeByUsername(String username)
 		throws NoSuchAccountEntryException;
 
 	/**
-	 * Returns the number of account entries where username = &#63; and password = &#63;.
+	 * Returns the number of account entries where username = &#63;.
 	 *
 	 * @param username the username
-	 * @param password the password
 	 * @return the number of matching account entries
 	 */
-	public int countByU_P(String username, String password);
+	public int countByUsername(String username);
+
+	/**
+	 * Returns the account entry where email = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
+	 *
+	 * @param email the email
+	 * @return the matching account entry
+	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
+	 */
+	public AccountEntry findByEmail(String email)
+		throws NoSuchAccountEntryException;
+
+	/**
+	 * Returns the account entry where email = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param email the email
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	public AccountEntry fetchByEmail(String email);
+
+	/**
+	 * Returns the account entry where email = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param email the email
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	public AccountEntry fetchByEmail(String email, boolean useFinderCache);
+
+	/**
+	 * Removes the account entry where email = &#63; from the database.
+	 *
+	 * @param email the email
+	 * @return the account entry that was removed
+	 */
+	public AccountEntry removeByEmail(String email)
+		throws NoSuchAccountEntryException;
+
+	/**
+	 * Returns the number of account entries where email = &#63;.
+	 *
+	 * @param email the email
+	 * @return the number of matching account entries
+	 */
+	public int countByEmail(String email);
+
+	/**
+	 * Returns the account entry where phoneNumber = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the matching account entry
+	 * @throws NoSuchAccountEntryException if a matching account entry could not be found
+	 */
+	public AccountEntry findByPhone(String phoneNumber)
+		throws NoSuchAccountEntryException;
+
+	/**
+	 * Returns the account entry where phoneNumber = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	public AccountEntry fetchByPhone(String phoneNumber);
+
+	/**
+	 * Returns the account entry where phoneNumber = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param phoneNumber the phone number
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account entry, or <code>null</code> if a matching account entry could not be found
+	 */
+	public AccountEntry fetchByPhone(
+		String phoneNumber, boolean useFinderCache);
+
+	/**
+	 * Removes the account entry where phoneNumber = &#63; from the database.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the account entry that was removed
+	 */
+	public AccountEntry removeByPhone(String phoneNumber)
+		throws NoSuchAccountEntryException;
+
+	/**
+	 * Returns the number of account entries where phoneNumber = &#63;.
+	 *
+	 * @param phoneNumber the phone number
+	 * @return the number of matching account entries
+	 */
+	public int countByPhone(String phoneNumber);
 
 	/**
 	 * Returns the account entry where companyId = &#63; and externalReferenceCode = &#63; or throws a <code>NoSuchAccountEntryException</code> if it could not be found.

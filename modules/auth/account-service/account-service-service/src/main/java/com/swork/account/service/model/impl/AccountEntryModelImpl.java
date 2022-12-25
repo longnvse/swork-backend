@@ -75,9 +75,12 @@ public class AccountEntryModelImpl
 		{"companyId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"creatorId", Types.BIGINT},
 		{"username", Types.VARCHAR}, {"password_", Types.VARCHAR},
-		{"fullName", Types.VARCHAR}, {"phoneNumber", Types.INTEGER},
+		{"fullName", Types.VARCHAR}, {"phoneNumber", Types.VARCHAR},
+		{"dateOfBirth", Types.TIMESTAMP}, {"gender", Types.BOOLEAN},
 		{"email", Types.VARCHAR}, {"address", Types.VARCHAR},
-		{"departmentId", Types.BIGINT}
+		{"departmentId", Types.BIGINT}, {"status", Types.VARCHAR},
+		{"role_", Types.VARCHAR}, {"businessId", Types.BIGINT},
+		{"avatar", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -95,14 +98,20 @@ public class AccountEntryModelImpl
 		TABLE_COLUMNS_MAP.put("username", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("password_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("fullName", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("phoneNumber", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("phoneNumber", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("dateOfBirth", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("gender", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("email", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("address", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("departmentId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("status", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("role_", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("businessId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("avatar", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_AccountEntry (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,accountId LONG not null primary key,groupId LONG,companyId LONG,createDate DATE null,modifiedDate DATE null,creatorId LONG,username VARCHAR(75) null,password_ VARCHAR(75) null,fullName VARCHAR(75) null,phoneNumber INTEGER,email VARCHAR(75) null,address VARCHAR(75) null,departmentId LONG)";
+		"create table SW_AccountEntry (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,accountId LONG not null primary key,groupId LONG,companyId LONG,createDate DATE null,modifiedDate DATE null,creatorId LONG,username VARCHAR(75) null,password_ VARCHAR(75) null,fullName VARCHAR(100) null,phoneNumber VARCHAR(75) null,dateOfBirth DATE null,gender BOOLEAN,email VARCHAR(75) null,address VARCHAR(100) null,departmentId LONG,status VARCHAR(75) null,role_ VARCHAR(75) null,businessId LONG,avatar LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_AccountEntry";
 
@@ -128,38 +137,44 @@ public class AccountEntryModelImpl
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long EXTERNALREFERENCECODE_COLUMN_BITMASK = 2L;
+	public static final long EMAIL_COLUMN_BITMASK = 2L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long GROUPID_COLUMN_BITMASK = 4L;
+	public static final long EXTERNALREFERENCECODE_COLUMN_BITMASK = 4L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long PASSWORD_COLUMN_BITMASK = 8L;
+	public static final long GROUPID_COLUMN_BITMASK = 8L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long USERNAME_COLUMN_BITMASK = 16L;
+	public static final long PHONENUMBER_COLUMN_BITMASK = 16L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long UUID_COLUMN_BITMASK = 32L;
+	public static final long USERNAME_COLUMN_BITMASK = 32L;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
+	public static final long UUID_COLUMN_BITMASK = 64L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *		#getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long ACCOUNTID_COLUMN_BITMASK = 64L;
+	public static final long ACCOUNTID_COLUMN_BITMASK = 128L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -349,7 +364,16 @@ public class AccountEntryModelImpl
 			"phoneNumber", AccountEntry::getPhoneNumber);
 		attributeSetterBiConsumers.put(
 			"phoneNumber",
-			(BiConsumer<AccountEntry, Integer>)AccountEntry::setPhoneNumber);
+			(BiConsumer<AccountEntry, String>)AccountEntry::setPhoneNumber);
+		attributeGetterFunctions.put(
+			"dateOfBirth", AccountEntry::getDateOfBirth);
+		attributeSetterBiConsumers.put(
+			"dateOfBirth",
+			(BiConsumer<AccountEntry, Date>)AccountEntry::setDateOfBirth);
+		attributeGetterFunctions.put("gender", AccountEntry::getGender);
+		attributeSetterBiConsumers.put(
+			"gender",
+			(BiConsumer<AccountEntry, Boolean>)AccountEntry::setGender);
 		attributeGetterFunctions.put("email", AccountEntry::getEmail);
 		attributeSetterBiConsumers.put(
 			"email", (BiConsumer<AccountEntry, String>)AccountEntry::setEmail);
@@ -362,6 +386,20 @@ public class AccountEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"departmentId",
 			(BiConsumer<AccountEntry, Long>)AccountEntry::setDepartmentId);
+		attributeGetterFunctions.put("status", AccountEntry::getStatus);
+		attributeSetterBiConsumers.put(
+			"status",
+			(BiConsumer<AccountEntry, String>)AccountEntry::setStatus);
+		attributeGetterFunctions.put("role", AccountEntry::getRole);
+		attributeSetterBiConsumers.put(
+			"role", (BiConsumer<AccountEntry, String>)AccountEntry::setRole);
+		attributeGetterFunctions.put("businessId", AccountEntry::getBusinessId);
+		attributeSetterBiConsumers.put(
+			"businessId",
+			(BiConsumer<AccountEntry, Long>)AccountEntry::setBusinessId);
+		attributeGetterFunctions.put("avatar", AccountEntry::getAvatar);
+		attributeSetterBiConsumers.put(
+			"avatar", (BiConsumer<AccountEntry, Long>)AccountEntry::setAvatar);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -581,15 +619,6 @@ public class AccountEntryModelImpl
 		_password = password;
 	}
 
-	/**
-	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
-	 *             #getColumnOriginalValue(String)}
-	 */
-	@Deprecated
-	public String getOriginalPassword() {
-		return getColumnOriginalValue("password_");
-	}
-
 	@Override
 	public String getFullName() {
 		if (_fullName == null) {
@@ -610,17 +639,59 @@ public class AccountEntryModelImpl
 	}
 
 	@Override
-	public Integer getPhoneNumber() {
-		return _phoneNumber;
+	public String getPhoneNumber() {
+		if (_phoneNumber == null) {
+			return "";
+		}
+		else {
+			return _phoneNumber;
+		}
 	}
 
 	@Override
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
 		_phoneNumber = phoneNumber;
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public String getOriginalPhoneNumber() {
+		return getColumnOriginalValue("phoneNumber");
+	}
+
+	@Override
+	public Date getDateOfBirth() {
+		return _dateOfBirth;
+	}
+
+	@Override
+	public void setDateOfBirth(Date dateOfBirth) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_dateOfBirth = dateOfBirth;
+	}
+
+	@Override
+	public Boolean getGender() {
+		return _gender;
+	}
+
+	@Override
+	public void setGender(Boolean gender) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_gender = gender;
 	}
 
 	@Override
@@ -640,6 +711,15 @@ public class AccountEntryModelImpl
 		}
 
 		_email = email;
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public String getOriginalEmail() {
+		return getColumnOriginalValue("email");
 	}
 
 	@Override
@@ -673,6 +753,72 @@ public class AccountEntryModelImpl
 		}
 
 		_departmentId = departmentId;
+	}
+
+	@Override
+	public String getStatus() {
+		if (_status == null) {
+			return "";
+		}
+		else {
+			return _status;
+		}
+	}
+
+	@Override
+	public void setStatus(String status) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_status = status;
+	}
+
+	@Override
+	public String getRole() {
+		if (_role == null) {
+			return "";
+		}
+		else {
+			return _role;
+		}
+	}
+
+	@Override
+	public void setRole(String role) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_role = role;
+	}
+
+	@Override
+	public Long getBusinessId() {
+		return _businessId;
+	}
+
+	@Override
+	public void setBusinessId(Long businessId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_businessId = businessId;
+	}
+
+	@Override
+	public Long getAvatar() {
+		return _avatar;
+	}
+
+	@Override
+	public void setAvatar(Long avatar) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_avatar = avatar;
 	}
 
 	@Override
@@ -749,9 +895,15 @@ public class AccountEntryModelImpl
 		accountEntryImpl.setPassword(getPassword());
 		accountEntryImpl.setFullName(getFullName());
 		accountEntryImpl.setPhoneNumber(getPhoneNumber());
+		accountEntryImpl.setDateOfBirth(getDateOfBirth());
+		accountEntryImpl.setGender(getGender());
 		accountEntryImpl.setEmail(getEmail());
 		accountEntryImpl.setAddress(getAddress());
 		accountEntryImpl.setDepartmentId(getDepartmentId());
+		accountEntryImpl.setStatus(getStatus());
+		accountEntryImpl.setRole(getRole());
+		accountEntryImpl.setBusinessId(getBusinessId());
+		accountEntryImpl.setAvatar(getAvatar());
 
 		accountEntryImpl.resetOriginalValues();
 
@@ -784,12 +936,22 @@ public class AccountEntryModelImpl
 		accountEntryImpl.setFullName(
 			this.<String>getColumnOriginalValue("fullName"));
 		accountEntryImpl.setPhoneNumber(
-			this.<Integer>getColumnOriginalValue("phoneNumber"));
+			this.<String>getColumnOriginalValue("phoneNumber"));
+		accountEntryImpl.setDateOfBirth(
+			this.<Date>getColumnOriginalValue("dateOfBirth"));
+		accountEntryImpl.setGender(
+			this.<Boolean>getColumnOriginalValue("gender"));
 		accountEntryImpl.setEmail(this.<String>getColumnOriginalValue("email"));
 		accountEntryImpl.setAddress(
 			this.<String>getColumnOriginalValue("address"));
 		accountEntryImpl.setDepartmentId(
 			this.<Long>getColumnOriginalValue("departmentId"));
+		accountEntryImpl.setStatus(
+			this.<String>getColumnOriginalValue("status"));
+		accountEntryImpl.setRole(this.<String>getColumnOriginalValue("role_"));
+		accountEntryImpl.setBusinessId(
+			this.<Long>getColumnOriginalValue("businessId"));
+		accountEntryImpl.setAvatar(this.<Long>getColumnOriginalValue("avatar"));
 
 		return accountEntryImpl;
 	}
@@ -938,10 +1100,27 @@ public class AccountEntryModelImpl
 			accountEntryCacheModel.fullName = null;
 		}
 
-		Integer phoneNumber = getPhoneNumber();
+		accountEntryCacheModel.phoneNumber = getPhoneNumber();
 
-		if (phoneNumber != null) {
-			accountEntryCacheModel.phoneNumber = phoneNumber;
+		String phoneNumber = accountEntryCacheModel.phoneNumber;
+
+		if ((phoneNumber != null) && (phoneNumber.length() == 0)) {
+			accountEntryCacheModel.phoneNumber = null;
+		}
+
+		Date dateOfBirth = getDateOfBirth();
+
+		if (dateOfBirth != null) {
+			accountEntryCacheModel.dateOfBirth = dateOfBirth.getTime();
+		}
+		else {
+			accountEntryCacheModel.dateOfBirth = Long.MIN_VALUE;
+		}
+
+		Boolean gender = getGender();
+
+		if (gender != null) {
+			accountEntryCacheModel.gender = gender;
 		}
 
 		accountEntryCacheModel.email = getEmail();
@@ -964,6 +1143,34 @@ public class AccountEntryModelImpl
 
 		if (departmentId != null) {
 			accountEntryCacheModel.departmentId = departmentId;
+		}
+
+		accountEntryCacheModel.status = getStatus();
+
+		String status = accountEntryCacheModel.status;
+
+		if ((status != null) && (status.length() == 0)) {
+			accountEntryCacheModel.status = null;
+		}
+
+		accountEntryCacheModel.role = getRole();
+
+		String role = accountEntryCacheModel.role;
+
+		if ((role != null) && (role.length() == 0)) {
+			accountEntryCacheModel.role = null;
+		}
+
+		Long businessId = getBusinessId();
+
+		if (businessId != null) {
+			accountEntryCacheModel.businessId = businessId;
+		}
+
+		Long avatar = getAvatar();
+
+		if (avatar != null) {
+			accountEntryCacheModel.avatar = avatar;
 		}
 
 		return accountEntryCacheModel;
@@ -1068,10 +1275,16 @@ public class AccountEntryModelImpl
 	private String _username;
 	private String _password;
 	private String _fullName;
-	private Integer _phoneNumber;
+	private String _phoneNumber;
+	private Date _dateOfBirth;
+	private Boolean _gender;
 	private String _email;
 	private String _address;
 	private Long _departmentId;
+	private String _status;
+	private String _role;
+	private Long _businessId;
+	private Long _avatar;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1115,9 +1328,15 @@ public class AccountEntryModelImpl
 		_columnOriginalValues.put("password_", _password);
 		_columnOriginalValues.put("fullName", _fullName);
 		_columnOriginalValues.put("phoneNumber", _phoneNumber);
+		_columnOriginalValues.put("dateOfBirth", _dateOfBirth);
+		_columnOriginalValues.put("gender", _gender);
 		_columnOriginalValues.put("email", _email);
 		_columnOriginalValues.put("address", _address);
 		_columnOriginalValues.put("departmentId", _departmentId);
+		_columnOriginalValues.put("status", _status);
+		_columnOriginalValues.put("role_", _role);
+		_columnOriginalValues.put("businessId", _businessId);
+		_columnOriginalValues.put("avatar", _avatar);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1127,6 +1346,7 @@ public class AccountEntryModelImpl
 
 		attributeNames.put("uuid_", "uuid");
 		attributeNames.put("password_", "password");
+		attributeNames.put("role_", "role");
 
 		_attributeNames = Collections.unmodifiableMap(attributeNames);
 	}
@@ -1166,11 +1386,23 @@ public class AccountEntryModelImpl
 
 		columnBitmasks.put("phoneNumber", 2048L);
 
-		columnBitmasks.put("email", 4096L);
+		columnBitmasks.put("dateOfBirth", 4096L);
 
-		columnBitmasks.put("address", 8192L);
+		columnBitmasks.put("gender", 8192L);
 
-		columnBitmasks.put("departmentId", 16384L);
+		columnBitmasks.put("email", 16384L);
+
+		columnBitmasks.put("address", 32768L);
+
+		columnBitmasks.put("departmentId", 65536L);
+
+		columnBitmasks.put("status", 131072L);
+
+		columnBitmasks.put("role_", 262144L);
+
+		columnBitmasks.put("businessId", 524288L);
+
+		columnBitmasks.put("avatar", 1048576L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

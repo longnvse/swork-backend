@@ -1,0 +1,3 @@
+Bundle-Name: department-rest-impl
+Bundle-SymbolicName: com.swork.auth.department.rest.impl
+Bundle-Version: 1.0.0

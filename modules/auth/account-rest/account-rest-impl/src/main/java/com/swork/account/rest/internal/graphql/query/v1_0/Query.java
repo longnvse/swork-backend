@@ -72,7 +72,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {account(accountId: ___){id, createDate, username, fullName, email, phoneNumber, address}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {account(accountId: ___){id, externalReferenceCode, createDate, username, fullName, dateOfBirth, email, phoneNumber, address, gender, avatar, departmentName, status}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Get an Account")
 	public Account account(@GraphQLName("accountId") Long accountId)
@@ -82,6 +82,35 @@ public class Query {
 			_accountResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			accountResource -> accountResource.getAccount(accountId));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountInfo{id, externalReferenceCode, createDate, username, fullName, dateOfBirth, email, phoneNumber, address, gender, avatar, departmentName, status}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField(description = "Update an Account")
+	public Account accountInfo() throws Exception {
+		return _applyComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.getAccountInfo());
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {listAccount(accountIds: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField(description = "Update an Account")
+	public AccountPage listAccount(@GraphQLName("accountIds") Long[] accountIds)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> new AccountPage(
+				accountResource.getListAccount(accountIds)));
 	}
 
 	@GraphQLName("AccountPage")

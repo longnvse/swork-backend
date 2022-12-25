@@ -12,7 +12,8 @@ import org.osgi.service.component.annotations.Component;
  */
 @Component(
 	property = {
-		"liferay.jackson=false", "osgi.jaxrs.application.base=/account-rest",
+		"liferay.jackson=false",
+		"osgi.jaxrs.application.base=/swork/account-rest",
 		"osgi.jaxrs.extension.select=(osgi.jaxrs.name=Liferay.Vulcan)",
 		"osgi.jaxrs.name=AccountRest"
 	},

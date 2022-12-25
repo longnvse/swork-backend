@@ -1,0 +1,12 @@
+Bundle-Name: work-service-api
+Bundle-SymbolicName: com.swork.core.work.service.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.swork.core.work.service.exception,\
+	com.swork.core.work.service.model,\
+	com.swork.core.work.service.service,\
+	com.swork.core.work.service.service.persistence,\
+	com.swork.core.work.service.mapper.model,\
+	com.swork.core.work.service.internal.service
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../work-service-service/service.xml

@@ -1,0 +1,6 @@
+Bundle-Name: common-comment-service-service
+Bundle-SymbolicName: com.swork.common.comment.service.service
+Bundle-Version: 1.0.0
+Liferay-Require-SchemaVersion: 1.0.0
+Liferay-Service: true
+-dsannotations-options: inherit

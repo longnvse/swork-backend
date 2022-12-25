@@ -22,10 +22,10 @@ task buildProject(type: Exec) {
     }
 
     subprojects.each { p ->
-        if ("$p.path".lastIndexOf("-rest-impl") == ("$p.path".length() - 10)) {
+        if ("$p.path".contains("-rest-impl") && "$p.path".lastIndexOf("-rest-impl") == ("$p.path".length() - 10)) {
             argsList.add("$p.path" + ":buildREST")
         }
-        if ("$p.path".lastIndexOf("-service-service") == ("$p.path".length() - 16)) {
+        if ("$p.path".contains("-service-service") && "$p.path".lastIndexOf("-service-service") == ("$p.path".length() - 16)) {
             argsList.add("$p.path" + ":buildSERVICE")
         }
     }
@@ -71,3 +71,92 @@ dependencies {
 repositories {
     mavenCentral()
 }
+
+
+// aggregates jacoco results from all subprojects and core project and generate a report
+task jacocoCustomTestReport(type: JacocoReport) {
+
+    def jacocoTestFiles = []
+    def testIntegrationFile = "/opt/liferay/tomcat-9.0.56/bin/testIntegration.exec"
+
+    if (new File(testIntegrationFile).exists()) {
+        jacocoTestFiles << testIntegrationFile
+    }
+
+    subprojects.each { p ->
+        def coverageFileLocation = "$p.buildDir/jacoco/test.exec"
+        if (new File(coverageFileLocation).exists()) {
+            jacocoTestFiles << coverageFileLocation
+        }
+        additionalSourceDirs.from(file("${p.projectDir}/src/main/java"))
+        sourceDirectories.from(file("${p.projectDir}/src/main/java"))
+        classDirectories.from(fileTree(
+                dir: "${p.buildDir}/classes/java/main",
+                excludes: [
+                        '**/rest/resource/v2_0/**',
+                        '**/rest/dto/v2_0/**',
+                        '**/rest/client/**',
+                        '**/rest/internal/graphql/**',
+                        '**/rest/internal/jaxrs/application/**',
+                        '**/rest/internal/resource/v2_0/factory/**',
+                        '**/rest/internal/resource/v2_0/Base**ResourceImpl*',
+                        '**/rest/internal/resource/v2_0/OpenAPIResourceImpl*',
+                        '**/service/exception/**',
+                        '**/service/model/*Entry*',
+                        '**/service/model/*EntryModel*',
+                        '**/service/model/*EntrySoap*',
+                        '**/service/model/*EntryTable*',
+                        '**/service/model/*EntryWrapper*',
+                        '**/service/service/*LocalService*',
+                        '**/service/service/persistence/*Persistence*',
+                        '**/service/service/persistence/*Util.class*',
+                        '**/service/model/impl/*BaseImpl*',
+                        '**/service/model/impl/*CacheModel*',
+                        '**/service/model/impl/*ModelImpl*',
+                        '**/service/service/base/**',
+                        '**/service/service/http/**',
+                        '**/service/service/persistence/impl/constants/**',
+                        '**/service/service/persistence/impl/*ArgumentsResolver*',
+                        '**/service/service/persistence/impl/*PersistenceImpl*'
+                ]
+        ))
+    }
+
+    logger.info('Aggregating next JaCoCo Coverage Files: {}', jacocoTestFiles)
+    executionData files(jacocoTestFiles)
+
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
+
+//RUN WHEN testIntegration done
+task dumpJacoco {
+    doLast {
+        def serverUrl = 'service:jmx:rmi:///jndi/rmi://localhost:8099/jmxrmi'
+        String beanName = "org.jacoco:type=Runtime"
+        def server = JmxFactory.connect(new JmxUrl(serverUrl)).MBeanServerConnection
+        def gmxb = new GroovyMBean(server, beanName)
+
+        println "Connected to:\n$gmxb\n"
+        println "Executing dump()"
+        gmxb.dump(true)
+    }
+}
+
+task resetJacoco {
+    doLast {
+        def serverUrl = 'service:jmx:rmi:///jndi/rmi://localhost:8099/jmxrmi'
+        String beanName = "org.jacoco:type=Runtime"
+        def server = JmxFactory.connect(new JmxUrl(serverUrl)).MBeanServerConnection
+        def gmxb = new GroovyMBean(server, beanName)
+
+        println "Connected to:\n$gmxb\n"
+        println "Executing reset()"
+        gmxb.reset()
+    }
+}
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl

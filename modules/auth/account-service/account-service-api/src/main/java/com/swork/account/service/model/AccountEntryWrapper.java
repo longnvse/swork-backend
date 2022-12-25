@@ -55,9 +55,15 @@ public class AccountEntryWrapper
 		attributes.put("password", getPassword());
 		attributes.put("fullName", getFullName());
 		attributes.put("phoneNumber", getPhoneNumber());
+		attributes.put("dateOfBirth", getDateOfBirth());
+		attributes.put("gender", getGender());
 		attributes.put("email", getEmail());
 		attributes.put("address", getAddress());
 		attributes.put("departmentId", getDepartmentId());
+		attributes.put("status", getStatus());
+		attributes.put("role", getRole());
+		attributes.put("businessId", getBusinessId());
+		attributes.put("avatar", getAvatar());
 
 		return attributes;
 	}
@@ -131,10 +137,22 @@ public class AccountEntryWrapper
 			setFullName(fullName);
 		}
 
-		Integer phoneNumber = (Integer)attributes.get("phoneNumber");
+		String phoneNumber = (String)attributes.get("phoneNumber");
 
 		if (phoneNumber != null) {
 			setPhoneNumber(phoneNumber);
+		}
+
+		Date dateOfBirth = (Date)attributes.get("dateOfBirth");
+
+		if (dateOfBirth != null) {
+			setDateOfBirth(dateOfBirth);
+		}
+
+		Boolean gender = (Boolean)attributes.get("gender");
+
+		if (gender != null) {
+			setGender(gender);
 		}
 
 		String email = (String)attributes.get("email");
@@ -153,6 +171,30 @@ public class AccountEntryWrapper
 
 		if (departmentId != null) {
 			setDepartmentId(departmentId);
+		}
+
+		String status = (String)attributes.get("status");
+
+		if (status != null) {
+			setStatus(status);
+		}
+
+		String role = (String)attributes.get("role");
+
+		if (role != null) {
+			setRole(role);
+		}
+
+		Long businessId = (Long)attributes.get("businessId");
+
+		if (businessId != null) {
+			setBusinessId(businessId);
+		}
+
+		Long avatar = (Long)attributes.get("avatar");
+
+		if (avatar != null) {
+			setAvatar(avatar);
 		}
 	}
 
@@ -179,6 +221,26 @@ public class AccountEntryWrapper
 	@Override
 	public String getAddress() {
 		return model.getAddress();
+	}
+
+	/**
+	 * Returns the avatar of this account entry.
+	 *
+	 * @return the avatar of this account entry
+	 */
+	@Override
+	public Long getAvatar() {
+		return model.getAvatar();
+	}
+
+	/**
+	 * Returns the business ID of this account entry.
+	 *
+	 * @return the business ID of this account entry
+	 */
+	@Override
+	public Long getBusinessId() {
+		return model.getBusinessId();
 	}
 
 	/**
@@ -209,6 +271,16 @@ public class AccountEntryWrapper
 	@Override
 	public long getCreatorId() {
 		return model.getCreatorId();
+	}
+
+	/**
+	 * Returns the date of birth of this account entry.
+	 *
+	 * @return the date of birth of this account entry
+	 */
+	@Override
+	public Date getDateOfBirth() {
+		return model.getDateOfBirth();
 	}
 
 	/**
@@ -252,6 +324,16 @@ public class AccountEntryWrapper
 	}
 
 	/**
+	 * Returns the gender of this account entry.
+	 *
+	 * @return the gender of this account entry
+	 */
+	@Override
+	public Boolean getGender() {
+		return model.getGender();
+	}
+
+	/**
 	 * Returns the group ID of this account entry.
 	 *
 	 * @return the group ID of this account entry
@@ -287,7 +369,7 @@ public class AccountEntryWrapper
 	 * @return the phone number of this account entry
 	 */
 	@Override
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return model.getPhoneNumber();
 	}
 
@@ -299,6 +381,26 @@ public class AccountEntryWrapper
 	@Override
 	public long getPrimaryKey() {
 		return model.getPrimaryKey();
+	}
+
+	/**
+	 * Returns the role of this account entry.
+	 *
+	 * @return the role of this account entry
+	 */
+	@Override
+	public String getRole() {
+		return model.getRole();
+	}
+
+	/**
+	 * Returns the status of this account entry.
+	 *
+	 * @return the status of this account entry
+	 */
+	@Override
+	public String getStatus() {
+		return model.getStatus();
 	}
 
 	/**
@@ -347,6 +449,26 @@ public class AccountEntryWrapper
 	}
 
 	/**
+	 * Sets the avatar of this account entry.
+	 *
+	 * @param avatar the avatar of this account entry
+	 */
+	@Override
+	public void setAvatar(Long avatar) {
+		model.setAvatar(avatar);
+	}
+
+	/**
+	 * Sets the business ID of this account entry.
+	 *
+	 * @param businessId the business ID of this account entry
+	 */
+	@Override
+	public void setBusinessId(Long businessId) {
+		model.setBusinessId(businessId);
+	}
+
+	/**
 	 * Sets the company ID of this account entry.
 	 *
 	 * @param companyId the company ID of this account entry
@@ -374,6 +496,16 @@ public class AccountEntryWrapper
 	@Override
 	public void setCreatorId(long creatorId) {
 		model.setCreatorId(creatorId);
+	}
+
+	/**
+	 * Sets the date of birth of this account entry.
+	 *
+	 * @param dateOfBirth the date of birth of this account entry
+	 */
+	@Override
+	public void setDateOfBirth(Date dateOfBirth) {
+		model.setDateOfBirth(dateOfBirth);
 	}
 
 	/**
@@ -417,6 +549,16 @@ public class AccountEntryWrapper
 	}
 
 	/**
+	 * Sets the gender of this account entry.
+	 *
+	 * @param gender the gender of this account entry
+	 */
+	@Override
+	public void setGender(Boolean gender) {
+		model.setGender(gender);
+	}
+
+	/**
 	 * Sets the group ID of this account entry.
 	 *
 	 * @param groupId the group ID of this account entry
@@ -452,7 +594,7 @@ public class AccountEntryWrapper
 	 * @param phoneNumber the phone number of this account entry
 	 */
 	@Override
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		model.setPhoneNumber(phoneNumber);
 	}
 
@@ -464,6 +606,26 @@ public class AccountEntryWrapper
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		model.setPrimaryKey(primaryKey);
+	}
+
+	/**
+	 * Sets the role of this account entry.
+	 *
+	 * @param role the role of this account entry
+	 */
+	@Override
+	public void setRole(String role) {
+		model.setRole(role);
+	}
+
+	/**
+	 * Sets the status of this account entry.
+	 *
+	 * @param status the status of this account entry
+	 */
+	@Override
+	public void setStatus(String status) {
+		model.setStatus(status);
 	}
 
 	/**

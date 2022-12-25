@@ -45,9 +45,15 @@ public class AccountEntrySoap implements Serializable {
 		soapModel.setPassword(model.getPassword());
 		soapModel.setFullName(model.getFullName());
 		soapModel.setPhoneNumber(model.getPhoneNumber());
+		soapModel.setDateOfBirth(model.getDateOfBirth());
+		soapModel.setGender(model.getGender());
 		soapModel.setEmail(model.getEmail());
 		soapModel.setAddress(model.getAddress());
 		soapModel.setDepartmentId(model.getDepartmentId());
+		soapModel.setStatus(model.getStatus());
+		soapModel.setRole(model.getRole());
+		soapModel.setBusinessId(model.getBusinessId());
+		soapModel.setAvatar(model.getAvatar());
 
 		return soapModel;
 	}
@@ -189,12 +195,28 @@ public class AccountEntrySoap implements Serializable {
 		_fullName = fullName;
 	}
 
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return _phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		_phoneNumber = phoneNumber;
+	}
+
+	public Date getDateOfBirth() {
+		return _dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		_dateOfBirth = dateOfBirth;
+	}
+
+	public Boolean getGender() {
+		return _gender;
+	}
+
+	public void setGender(Boolean gender) {
+		_gender = gender;
 	}
 
 	public String getEmail() {
@@ -221,6 +243,38 @@ public class AccountEntrySoap implements Serializable {
 		_departmentId = departmentId;
 	}
 
+	public String getStatus() {
+		return _status;
+	}
+
+	public void setStatus(String status) {
+		_status = status;
+	}
+
+	public String getRole() {
+		return _role;
+	}
+
+	public void setRole(String role) {
+		_role = role;
+	}
+
+	public Long getBusinessId() {
+		return _businessId;
+	}
+
+	public void setBusinessId(Long businessId) {
+		_businessId = businessId;
+	}
+
+	public Long getAvatar() {
+		return _avatar;
+	}
+
+	public void setAvatar(Long avatar) {
+		_avatar = avatar;
+	}
+
 	private String _uuid;
 	private String _externalReferenceCode;
 	private long _accountId;
@@ -232,9 +286,15 @@ public class AccountEntrySoap implements Serializable {
 	private String _username;
 	private String _password;
 	private String _fullName;
-	private Integer _phoneNumber;
+	private String _phoneNumber;
+	private Date _dateOfBirth;
+	private Boolean _gender;
 	private String _email;
 	private String _address;
 	private Long _departmentId;
+	private String _status;
+	private String _role;
+	private Long _businessId;
+	private Long _avatar;
 
 }

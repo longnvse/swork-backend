@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.swork.common.comment.service.model.CommentEntry">
+		<field name="uuid" type="String" />
+		<field name="commentId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="accountId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="businessId" type="long" />
+		<field name="content" type="String" />
+		<field name="parentId" type="long" />
+		<field name="classPkId" type="long" />
+		<field name="classPKName" type="String" />
+	</model>
+</model-hints>

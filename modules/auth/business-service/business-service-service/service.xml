@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN"
+        "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder
+        dependency-injector="ds"
+        package-path="com.swork.business.service"
+        auto-namespace-tables="false"
+>
+    <namespace>SW_BUSINESS</namespace>
+    <!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
+    <entity
+            local-service="true"
+            name="BusinessEntry"
+            table="SW_Business"
+            remote-service="false"
+            external-reference-code="true"
+            uuid="true">
+
+        <!-- PK fields -->
+
+        <column name="businessId" primary="true" type="long"/>
+
+        <!-- Group instance -->
+
+        <column name="groupId" type="long"/>
+
+        <!-- Audit fields -->
+
+        <column name="companyId" type="long"/>
+        <column name="accountId" type="long"/>
+        <column name="userName" type="String"/>
+        <column name="createDate" type="Date"/>
+        <column name="modifiedDate" type="Date"/>
+        <column name="creatorId" type="long"/>
+
+        <!-- Other fields -->
+
+        <column name="customerName" type="String"/>
+        <column name="phoneNumber" type="String"/>
+        <column name="email" type="String"/>
+        <column name="businessAddress" type="String"/>
+        <column name="name" type="String"/>
+        <column name="fieldOperations" type="String"/>
+        <column name="logoId" type="Long"/>
+        <column name="status" type="String"/>
+
+        <!-- Order -->
+
+        <order>
+            <order-column name="createDate" order-by="desc"/>
+            <order-column name="modifiedDate" order-by="desc"/>
+        </order>
+
+        <finder name="Phone" return-type="BusinessEntry">
+            <finder-column name="phoneNumber"/>
+        </finder>
+
+        <finder name="Email" return-type="BusinessEntry">
+            <finder-column name="email"/>
+        </finder>
+
+        <finder name="Name" return-type="BusinessEntry">
+            <finder-column name="name"/>
+        </finder>
+
+    </entity>
+</service-builder>

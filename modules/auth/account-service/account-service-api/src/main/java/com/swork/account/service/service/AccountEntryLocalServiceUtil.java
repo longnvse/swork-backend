@@ -45,6 +45,13 @@ public class AccountEntryLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.swork.account.service.service.impl.AccountEntryLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static AccountEntry addAccountAdmin(
+		long creatorId, long businessId, String email, String password,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().addAccountAdmin(
+			creatorId, businessId, email, password, serviceContext);
+	}
 
 	/**
 	 * Adds the account entry to the database. Also notifies the appropriate model listeners.
@@ -61,14 +68,29 @@ public class AccountEntryLocalServiceUtil {
 	}
 
 	public static AccountEntry addAccountEntry(
-			long creatorId, String username, String password, String fullName,
-			String email, Integer phoneNumber, String address,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PwdEncryptorException {
+		long creatorId, long businessId, String username, String password,
+		String fullName, java.util.Date dateOfBirth, Boolean gender,
+		String email, String phoneNumber, String address,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().addAccountEntry(
-			creatorId, username, password, fullName, email, phoneNumber,
-			address, serviceContext);
+			creatorId, businessId, username, password, fullName, dateOfBirth,
+			gender, email, phoneNumber, address, serviceContext);
+	}
+
+	public static AccountEntry addAccountSuperAdmin(
+		String username, String email, String password,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().addAccountSuperAdmin(
+			username, email, password, serviceContext);
+	}
+
+	public static AccountEntry changePassword(
+		long accountId, String password,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().changePassword(accountId, password, serviceContext);
 	}
 
 	/**
@@ -259,6 +281,18 @@ public class AccountEntryLocalServiceUtil {
 		return getService().fetchAccountEntryByUuidAndGroupId(uuid, groupId);
 	}
 
+	public static AccountEntry findByEmail(String email) {
+		return getService().findByEmail(email);
+	}
+
+	public static AccountEntry findByPhone(String phoneNumber) {
+		return getService().findByPhone(phoneNumber);
+	}
+
+	public static AccountEntry getAccount(String username) {
+		return getService().getAccount(username);
+	}
+
 	/**
 	 * Returns a range of all the account entries.
 	 *
@@ -398,6 +432,10 @@ public class AccountEntryLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static AccountEntry resetPassword(String username) {
+		return getService().resetPassword(username);
+	}
+
 	/**
 	 * Updates the account entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -413,13 +451,28 @@ public class AccountEntryLocalServiceUtil {
 	}
 
 	public static AccountEntry updateAccountEntry(
-		long creatorId, long accountId, String fullName, String email,
-		Integer phoneNumber, String address,
+		long creatorId, long accountId, String fullName,
+		java.util.Date dateOfBirth, String email, String phoneNumber,
+		String address, Boolean gender,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return getService().updateAccountEntry(
-			creatorId, accountId, fullName, email, phoneNumber, address,
-			serviceContext);
+			creatorId, accountId, fullName, dateOfBirth, email, phoneNumber,
+			address, gender, serviceContext);
+	}
+
+	public static AccountEntry updateAvatar(
+		long accountId, long fileId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateAvatar(accountId, fileId, serviceContext);
+	}
+
+	public static AccountEntry updateStatus(
+		long accountId, String status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateStatus(accountId, status, serviceContext);
 	}
 
 	public static AccountEntryLocalService getService() {

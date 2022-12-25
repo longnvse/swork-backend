@@ -42,6 +42,27 @@ public class Account implements Cloneable, Serializable {
 
 	protected String address;
 
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public void setAvatar(
+		UnsafeSupplier<String, Exception> avatarUnsafeSupplier) {
+
+		try {
+			avatar = avatarUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String avatar;
+
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -62,6 +83,48 @@ public class Account implements Cloneable, Serializable {
 	}
 
 	protected Date createDate;
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public void setDateOfBirth(
+		UnsafeSupplier<Date, Exception> dateOfBirthUnsafeSupplier) {
+
+		try {
+			dateOfBirth = dateOfBirthUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date dateOfBirth;
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	public void setDepartmentName(
+		UnsafeSupplier<String, Exception> departmentNameUnsafeSupplier) {
+
+		try {
+			departmentName = departmentNameUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String departmentName;
 
 	public String getEmail() {
 		return email;
@@ -84,6 +147,27 @@ public class Account implements Cloneable, Serializable {
 
 	protected String email;
 
+	public String getExternalReferenceCode() {
+		return externalReferenceCode;
+	}
+
+	public void setExternalReferenceCode(String externalReferenceCode) {
+		this.externalReferenceCode = externalReferenceCode;
+	}
+
+	public void setExternalReferenceCode(
+		UnsafeSupplier<String, Exception> externalReferenceCodeUnsafeSupplier) {
+
+		try {
+			externalReferenceCode = externalReferenceCodeUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String externalReferenceCode;
+
 	public String getFullName() {
 		return fullName;
 	}
@@ -105,6 +189,27 @@ public class Account implements Cloneable, Serializable {
 
 	protected String fullName;
 
+	public Boolean getGender() {
+		return gender;
+	}
+
+	public void setGender(Boolean gender) {
+		this.gender = gender;
+	}
+
+	public void setGender(
+		UnsafeSupplier<Boolean, Exception> genderUnsafeSupplier) {
+
+		try {
+			gender = genderUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean gender;
+
 	public Long getId() {
 		return id;
 	}
@@ -124,16 +229,16 @@ public class Account implements Cloneable, Serializable {
 
 	protected Long id;
 
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
 	public void setPhoneNumber(
-		UnsafeSupplier<Integer, Exception> phoneNumberUnsafeSupplier) {
+		UnsafeSupplier<String, Exception> phoneNumberUnsafeSupplier) {
 
 		try {
 			phoneNumber = phoneNumberUnsafeSupplier.get();
@@ -143,7 +248,36 @@ public class Account implements Cloneable, Serializable {
 		}
 	}
 
-	protected Integer phoneNumber;
+	protected String phoneNumber;
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public String getStatusAsString() {
+		if (status == null) {
+			return null;
+		}
+
+		return status.toString();
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public void setStatus(
+		UnsafeSupplier<Status, Exception> statusUnsafeSupplier) {
+
+		try {
+			status = statusUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Status status;
 
 	public String getUsername() {
 		return username;
@@ -195,6 +329,39 @@ public class Account implements Cloneable, Serializable {
 
 	public String toString() {
 		return AccountSerDes.toJSON(this);
+	}
+
+	public static enum Status {
+
+		ACTIVE("active"), INACTIVE("inactive");
+
+		public static Status create(String value) {
+			for (Status status : values()) {
+				if (Objects.equals(status.getValue(), value) ||
+					Objects.equals(status.name(), value)) {
+
+					return status;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Status(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
 	}
 
 }

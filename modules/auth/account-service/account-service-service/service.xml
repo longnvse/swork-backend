@@ -33,16 +33,27 @@
         <column name="username" type="String"/>
         <column name="password" type="String"/>
         <column name="fullName" type="String"/>
-        <column name="phoneNumber" type="Integer"/>
+        <column name="phoneNumber" type="String"/>
+        <column name="dateOfBirth" type="Date"/>
+        <column name="gender" type="Boolean"/>
         <column name="email" type="String"/>
         <column name="address" type="String"/>
         <column name="departmentId" type="Long"/>
+        <column name="status" type="String"/>
+        <column name="role" type="String"/>
+        <column name="businessId" type="Long"/>
+        <column name="avatar" type="Long"/>
 
         <!-- Finder methods -->
 
-        <finder name="U_P" return-type="AccountEntry">
+        <finder name="Username" return-type="AccountEntry">
             <finder-column name="username"/>
-            <finder-column name="password"/>
+        </finder>
+        <finder name="Email" return-type="AccountEntry">
+            <finder-column name="email"/>
+        </finder>
+        <finder name="Phone" return-type="AccountEntry">
+            <finder-column name="phoneNumber"/>
         </finder>
 
     </entity>

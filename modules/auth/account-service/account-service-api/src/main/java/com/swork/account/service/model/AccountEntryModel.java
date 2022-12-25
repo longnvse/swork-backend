@@ -230,14 +230,43 @@ public interface AccountEntryModel
 	 *
 	 * @return the phone number of this account entry
 	 */
-	public Integer getPhoneNumber();
+	@AutoEscape
+	public String getPhoneNumber();
 
 	/**
 	 * Sets the phone number of this account entry.
 	 *
 	 * @param phoneNumber the phone number of this account entry
 	 */
-	public void setPhoneNumber(Integer phoneNumber);
+	public void setPhoneNumber(String phoneNumber);
+
+	/**
+	 * Returns the date of birth of this account entry.
+	 *
+	 * @return the date of birth of this account entry
+	 */
+	public Date getDateOfBirth();
+
+	/**
+	 * Sets the date of birth of this account entry.
+	 *
+	 * @param dateOfBirth the date of birth of this account entry
+	 */
+	public void setDateOfBirth(Date dateOfBirth);
+
+	/**
+	 * Returns the gender of this account entry.
+	 *
+	 * @return the gender of this account entry
+	 */
+	public Boolean getGender();
+
+	/**
+	 * Sets the gender of this account entry.
+	 *
+	 * @param gender the gender of this account entry
+	 */
+	public void setGender(Boolean gender);
 
 	/**
 	 * Returns the email of this account entry.
@@ -282,6 +311,64 @@ public interface AccountEntryModel
 	 * @param departmentId the department ID of this account entry
 	 */
 	public void setDepartmentId(Long departmentId);
+
+	/**
+	 * Returns the status of this account entry.
+	 *
+	 * @return the status of this account entry
+	 */
+	@AutoEscape
+	public String getStatus();
+
+	/**
+	 * Sets the status of this account entry.
+	 *
+	 * @param status the status of this account entry
+	 */
+	public void setStatus(String status);
+
+	/**
+	 * Returns the role of this account entry.
+	 *
+	 * @return the role of this account entry
+	 */
+	@AutoEscape
+	public String getRole();
+
+	/**
+	 * Sets the role of this account entry.
+	 *
+	 * @param role the role of this account entry
+	 */
+	public void setRole(String role);
+
+	/**
+	 * Returns the business ID of this account entry.
+	 *
+	 * @return the business ID of this account entry
+	 */
+	public Long getBusinessId();
+
+	/**
+	 * Sets the business ID of this account entry.
+	 *
+	 * @param businessId the business ID of this account entry
+	 */
+	public void setBusinessId(Long businessId);
+
+	/**
+	 * Returns the avatar of this account entry.
+	 *
+	 * @return the avatar of this account entry
+	 */
+	public Long getAvatar();
+
+	/**
+	 * Sets the avatar of this account entry.
+	 *
+	 * @param avatar the avatar of this account entry
+	 */
+	public void setAvatar(Long avatar);
 
 	@Override
 	public AccountEntry cloneWithOriginalValues();

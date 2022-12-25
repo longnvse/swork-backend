@@ -9,9 +9,15 @@ create table SW_AccountEntry (
 	creatorId LONG,
 	username VARCHAR(75) null,
 	password_ VARCHAR(75) null,
-	fullName VARCHAR(75) null,
-	phoneNumber INTEGER,
+	fullName VARCHAR(100) null,
+	phoneNumber VARCHAR(75) null,
+	dateOfBirth DATE null,
+	gender BOOLEAN,
 	email VARCHAR(75) null,
-	address VARCHAR(75) null,
-	departmentId LONG
+	address VARCHAR(100) null,
+	departmentId LONG,
+	status VARCHAR(75) null,
+	role_ VARCHAR(75) null,
+	businessId LONG,
+	avatar LONG
 );

@@ -56,14 +56,26 @@ public class AccountEntryTable extends BaseTable<AccountEntryTable> {
 		"password_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<AccountEntryTable, String> fullName = createColumn(
 		"fullName", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<AccountEntryTable, Integer> phoneNumber = createColumn(
-		"phoneNumber", Integer.class, Types.INTEGER, Column.FLAG_DEFAULT);
+	public final Column<AccountEntryTable, String> phoneNumber = createColumn(
+		"phoneNumber", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<AccountEntryTable, Date> dateOfBirth = createColumn(
+		"dateOfBirth", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
+	public final Column<AccountEntryTable, Boolean> gender = createColumn(
+		"gender", Boolean.class, Types.BOOLEAN, Column.FLAG_DEFAULT);
 	public final Column<AccountEntryTable, String> email = createColumn(
 		"email", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<AccountEntryTable, String> address = createColumn(
 		"address", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<AccountEntryTable, Long> departmentId = createColumn(
 		"departmentId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<AccountEntryTable, String> status = createColumn(
+		"status", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<AccountEntryTable, String> role = createColumn(
+		"role_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<AccountEntryTable, Long> businessId = createColumn(
+		"businessId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<AccountEntryTable, Long> avatar = createColumn(
+		"avatar", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 
 	private AccountEntryTable() {
 		super("SW_AccountEntry", AccountEntryTable::new);

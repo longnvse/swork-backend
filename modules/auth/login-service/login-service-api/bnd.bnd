@@ -1,0 +1,10 @@
+Bundle-Name: login-service-api
+Bundle-SymbolicName: com.swork.auth.login.service.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.swork.auth.login.service.exception,\
+	com.swork.auth.login.service.model,\
+	com.swork.auth.login.service.service,\
+	com.swork.auth.login.service.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../login-service-service/service.xml

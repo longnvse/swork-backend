@@ -59,6 +59,20 @@ public class AccountSerDes {
 			sb.append("\"");
 		}
 
+		if (account.getAvatar() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"avatar\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(account.getAvatar()));
+
+			sb.append("\"");
+		}
+
 		if (account.getCreateDate() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -69,6 +83,34 @@ public class AccountSerDes {
 			sb.append("\"");
 
 			sb.append(liferayToJSONDateFormat.format(account.getCreateDate()));
+
+			sb.append("\"");
+		}
+
+		if (account.getDateOfBirth() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"dateOfBirth\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(account.getDateOfBirth()));
+
+			sb.append("\"");
+		}
+
+		if (account.getDepartmentName() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"departmentName\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(account.getDepartmentName()));
 
 			sb.append("\"");
 		}
@@ -87,6 +129,20 @@ public class AccountSerDes {
 			sb.append("\"");
 		}
 
+		if (account.getExternalReferenceCode() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"externalReferenceCode\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(account.getExternalReferenceCode()));
+
+			sb.append("\"");
+		}
+
 		if (account.getFullName() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -99,6 +155,16 @@ public class AccountSerDes {
 			sb.append(_escape(account.getFullName()));
 
 			sb.append("\"");
+		}
+
+		if (account.getGender() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"gender\": ");
+
+			sb.append(account.getGender());
 		}
 
 		if (account.getId() != null) {
@@ -118,7 +184,25 @@ public class AccountSerDes {
 
 			sb.append("\"phoneNumber\": ");
 
-			sb.append(account.getPhoneNumber());
+			sb.append("\"");
+
+			sb.append(_escape(account.getPhoneNumber()));
+
+			sb.append("\"");
+		}
+
+		if (account.getStatus() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"status\": ");
+
+			sb.append("\"");
+
+			sb.append(account.getStatus());
+
+			sb.append("\"");
 		}
 
 		if (account.getUsername() != null) {
@@ -163,6 +247,13 @@ public class AccountSerDes {
 			map.put("address", String.valueOf(account.getAddress()));
 		}
 
+		if (account.getAvatar() == null) {
+			map.put("avatar", null);
+		}
+		else {
+			map.put("avatar", String.valueOf(account.getAvatar()));
+		}
+
 		if (account.getCreateDate() == null) {
 			map.put("createDate", null);
 		}
@@ -172,6 +263,23 @@ public class AccountSerDes {
 				liferayToJSONDateFormat.format(account.getCreateDate()));
 		}
 
+		if (account.getDateOfBirth() == null) {
+			map.put("dateOfBirth", null);
+		}
+		else {
+			map.put(
+				"dateOfBirth",
+				liferayToJSONDateFormat.format(account.getDateOfBirth()));
+		}
+
+		if (account.getDepartmentName() == null) {
+			map.put("departmentName", null);
+		}
+		else {
+			map.put(
+				"departmentName", String.valueOf(account.getDepartmentName()));
+		}
+
 		if (account.getEmail() == null) {
 			map.put("email", null);
 		}
@@ -179,11 +287,27 @@ public class AccountSerDes {
 			map.put("email", String.valueOf(account.getEmail()));
 		}
 
+		if (account.getExternalReferenceCode() == null) {
+			map.put("externalReferenceCode", null);
+		}
+		else {
+			map.put(
+				"externalReferenceCode",
+				String.valueOf(account.getExternalReferenceCode()));
+		}
+
 		if (account.getFullName() == null) {
 			map.put("fullName", null);
 		}
 		else {
 			map.put("fullName", String.valueOf(account.getFullName()));
+		}
+
+		if (account.getGender() == null) {
+			map.put("gender", null);
+		}
+		else {
+			map.put("gender", String.valueOf(account.getGender()));
 		}
 
 		if (account.getId() == null) {
@@ -198,6 +322,13 @@ public class AccountSerDes {
 		}
 		else {
 			map.put("phoneNumber", String.valueOf(account.getPhoneNumber()));
+		}
+
+		if (account.getStatus() == null) {
+			map.put("status", null);
+		}
+		else {
+			map.put("status", String.valueOf(account.getStatus()));
 		}
 
 		if (account.getUsername() == null) {
@@ -232,9 +363,25 @@ public class AccountSerDes {
 					account.setAddress((String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "avatar")) {
+				if (jsonParserFieldValue != null) {
+					account.setAvatar((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "createDate")) {
 				if (jsonParserFieldValue != null) {
 					account.setCreateDate(toDate((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "dateOfBirth")) {
+				if (jsonParserFieldValue != null) {
+					account.setDateOfBirth(
+						toDate((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "departmentName")) {
+				if (jsonParserFieldValue != null) {
+					account.setDepartmentName((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "email")) {
@@ -242,9 +389,22 @@ public class AccountSerDes {
 					account.setEmail((String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(
+						jsonParserFieldName, "externalReferenceCode")) {
+
+				if (jsonParserFieldValue != null) {
+					account.setExternalReferenceCode(
+						(String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "fullName")) {
 				if (jsonParserFieldValue != null) {
 					account.setFullName((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "gender")) {
+				if (jsonParserFieldValue != null) {
+					account.setGender((Boolean)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {
@@ -254,8 +414,13 @@ public class AccountSerDes {
 			}
 			else if (Objects.equals(jsonParserFieldName, "phoneNumber")) {
 				if (jsonParserFieldValue != null) {
-					account.setPhoneNumber(
-						Integer.valueOf((String)jsonParserFieldValue));
+					account.setPhoneNumber((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "status")) {
+				if (jsonParserFieldValue != null) {
+					account.setStatus(
+						Account.Status.create((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "username")) {

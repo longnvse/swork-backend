@@ -1,8 +1,10 @@
 package com.swork.account.rest.dto.v1_0;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
@@ -24,6 +26,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.annotation.Generated;
+
+import javax.validation.Valid;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -74,6 +78,34 @@ public class Account implements Serializable {
 	protected String address;
 
 	@Schema
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	@JsonIgnore
+	public void setAvatar(
+		UnsafeSupplier<String, Exception> avatarUnsafeSupplier) {
+
+		try {
+			avatar = avatarUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String avatar;
+
+	@Schema
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -100,6 +132,62 @@ public class Account implements Serializable {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date createDate;
+
+	@Schema
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	@JsonIgnore
+	public void setDateOfBirth(
+		UnsafeSupplier<Date, Exception> dateOfBirthUnsafeSupplier) {
+
+		try {
+			dateOfBirth = dateOfBirthUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Date dateOfBirth;
+
+	@Schema
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	@JsonIgnore
+	public void setDepartmentName(
+		UnsafeSupplier<String, Exception> departmentNameUnsafeSupplier) {
+
+		try {
+			departmentName = departmentNameUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String departmentName;
 
 	@Schema
 	public String getEmail() {
@@ -130,6 +218,34 @@ public class Account implements Serializable {
 	protected String email;
 
 	@Schema
+	public String getExternalReferenceCode() {
+		return externalReferenceCode;
+	}
+
+	public void setExternalReferenceCode(String externalReferenceCode) {
+		this.externalReferenceCode = externalReferenceCode;
+	}
+
+	@JsonIgnore
+	public void setExternalReferenceCode(
+		UnsafeSupplier<String, Exception> externalReferenceCodeUnsafeSupplier) {
+
+		try {
+			externalReferenceCode = externalReferenceCodeUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String externalReferenceCode;
+
+	@Schema
 	public String getFullName() {
 		return fullName;
 	}
@@ -158,6 +274,34 @@ public class Account implements Serializable {
 	protected String fullName;
 
 	@Schema
+	public Boolean getGender() {
+		return gender;
+	}
+
+	public void setGender(Boolean gender) {
+		this.gender = gender;
+	}
+
+	@JsonIgnore
+	public void setGender(
+		UnsafeSupplier<Boolean, Exception> genderUnsafeSupplier) {
+
+		try {
+			gender = genderUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Boolean gender;
+
+	@Schema
 	public Long getId() {
 		return id;
 	}
@@ -184,17 +328,17 @@ public class Account implements Serializable {
 	protected Long id;
 
 	@Schema
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
 	@JsonIgnore
 	public void setPhoneNumber(
-		UnsafeSupplier<Integer, Exception> phoneNumberUnsafeSupplier) {
+		UnsafeSupplier<String, Exception> phoneNumberUnsafeSupplier) {
 
 		try {
 			phoneNumber = phoneNumberUnsafeSupplier.get();
@@ -209,7 +353,45 @@ public class Account implements Serializable {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Integer phoneNumber;
+	protected String phoneNumber;
+
+	@Schema
+	@Valid
+	public Status getStatus() {
+		return status;
+	}
+
+	@JsonIgnore
+	public String getStatusAsString() {
+		if (status == null) {
+			return null;
+		}
+
+		return status.toString();
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	@JsonIgnore
+	public void setStatus(
+		UnsafeSupplier<Status, Exception> statusUnsafeSupplier) {
+
+		try {
+			status = statusUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Status status;
 
 	@Schema
 	public String getUsername() {
@@ -236,7 +418,7 @@ public class Account implements Serializable {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String username;
 
 	@Override
@@ -283,6 +465,20 @@ public class Account implements Serializable {
 			sb.append("\"");
 		}
 
+		if (avatar != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"avatar\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(avatar));
+
+			sb.append("\"");
+		}
+
 		if (createDate != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -293,6 +489,34 @@ public class Account implements Serializable {
 			sb.append("\"");
 
 			sb.append(liferayToJSONDateFormat.format(createDate));
+
+			sb.append("\"");
+		}
+
+		if (dateOfBirth != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"dateOfBirth\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(dateOfBirth));
+
+			sb.append("\"");
+		}
+
+		if (departmentName != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"departmentName\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(departmentName));
 
 			sb.append("\"");
 		}
@@ -311,6 +535,20 @@ public class Account implements Serializable {
 			sb.append("\"");
 		}
 
+		if (externalReferenceCode != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"externalReferenceCode\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(externalReferenceCode));
+
+			sb.append("\"");
+		}
+
 		if (fullName != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -323,6 +561,16 @@ public class Account implements Serializable {
 			sb.append(_escape(fullName));
 
 			sb.append("\"");
+		}
+
+		if (gender != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"gender\": ");
+
+			sb.append(gender);
 		}
 
 		if (id != null) {
@@ -342,7 +590,25 @@ public class Account implements Serializable {
 
 			sb.append("\"phoneNumber\": ");
 
-			sb.append(phoneNumber);
+			sb.append("\"");
+
+			sb.append(_escape(phoneNumber));
+
+			sb.append("\"");
+		}
+
+		if (status != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"status\": ");
+
+			sb.append("\"");
+
+			sb.append(status);
+
+			sb.append("\"");
 		}
 
 		if (username != null) {
@@ -370,6 +636,44 @@ public class Account implements Serializable {
 		name = "x-class-name"
 	)
 	public String xClassName;
+
+	@GraphQLName("Status")
+	public static enum Status {
+
+		ACTIVE("active"), INACTIVE("inactive");
+
+		@JsonCreator
+		public static Status create(String value) {
+			if ((value == null) || value.equals("")) {
+				return null;
+			}
+
+			for (Status status : values()) {
+				if (Objects.equals(status.getValue(), value)) {
+					return status;
+				}
+			}
+
+			throw new IllegalArgumentException("Invalid enum value: " + value);
+		}
+
+		@JsonValue
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Status(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
 
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);

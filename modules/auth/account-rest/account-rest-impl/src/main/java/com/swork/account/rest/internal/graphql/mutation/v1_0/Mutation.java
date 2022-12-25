@@ -8,8 +8,11 @@ import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.multipart.MultipartBody;
 
 import com.swork.account.rest.dto.v1_0.Account;
+import com.swork.account.rest.dto.v1_0.ChangePassword;
+import com.swork.account.rest.dto.v1_0.ResetPassword;
 import com.swork.account.rest.resource.v1_0.AccountResource;
 
 import java.util.function.BiFunction;
@@ -110,6 +113,74 @@ public class Mutation {
 			this::_populateResourceContext,
 			accountResource -> accountResource.putAccountBatch(
 				callbackURL, object));
+	}
+
+	@GraphQLField(description = "Update an Account")
+	public boolean approvalAccount(
+			@GraphQLName("accountId") Long accountId,
+			@GraphQLName("status") String status)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.approvalAccount(
+				accountId, status));
+
+		return true;
+	}
+
+	@GraphQLField(description = "Update Account Info")
+	public boolean patchAccountPassword(
+			@GraphQLName("changePassword") ChangePassword changePassword)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.patchAccountPassword(
+				changePassword));
+
+		return true;
+	}
+
+	@GraphQLField(description = "Update Account Info")
+	public boolean updateAccountInfo(@GraphQLName("account") Account account)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.putAccountInfo(account));
+
+		return true;
+	}
+
+	@GraphQLField(description = "Update Account Info")
+	public boolean resetPassword(
+			@GraphQLName("resetPassword") ResetPassword resetPassword)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.resetPassword(resetPassword));
+
+		return true;
+	}
+
+	@GraphQLField(description = "Update avatar")
+	@GraphQLName(
+		description = "Update avatar", value = "updateAvatarMultipartBody"
+	)
+	public Response updateAvatar(
+			@GraphQLName("multipartBody") MultipartBody multipartBody)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.updateAvatar(multipartBody));
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R

@@ -4,7 +4,8 @@ Bundle-Version: 1.0.0
 Export-Package: \
     com.swork.common.token.helper.api,\
     com.swork.common.token.model,\
-    com.swork.common.token.util
+    com.swork.common.token.util,\
+    com.swork.common.token.service
 
 Include-Resource: \
     	@jjwt-api-0.11.2.jar,\

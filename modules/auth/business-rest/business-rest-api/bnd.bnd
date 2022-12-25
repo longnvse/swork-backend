@@ -1,0 +1,6 @@
+Bundle-Name: business-rest-api
+Bundle-SymbolicName: com.swork.business.rest.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.swork.business.rest.dto.v1_0,\
+	com.swork.business.rest.resource.v1_0

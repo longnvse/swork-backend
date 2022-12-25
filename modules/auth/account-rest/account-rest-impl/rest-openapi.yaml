@@ -7,20 +7,62 @@ components:
           format: int64
           readOnly: true
           type: integer
+        externalReferenceCode:
+          type: string
+          readOnly: true
         createDate:
           type: string
           format: date
           readOnly: true
         username:
           type: string
-          readOnly: true
         fullName:
           type: string
+        dateOfBirth:
+          type: string
+          format: date
         email:
           type: string
         phoneNumber:
-          type: integer
+          type: string
         address:
+          type: string
+        gender:
+          type: boolean
+        avatar:
+          type: string
+          readOnly: true
+        departmentName:
+          type: string
+          readOnly: true
+        status:
+          enum: [ active, inactive ]
+
+    Metadata:
+      description: Metadata model
+      properties:
+        moduleId:
+          type: string
+          example: "PROJECT"
+        appId:
+          type: string
+          example: "PROJECT"
+      type: object
+
+    ChangePassword:
+      properties:
+        oldPassword:
+          type: string
+        newPassword:
+          type: string
+        newPasswordRepeat:
+          type: string
+
+    ResetPassword:
+      properties:
+        username:
+          type: string
+        email:
           type: string
 info:
   description: "AccountRest REST API"
@@ -166,3 +208,157 @@ paths:
           content:
             application/json: { }
             application/xml: { }
+  "/accounts/approval/{accountId}":
+    put:
+      tags: [ "Account" ]
+      description: Update an Account
+      operationId: approvalAccount
+      parameters:
+        - in: path
+          name: accountId
+          required: true
+          schema:
+            format: int64
+            type: integer
+        - in: query
+          name: status
+          required: true
+          schema:
+            type: string
+            enum: [ active, inactive ]
+      responses:
+        204:
+          description:
+            "Updated an Account"
+          content:
+            application/json: { }
+            application/xml: { }
+  "/accounts/account-info":
+    get:
+      tags: [ "Account" ]
+      description: Update an Account
+      operationId: getAccountInfo
+      responses:
+        200:
+          description:
+            "Get detail an Account"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Account"
+    put:
+      tags: [ "Account" ]
+      description: "Update Account Info"
+      operationId: putAccountInfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Account"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Account"
+      responses:
+        204:
+          description:
+            "Get Current Account Info"
+          content:
+            application/json: { }
+            application/xml: { }
+    patch:
+      tags: [ "Account" ]
+      description: "Update Account Info"
+      operationId: patchAccountPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+      responses:
+        204:
+          description:
+            "Change Password"
+          content:
+            application/json: { }
+            application/xml: { }
+  "/accounts/reset-password":
+    patch:
+      tags: [ "Account" ]
+      description: "Update Account Info"
+      operationId: resetPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPassword'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ResetPassword'
+      responses:
+        204:
+          description:
+            "Change Password"
+          content:
+            application/json: { }
+            application/xml: { }
+  "/accounts/account-info/avatar":
+    patch:
+      tags: [ "Account" ]
+      description: "Update avatar"
+      operationId: updateAvatar
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                metadata:
+                  $ref: "#/components/schemas/Metadata"
+                file:
+                  format: binary
+                  type: string
+      responses:
+        200:
+          description:
+            "Chage Avatar"
+          content:
+            application/json:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
+  "/accounts/account-list":
+    get:
+      tags: [ "Account" ]
+      description: Update an Account
+      operationId: getListAccount
+      parameters:
+        - in: query
+          name: accountIds
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+      responses:
+        200:
+          description:
+            "Get list an Account"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Account"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Account"

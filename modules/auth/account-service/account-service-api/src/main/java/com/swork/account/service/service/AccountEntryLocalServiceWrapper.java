@@ -33,6 +33,15 @@ public class AccountEntryLocalServiceWrapper
 		_accountEntryLocalService = accountEntryLocalService;
 	}
 
+	@Override
+	public com.swork.account.service.model.AccountEntry addAccountAdmin(
+		long creatorId, long businessId, String email, String password,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _accountEntryLocalService.addAccountAdmin(
+			creatorId, businessId, email, password, serviceContext);
+	}
+
 	/**
 	 * Adds the account entry to the database. Also notifies the appropriate model listeners.
 	 *
@@ -52,14 +61,32 @@ public class AccountEntryLocalServiceWrapper
 
 	@Override
 	public com.swork.account.service.model.AccountEntry addAccountEntry(
-			long creatorId, String username, String password, String fullName,
-			String email, Integer phoneNumber, String address,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PwdEncryptorException {
+		long creatorId, long businessId, String username, String password,
+		String fullName, java.util.Date dateOfBirth, Boolean gender,
+		String email, String phoneNumber, String address,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _accountEntryLocalService.addAccountEntry(
-			creatorId, username, password, fullName, email, phoneNumber,
-			address, serviceContext);
+			creatorId, businessId, username, password, fullName, dateOfBirth,
+			gender, email, phoneNumber, address, serviceContext);
+	}
+
+	@Override
+	public com.swork.account.service.model.AccountEntry addAccountSuperAdmin(
+		String username, String email, String password,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _accountEntryLocalService.addAccountSuperAdmin(
+			username, email, password, serviceContext);
+	}
+
+	@Override
+	public com.swork.account.service.model.AccountEntry changePassword(
+		long accountId, String password,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _accountEntryLocalService.changePassword(
+			accountId, password, serviceContext);
 	}
 
 	/**
@@ -287,6 +314,27 @@ public class AccountEntryLocalServiceWrapper
 			uuid, groupId);
 	}
 
+	@Override
+	public com.swork.account.service.model.AccountEntry findByEmail(
+		String email) {
+
+		return _accountEntryLocalService.findByEmail(email);
+	}
+
+	@Override
+	public com.swork.account.service.model.AccountEntry findByPhone(
+		String phoneNumber) {
+
+		return _accountEntryLocalService.findByPhone(phoneNumber);
+	}
+
+	@Override
+	public com.swork.account.service.model.AccountEntry getAccount(
+		String username) {
+
+		return _accountEntryLocalService.getAccount(username);
+	}
+
 	/**
 	 * Returns a range of all the account entries.
 	 *
@@ -447,6 +495,13 @@ public class AccountEntryLocalServiceWrapper
 		return _accountEntryLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public com.swork.account.service.model.AccountEntry resetPassword(
+		String username) {
+
+		return _accountEntryLocalService.resetPassword(username);
+	}
+
 	/**
 	 * Updates the account entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -466,13 +521,32 @@ public class AccountEntryLocalServiceWrapper
 
 	@Override
 	public com.swork.account.service.model.AccountEntry updateAccountEntry(
-		long creatorId, long accountId, String fullName, String email,
-		Integer phoneNumber, String address,
+		long creatorId, long accountId, String fullName,
+		java.util.Date dateOfBirth, String email, String phoneNumber,
+		String address, Boolean gender,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 
 		return _accountEntryLocalService.updateAccountEntry(
-			creatorId, accountId, fullName, email, phoneNumber, address,
-			serviceContext);
+			creatorId, accountId, fullName, dateOfBirth, email, phoneNumber,
+			address, gender, serviceContext);
+	}
+
+	@Override
+	public com.swork.account.service.model.AccountEntry updateAvatar(
+		long accountId, long fileId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _accountEntryLocalService.updateAvatar(
+			accountId, fileId, serviceContext);
+	}
+
+	@Override
+	public com.swork.account.service.model.AccountEntry updateStatus(
+		long accountId, String status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _accountEntryLocalService.updateStatus(
+			accountId, status, serviceContext);
 	}
 
 	@Override

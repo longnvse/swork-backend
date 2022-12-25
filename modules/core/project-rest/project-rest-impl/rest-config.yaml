@@ -1,0 +1,9 @@
+apiDir: "../project-rest-api/src/main/java"
+apiPackagePath: "com.swork.core.project.rest"
+application:
+    baseURI: "/swork/project-rest"
+    className: "ProjectRestApplication"
+    name: "ProjectRest"
+author: "Long Hip"
+clientDir: "../project-rest-client/src/main/java"
+testDir: "../project-rest-test/src/testIntegration/java"

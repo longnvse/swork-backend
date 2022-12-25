@@ -9,10 +9,13 @@ import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.odata.filter.ExpressionConvert;
 import com.liferay.portal.odata.filter.FilterParserProvider;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
+import com.liferay.portal.vulcan.multipart.MultipartBody;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import com.swork.account.rest.dto.v1_0.Account;
+import com.swork.account.rest.dto.v1_0.ChangePassword;
+import com.swork.account.rest.dto.v1_0.ResetPassword;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +35,7 @@ import org.osgi.annotation.versioning.ProviderType;
 /**
  * To access this resource, run:
  *
- *     curl -u your@email.com:yourpassword -D - http://localhost:8080/o/account-rest/v1.0
+ *     curl -u your@email.com:yourpassword -D - http://localhost:8080/o/swork/account-rest/v1.0
  *
  * @author Long Hip
  * @generated
@@ -65,6 +68,21 @@ public interface AccountResource {
 
 	public Response putAccountBatch(String callbackURL, Object object)
 		throws Exception;
+
+	public void approvalAccount(Long accountId, String status) throws Exception;
+
+	public Account getAccountInfo() throws Exception;
+
+	public void patchAccountPassword(ChangePassword changePassword)
+		throws Exception;
+
+	public void putAccountInfo(Account account) throws Exception;
+
+	public void resetPassword(ResetPassword resetPassword) throws Exception;
+
+	public Response updateAvatar(MultipartBody multipartBody) throws Exception;
+
+	public Page<Account> getListAccount(Long[] accountIds) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

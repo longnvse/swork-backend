@@ -19,6 +19,7 @@ import com.liferay.portal.odata.filter.FilterParserProvider;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.batch.engine.VulcanBatchEngineTaskItemDelegate;
 import com.liferay.portal.vulcan.batch.engine.resource.VulcanBatchEngineImportTaskResource;
+import com.liferay.portal.vulcan.multipart.MultipartBody;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -26,6 +27,8 @@ import com.liferay.portal.vulcan.util.ActionUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import com.swork.account.rest.dto.v1_0.Account;
+import com.swork.account.rest.dto.v1_0.ChangePassword;
+import com.swork.account.rest.dto.v1_0.ResetPassword;
 import com.swork.account.rest.resource.v1_0.AccountResource;
 
 import java.io.Serializable;
@@ -58,7 +61,7 @@ public abstract class BaseAccountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/account-rest/v1.0/accounts'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
 		description = "Retrieves the account. Results can be paginated, filtered, searched, and sorted."
@@ -109,7 +112,7 @@ public abstract class BaseAccountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/account-rest/v1.0/accounts' -d $'{"address": ___, "email": ___, "fullName": ___, "phoneNumber": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts' -d $'{"address": ___, "dateOfBirth": ___, "email": ___, "fullName": ___, "gender": ___, "phoneNumber": ___, "status": ___, "username": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
 		description = "Create a new Account"
@@ -129,7 +132,7 @@ public abstract class BaseAccountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/account-rest/v1.0/accounts/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts/batch'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {
@@ -173,7 +176,7 @@ public abstract class BaseAccountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/account-rest/v1.0/accounts/{accountId}'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts/{accountId}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Delete an account")
 	@io.swagger.v3.oas.annotations.Parameters(
@@ -202,7 +205,7 @@ public abstract class BaseAccountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/account-rest/v1.0/accounts/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts/batch'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {
@@ -246,7 +249,7 @@ public abstract class BaseAccountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/account-rest/v1.0/accounts/{accountId}'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts/{accountId}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Get an Account")
 	@io.swagger.v3.oas.annotations.Parameters(
@@ -277,7 +280,7 @@ public abstract class BaseAccountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/account-rest/v1.0/accounts/{accountId}' -d $'{"address": ___, "email": ___, "fullName": ___, "phoneNumber": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts/{accountId}' -d $'{"address": ___, "dateOfBirth": ___, "email": ___, "fullName": ___, "gender": ___, "phoneNumber": ___, "status": ___, "username": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(description = "Update an Account")
 	@io.swagger.v3.oas.annotations.Parameters(
@@ -310,7 +313,7 @@ public abstract class BaseAccountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/account-rest/v1.0/accounts/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts/batch'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Parameters(
 		value = {
@@ -349,6 +352,169 @@ public abstract class BaseAccountResourceImpl
 			vulcanBatchEngineImportTaskResource.putImportTask(
 				Account.class.getName(), callbackURL, object)
 		).build();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts/approval/{accountId}'  -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Operation(description = "Update an Account")
+	@io.swagger.v3.oas.annotations.Parameters(
+		value = {
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
+				name = "accountId"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "status"
+			)
+		}
+	)
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Account")}
+	)
+	@javax.ws.rs.Path("/accounts/approval/{accountId}")
+	@javax.ws.rs.Produces({"application/json", "application/xml"})
+	@javax.ws.rs.PUT
+	@Override
+	public void approvalAccount(
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.PathParam("accountId")
+			Long accountId,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.QueryParam("status")
+			String status)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts/account-info'  -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Operation(description = "Update an Account")
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Account")}
+	)
+	@javax.ws.rs.GET
+	@javax.ws.rs.Path("/accounts/account-info")
+	@javax.ws.rs.Produces({"application/json", "application/xml"})
+	@Override
+	public Account getAccountInfo() throws Exception {
+		return new Account();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PATCH' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts/account-info' -d $'{"newPassword": ___, "newPasswordRepeat": ___, "oldPassword": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Operation(
+		description = "Update Account Info"
+	)
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Account")}
+	)
+	@javax.ws.rs.Consumes({"application/json", "application/xml"})
+	@javax.ws.rs.PATCH
+	@javax.ws.rs.Path("/accounts/account-info")
+	@javax.ws.rs.Produces({"application/json", "application/xml"})
+	@Override
+	public void patchAccountPassword(ChangePassword changePassword)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts/account-info' -d $'{"address": ___, "dateOfBirth": ___, "email": ___, "fullName": ___, "gender": ___, "phoneNumber": ___, "status": ___, "username": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Operation(
+		description = "Update Account Info"
+	)
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Account")}
+	)
+	@javax.ws.rs.Consumes({"application/json", "application/xml"})
+	@javax.ws.rs.Path("/accounts/account-info")
+	@javax.ws.rs.Produces({"application/json", "application/xml"})
+	@javax.ws.rs.PUT
+	@Override
+	public void putAccountInfo(Account account) throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PATCH' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts/reset-password' -d $'{"email": ___, "username": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Operation(
+		description = "Update Account Info"
+	)
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Account")}
+	)
+	@javax.ws.rs.Consumes({"application/json", "application/xml"})
+	@javax.ws.rs.PATCH
+	@javax.ws.rs.Path("/accounts/reset-password")
+	@javax.ws.rs.Produces({"application/json", "application/xml"})
+	@Override
+	public void resetPassword(ResetPassword resetPassword) throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PATCH' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts/account-info/avatar'  -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Operation(description = "Update avatar")
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Account")}
+	)
+	@javax.ws.rs.Consumes("multipart/form-data")
+	@javax.ws.rs.PATCH
+	@javax.ws.rs.Path("/accounts/account-info/avatar")
+	@javax.ws.rs.Produces({"application/json", "application/xml"})
+	@Override
+	public Response updateAvatar(MultipartBody multipartBody) throws Exception {
+		Response.ResponseBuilder responseBuilder = Response.ok();
+
+		return responseBuilder.build();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/swork/account-rest/v1.0/accounts/account-list'  -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Operation(description = "Update an Account")
+	@io.swagger.v3.oas.annotations.Parameters(
+		value = {
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "accountIds"
+			)
+		}
+	)
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Account")}
+	)
+	@javax.ws.rs.GET
+	@javax.ws.rs.Path("/accounts/account-list")
+	@javax.ws.rs.Produces({"application/json", "application/xml"})
+	@Override
+	public Page<Account> getListAccount(
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.QueryParam("accountIds")
+			Long[] accountIds)
+		throws Exception {
+
+		return Page.of(Collections.emptyList());
 	}
 
 	@Override

@@ -1,0 +1,3 @@
+Bundle-Name: department-rest-client
+Bundle-SymbolicName: com.swork.auth.department.rest.client
+Bundle-Version: 1.0.0

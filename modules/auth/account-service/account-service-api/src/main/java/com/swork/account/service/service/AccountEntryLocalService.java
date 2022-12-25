@@ -22,7 +22,6 @@ import com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.PwdEncryptorException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.PersistedModel;
 import com.liferay.portal.kernel.search.Indexable;
@@ -39,6 +38,7 @@ import com.swork.account.service.model.AccountEntry;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -66,6 +66,10 @@ public interface AccountEntryLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.swork.account.service.service.impl.AccountEntryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the account entry local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link AccountEntryLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	@Indexable(type = IndexableType.REINDEX)
+	public AccountEntry addAccountAdmin(
+		long creatorId, long businessId, String email, String password,
+		ServiceContext serviceContext);
 
 	/**
 	 * Adds the account entry to the database. Also notifies the appropriate model listeners.
@@ -82,10 +86,18 @@ public interface AccountEntryLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public AccountEntry addAccountEntry(
-			long creatorId, String username, String password, String fullName,
-			String email, Integer phoneNumber, String address,
-			ServiceContext serviceContext)
-		throws PwdEncryptorException;
+		long creatorId, long businessId, String username, String password,
+		String fullName, Date dateOfBirth, Boolean gender, String email,
+		String phoneNumber, String address, ServiceContext serviceContext);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public AccountEntry addAccountSuperAdmin(
+		String username, String email, String password,
+		ServiceContext serviceContext);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public AccountEntry changePassword(
+		long accountId, String password, ServiceContext serviceContext);
 
 	/**
 	 * Creates a new account entry with the primary key. Does not add the account entry to the database.
@@ -242,6 +254,13 @@ public interface AccountEntryLocalService
 	public AccountEntry fetchAccountEntryByUuidAndGroupId(
 		String uuid, long groupId);
 
+	public AccountEntry findByEmail(String email);
+
+	public AccountEntry findByPhone(String phoneNumber);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public AccountEntry getAccount(String username);
+
 	/**
 	 * Returns a range of all the account entries.
 	 *
@@ -351,6 +370,9 @@ public interface AccountEntryLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	@Indexable(type = IndexableType.REINDEX)
+	public AccountEntry resetPassword(String username);
+
 	/**
 	 * Updates the account entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -366,7 +388,16 @@ public interface AccountEntryLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public AccountEntry updateAccountEntry(
-		long creatorId, long accountId, String fullName, String email,
-		Integer phoneNumber, String address, ServiceContext serviceContext);
+		long creatorId, long accountId, String fullName, Date dateOfBirth,
+		String email, String phoneNumber, String address, Boolean gender,
+		ServiceContext serviceContext);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public AccountEntry updateAvatar(
+		long accountId, long fileId, ServiceContext serviceContext);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public AccountEntry updateStatus(
+		long accountId, String status, ServiceContext serviceContext);
 
 }
