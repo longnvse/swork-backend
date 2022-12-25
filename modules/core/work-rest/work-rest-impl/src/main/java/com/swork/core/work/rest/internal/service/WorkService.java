@@ -54,6 +54,7 @@ public class WorkService {
                             booleanQuery.getPreBooleanFilter();
 
                     booleanFilter.add(businessIdFilter, BooleanClauseOccur.MUST);
+
                     if (Validator.isNotNull(parentId)) {
                         TermFilter parentIdFilter =
                                 new TermFilter(SearchFields.PARENT_ID, String.valueOf(parentId));

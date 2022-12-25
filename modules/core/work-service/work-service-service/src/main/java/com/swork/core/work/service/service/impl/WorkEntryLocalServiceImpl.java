@@ -135,7 +135,6 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         entry.setStatus(status);
 
         return updateWorkEntry(entry);
-
     }
 
     @Indexable(type = IndexableType.REINDEX)

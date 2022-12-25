@@ -754,6 +754,22 @@ public abstract class BaseWorkResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("attachNumber", additionalAssertFieldName)) {
+				if (work.getAttachNumber() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("commentNumber", additionalAssertFieldName)) {
+				if (work.getCommentNumber() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("complete", additionalAssertFieldName)) {
 				if (work.getComplete() == null) {
 					valid = false;
@@ -1054,6 +1070,26 @@ public abstract class BaseWorkResourceTestCase {
 				if (!Objects.deepEquals(
 						work1.getActualStartDate(),
 						work2.getActualStartDate())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("attachNumber", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						work1.getAttachNumber(), work2.getAttachNumber())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("commentNumber", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						work1.getCommentNumber(), work2.getCommentNumber())) {
 
 					return false;
 				}
@@ -1467,6 +1503,16 @@ public abstract class BaseWorkResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("attachNumber")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("commentNumber")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("complete")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1714,6 +1760,8 @@ public abstract class BaseWorkResourceTestCase {
 			{
 				actualEndDate = RandomTestUtil.nextDate();
 				actualStartDate = RandomTestUtil.nextDate();
+				attachNumber = RandomTestUtil.randomInt();
+				commentNumber = RandomTestUtil.randomInt();
 				complete = RandomTestUtil.randomDouble();
 				description = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
