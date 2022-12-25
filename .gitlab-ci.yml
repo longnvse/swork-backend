@@ -22,6 +22,7 @@ build & deploy:
   only:
     - develop
     - master
+    - main
     - merge_requests
 
 integration test:
@@ -94,7 +95,8 @@ Deploy Prod:
     - ssh -o StrictHostKeyChecking=no $SSH_USER@$IPADDRESS_PROD -p 22
     - >-
       rsync -avz --delete --progress -a -e "ssh -p 22" bundles/osgi/modules/com.swork.*
-      $SSH_USER@$IPADDRESS_DPROD:/opt/liferay/deploy
+      $SSH_USER@$IPADDRESS_PROD:/opt/liferay/deploy
     - echo "Deployed"
   only:
     - master
+    - main
