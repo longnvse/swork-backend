@@ -40,6 +40,8 @@ public class ProjectResourceImpl extends BaseProjectResourceImpl {
 	public Page<Project> getProjectsPage(String type, String search, Filter filter, Pagination pagination, Sort[] sorts) throws Exception {
 		return service.getProjectPages(
 				getUserToken().getBusinessId(),
+				getUserToken().getAccountId(),
+				getUserToken().getDepartmentId(),
 				search,
 				filter,
 				pagination,
@@ -58,6 +60,7 @@ public class ProjectResourceImpl extends BaseProjectResourceImpl {
 		return service.postProject(
 				getUserToken().getBusinessId(),
 				getUserToken().getAccountId(),
+				getUserToken().getDepartmentId(),
 				project,
 				getServiceContext()
 		);
@@ -75,7 +78,10 @@ public class ProjectResourceImpl extends BaseProjectResourceImpl {
 	public Project getProject(Long projectId) throws Exception {
 		validator.validatorProjectIsExists(projectId);
 
-		return service.getProject(projectId);
+		return service.getProject(
+				getUserToken().getAccountId(),
+				getUserToken().getDepartmentId(),
+				projectId);
 	}
 
 	@Override
@@ -87,6 +93,7 @@ public class ProjectResourceImpl extends BaseProjectResourceImpl {
 
 		return service.putProject(
 				getUserToken().getAccountId(),
+				getUserToken().getDepartmentId(),
 				projectId,
 				project,
 				getServiceContext());

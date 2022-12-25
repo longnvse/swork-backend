@@ -31,7 +31,7 @@ public class CommonTokenHelper {
         userToken.setRole(GetterUtil.getString(claims.get(ClaimsKeys.ROLE)));
         userToken.setAccountId(GetterUtil.getLong(claims.get(ClaimsKeys.ACCOUNT_ID)));
         userToken.setBusinessId(GetterUtil.getLong(claims.get(ClaimsKeys.BUSINESS_ID)));
-        userToken.setDepartmentIds((GetterUtil.getLongValues(claims.get(ClaimsKeys.DEPARTMENT))));
+        userToken.setDepartmentId((GetterUtil.getLong(claims.get(ClaimsKeys.DEPARTMENT))));
 
         return userToken;
     }

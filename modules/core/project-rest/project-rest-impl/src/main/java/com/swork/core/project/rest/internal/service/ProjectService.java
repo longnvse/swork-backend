@@ -33,6 +33,8 @@ import java.util.Date;
 public class ProjectService {
 
     public Page<Project> getProjectPages(long businessId,
+                                         long myId,
+                                         Long myDepartmentId,
                                          String search,
                                          Filter filter,
                                          Pagination pagination,
@@ -68,6 +70,8 @@ public class ProjectService {
                     long projectId = GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK));
 
                     return mapper.mapDTOFromEntry(
+                            myId,
+                            myDepartmentId,
                             localService
                                     .getProjectEntry(projectId));
                 });
@@ -75,6 +79,7 @@ public class ProjectService {
 
     public Project postProject(long businessId,
                                long creatorId,
+                               Long departmentId,
                                Project project,
                                ServiceContext serviceContext) {
 
@@ -82,10 +87,11 @@ public class ProjectService {
 
         ProjectEntry entry = localService.addProject(businessId, creatorId, projectMapperModel, serviceContext);
 
-        return mapper.mapDTOFromEntry(entry);
+        return mapper.mapDTOFromEntry(creatorId, departmentId, entry);
     }
 
     public Project putProject(long creatorId,
+                              Long departmentId,
                               long projectId,
                               Project project,
                               ServiceContext serviceContext) {
@@ -94,7 +100,7 @@ public class ProjectService {
 
         ProjectEntry entry = localService.updateProject(creatorId, projectId, projectMapperModel, serviceContext);
 
-        return mapper.mapDTOFromEntry(entry);
+        return mapper.mapDTOFromEntry(creatorId, departmentId, entry);
     }
 
     public void approvalProject(long creatorId,
@@ -139,10 +145,12 @@ public class ProjectService {
     }
 
 
-    public Project getProject(long projectId) {
+    public Project getProject(long myId, long myDepartmentId, long projectId) {
 
         return mapper
                 .mapDTOFromEntry(
+                        myId,
+                        myDepartmentId,
                         localService.fetchProjectEntry(projectId));
     }
 
