@@ -72,6 +72,18 @@ public class FileManagerEntryLocalServiceUtil {
 		return getService().addFileManagerEntry(fileManagerEntry);
 	}
 
+	public static int countByPhaseId(long businessId, long phaseId) {
+		return getService().countByPhaseId(businessId, phaseId);
+	}
+
+	public static int countByProjectId(long businessId, long projectId) {
+		return getService().countByProjectId(businessId, projectId);
+	}
+
+	public static int countByWorkId(long businessId, long workId) {
+		return getService().countByWorkId(businessId, workId);
+	}
+
 	/**
 	 * Creates a new file manager entry with the primary key. Does not add the file manager entry to the database.
 	 *

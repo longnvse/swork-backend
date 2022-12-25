@@ -28,12 +28,14 @@ public interface WorkResource {
 
 	public Page<Work> getWorksPage(
 			Boolean isTree, String search, Long projectId, Long phaseId,
-			String filterString, Pagination pagination, String sortString)
+			Long parentId, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getWorksPageHttpResponse(
 			Boolean isTree, String search, Long projectId, Long phaseId,
-			String filterString, Pagination pagination, String sortString)
+			Long parentId, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public Work postWork(Work work) throws Exception;
@@ -163,12 +165,13 @@ public interface WorkResource {
 
 		public Page<Work> getWorksPage(
 				Boolean isTree, String search, Long projectId, Long phaseId,
-				String filterString, Pagination pagination, String sortString)
+				Long parentId, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = getWorksPageHttpResponse(
-				isTree, search, projectId, phaseId, filterString, pagination,
-				sortString);
+				isTree, search, projectId, phaseId, parentId, filterString,
+				pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -209,7 +212,8 @@ public interface WorkResource {
 
 		public HttpInvoker.HttpResponse getWorksPageHttpResponse(
 				Boolean isTree, String search, Long projectId, Long phaseId,
-				String filterString, Pagination pagination, String sortString)
+				Long parentId, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -247,6 +251,10 @@ public interface WorkResource {
 
 			if (phaseId != null) {
 				httpInvoker.parameter("phaseId", String.valueOf(phaseId));
+			}
+
+			if (parentId != null) {
+				httpInvoker.parameter("parentId", String.valueOf(parentId));
 			}
 
 			if (filterString != null) {

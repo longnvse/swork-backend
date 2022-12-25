@@ -541,10 +541,10 @@ public class FileManagerEntryUtil {
 	 * @return the matching file manager entry
 	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
 	 */
-	public static FileManagerEntry findByF_C(long fileId, long businessId)
+	public static FileManagerEntry findByF_B(long fileId, long businessId)
 		throws com.swork.common.file.exception.NoSuchFileManagerEntryException {
 
-		return getPersistence().findByF_C(fileId, businessId);
+		return getPersistence().findByF_B(fileId, businessId);
 	}
 
 	/**
@@ -554,8 +554,8 @@ public class FileManagerEntryUtil {
 	 * @param businessId the business ID
 	 * @return the matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
 	 */
-	public static FileManagerEntry fetchByF_C(long fileId, long businessId) {
-		return getPersistence().fetchByF_C(fileId, businessId);
+	public static FileManagerEntry fetchByF_B(long fileId, long businessId) {
+		return getPersistence().fetchByF_B(fileId, businessId);
 	}
 
 	/**
@@ -566,10 +566,10 @@ public class FileManagerEntryUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
 	 */
-	public static FileManagerEntry fetchByF_C(
+	public static FileManagerEntry fetchByF_B(
 		long fileId, long businessId, boolean useFinderCache) {
 
-		return getPersistence().fetchByF_C(fileId, businessId, useFinderCache);
+		return getPersistence().fetchByF_B(fileId, businessId, useFinderCache);
 	}
 
 	/**
@@ -579,10 +579,10 @@ public class FileManagerEntryUtil {
 	 * @param businessId the business ID
 	 * @return the file manager entry that was removed
 	 */
-	public static FileManagerEntry removeByF_C(long fileId, long businessId)
+	public static FileManagerEntry removeByF_B(long fileId, long businessId)
 		throws com.swork.common.file.exception.NoSuchFileManagerEntryException {
 
-		return getPersistence().removeByF_C(fileId, businessId);
+		return getPersistence().removeByF_B(fileId, businessId);
 	}
 
 	/**
@@ -592,8 +592,567 @@ public class FileManagerEntryUtil {
 	 * @param businessId the business ID
 	 * @return the number of matching file manager entries
 	 */
-	public static int countByF_C(long fileId, long businessId) {
-		return getPersistence().countByF_C(fileId, businessId);
+	public static int countByF_B(long fileId, long businessId) {
+		return getPersistence().countByF_B(fileId, businessId);
+	}
+
+	/**
+	 * Returns all the file manager entries where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @return the matching file manager entries
+	 */
+	public static List<FileManagerEntry> findByB_PID(
+		long businessId, Long projectId) {
+
+		return getPersistence().findByB_PID(businessId, projectId);
+	}
+
+	/**
+	 * Returns a range of all the file manager entries where businessId = &#63; and projectId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @return the range of matching file manager entries
+	 */
+	public static List<FileManagerEntry> findByB_PID(
+		long businessId, Long projectId, int start, int end) {
+
+		return getPersistence().findByB_PID(businessId, projectId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and projectId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching file manager entries
+	 */
+	public static List<FileManagerEntry> findByB_PID(
+		long businessId, Long projectId, int start, int end,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		return getPersistence().findByB_PID(
+			businessId, projectId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and projectId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching file manager entries
+	 */
+	public static List<FileManagerEntry> findByB_PID(
+		long businessId, Long projectId, int start, int end,
+		OrderByComparator<FileManagerEntry> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByB_PID(
+			businessId, projectId, start, end, orderByComparator,
+			useFinderCache);
+	}
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	public static FileManagerEntry findByB_PID_First(
+			long businessId, Long projectId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws com.swork.common.file.exception.NoSuchFileManagerEntryException {
+
+		return getPersistence().findByB_PID_First(
+			businessId, projectId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	public static FileManagerEntry fetchByB_PID_First(
+		long businessId, Long projectId,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		return getPersistence().fetchByB_PID_First(
+			businessId, projectId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	public static FileManagerEntry findByB_PID_Last(
+			long businessId, Long projectId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws com.swork.common.file.exception.NoSuchFileManagerEntryException {
+
+		return getPersistence().findByB_PID_Last(
+			businessId, projectId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	public static FileManagerEntry fetchByB_PID_Last(
+		long businessId, Long projectId,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		return getPersistence().fetchByB_PID_Last(
+			businessId, projectId, orderByComparator);
+	}
+
+	/**
+	 * Returns the file manager entries before and after the current file manager entry in the ordered set where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param id the primary key of the current file manager entry
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next file manager entry
+	 * @throws NoSuchFileManagerEntryException if a file manager entry with the primary key could not be found
+	 */
+	public static FileManagerEntry[] findByB_PID_PrevAndNext(
+			long id, long businessId, Long projectId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws com.swork.common.file.exception.NoSuchFileManagerEntryException {
+
+		return getPersistence().findByB_PID_PrevAndNext(
+			id, businessId, projectId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the file manager entries where businessId = &#63; and projectId = &#63; from the database.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 */
+	public static void removeByB_PID(long businessId, Long projectId) {
+		getPersistence().removeByB_PID(businessId, projectId);
+	}
+
+	/**
+	 * Returns the number of file manager entries where businessId = &#63; and projectId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param projectId the project ID
+	 * @return the number of matching file manager entries
+	 */
+	public static int countByB_PID(long businessId, Long projectId) {
+		return getPersistence().countByB_PID(businessId, projectId);
+	}
+
+	/**
+	 * Returns all the file manager entries where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @return the matching file manager entries
+	 */
+	public static List<FileManagerEntry> findByB_PHID(
+		long businessId, Long phaseId) {
+
+		return getPersistence().findByB_PHID(businessId, phaseId);
+	}
+
+	/**
+	 * Returns a range of all the file manager entries where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @return the range of matching file manager entries
+	 */
+	public static List<FileManagerEntry> findByB_PHID(
+		long businessId, Long phaseId, int start, int end) {
+
+		return getPersistence().findByB_PHID(businessId, phaseId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching file manager entries
+	 */
+	public static List<FileManagerEntry> findByB_PHID(
+		long businessId, Long phaseId, int start, int end,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		return getPersistence().findByB_PHID(
+			businessId, phaseId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching file manager entries
+	 */
+	public static List<FileManagerEntry> findByB_PHID(
+		long businessId, Long phaseId, int start, int end,
+		OrderByComparator<FileManagerEntry> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByB_PHID(
+			businessId, phaseId, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	public static FileManagerEntry findByB_PHID_First(
+			long businessId, Long phaseId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws com.swork.common.file.exception.NoSuchFileManagerEntryException {
+
+		return getPersistence().findByB_PHID_First(
+			businessId, phaseId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	public static FileManagerEntry fetchByB_PHID_First(
+		long businessId, Long phaseId,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		return getPersistence().fetchByB_PHID_First(
+			businessId, phaseId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	public static FileManagerEntry findByB_PHID_Last(
+			long businessId, Long phaseId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws com.swork.common.file.exception.NoSuchFileManagerEntryException {
+
+		return getPersistence().findByB_PHID_Last(
+			businessId, phaseId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	public static FileManagerEntry fetchByB_PHID_Last(
+		long businessId, Long phaseId,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		return getPersistence().fetchByB_PHID_Last(
+			businessId, phaseId, orderByComparator);
+	}
+
+	/**
+	 * Returns the file manager entries before and after the current file manager entry in the ordered set where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param id the primary key of the current file manager entry
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next file manager entry
+	 * @throws NoSuchFileManagerEntryException if a file manager entry with the primary key could not be found
+	 */
+	public static FileManagerEntry[] findByB_PHID_PrevAndNext(
+			long id, long businessId, Long phaseId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws com.swork.common.file.exception.NoSuchFileManagerEntryException {
+
+		return getPersistence().findByB_PHID_PrevAndNext(
+			id, businessId, phaseId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the file manager entries where businessId = &#63; and phaseId = &#63; from the database.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 */
+	public static void removeByB_PHID(long businessId, Long phaseId) {
+		getPersistence().removeByB_PHID(businessId, phaseId);
+	}
+
+	/**
+	 * Returns the number of file manager entries where businessId = &#63; and phaseId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param phaseId the phase ID
+	 * @return the number of matching file manager entries
+	 */
+	public static int countByB_PHID(long businessId, Long phaseId) {
+		return getPersistence().countByB_PHID(businessId, phaseId);
+	}
+
+	/**
+	 * Returns all the file manager entries where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @return the matching file manager entries
+	 */
+	public static List<FileManagerEntry> findByB_WID(
+		long businessId, Long workId) {
+
+		return getPersistence().findByB_WID(businessId, workId);
+	}
+
+	/**
+	 * Returns a range of all the file manager entries where businessId = &#63; and workId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @return the range of matching file manager entries
+	 */
+	public static List<FileManagerEntry> findByB_WID(
+		long businessId, Long workId, int start, int end) {
+
+		return getPersistence().findByB_WID(businessId, workId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and workId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching file manager entries
+	 */
+	public static List<FileManagerEntry> findByB_WID(
+		long businessId, Long workId, int start, int end,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		return getPersistence().findByB_WID(
+			businessId, workId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the file manager entries where businessId = &#63; and workId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FileManagerEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param start the lower bound of the range of file manager entries
+	 * @param end the upper bound of the range of file manager entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching file manager entries
+	 */
+	public static List<FileManagerEntry> findByB_WID(
+		long businessId, Long workId, int start, int end,
+		OrderByComparator<FileManagerEntry> orderByComparator,
+		boolean useFinderCache) {
+
+		return getPersistence().findByB_WID(
+			businessId, workId, start, end, orderByComparator, useFinderCache);
+	}
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	public static FileManagerEntry findByB_WID_First(
+			long businessId, Long workId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws com.swork.common.file.exception.NoSuchFileManagerEntryException {
+
+		return getPersistence().findByB_WID_First(
+			businessId, workId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first file manager entry in the ordered set where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	public static FileManagerEntry fetchByB_WID_First(
+		long businessId, Long workId,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		return getPersistence().fetchByB_WID_First(
+			businessId, workId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry
+	 * @throws NoSuchFileManagerEntryException if a matching file manager entry could not be found
+	 */
+	public static FileManagerEntry findByB_WID_Last(
+			long businessId, Long workId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws com.swork.common.file.exception.NoSuchFileManagerEntryException {
+
+		return getPersistence().findByB_WID_Last(
+			businessId, workId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last file manager entry in the ordered set where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching file manager entry, or <code>null</code> if a matching file manager entry could not be found
+	 */
+	public static FileManagerEntry fetchByB_WID_Last(
+		long businessId, Long workId,
+		OrderByComparator<FileManagerEntry> orderByComparator) {
+
+		return getPersistence().fetchByB_WID_Last(
+			businessId, workId, orderByComparator);
+	}
+
+	/**
+	 * Returns the file manager entries before and after the current file manager entry in the ordered set where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param id the primary key of the current file manager entry
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next file manager entry
+	 * @throws NoSuchFileManagerEntryException if a file manager entry with the primary key could not be found
+	 */
+	public static FileManagerEntry[] findByB_WID_PrevAndNext(
+			long id, long businessId, Long workId,
+			OrderByComparator<FileManagerEntry> orderByComparator)
+		throws com.swork.common.file.exception.NoSuchFileManagerEntryException {
+
+		return getPersistence().findByB_WID_PrevAndNext(
+			id, businessId, workId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the file manager entries where businessId = &#63; and workId = &#63; from the database.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 */
+	public static void removeByB_WID(long businessId, Long workId) {
+		getPersistence().removeByB_WID(businessId, workId);
+	}
+
+	/**
+	 * Returns the number of file manager entries where businessId = &#63; and workId = &#63;.
+	 *
+	 * @param businessId the business ID
+	 * @param workId the work ID
+	 * @return the number of matching file manager entries
+	 */
+	public static int countByB_WID(long businessId, Long workId) {
+		return getPersistence().countByB_WID(businessId, workId);
 	}
 
 	/**

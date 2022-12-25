@@ -63,6 +63,23 @@ public class FileManagerEntryLocalServiceWrapper
 			fileManagerEntry);
 	}
 
+	@Override
+	public int countByPhaseId(long businessId, long phaseId) {
+		return _fileManagerEntryLocalService.countByPhaseId(
+			businessId, phaseId);
+	}
+
+	@Override
+	public int countByProjectId(long businessId, long projectId) {
+		return _fileManagerEntryLocalService.countByProjectId(
+			businessId, projectId);
+	}
+
+	@Override
+	public int countByWorkId(long businessId, long workId) {
+		return _fileManagerEntryLocalService.countByWorkId(businessId, workId);
+	}
+
 	/**
 	 * Creates a new file manager entry with the primary key. Does not add the file manager entry to the database.
 	 *

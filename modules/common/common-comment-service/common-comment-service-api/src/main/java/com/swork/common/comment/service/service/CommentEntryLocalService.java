@@ -84,6 +84,9 @@ public interface CommentEntryLocalService
 		long businessId, long creatorId, String content, Long parentId,
 		long classPkId, String classPkName, ServiceContext serviceContext);
 
+	public int countByClassPkIdAndClassPkName(
+		long classPkId, String classPkName);
+
 	/**
 	 * Creates a new comment entry with the primary key. Does not add the comment entry to the database.
 	 *
