@@ -21,6 +21,27 @@ public class Comment implements Cloneable, Serializable {
 		return CommentSerDes.toDTO(json);
 	}
 
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public void setAvatar(
+		UnsafeSupplier<String, Exception> avatarUnsafeSupplier) {
+
+		try {
+			avatar = avatarUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String avatar;
+
 	public Long getClassPkId() {
 		return classPkId;
 	}

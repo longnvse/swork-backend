@@ -404,6 +404,15 @@ public class PhaseEntryLocalServiceUtil {
 		return getService().getPhaseEntryByUuidAndGroupId(uuid, groupId);
 	}
 
+	public static PhaseEntry updateDate(
+		long creatorId, long phaseId, java.util.Date startDate,
+		java.util.Date endDate,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateDate(
+			creatorId, phaseId, startDate, endDate, serviceContext);
+	}
+
 	public static PhaseEntry updatePhase(
 			long creatorId, long phaseId,
 			com.swork.core.phase.service.mapper.model.PhaseMapperModel model,

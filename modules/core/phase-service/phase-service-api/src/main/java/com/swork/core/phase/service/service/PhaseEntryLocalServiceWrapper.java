@@ -459,6 +459,16 @@ public class PhaseEntryLocalServiceWrapper
 	}
 
 	@Override
+	public com.swork.core.phase.service.model.PhaseEntry updateDate(
+		long creatorId, long phaseId, java.util.Date startDate,
+		java.util.Date endDate,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _phaseEntryLocalService.updateDate(
+			creatorId, phaseId, startDate, endDate, serviceContext);
+	}
+
+	@Override
 	public com.swork.core.phase.service.model.PhaseEntry updatePhase(
 			long creatorId, long phaseId,
 			com.swork.core.phase.service.mapper.model.PhaseMapperModel model,

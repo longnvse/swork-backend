@@ -74,7 +74,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {comment(commentId: ___){id, content, parentId, classPkId, classPkName, creatorId, creatorName, date, comments}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {comment(commentId: ___){id, content, parentId, classPkId, classPkName, creatorId, creatorName, date, avatar, comments}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Get an Comment")
 	public Comment comment(@GraphQLName("commentId") Long commentId)

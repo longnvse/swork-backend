@@ -78,6 +78,26 @@ public class WorkSerDes {
 			sb.append("\"");
 		}
 
+		if (work.getAttachNumber() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"attachNumber\": ");
+
+			sb.append(work.getAttachNumber());
+		}
+
+		if (work.getCommentNumber() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"commentNumber\": ");
+
+			sb.append(work.getCommentNumber());
+		}
+
 		if (work.getComplete() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -459,6 +479,20 @@ public class WorkSerDes {
 				liferayToJSONDateFormat.format(work.getActualStartDate()));
 		}
 
+		if (work.getAttachNumber() == null) {
+			map.put("attachNumber", null);
+		}
+		else {
+			map.put("attachNumber", String.valueOf(work.getAttachNumber()));
+		}
+
+		if (work.getCommentNumber() == null) {
+			map.put("commentNumber", null);
+		}
+		else {
+			map.put("commentNumber", String.valueOf(work.getCommentNumber()));
+		}
+
 		if (work.getComplete() == null) {
 			map.put("complete", null);
 		}
@@ -671,6 +705,18 @@ public class WorkSerDes {
 				if (jsonParserFieldValue != null) {
 					work.setActualStartDate(
 						toDate((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "attachNumber")) {
+				if (jsonParserFieldValue != null) {
+					work.setAttachNumber(
+						Integer.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "commentNumber")) {
+				if (jsonParserFieldValue != null) {
+					work.setCommentNumber(
+						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "complete")) {

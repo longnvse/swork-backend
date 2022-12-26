@@ -8,6 +8,7 @@ import com.liferay.portal.kernel.search.filter.BooleanFilter;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.search.filter.TermFilter;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -28,43 +29,40 @@ import java.util.Collections;
 )
 public class CommentService {
 
-    public Comment postComment(long businessId,
-                               long creatorId,
-                               Comment comment,
-                               ServiceContext serviceContext) {
+    public void postComment(long businessId,
+                            long creatorId,
+                            Comment comment,
+                            ServiceContext serviceContext) {
 
+        localService.addCommentEntry(
+                businessId,
+                creatorId,
+                comment.getContent(),
+                comment.getParentId(),
+                comment.getClassPkId(),
+                comment.getClassPkNameAsString(),
+                serviceContext);
 
-        CommentEntry commentEntry =
-                localService.addCommentEntry(
-                        businessId,
-                        creatorId,
-                        comment.getContent(),
-                        comment.getParentId(),
-                        comment.getClassPkId(),
-                        comment.getClassPkNameAsString(),
-                        serviceContext);
-
-        return mapper.mapEntryToDTO(commentEntry);
     }
 
-    public Comment putComment(long commentId,
-                              Comment comment,
-                              ServiceContext serviceContext) {
+    public void putComment(long commentId,
+                           Comment comment,
+                           ServiceContext serviceContext) {
 
-        CommentEntry commentEntry = localService.
+        localService.
                 updateCommentEntry(
                         commentId,
                         comment.getContent(),
                         serviceContext);
 
-        return mapper.mapEntryToDTO(commentEntry);
     }
 
-    public Comment getComment(long commentId) throws PortalException {
+    public Comment getComment(long commentId,
+                              ThemeDisplay themeDisplay) throws PortalException {
 
         CommentEntry commentEntry = localService.getCommentEntry(commentId);
 
-        return mapper.mapEntryToDTO(commentEntry);
+        return mapper.mapEntryToDTO(commentEntry, themeDisplay);
     }
 
     public void deleteComment(long commentId) throws PortalException {
@@ -77,6 +75,7 @@ public class CommentService {
                                          Filter filter,
                                          Pagination pagination,
                                          Sort[] sorts,
+                                         ThemeDisplay themeDisplay,
                                          ServiceContext serviceContext) throws Exception {
 
         return SearchUtil.search(
@@ -105,7 +104,7 @@ public class CommentService {
                     long commentId = GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK));
 
                     return mapper.mapEntryToDTO(
-                            localService.getCommentEntry(commentId));
+                            localService.getCommentEntry(commentId), themeDisplay);
                 }
         );
     }

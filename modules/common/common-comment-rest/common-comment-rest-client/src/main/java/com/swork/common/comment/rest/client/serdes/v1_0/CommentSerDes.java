@@ -46,6 +46,20 @@ public class CommentSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (comment.getAvatar() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"avatar\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(comment.getAvatar()));
+
+			sb.append("\"");
+		}
+
 		if (comment.getClassPkId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -183,6 +197,13 @@ public class CommentSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (comment.getAvatar() == null) {
+			map.put("avatar", null);
+		}
+		else {
+			map.put("avatar", String.valueOf(comment.getAvatar()));
+		}
+
 		if (comment.getClassPkId() == null) {
 			map.put("classPkId", null);
 		}
@@ -266,7 +287,12 @@ public class CommentSerDes {
 			Comment comment, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "classPkId")) {
+			if (Objects.equals(jsonParserFieldName, "avatar")) {
+				if (jsonParserFieldValue != null) {
+					comment.setAvatar((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "classPkId")) {
 				if (jsonParserFieldValue != null) {
 					comment.setClassPkId(
 						Long.valueOf((String)jsonParserFieldValue));

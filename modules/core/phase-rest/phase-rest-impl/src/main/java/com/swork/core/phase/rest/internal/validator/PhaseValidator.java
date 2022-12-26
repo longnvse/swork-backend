@@ -46,6 +46,13 @@ public class PhaseValidator {
         validatorTime(phase);
     }
 
+    public void validateForUpdateDate(long phaseId,
+                                      Date startDate,
+                                      Date endDate) throws SW_NoSuchEntryException, SW_BadRequestException {
+        validateForExist(phaseId);
+        validatorTime(phaseId, startDate, endDate);
+    }
+
     public void validatorTime(Phase phase) throws SW_BadRequestException, ParseException {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -94,6 +101,32 @@ public class PhaseValidator {
                 }
             }
         }
+    }
+
+    public void validatorTime(long phaseId,
+                              Date startDate,
+                              Date endDate) throws SW_BadRequestException {
+
+        if (startDate.after(endDate)) {
+            throw new SW_BadRequestException(
+                    languageService.getMessage(LanguageKeys.START_DATE_AFTER_END_DATE));
+        }
+
+        PhaseEntry phaseEntry = phaseEntryLocalService.fetchPhaseEntry(phaseId);
+
+        ProjectEntry projectEntry =
+                projectEntryLocalService.fetchProjectEntry(phaseEntry.getProjectId());
+
+        if (Validator.isNotNull(projectEntry)) {
+            if (startDate.before(projectEntry.getStartDate()) || endDate.after(projectEntry.getEndDate())) {
+                throw new SW_BadRequestException(
+                        languageService
+                                .getMessage(LanguageKeys.PHASE_IS_OUT_OF_PROJECT) +
+                                " (" + projectEntry.getStartDate() + " - " + projectEntry.getEndDate() + ")"
+                );
+            }
+        }
+
     }
 
     private void validatorNameForAdd(long businessId,

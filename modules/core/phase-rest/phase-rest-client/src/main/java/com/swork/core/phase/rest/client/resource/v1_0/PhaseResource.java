@@ -83,6 +83,14 @@ public interface PhaseResource {
 			String callbackURL, Object object)
 		throws Exception;
 
+	public void updateDate(
+			Long phaseId, java.util.Date startDate, java.util.Date endDate)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse updateDateHttpResponse(
+			Long phaseId, java.util.Date startDate, java.util.Date endDate)
+		throws Exception;
+
 	public static class Builder {
 
 		public Builder authentication(String login, String password) {
@@ -802,6 +810,103 @@ public interface PhaseResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port + "/o/swork/phase-rest/v1.0/phases/batch");
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void updateDate(
+				Long phaseId, java.util.Date startDate, java.util.Date endDate)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse = updateDateHttpResponse(
+				phaseId, startDate, endDate);
+
+			String content = httpResponse.getContent();
+
+			if ((httpResponse.getStatusCode() / 100) != 2) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response content: " + content);
+				_logger.log(
+					Level.WARNING,
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.log(
+					Level.WARNING,
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+			else {
+				_logger.fine("HTTP response content: " + content);
+				_logger.fine(
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.fine(
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+			}
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse updateDateHttpResponse(
+				Long phaseId, java.util.Date startDate, java.util.Date endDate)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(endDate.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+			if (startDate != null) {
+				httpInvoker.parameter(
+					"startDate", liferayToJSONDateFormat.format(startDate));
+			}
+
+			if (endDate != null) {
+				httpInvoker.parameter(
+					"endDate", liferayToJSONDateFormat.format(endDate));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/swork/phase-rest/v1.0/phases/date/{phaseId}");
+
+			httpInvoker.path("phaseId", phaseId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

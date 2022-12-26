@@ -63,6 +63,48 @@ public class Work implements Cloneable, Serializable {
 
 	protected Date actualStartDate;
 
+	public Integer getAttachNumber() {
+		return attachNumber;
+	}
+
+	public void setAttachNumber(Integer attachNumber) {
+		this.attachNumber = attachNumber;
+	}
+
+	public void setAttachNumber(
+		UnsafeSupplier<Integer, Exception> attachNumberUnsafeSupplier) {
+
+		try {
+			attachNumber = attachNumberUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Integer attachNumber;
+
+	public Integer getCommentNumber() {
+		return commentNumber;
+	}
+
+	public void setCommentNumber(Integer commentNumber) {
+		this.commentNumber = commentNumber;
+	}
+
+	public void setCommentNumber(
+		UnsafeSupplier<Integer, Exception> commentNumberUnsafeSupplier) {
+
+		try {
+			commentNumber = commentNumberUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Integer commentNumber;
+
 	public Double getComplete() {
 		return complete;
 	}

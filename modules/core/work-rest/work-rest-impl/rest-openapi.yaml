@@ -80,6 +80,12 @@ components:
         parentStatus:
           enum: [ pending,active, completed, inactive, denied]
           readOnly: true
+        commentNumber:
+          type: integer
+          readOnly: true
+        attachNumber:
+          type: integer
+          readOnly: true
         works:
           type: array
           items:

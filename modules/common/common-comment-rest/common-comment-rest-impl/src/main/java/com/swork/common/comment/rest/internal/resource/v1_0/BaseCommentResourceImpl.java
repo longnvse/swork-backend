@@ -138,8 +138,7 @@ public abstract class BaseCommentResourceImpl
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
-	public Comment postComment(Comment comment) throws Exception {
-		return new Comment();
+	public void postComment(Comment comment) throws Exception {
 	}
 
 	/**
@@ -312,15 +311,13 @@ public abstract class BaseCommentResourceImpl
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
 	@Override
-	public Comment putComment(
+	public void putComment(
 			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
 			@javax.validation.constraints.NotNull
 			@javax.ws.rs.PathParam("commentId")
 			Long commentId,
 			Comment comment)
 		throws Exception {
-
-		return new Comment();
 	}
 
 	/**

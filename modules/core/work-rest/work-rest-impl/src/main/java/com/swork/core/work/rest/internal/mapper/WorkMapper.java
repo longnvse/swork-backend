@@ -2,6 +2,8 @@ package com.swork.core.work.rest.internal.mapper;
 
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.swork.common.comment.service.service.CommentEntryLocalServiceUtil;
+import com.swork.common.file.service.FileManagerEntryLocalServiceUtil;
 import com.swork.core.phase.service.model.PhaseEntry;
 import com.swork.core.phase.service.service.PhaseEntryLocalService;
 import com.swork.core.project.service.constant.Type;
@@ -82,7 +84,8 @@ public class WorkMapper {
         to.setIncompleteAmount(from.getIncompleteAmount());
         to.setUnit(from.getUnit());
         to.setStatus(Work.Status.create(from.getStatus()));
-
+        to.setCommentNumber(CommentEntryLocalServiceUtil.countByClassPkIdAndClassPkName(from.getWorkId(), "work"));
+        to.setAttachNumber(FileManagerEntryLocalServiceUtil.countByWorkId(from.getBusinessId(), from.getWorkId()));
         List<WorkMemberEntry> manageEntries =
                 memberEntryLocalService.findByW_T(from.getWorkId(), Type.MANAGE.getValue());
 
