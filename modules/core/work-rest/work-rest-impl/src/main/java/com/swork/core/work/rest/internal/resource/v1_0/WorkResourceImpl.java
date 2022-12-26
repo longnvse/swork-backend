@@ -132,6 +132,13 @@ public class WorkResourceImpl extends BaseWorkResourceImpl {
 
 	}
 
+	@Override
+	public void putReportProcessManual(Long workId, Long progress) throws SW_NoSuchEntryException {
+		validator.validateForExist(workId);
+
+		service.updateProgressManual(workId, progress);
+	}
+
 	public ServiceContext getServiceContext() {
 		ServiceContext serviceContext = new ServiceContext();
 		serviceContext.setCompanyId(contextCompany.getCompanyId());

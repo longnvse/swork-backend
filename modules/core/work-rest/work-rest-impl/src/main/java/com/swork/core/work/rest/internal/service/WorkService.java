@@ -162,6 +162,11 @@ public class WorkService {
         );
     }
 
+    public void updateProgressManual(long workId,
+                                     long progress) {
+        localService.updateProgress(workId, progress);
+    }
+
     @Reference
     private WorkMapper mapper;
 
