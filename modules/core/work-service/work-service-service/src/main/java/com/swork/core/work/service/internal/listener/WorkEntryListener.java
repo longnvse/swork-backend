@@ -23,9 +23,7 @@ public class WorkEntryListener extends BaseModelListener<WorkEntry> {
 
     @Override
     public void onAfterUpdate(WorkEntry originalModel, WorkEntry model) throws ModelListenerException {
-        if (originalModel.getProgress() != model.getProgress()) {
             updateParentProgress(model);
-        }
     }
 
     @Override

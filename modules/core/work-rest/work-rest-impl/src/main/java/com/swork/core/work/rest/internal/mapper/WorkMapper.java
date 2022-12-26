@@ -18,7 +18,9 @@ import com.swork.core.work.service.service.WorkMemberEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Component(
         immediate = true,
