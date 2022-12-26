@@ -86,6 +86,14 @@ components:
         attachNumber:
           type: integer
           readOnly: true
+        createDate:
+          type: string
+          format: date
+          readOnly: true
+        modifiedDate:
+          type: string
+          format: date
+          readOnly: true
         works:
           type: array
           items:

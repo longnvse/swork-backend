@@ -64,6 +64,8 @@ public class ResourceEntryTable extends BaseTable<ResourceEntryTable> {
 		createColumn(
 			"resourceTypeName", String.class, Types.VARCHAR,
 			Column.FLAG_DEFAULT);
+	public final Column<ResourceEntryTable, String> type = createColumn(
+		"type_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ResourceEntryTable, Long> teamId = createColumn(
 		"teamId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<ResourceEntryTable, String> teamName = createColumn(

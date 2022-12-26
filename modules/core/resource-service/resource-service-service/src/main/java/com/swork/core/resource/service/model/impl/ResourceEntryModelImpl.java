@@ -77,9 +77,10 @@ public class ResourceEntryModelImpl
 		{"businessId", Types.BIGINT}, {"modifiedId", Types.BIGINT},
 		{"workId", Types.BIGINT}, {"phaseId", Types.BIGINT},
 		{"projectId", Types.BIGINT}, {"resourceTypeName", Types.VARCHAR},
-		{"teamId", Types.BIGINT}, {"teamName", Types.VARCHAR},
-		{"quantity", Types.DOUBLE}, {"unit", Types.VARCHAR},
-		{"dateResource", Types.TIMESTAMP}, {"totalAmount", Types.BIGINT}
+		{"type_", Types.VARCHAR}, {"teamId", Types.BIGINT},
+		{"teamName", Types.VARCHAR}, {"quantity", Types.DOUBLE},
+		{"unit", Types.VARCHAR}, {"dateResource", Types.TIMESTAMP},
+		{"totalAmount", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -100,6 +101,7 @@ public class ResourceEntryModelImpl
 		TABLE_COLUMNS_MAP.put("phaseId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("projectId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("resourceTypeName", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("type_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("teamId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("teamName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("quantity", Types.DOUBLE);
@@ -109,7 +111,7 @@ public class ResourceEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table SW_Resource (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,resourceId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedDate DATE null,businessId LONG,modifiedId LONG,workId LONG,phaseId LONG,projectId LONG,resourceTypeName VARCHAR(100) null,teamId LONG,teamName VARCHAR(100) null,quantity DOUBLE,unit VARCHAR(75) null,dateResource DATE null,totalAmount LONG)";
+		"create table SW_Resource (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,resourceId LONG not null primary key,groupId LONG,companyId LONG,accountId LONG,createDate DATE null,modifiedDate DATE null,businessId LONG,modifiedId LONG,workId LONG,phaseId LONG,projectId LONG,resourceTypeName VARCHAR(100) null,type_ VARCHAR(75) null,teamId LONG,teamName VARCHAR(100) null,quantity DOUBLE,unit VARCHAR(75) null,dateResource DATE null,totalAmount LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table SW_Resource";
 
@@ -388,6 +390,9 @@ public class ResourceEntryModelImpl
 			"resourceTypeName",
 			(BiConsumer<ResourceEntry, String>)
 				ResourceEntry::setResourceTypeName);
+		attributeGetterFunctions.put("type", ResourceEntry::getType);
+		attributeSetterBiConsumers.put(
+			"type", (BiConsumer<ResourceEntry, String>)ResourceEntry::setType);
 		attributeGetterFunctions.put("teamId", ResourceEntry::getTeamId);
 		attributeSetterBiConsumers.put(
 			"teamId",
@@ -713,6 +718,25 @@ public class ResourceEntryModelImpl
 	}
 
 	@Override
+	public String getType() {
+		if (_type == null) {
+			return "";
+		}
+		else {
+			return _type;
+		}
+	}
+
+	@Override
+	public void setType(String type) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_type = type;
+	}
+
+	@Override
 	public long getTeamId() {
 		return _teamId;
 	}
@@ -891,6 +915,7 @@ public class ResourceEntryModelImpl
 		resourceEntryImpl.setPhaseId(getPhaseId());
 		resourceEntryImpl.setProjectId(getProjectId());
 		resourceEntryImpl.setResourceTypeName(getResourceTypeName());
+		resourceEntryImpl.setType(getType());
 		resourceEntryImpl.setTeamId(getTeamId());
 		resourceEntryImpl.setTeamName(getTeamName());
 		resourceEntryImpl.setQuantity(getQuantity());
@@ -934,6 +959,7 @@ public class ResourceEntryModelImpl
 			this.<Long>getColumnOriginalValue("projectId"));
 		resourceEntryImpl.setResourceTypeName(
 			this.<String>getColumnOriginalValue("resourceTypeName"));
+		resourceEntryImpl.setType(this.<String>getColumnOriginalValue("type_"));
 		resourceEntryImpl.setTeamId(
 			this.<Long>getColumnOriginalValue("teamId"));
 		resourceEntryImpl.setTeamName(
@@ -1099,6 +1125,14 @@ public class ResourceEntryModelImpl
 			resourceEntryCacheModel.resourceTypeName = null;
 		}
 
+		resourceEntryCacheModel.type = getType();
+
+		String type = resourceEntryCacheModel.type;
+
+		if ((type != null) && (type.length() == 0)) {
+			resourceEntryCacheModel.type = null;
+		}
+
 		resourceEntryCacheModel.teamId = getTeamId();
 
 		resourceEntryCacheModel.teamName = getTeamName();
@@ -1239,6 +1273,7 @@ public class ResourceEntryModelImpl
 	private Long _phaseId;
 	private Long _projectId;
 	private String _resourceTypeName;
+	private String _type;
 	private long _teamId;
 	private String _teamName;
 	private double _quantity;
@@ -1290,6 +1325,7 @@ public class ResourceEntryModelImpl
 		_columnOriginalValues.put("phaseId", _phaseId);
 		_columnOriginalValues.put("projectId", _projectId);
 		_columnOriginalValues.put("resourceTypeName", _resourceTypeName);
+		_columnOriginalValues.put("type_", _type);
 		_columnOriginalValues.put("teamId", _teamId);
 		_columnOriginalValues.put("teamName", _teamName);
 		_columnOriginalValues.put("quantity", _quantity);
@@ -1304,6 +1340,7 @@ public class ResourceEntryModelImpl
 		Map<String, String> attributeNames = new HashMap<>();
 
 		attributeNames.put("uuid_", "uuid");
+		attributeNames.put("type_", "type");
 
 		_attributeNames = Collections.unmodifiableMap(attributeNames);
 	}
@@ -1347,17 +1384,19 @@ public class ResourceEntryModelImpl
 
 		columnBitmasks.put("resourceTypeName", 8192L);
 
-		columnBitmasks.put("teamId", 16384L);
+		columnBitmasks.put("type_", 16384L);
 
-		columnBitmasks.put("teamName", 32768L);
+		columnBitmasks.put("teamId", 32768L);
 
-		columnBitmasks.put("quantity", 65536L);
+		columnBitmasks.put("teamName", 65536L);
 
-		columnBitmasks.put("unit", 131072L);
+		columnBitmasks.put("quantity", 131072L);
 
-		columnBitmasks.put("dateResource", 262144L);
+		columnBitmasks.put("unit", 262144L);
 
-		columnBitmasks.put("totalAmount", 524288L);
+		columnBitmasks.put("dateResource", 524288L);
+
+		columnBitmasks.put("totalAmount", 1048576L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

@@ -200,6 +200,20 @@ public class ResourceSerDes {
 			sb.append(resource.getTotalAmount());
 		}
 
+		if (resource.getType() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"type\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(resource.getType()));
+
+			sb.append("\"");
+		}
+
 		if (resource.getUnit() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -342,6 +356,13 @@ public class ResourceSerDes {
 			map.put("totalAmount", String.valueOf(resource.getTotalAmount()));
 		}
 
+		if (resource.getType() == null) {
+			map.put("type", null);
+		}
+		else {
+			map.put("type", String.valueOf(resource.getType()));
+		}
+
 		if (resource.getUnit() == null) {
 			map.put("unit", null);
 		}
@@ -449,6 +470,11 @@ public class ResourceSerDes {
 				if (jsonParserFieldValue != null) {
 					resource.setTotalAmount(
 						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "type")) {
+				if (jsonParserFieldValue != null) {
+					resource.setType((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "unit")) {

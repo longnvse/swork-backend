@@ -357,6 +357,7 @@ public interface PhaseEntryLocalService
 	public PhaseEntry getPhaseEntryByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException;
 
+	@Indexable(type = IndexableType.REINDEX)
 	public PhaseEntry updateDate(
 		long creatorId, long phaseId, Date startDate, Date endDate,
 		ServiceContext serviceContext);

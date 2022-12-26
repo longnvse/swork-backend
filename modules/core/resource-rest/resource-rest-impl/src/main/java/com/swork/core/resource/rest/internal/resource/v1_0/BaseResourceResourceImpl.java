@@ -189,7 +189,7 @@ public abstract class BaseResourceResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/swork/resource-rest/v1.0/resources' -d $'{"dateResource": ___, "id": ___, "quantity": ___, "resourceTypeName": ___, "teamId": ___, "totalAmount": ___, "unit": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/swork/resource-rest/v1.0/resources' -d $'{"dateResource": ___, "id": ___, "quantity": ___, "resourceTypeName": ___, "teamId": ___, "totalAmount": ___, "type": ___, "unit": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
 		description = "Create new a Resource"
@@ -411,7 +411,7 @@ public abstract class BaseResourceResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/resource-rest/v1.0/resources/{id}' -d $'{"dateResource": ___, "id": ___, "quantity": ___, "resourceTypeName": ___, "teamId": ___, "totalAmount": ___, "unit": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/resource-rest/v1.0/resources/{id}' -d $'{"dateResource": ___, "id": ___, "quantity": ___, "resourceTypeName": ___, "teamId": ___, "totalAmount": ___, "type": ___, "unit": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
 		description = "Create new a Resource"

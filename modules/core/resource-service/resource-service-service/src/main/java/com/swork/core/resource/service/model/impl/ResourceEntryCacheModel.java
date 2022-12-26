@@ -63,7 +63,7 @@ public class ResourceEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(41);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -93,6 +93,8 @@ public class ResourceEntryCacheModel
 		sb.append(projectId);
 		sb.append(", resourceTypeName=");
 		sb.append(resourceTypeName);
+		sb.append(", type=");
+		sb.append(type);
 		sb.append(", teamId=");
 		sb.append(teamId);
 		sb.append(", teamName=");
@@ -160,6 +162,13 @@ public class ResourceEntryCacheModel
 			resourceEntryImpl.setResourceTypeName(resourceTypeName);
 		}
 
+		if (type == null) {
+			resourceEntryImpl.setType("");
+		}
+		else {
+			resourceEntryImpl.setType(type);
+		}
+
 		resourceEntryImpl.setTeamId(teamId);
 
 		if (teamName == null) {
@@ -217,6 +226,7 @@ public class ResourceEntryCacheModel
 
 		projectId = objectInput.readLong();
 		resourceTypeName = objectInput.readUTF();
+		type = objectInput.readUTF();
 
 		teamId = objectInput.readLong();
 		teamName = objectInput.readUTF();
@@ -271,6 +281,13 @@ public class ResourceEntryCacheModel
 			objectOutput.writeUTF(resourceTypeName);
 		}
 
+		if (type == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(type);
+		}
+
 		objectOutput.writeLong(teamId);
 
 		if (teamName == null) {
@@ -308,6 +325,7 @@ public class ResourceEntryCacheModel
 	public long phaseId;
 	public long projectId;
 	public String resourceTypeName;
+	public String type;
 	public long teamId;
 	public String teamName;
 	public double quantity;

@@ -266,6 +266,21 @@ public interface ResourceEntryModel
 	public void setResourceTypeName(String resourceTypeName);
 
 	/**
+	 * Returns the type of this resource entry.
+	 *
+	 * @return the type of this resource entry
+	 */
+	@AutoEscape
+	public String getType();
+
+	/**
+	 * Sets the type of this resource entry.
+	 *
+	 * @param type the type of this resource entry
+	 */
+	public void setType(String type);
+
+	/**
 	 * Returns the team ID of this resource entry.
 	 *
 	 * @return the team ID of this resource entry
