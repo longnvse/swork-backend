@@ -2,6 +2,7 @@ package com.swork.common.comment.rest.internal.mapper;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.swork.account.service.model.AccountEntry;
 import com.swork.account.service.service.AccountEntryLocalServiceUtil;
@@ -28,7 +29,7 @@ public class CommentMapper {
 
         AccountEntry accountEntry = AccountEntryLocalServiceUtil.fetchAccountEntry(from.getAccountId());
 
-        if (Validator.isNotNull(accountEntry)) {
+        if (Validator.isNotNull(accountEntry) && GetterUtil.getLong(accountEntry.getAvatar()) != 0) {
             to.setAvatar(commonFileHelper.getPreviewUrl(accountEntry.getAvatar(), themeDisplay));
         }
         to.setCreatorName(Validator.isNotNull(accountEntry) ? accountEntry.getFullName() : "Nhân viên đã bị xoá");
