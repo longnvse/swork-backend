@@ -55,9 +55,9 @@ public class WorkService {
 
                     booleanFilter.add(businessIdFilter, BooleanClauseOccur.MUST);
 
-                    if (Validator.isNotNull(parentId)) {
+                    if (Validator.isNotNull(parentId) || GetterUtil.getBoolean(isTree)) {
                         TermFilter parentIdFilter =
-                                new TermFilter(SearchFields.PARENT_ID, String.valueOf(parentId));
+                                new TermFilter(SearchFields.PARENT_ID, String.valueOf(GetterUtil.getLong(parentId)));
                         booleanFilter.add(parentIdFilter, BooleanClauseOccur.MUST);
                     }
 
