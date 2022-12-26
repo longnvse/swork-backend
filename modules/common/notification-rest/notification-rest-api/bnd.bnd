@@ -2,5 +2,5 @@ Bundle-Name: notification-rest-api
 Bundle-SymbolicName: com.swork.notification.rest.api
 Bundle-Version: 1.0.0
 Export-Package:\
-	com.swork.notification.rest.dto.v1_0,\
-	com.swork.notification.rest.resource.v1_0
+	com.swork.notification.rest.dto.v2_0,\
+	com.swork.notification.rest.resource.v2_0

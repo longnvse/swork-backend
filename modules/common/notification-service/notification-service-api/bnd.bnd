@@ -3,6 +3,7 @@ Bundle-SymbolicName: com.swork.notification.service.api
 Bundle-Version: 1.0.0
 Export-Package:\
 	com.swork.notification.service.exception,\
+	com.swork.notification.service.constant,\
 	com.swork.notification.service.model,\
 	com.swork.notification.service.service,\
 	com.swork.notification.service.service.persistence

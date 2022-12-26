@@ -84,7 +84,7 @@ public class NotificationService {
                                                String status) throws SearchException {
         SearchContext searchContext = new SearchContext();
         searchContext.setCompanyId(companyId);
-        BooleanQuery booleanQuery = buildQueryTypeAndStatus(receiverId, businessId, category, status);
+        BooleanQuery booleanQuery = buildQueryTypeAndStatus(receiverId, businessId, category, "noRed");
 
         Hits hits = IndexSearcherHelperUtil.search(searchContext, booleanQuery);
 

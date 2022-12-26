@@ -1,7 +1,7 @@
 dependencies {
 	compile project(":modules:common:notification-service:notification-service-api")
 
-	compileOnly group: "com.liferay.portal", name: "release.portal.api"
+	compileOnly group: "com.liferay.portal", name: "release.portal.api", version: "7.4.3.13-ga13"
 }
 
 buildService {

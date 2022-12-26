@@ -48,7 +48,7 @@ import com.swork.notification.service.model.impl.NotificationEntryImpl;
 import com.swork.notification.service.model.impl.NotificationEntryModelImpl;
 import com.swork.notification.service.service.persistence.NotificationEntryPersistence;
 import com.swork.notification.service.service.persistence.NotificationEntryUtil;
-import com.swork.notification.service.service.persistence.impl.constants.NOTIFICATIONPersistenceConstants;
+import com.swork.notification.service.service.persistence.impl.constants.SW_NOTIFICATIONPersistenceConstants;
 
 import java.io.Serializable;
 
@@ -4081,7 +4081,7 @@ public class NotificationEntryPersistenceImpl
 
 	@Override
 	@Reference(
-		target = NOTIFICATIONPersistenceConstants.SERVICE_CONFIGURATION_FILTER,
+		target = SW_NOTIFICATIONPersistenceConstants.SERVICE_CONFIGURATION_FILTER,
 		unbind = "-"
 	)
 	public void setConfiguration(Configuration configuration) {
@@ -4089,7 +4089,7 @@ public class NotificationEntryPersistenceImpl
 
 	@Override
 	@Reference(
-		target = NOTIFICATIONPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		target = SW_NOTIFICATIONPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
 		unbind = "-"
 	)
 	public void setDataSource(DataSource dataSource) {
@@ -4098,7 +4098,7 @@ public class NotificationEntryPersistenceImpl
 
 	@Override
 	@Reference(
-		target = NOTIFICATIONPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		target = SW_NOTIFICATIONPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
 		unbind = "-"
 	)
 	public void setSessionFactory(SessionFactory sessionFactory) {

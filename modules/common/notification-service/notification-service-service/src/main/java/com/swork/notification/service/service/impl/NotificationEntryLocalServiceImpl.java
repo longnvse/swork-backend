@@ -114,6 +114,7 @@ public class NotificationEntryLocalServiceImpl
         entry.setCompanyId(serviceContext.getCompanyId());
         entry.setCreateDate(serviceContext.getCreateDate(current));
         entry.setAccountId(creatorId);
+        entry.setBusinessId(businessId);
         entry.setExternalReferenceCode(UUID.randomUUID().toString());
 
         updateModifierAudit(creatorId, entry, current, serviceContext);
