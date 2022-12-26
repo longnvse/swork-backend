@@ -32,6 +32,9 @@ components:
           type: string
           format: date-time
           readOnly: true
+        avatar:
+          type: string
+          readOnly: true
         comments:
           type: array
           items:
@@ -111,16 +114,12 @@ paths:
             schema:
               $ref: "#/components/schemas/Comment"
       responses:
-        200:
+        204:
           description:
             "Created an Comment"
           content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Comment"
-            application/xml:
-              schema:
-                $ref: "#/components/schemas/Comment"
+            application/json: {}
+            application/xml: {}
   "/comments/{commentId}":
     put:
       tags: [ "Comment" ]
@@ -142,16 +141,12 @@ paths:
             schema:
               $ref: "#/components/schemas/Comment"
       responses:
-        200:
+        204:
           description:
             "Updated an Comment"
           content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Comment"
-            application/xml:
-              schema:
-                $ref: "#/components/schemas/Comment"
+            application/json: {}
+            application/xml: {}
     get:
       tags: [ "Comment" ]
       description: Get an Comment

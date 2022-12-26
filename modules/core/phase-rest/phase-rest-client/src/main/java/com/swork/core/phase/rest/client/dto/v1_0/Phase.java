@@ -248,24 +248,16 @@ public class Phase implements Cloneable, Serializable {
 
 	protected Date startDate;
 
-	public Status getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public String getStatusAsString() {
-		if (status == null) {
-			return null;
-		}
-
-		return status.toString();
-	}
-
-	public void setStatus(Status status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
 	public void setStatus(
-		UnsafeSupplier<Status, Exception> statusUnsafeSupplier) {
+		UnsafeSupplier<String, Exception> statusUnsafeSupplier) {
 
 		try {
 			status = statusUnsafeSupplier.get();
@@ -275,7 +267,7 @@ public class Phase implements Cloneable, Serializable {
 		}
 	}
 
-	protected Status status;
+	protected String status;
 
 	@Override
 	public Phase clone() throws CloneNotSupportedException {
@@ -306,39 +298,6 @@ public class Phase implements Cloneable, Serializable {
 
 	public String toString() {
 		return PhaseSerDes.toJSON(this);
-	}
-
-	public static enum Status {
-
-		ACTIVE("active"), INACTIVE("inactive");
-
-		public static Status create(String value) {
-			for (Status status : values()) {
-				if (Objects.equals(status.getValue(), value) ||
-					Objects.equals(status.name(), value)) {
-
-					return status;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Status(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
 	}
 
 }

@@ -176,6 +176,7 @@ public abstract class BasePhaseResourceTestCase {
 		phase.setExternalReferenceCode(regex);
 		phase.setName(regex);
 		phase.setProjectName(regex);
+		phase.setStatus(regex);
 
 		String json = PhaseSerDes.toJSON(phase);
 
@@ -187,6 +188,7 @@ public abstract class BasePhaseResourceTestCase {
 		Assert.assertEquals(regex, phase.getExternalReferenceCode());
 		Assert.assertEquals(regex, phase.getName());
 		Assert.assertEquals(regex, phase.getProjectName());
+		Assert.assertEquals(regex, phase.getStatus());
 	}
 
 	@Test
@@ -1243,8 +1245,11 @@ public abstract class BasePhaseResourceTestCase {
 		}
 
 		if (entityFieldName.equals("status")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
+			sb.append("'");
+			sb.append(String.valueOf(phase.getStatus()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		throw new IllegalArgumentException(
@@ -1303,6 +1308,7 @@ public abstract class BasePhaseResourceTestCase {
 				projectName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				startDate = RandomTestUtil.nextDate();
+				status = StringUtil.toLowerCase(RandomTestUtil.randomString());
 			}
 		};
 	}

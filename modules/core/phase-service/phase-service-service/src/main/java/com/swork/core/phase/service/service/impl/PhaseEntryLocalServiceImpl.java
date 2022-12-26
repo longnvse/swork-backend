@@ -43,6 +43,11 @@ import java.util.List;
         service = AopService.class
 )
 public class PhaseEntryLocalServiceImpl extends PhaseEntryLocalServiceBaseImpl {
+
+    private static final String ACTIVE = "active";
+    private static final String PENDING = "pending";
+    private static final String CLOSED = "closed";
+
     @Transactional(
             isolation = Isolation.PORTAL,
             rollbackFor = {PortalException.class, SystemException.class})
@@ -110,6 +115,14 @@ public class PhaseEntryLocalServiceImpl extends PhaseEntryLocalServiceBaseImpl {
 
         if (Validator.isNotNull(entry)) {
             entry.setProgress(progress);
+
+            if (!entry.getStatus().equals(ACTIVE)) {
+                entry.setStatus(ACTIVE);
+            }
+
+            if (progress >= 100) {
+                entry.setStatus(CLOSED);
+            }
         }
 
         return updatePhaseEntry(entry);

@@ -10,8 +10,6 @@ import com.swork.core.project.service.service.ProjectEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import java.util.Objects;
-
 @Component(
         immediate = true,
         service = PhaseMapper.class
@@ -23,7 +21,7 @@ public class PhaseMapper {
 
         to.setName(from.getName());
         to.setDescription(from.getDescription());
-        to.setStatus(from.getStatus().getValue());
+        to.setStatus(from.getStatus());
         to.setStartDate(from.getStartDate());
         to.setEndDate(from.getEndDate());
         to.setManages(from.getManages());
@@ -50,12 +48,7 @@ public class PhaseMapper {
             to.setProjectName(projectEntry.getName());
         }
 
-
-        if (Objects.equals(to.getProgress(), 100L)) {
-            to.setStatus(Phase.Status.create(Phase.Status.INACTIVE.getValue()));
-        } else {
-            to.setStatus(Phase.Status.create(from.getStatus()));
-        }
+        to.setStatus(from.getStatus());
 
         to.setPhaseManages(
                 phaseManageMapper

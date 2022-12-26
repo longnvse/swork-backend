@@ -40,13 +40,15 @@ public class Mutation {
 	}
 
 	@GraphQLField(description = "Create a new Comment")
-	public Comment createComment(@GraphQLName("comment") Comment comment)
+	public boolean createComment(@GraphQLName("comment") Comment comment)
 		throws Exception {
 
-		return _applyComponentServiceObjects(
+		_applyVoidComponentServiceObjects(
 			_commentResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			commentResource -> commentResource.postComment(comment));
+
+		return true;
 	}
 
 	@GraphQLField
@@ -88,15 +90,17 @@ public class Mutation {
 	}
 
 	@GraphQLField(description = "Update an Comment")
-	public Comment updateComment(
+	public boolean updateComment(
 			@GraphQLName("commentId") Long commentId,
 			@GraphQLName("comment") Comment comment)
 		throws Exception {
 
-		return _applyComponentServiceObjects(
+		_applyVoidComponentServiceObjects(
 			_commentResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			commentResource -> commentResource.putComment(commentId, comment));
+
+		return true;
 	}
 
 	@GraphQLField

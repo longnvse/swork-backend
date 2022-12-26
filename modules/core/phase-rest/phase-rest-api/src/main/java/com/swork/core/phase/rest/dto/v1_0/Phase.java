@@ -1,10 +1,8 @@
 package com.swork.core.phase.rest.dto.v1_0;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
@@ -356,27 +354,17 @@ public class Phase implements Serializable {
 	protected Date startDate;
 
 	@Schema
-	@Valid
-	public Status getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	@JsonIgnore
-	public String getStatusAsString() {
-		if (status == null) {
-			return null;
-		}
-
-		return status.toString();
-	}
-
-	public void setStatus(Status status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
 	@JsonIgnore
 	public void setStatus(
-		UnsafeSupplier<Status, Exception> statusUnsafeSupplier) {
+		UnsafeSupplier<String, Exception> statusUnsafeSupplier) {
 
 		try {
 			status = statusUnsafeSupplier.get();
@@ -391,7 +379,7 @@ public class Phase implements Serializable {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Status status;
+	protected String status;
 
 	@Override
 	public boolean equals(Object object) {
@@ -586,7 +574,7 @@ public class Phase implements Serializable {
 
 			sb.append("\"");
 
-			sb.append(status);
+			sb.append(_escape(status));
 
 			sb.append("\"");
 		}
@@ -602,44 +590,6 @@ public class Phase implements Serializable {
 		name = "x-class-name"
 	)
 	public String xClassName;
-
-	@GraphQLName("Status")
-	public static enum Status {
-
-		ACTIVE("active"), INACTIVE("inactive");
-
-		@JsonCreator
-		public static Status create(String value) {
-			if ((value == null) || value.equals("")) {
-				return null;
-			}
-
-			for (Status status : values()) {
-				if (Objects.equals(status.getValue(), value)) {
-					return status;
-				}
-			}
-
-			throw new IllegalArgumentException("Invalid enum value: " + value);
-		}
-
-		@JsonValue
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Status(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
-	}
 
 	private static String _escape(Object object) {
 		return StringUtil.replace(
