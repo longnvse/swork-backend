@@ -12,10 +12,13 @@ public class SearchFields {
     public static final String START_DATE = "startDate";
     public static final String END_DATE = "endDate";
     public static final String WORK_MANAGE = "workManage";
+    public static final String WORK_MANAGE_STRING = "workManage_String";
     public static final String STATUS = "status";
     public static final String WORK_PARTICIPATE_ACCOUNT = "workParticipateAccount";
+    public static final String WORK_PARTICIPATE_ACCOUNT_STRING = "workParticipateAccount_String";
     public static final String WORK_PARTICIPATE_DEPARTMENT = "workParticipateDepartment";
     public static final String WORK_HANDLE_ACCOUNT = "workHandleAccount";
+    public static final String WORK_HANDLE_ACCOUNT_STRING = "workHandleAccount_String";
     public static final String WORK_HANDLE_DEPARTMENT = "workHandleDepartment";
 
     public static final String ACTUAL_START_DATE = "actualStartDate";
