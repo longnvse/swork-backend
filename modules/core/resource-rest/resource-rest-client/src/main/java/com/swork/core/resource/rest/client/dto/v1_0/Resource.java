@@ -292,6 +292,25 @@ public class Resource implements Cloneable, Serializable {
 
 	protected Long totalAmount;
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public void setType(UnsafeSupplier<String, Exception> typeUnsafeSupplier) {
+		try {
+			type = typeUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String type;
+
 	public String getUnit() {
 		return unit;
 	}

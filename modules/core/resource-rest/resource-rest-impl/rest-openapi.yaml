@@ -11,6 +11,8 @@ components:
           type: string
         resourceTypeName:
           type: string
+        type:
+          type: string
         teamId:
           type: integer
           format: int64

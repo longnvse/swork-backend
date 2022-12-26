@@ -10,7 +10,6 @@ import com.swork.core.project.service.model.ProjectEntry;
 import com.swork.core.project.service.service.ProjectEntryLocalService;
 import com.swork.core.resource.rest.dto.v1_0.Resource;
 import com.swork.core.resource.service.mapper.model.ResourceMapperModel;
-import com.swork.core.resource.service.mapper.model.ResourcesMapperModel;
 import com.swork.core.resource.service.model.ResourceEntry;
 import com.swork.core.resource.service.model.TeamEntry;
 import com.swork.core.resource.service.service.TeamEntryLocalService;
@@ -19,8 +18,6 @@ import com.swork.core.work.service.service.WorkEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Component(immediate = true, service = ResourceMapper.class)
@@ -37,6 +34,7 @@ public class ResourceMapper {
         to.setTotalAmount(from.getTotalAmount());
         to.setResourceTypeName(from.getResourceTypeName());
         to.setUnit(from.getUnit());
+        to.setType(from.getType());
 
         return to;
     }
@@ -58,6 +56,7 @@ public class ResourceMapper {
         to.setPhaseId(from.getPhaseId());
         to.setProjectId(from.getProjectId());
         to.setCreatorId(from.getAccountId());
+        to.setType(from.getType());
 
         AccountEntry accountEntry =
                 accountEntryLocalService.fetchAccountEntry(from.getAccountId());

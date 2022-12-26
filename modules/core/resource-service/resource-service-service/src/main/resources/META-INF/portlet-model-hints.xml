@@ -18,6 +18,7 @@
 		<field name="resourceTypeName" type="String">
 			<hint name="max-length">100</hint>
 		</field>
+		<field name="type" type="String" />
 		<field name="teamId" type="long" />
 		<field name="teamName" type="String">
 			<hint name="max-length">100</hint>

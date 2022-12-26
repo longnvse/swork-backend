@@ -778,6 +778,14 @@ public abstract class BaseWorkResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("createDate", additionalAssertFieldName)) {
+				if (work.getCreateDate() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("description", additionalAssertFieldName)) {
 				if (work.getDescription() == null) {
 					valid = false;
@@ -832,6 +840,14 @@ public abstract class BaseWorkResourceTestCase {
 
 			if (Objects.equals("manages", additionalAssertFieldName)) {
 				if (work.getManages() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("modifiedDate", additionalAssertFieldName)) {
+				if (work.getModifiedDate() == null) {
 					valid = false;
 				}
 
@@ -1107,6 +1123,16 @@ public abstract class BaseWorkResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("createDate", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						work1.getCreateDate(), work2.getCreateDate())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("description", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						work1.getDescription(), work2.getDescription())) {
@@ -1185,6 +1211,16 @@ public abstract class BaseWorkResourceTestCase {
 			if (Objects.equals("manages", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						work1.getManages(), work2.getManages())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("modifiedDate", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						work1.getModifiedDate(), work2.getModifiedDate())) {
 
 					return false;
 				}
@@ -1518,6 +1554,37 @@ public abstract class BaseWorkResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("createDate")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(work.getCreateDate(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(work.getCreateDate(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(_dateFormat.format(work.getCreateDate()));
+			}
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("description")) {
 			sb.append("'");
 			sb.append(String.valueOf(work.getDescription()));
@@ -1591,6 +1658,37 @@ public abstract class BaseWorkResourceTestCase {
 		if (entityFieldName.equals("manages")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("modifiedDate")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(work.getModifiedDate(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(work.getModifiedDate(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(_dateFormat.format(work.getModifiedDate()));
+			}
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("name")) {
@@ -1763,6 +1861,7 @@ public abstract class BaseWorkResourceTestCase {
 				attachNumber = RandomTestUtil.randomInt();
 				commentNumber = RandomTestUtil.randomInt();
 				complete = RandomTestUtil.randomDouble();
+				createDate = RandomTestUtil.nextDate();
 				description = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				descriptionProgress = StringUtil.toLowerCase(
@@ -1772,6 +1871,7 @@ public abstract class BaseWorkResourceTestCase {
 					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				incompleteAmount = RandomTestUtil.randomDouble();
+				modifiedDate = RandomTestUtil.nextDate();
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				parentId = RandomTestUtil.randomLong();
 				parentName = StringUtil.toLowerCase(

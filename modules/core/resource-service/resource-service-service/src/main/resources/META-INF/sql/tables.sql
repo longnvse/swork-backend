@@ -13,6 +13,7 @@ create table SW_Resource (
 	phaseId LONG,
 	projectId LONG,
 	resourceTypeName VARCHAR(100) null,
+	type_ VARCHAR(75) null,
 	teamId LONG,
 	teamName VARCHAR(100) null,
 	quantity DOUBLE,
