@@ -71,6 +71,9 @@ public interface WorkResource {
 	public void putReportAmount(Long workId, Double completeAmount)
 		throws Exception;
 
+	public void putReportProcessManual(Long workId, Long progress)
+		throws Exception;
+
 	public void updateStatus(Long workId, String status) throws Exception;
 
 	public void updateDate(Long workId, Date startDate, Date endDate)

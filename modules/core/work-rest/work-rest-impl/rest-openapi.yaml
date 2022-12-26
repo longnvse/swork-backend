@@ -337,8 +337,33 @@ paths:
           description:
             "Project detail"
           content:
-            application/json: {}
-            application/xml: {}
+            application/json: { }
+            application/xml: { }
+  "/works/report-process/manual/{workId}":
+    put:
+      tags: [ "Work" ]
+      description: Update process a Project
+      operationId: putReportProcessManual
+      parameters:
+        - in: path
+          name: workId
+          required: true
+          schema:
+            format: int64
+            type: integer
+        - in: query
+          name: progress
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        204:
+          description:
+            "Project detail"
+          content:
+            application/json: { }
+            application/xml: { }
   "/works/approval/{workId}":
     put:
       tags: [ "Work" ]
