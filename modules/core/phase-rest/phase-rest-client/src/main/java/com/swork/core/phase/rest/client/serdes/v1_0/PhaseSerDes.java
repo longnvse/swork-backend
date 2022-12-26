@@ -210,7 +210,7 @@ public class PhaseSerDes {
 
 			sb.append("\"");
 
-			sb.append(phase.getStatus());
+			sb.append(_escape(phase.getStatus()));
 
 			sb.append("\"");
 		}
@@ -414,8 +414,7 @@ public class PhaseSerDes {
 			}
 			else if (Objects.equals(jsonParserFieldName, "status")) {
 				if (jsonParserFieldValue != null) {
-					phase.setStatus(
-						Phase.Status.create((String)jsonParserFieldValue));
+					phase.setStatus((String)jsonParserFieldValue);
 				}
 			}
 		}

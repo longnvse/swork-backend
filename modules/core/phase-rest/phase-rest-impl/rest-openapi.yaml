@@ -24,7 +24,7 @@ components:
           format: date
           type: string
         status:
-          enum: [ active, inactive ]
+          type: string
         manages:
           type: array
           items:
