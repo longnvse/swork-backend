@@ -324,7 +324,16 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         if (Validator.isNotNull(workEntry)) {
             workEntry.setCompleteAmount(completeAmount);
             if (workEntry.getIncompleteAmount() != 0) {
-                workEntry.setProgress((long) Math.ceil(completeAmount * 100 / workEntry.getIncompleteAmount()));
+                long progress = (long) Math.ceil(completeAmount * 100 / workEntry.getIncompleteAmount());
+                workEntry.setProgress(progress);
+
+                if (workEntry.getStatus().equals(PENDING)) {
+                    workEntry.setStatus(ACTIVE);
+                }
+
+                if (progress >= 100) {
+                    workEntry.setStatus(COMPLETED);
+                }
             }
         }
 

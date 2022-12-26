@@ -108,6 +108,20 @@ public class WorkSerDes {
 			sb.append(work.getComplete());
 		}
 
+		if (work.getCreateDate() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"createDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(work.getCreateDate()));
+
+			sb.append("\"");
+		}
+
 		if (work.getDescription() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -222,6 +236,20 @@ public class WorkSerDes {
 			}
 
 			sb.append("]");
+		}
+
+		if (work.getModifiedDate() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"modifiedDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(work.getModifiedDate()));
+
+			sb.append("\"");
 		}
 
 		if (work.getName() != null) {
@@ -500,6 +528,15 @@ public class WorkSerDes {
 			map.put("complete", String.valueOf(work.getComplete()));
 		}
 
+		if (work.getCreateDate() == null) {
+			map.put("createDate", null);
+		}
+		else {
+			map.put(
+				"createDate",
+				liferayToJSONDateFormat.format(work.getCreateDate()));
+		}
+
 		if (work.getDescription() == null) {
 			map.put("description", null);
 		}
@@ -560,6 +597,15 @@ public class WorkSerDes {
 		}
 		else {
 			map.put("manages", String.valueOf(work.getManages()));
+		}
+
+		if (work.getModifiedDate() == null) {
+			map.put("modifiedDate", null);
+		}
+		else {
+			map.put(
+				"modifiedDate",
+				liferayToJSONDateFormat.format(work.getModifiedDate()));
 		}
 
 		if (work.getName() == null) {
@@ -725,6 +771,11 @@ public class WorkSerDes {
 						Double.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "createDate")) {
+				if (jsonParserFieldValue != null) {
+					work.setCreateDate(toDate((String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "description")) {
 				if (jsonParserFieldValue != null) {
 					work.setDescription((String)jsonParserFieldValue);
@@ -782,6 +833,11 @@ public class WorkSerDes {
 						).toArray(
 							size -> new Manage[size]
 						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "modifiedDate")) {
+				if (jsonParserFieldValue != null) {
+					work.setModifiedDate(toDate((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "name")) {

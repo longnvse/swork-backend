@@ -47,6 +47,7 @@ public class ResourceEntrySoap implements Serializable {
 		soapModel.setPhaseId(model.getPhaseId());
 		soapModel.setProjectId(model.getProjectId());
 		soapModel.setResourceTypeName(model.getResourceTypeName());
+		soapModel.setType(model.getType());
 		soapModel.setTeamId(model.getTeamId());
 		soapModel.setTeamName(model.getTeamName());
 		soapModel.setQuantity(model.getQuantity());
@@ -218,6 +219,14 @@ public class ResourceEntrySoap implements Serializable {
 		_resourceTypeName = resourceTypeName;
 	}
 
+	public String getType() {
+		return _type;
+	}
+
+	public void setType(String type) {
+		_type = type;
+	}
+
 	public long getTeamId() {
 		return _teamId;
 	}
@@ -280,6 +289,7 @@ public class ResourceEntrySoap implements Serializable {
 	private Long _phaseId;
 	private Long _projectId;
 	private String _resourceTypeName;
+	private String _type;
 	private long _teamId;
 	private String _teamName;
 	private double _quantity;

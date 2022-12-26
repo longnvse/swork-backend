@@ -91,6 +91,7 @@ public class ResourceEntryLocalServiceImpl
         entry.setUnit(model.getUnit());
         entry.setDateResource(model.getDateResource());
         entry.setTotalAmount(model.getTotalAmount());
+        entry.setType(model.getType());
     }
 
     public List<ResourceEntry> getByParentId(long businessId, long workId, long phaseId, long projectId) {

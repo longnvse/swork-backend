@@ -82,8 +82,11 @@ public class WorkMapper {
         to.setProgressType(Work.ProgressType.create(from.getProgressType()));
         to.setProgress(from.getProgress());
         to.setIncompleteAmount(from.getIncompleteAmount());
+        to.setComplete(from.getCompleteAmount());
         to.setUnit(from.getUnit());
         to.setStatus(Work.Status.create(from.getStatus()));
+        to.setCreateDate(from.getCreateDate());
+        to.setModifiedDate(from.getModifiedDate());
         to.setCommentNumber(CommentEntryLocalServiceUtil.countByClassPkIdAndClassPkName(from.getWorkId(), "work"));
         to.setAttachNumber(FileManagerEntryLocalServiceUtil.countByWorkId(from.getBusinessId(), from.getWorkId()));
         List<WorkMemberEntry> manageEntries =
