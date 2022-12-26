@@ -50,7 +50,7 @@ public interface CommentResource {
 			Pagination pagination, Sort[] sorts)
 		throws Exception;
 
-	public Comment postComment(Comment comment) throws Exception;
+	public void postComment(Comment comment) throws Exception;
 
 	public Response postCommentBatch(String callbackURL, Object object)
 		throws Exception;
@@ -62,7 +62,7 @@ public interface CommentResource {
 
 	public Comment getComment(Long commentId) throws Exception;
 
-	public Comment putComment(Long commentId, Comment comment) throws Exception;
+	public void putComment(Long commentId, Comment comment) throws Exception;
 
 	public Response putCommentBatch(String callbackURL, Object object)
 		throws Exception;

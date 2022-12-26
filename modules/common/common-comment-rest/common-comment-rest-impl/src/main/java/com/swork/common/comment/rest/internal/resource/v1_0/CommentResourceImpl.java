@@ -3,6 +3,7 @@ package com.swork.common.comment.rest.internal.resource.v1_0;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -10,6 +11,7 @@ import com.swork.common.comment.rest.dto.v1_0.Comment;
 import com.swork.common.comment.rest.internal.odata.v1_0.CommentEntryModel;
 import com.swork.common.comment.rest.internal.service.CommentService;
 import com.swork.common.comment.rest.resource.v1_0.CommentResource;
+import com.swork.common.file.helper.api.CommonFileHelper;
 import com.swork.common.token.helper.api.CommonTokenHelper;
 import com.swork.common.token.model.UserTokenModel;
 import org.osgi.service.component.annotations.Component;
@@ -43,13 +45,14 @@ public class CommentResourceImpl extends BaseCommentResourceImpl {
                 filter,
                 pagination,
                 sorts,
+                getThemeDisplay(),
                 getServiceContext()
         );
     }
 
     @Override
-    public Comment postComment(Comment comment) throws Exception {
-        return service.postComment(
+    public void postComment(Comment comment) throws Exception {
+        service.postComment(
                 getUserToken().getBusinessId(),
                 getUserToken().getAccountId(),
                 comment,
@@ -59,7 +62,7 @@ public class CommentResourceImpl extends BaseCommentResourceImpl {
 
     @Override
     public Comment getComment(Long commentId) throws Exception {
-        return service.getComment(commentId);
+        return service.getComment(commentId, getThemeDisplay());
     }
 
     @Override
@@ -68,8 +71,8 @@ public class CommentResourceImpl extends BaseCommentResourceImpl {
     }
 
     @Override
-    public Comment putComment(Long commentId, Comment comment) throws Exception {
-        return service.putComment(
+    public void putComment(Long commentId, Comment comment) throws Exception {
+        service.putComment(
                 commentId,
                 comment,
                 getServiceContext());
@@ -88,9 +91,14 @@ public class CommentResourceImpl extends BaseCommentResourceImpl {
         return tokenHelper.getUserToken(contextHttpServletRequest);
     }
 
+    private ThemeDisplay getThemeDisplay() {
+        return commonFileHelper.getThemeDisplay(contextHttpServletRequest);
+    }
+
     @Reference
     private CommonTokenHelper tokenHelper;
-
+    @Reference
+    private CommonFileHelper commonFileHelper;
     @Reference
     private CommentService service;
 }

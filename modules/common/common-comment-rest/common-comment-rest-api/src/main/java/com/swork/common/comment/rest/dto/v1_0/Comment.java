@@ -51,6 +51,34 @@ public class Comment implements Serializable {
 	}
 
 	@Schema
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	@JsonIgnore
+	public void setAvatar(
+		UnsafeSupplier<String, Exception> avatarUnsafeSupplier) {
+
+		try {
+			avatar = avatarUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected String avatar;
+
+	@Schema
 	public Long getClassPkId() {
 		return classPkId;
 	}
@@ -338,6 +366,20 @@ public class Comment implements Serializable {
 
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (avatar != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"avatar\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(avatar));
+
+			sb.append("\"");
+		}
 
 		if (classPkId != null) {
 			if (sb.length() > 1) {
