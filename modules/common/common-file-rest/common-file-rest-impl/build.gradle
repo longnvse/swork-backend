@@ -2,6 +2,7 @@ dependencies {
 	compile project(":modules:common:common-file-rest:common-file-rest-api")
 	compile project(":modules:common:common-file-service:common-file-service-api")
 	compile project(":modules:common:common-token-helper")
+	compile project(":modules:common:common-exception-helper")
 	compile project(":modules:common:common-file-helper")
 
 	compileOnly group: "com.fasterxml.jackson.core", name: "jackson-annotations", version: "2.12.4"

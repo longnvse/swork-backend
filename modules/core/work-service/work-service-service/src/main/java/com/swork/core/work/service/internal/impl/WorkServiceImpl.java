@@ -7,7 +7,6 @@ import com.swork.core.project.service.internal.service.ProjectService;
 import com.swork.core.work.service.internal.service.WorkService;
 import com.swork.core.work.service.model.WorkEntry;
 import com.swork.core.work.service.service.WorkEntryLocalService;
-import com.swork.core.work.service.service.WorkMemberEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -18,7 +17,7 @@ import java.util.List;
         scope = ServiceScope.PROTOTYPE, service = WorkService.class
 )
 public class WorkServiceImpl implements WorkService {
-    private static final String BY_PROPORTION = "byProportion";
+    private static final String PROPORTION_DATE = "proportionDate";
 
     @Override
     public void updateProgress(long workId) {
@@ -28,15 +27,10 @@ public class WorkServiceImpl implements WorkService {
             return;
         }
 
-        if (workEntry.getProgressType().equalsIgnoreCase(BY_PROPORTION)) {
+        if (workEntry.getProgressType().equalsIgnoreCase(PROPORTION_DATE)) {
             List<WorkEntry> workEntries = localService.findByParentId(workEntry.getBusinessId(), workId);
 
-            long progress = workEntries
-                    .stream()
-                    .reduce(
-                            GetterUtil.DEFAULT_LONG,
-                            (prevProgress, workChildren) -> prevProgress + workChildren.getProgress() * workChildren.getProportion(),
-                            Long::sum);
+            long progress = localService.calcProgress(workEntries, PROPORTION_DATE);
 
             localService.updateProgress(workId, progress);
             return;

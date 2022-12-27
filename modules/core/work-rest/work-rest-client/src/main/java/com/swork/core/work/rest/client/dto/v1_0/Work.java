@@ -757,8 +757,8 @@ public class Work implements Cloneable, Serializable {
 
 	public static enum ProgressType {
 
-		MANUAL("manual"), BY_CHECKLIST("byChecklist"), BY_AMOUNT("byAmount"),
-		BY_PROPORTION("byProportion");
+		MANUAL("manual"), BY_AMOUNT("byAmount"),
+		PROPORTION_DATE("proportionDate");
 
 		public static ProgressType create(String value) {
 			for (ProgressType progressType : values()) {

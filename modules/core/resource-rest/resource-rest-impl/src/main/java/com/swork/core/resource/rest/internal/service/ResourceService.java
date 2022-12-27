@@ -60,17 +60,17 @@ public class ResourceService {
                     }
 
                     if (Validator.isNotNull(phaseId)) {
-                        TermFilter phaseIdIdFilter =
+                        TermFilter phaseIdFilter =
                                 new TermFilter(SearchFields.PHASE_ID, String.valueOf(phaseId));
 
-                        booleanFilter.add(phaseIdIdFilter, BooleanClauseOccur.MUST);
+                        booleanFilter.add(phaseIdFilter, BooleanClauseOccur.MUST);
                     }
 
                     if (Validator.isNotNull(workId)) {
-                        TermFilter phaseIdIdFilter =
+                        TermFilter workIdFilter =
                                 new TermFilter(SearchFields.WORK_ID, String.valueOf(workId));
 
-                        booleanFilter.add(phaseIdIdFilter, BooleanClauseOccur.MUST);
+                        booleanFilter.add(workIdFilter, BooleanClauseOccur.MUST);
                     }
 
                     if (Validator.isNotNull(teamId)) {

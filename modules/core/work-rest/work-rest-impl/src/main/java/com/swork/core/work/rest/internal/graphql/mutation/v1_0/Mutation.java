@@ -122,6 +122,21 @@ public class Mutation {
 		return true;
 	}
 
+	@GraphQLField(description = "Update process a Project")
+	public boolean updateReportProcessManual(
+			@GraphQLName("workId") Long workId,
+			@GraphQLName("progress") Long progress)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_workResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			workResource -> workResource.putReportProcessManual(
+				workId, progress));
+
+		return true;
+	}
+
 	@GraphQLField(description = "Update status a Project")
 	public boolean updateStatus(
 			@GraphQLName("workId") Long workId,

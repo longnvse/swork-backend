@@ -10,6 +10,7 @@ import com.liferay.portal.vulcan.pagination.Pagination;
 import com.swork.common.file.helper.api.CommonFileHelper;
 import com.swork.common.file.rest.dto.v1_0.FileManager;
 import com.swork.common.file.rest.internal.service.FileManagerService;
+import com.swork.common.file.rest.internal.validator.FileValidator;
 import com.swork.common.file.rest.resource.v1_0.FileManagerResource;
 import com.swork.common.token.helper.api.CommonTokenHelper;
 import com.swork.common.token.model.UserTokenModel;
@@ -38,6 +39,8 @@ public class FileManagerResourceImpl extends BaseFileManagerResourceImpl {
                                                  Filter filter,
                                                  Pagination pagination,
                                                  Sort[] sorts) throws Exception {
+
+
         return service.getFileManagerPages(
                 getUserToken().getBusinessId(),
                 projectId,
@@ -56,6 +59,8 @@ public class FileManagerResourceImpl extends BaseFileManagerResourceImpl {
 
     @Override
     public void postFile(Long projectId, Long phaseId, Long workId, MultipartBody multipartBody) throws Exception {
+        fileValidator.validateForPostFile(multipartBody);
+
         service.postFileManager(
                 getUserToken().getBusinessId(),
                 getUserToken().getAccountId(),
@@ -99,4 +104,6 @@ public class FileManagerResourceImpl extends BaseFileManagerResourceImpl {
     private CommonFileHelper commonFileHelper;
     @Reference
     private FileManagerService service;
+    @Reference
+    private FileValidator fileValidator;
 }
