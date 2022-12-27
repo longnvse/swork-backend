@@ -8,6 +8,7 @@ import com.swork.core.phase.service.internal.service.PhaseService;
 import com.swork.core.project.service.internal.service.ProjectService;
 import com.swork.core.work.service.internal.service.WorkService;
 import com.swork.core.work.service.model.WorkEntry;
+import com.swork.core.work.service.service.WorkEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -23,7 +24,18 @@ public class WorkEntryListener extends BaseModelListener<WorkEntry> {
 
     @Override
     public void onAfterUpdate(WorkEntry originalModel, WorkEntry model) throws ModelListenerException {
+        if (!originalModel.getProgressType().equals(model.getProgressType())) {
+            if (model.getProgressType().equalsIgnoreCase("proportionDate")) {
+                workService.updateProgress(model.getWorkId());
+            } else if (model.getProgressType().equalsIgnoreCase("byAmount")) {
+                long progress = (long) (model.getCompleteAmount() * 100 / model.getIncompleteAmount());
+                localService.updateProgress(model.getWorkId(), progress);
+            } else {
+                localService.updateProgress(model.getWorkId(), GetterUtil.DEFAULT_LONG);
+            }
+        } else {
             updateParentProgress(model);
+        }
     }
 
     @Override
@@ -59,4 +71,6 @@ public class WorkEntryListener extends BaseModelListener<WorkEntry> {
     private ProjectService projectService;
     @Reference
     private PhaseService phaseService;
+    @Reference
+    private WorkEntryLocalService localService;
 }
