@@ -15,6 +15,12 @@ public class WorkEntryModel implements EntityModel {
     public WorkEntryModel() {
         _entityFieldsMap = EntityModel.toEntityFieldsMap(
                 new StringEntityField(
+                        SearchFields.WORK_NAME,
+                        locale -> Field.getSortableFieldName(SearchFields.WORK_NAME_STRING)),
+                new StringEntityField(
+                        Field.NAME,
+                        locale -> Field.getSortableFieldName(Field.NAME)),
+                new StringEntityField(
                         SearchFields.WORK_HANDLE_ACCOUNT,
                         locale -> Field.getSortableFieldName(SearchFields.WORK_HANDLE_ACCOUNT_STRING)),
                 new StringEntityField(
