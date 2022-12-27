@@ -120,7 +120,7 @@ public class ProjectMapper {
             return "participate";
         }
 
-        return null;
+        return "participate";
     }
 
     public Phase mapPhaseFromPhaseEntry(PhaseEntry phaseEntry) {
