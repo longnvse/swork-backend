@@ -134,6 +134,10 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
         entry.setStatus(status);
 
+        if (status.equals(COMPLETED)) {
+            entry.setProgress(100L);
+        }
+
         return updateWorkEntry(entry);
     }
 
