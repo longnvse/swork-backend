@@ -71,6 +71,10 @@ public class NotificationEntryLocalServiceUtil {
 		return getService().addNotificationEntry(notificationEntry);
 	}
 
+	public static int countByReceiverAndStatus(long receiverId, String status) {
+		return getService().countByReceiverAndStatus(receiverId, status);
+	}
+
 	/**
 	 * Creates a new notification entry with the primary key. Does not add the notification entry to the database.
 	 *

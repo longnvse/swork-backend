@@ -100,6 +100,11 @@ public class NotificationEntryLocalServiceImpl
         return notificationEntryPersistence.findByR_S(receiverId, status);
     }
 
+    public int countByReceiverAndStatus(long receiverId,String status){
+        return notificationEntryPersistence.countByR_S(receiverId,status);
+    }
+
+
     public List<NotificationEntry> findBySubjectId(long subjectId) {
         return notificationEntryPersistence.findByS_(subjectId);
     }

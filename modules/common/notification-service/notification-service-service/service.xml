@@ -54,6 +54,12 @@
             <finder-column name="subjectId"/>
         </finder>
 
+        <finder name="R_S_B" return-type="Collection">
+            <finder-column name="receiverId"/>
+            <finder-column name="status"/>
+            <finder-column name="businessId"/>
+
+        </finder>
     </entity>
 
 

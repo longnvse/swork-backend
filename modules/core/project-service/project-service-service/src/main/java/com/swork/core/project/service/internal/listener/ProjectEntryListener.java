@@ -12,6 +12,8 @@ import com.swork.notification.service.service.NotificationEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component(
@@ -19,6 +21,10 @@ import java.util.Date;
         service = ModelListener.class
 )
 public class ProjectEntryListener extends BaseModelListener<ProjectEntry> {
+
+    String pattern = "dd-M-yyyy hh:mm:ss";
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
     @Override
     public void onAfterUpdate(ProjectEntry originalModel, ProjectEntry model) throws ModelListenerException {
         if (!originalModel.getProgressType().equals(model.getProgressType())) {
@@ -31,8 +37,8 @@ public class ProjectEntryListener extends BaseModelListener<ProjectEntry> {
                 model.getAccountId(),
                 "PROJECT",
                 "Sửa dự án",
-                model.getName() + " đơợc cập nhập vào lúc " + new Date(),
-                "noRed",
+                model.getName() + " đơợc cập nhập vào lúc " + simpleDateFormat.format(new Date()),
+                "noRead",
                 model.getAccountId(),
                 model.getProjectId(),getServiceContext(model));
     }
@@ -44,8 +50,8 @@ public class ProjectEntryListener extends BaseModelListener<ProjectEntry> {
                 model.getAccountId(),
                 "PROJECT",
                 "Thêm mới dự án",
-                model.getName() + " đơợc tạo mới vào lúc " + new Date(),
-                "noRed",
+                model.getName() + " đơợc tạo mới vào lúc " + simpleDateFormat.format(new Date()),
+                "noRead",
                 model.getAccountId(),
                 model.getProjectId(),getServiceContext(model));
     }

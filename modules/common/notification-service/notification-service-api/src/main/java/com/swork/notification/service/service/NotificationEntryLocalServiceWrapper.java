@@ -65,6 +65,12 @@ public class NotificationEntryLocalServiceWrapper
 			notificationEntry);
 	}
 
+	@Override
+	public int countByReceiverAndStatus(long receiverId, String status) {
+		return _notificationEntryLocalService.countByReceiverAndStatus(
+			receiverId, status);
+	}
+
 	/**
 	 * Creates a new notification entry with the primary key. Does not add the notification entry to the database.
 	 *

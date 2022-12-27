@@ -36,8 +36,10 @@ components:
                 subjectId:
                     format: int64
                     type: integer
+                    readOnly: true
                 subjectName:
                     type: string
+                    readOnly: true
 
         NotificationNew:
             description: NotificationNew Model

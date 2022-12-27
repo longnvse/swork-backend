@@ -137,7 +137,7 @@ public abstract class BaseNotificationResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/notification-rest/v2.0/notification/approval-all-by-receiver/{receiverId}' -d $'{"status": ___, "subjectId": ___, "subjectName": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/notification-rest/v2.0/notification/approval-all-by-receiver/{receiverId}' -d $'{"status": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
 		description = "Update all Notification by receiverId and"
@@ -170,7 +170,7 @@ public abstract class BaseNotificationResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/swork/notification-rest/v2.0/notification/{id}' -d $'{"status": ___, "subjectId": ___, "subjectName": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/notification-rest/v2.0/notification/{id}' -d $'{"status": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
 		description = "Update a Notification"

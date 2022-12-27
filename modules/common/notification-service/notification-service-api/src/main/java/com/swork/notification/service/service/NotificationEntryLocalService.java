@@ -85,6 +85,8 @@ public interface NotificationEntryLocalService
 	public NotificationEntry addNotificationEntry(
 		NotificationEntry notificationEntry);
 
+	public int countByReceiverAndStatus(long receiverId, String status);
+
 	/**
 	 * Creates a new notification entry with the primary key. Does not add the notification entry to the database.
 	 *
