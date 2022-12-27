@@ -26,7 +26,7 @@ public class ProjectServiceImpl implements ProjectService {
             return;
         }
 
-        List<WorkEntry> workEntries = workEntryLocalService.findByProjectId(projectId);
+        List<WorkEntry> workEntries = workEntryLocalService.findByProjectId(projectId,true);
 
         long progress = workEntryLocalService.calcProgress(workEntries, projectEntry.getProgressType());
 

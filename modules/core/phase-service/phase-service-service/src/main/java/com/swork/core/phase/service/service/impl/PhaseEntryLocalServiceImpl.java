@@ -14,7 +14,6 @@
 
 package com.swork.core.phase.service.service.impl;
 
-import com.liferay.account.service.AccountEntryLocalService;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -24,6 +23,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.Validator;
+import com.swork.common.util.api.CommonUtil;
 import com.swork.core.phase.service.mapper.model.PhaseMapperModel;
 import com.swork.core.phase.service.model.PhaseEntry;
 import com.swork.core.phase.service.service.PhaseManageEntryLocalService;
@@ -43,6 +43,11 @@ import java.util.List;
         service = AopService.class
 )
 public class PhaseEntryLocalServiceImpl extends PhaseEntryLocalServiceBaseImpl {
+
+    private static final String ACTIVE = "active";
+    private static final String PENDING = "pending";
+    private static final String CLOSED = "closed";
+
     @Transactional(
             isolation = Isolation.PORTAL,
             rollbackFor = {PortalException.class, SystemException.class})
@@ -110,6 +115,14 @@ public class PhaseEntryLocalServiceImpl extends PhaseEntryLocalServiceBaseImpl {
 
         if (Validator.isNotNull(entry)) {
             entry.setProgress(progress);
+
+            if (!entry.getStatus().equals(ACTIVE)) {
+                entry.setStatus(ACTIVE);
+            }
+
+            if (progress >= 100) {
+                entry.setStatus(CLOSED);
+            }
         }
 
         return updatePhaseEntry(entry);
@@ -127,11 +140,32 @@ public class PhaseEntryLocalServiceImpl extends PhaseEntryLocalServiceBaseImpl {
                                  PhaseMapperModel model) {
 
         entry.setPhaseName(model.getName());
-        entry.setStartDate(model.getStartDate());
-        entry.setEndDate(model.getEndDate());
+        entry.setStartDate(commonUtil.getStartOfDate(model.getStartDate()));
+        entry.setEndDate(commonUtil.getEndOfDate(model.getEndDate()));
         entry.setStatus(model.getStatus());
         entry.setDescription(model.getDescription());
         entry.setProgress(model.getProgress());
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public PhaseEntry updateDate(long creatorId,
+                                 long phaseId,
+                                 Date startDate,
+                                 Date endDate,
+                                 ServiceContext serviceContext) {
+        PhaseEntry phaseEntry = fetchPhaseEntry(phaseId);
+
+        updateModifierAudit(
+                creatorId,
+                phaseEntry,
+                new Date(),
+                serviceContext
+        );
+
+        phaseEntry.setStartDate(commonUtil.getStartOfDate(startDate));
+        phaseEntry.setEndDate(commonUtil.getEndOfDate(endDate));
+
+        return updatePhaseEntry(phaseEntry);
     }
 
     private void createModifierAudit(long businessId,
@@ -162,5 +196,5 @@ public class PhaseEntryLocalServiceImpl extends PhaseEntryLocalServiceBaseImpl {
     @Reference
     private PhaseManageEntryLocalService phaseManageEntryLocalService;
     @Reference
-    private AccountEntryLocalService accountEntryLocalService;
+    private CommonUtil commonUtil;
 }

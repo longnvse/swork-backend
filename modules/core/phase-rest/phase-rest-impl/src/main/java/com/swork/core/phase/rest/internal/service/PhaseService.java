@@ -180,6 +180,20 @@ public class PhaseService {
                 });
     }
 
+    public void updateDate(long creatorId,
+                           long phaseId,
+                           Date startDate,
+                           Date endDate,
+                           ServiceContext serviceContext) {
+        phaseEntryLocalService.updateDate(
+                creatorId,
+                phaseId,
+                startDate,
+                endDate,
+                serviceContext
+        );
+    }
+
     @Reference
     private PhaseEntryLocalService phaseEntryLocalService;
     @Reference

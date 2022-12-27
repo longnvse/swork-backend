@@ -7,7 +7,7 @@ public class UserTokenModel {
     private String role;
     private long accountId;
     private long businessId;
-    private long[] departmentIds;
+    private Long departmentId;
 
     public String getUsername() {
         return username;
@@ -57,11 +57,11 @@ public class UserTokenModel {
         this.businessId = businessId;
     }
 
-    public long[] getDepartmentIds() {
-        return departmentIds;
+    public Long getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartmentIds(long[] departmentIds) {
-        this.departmentIds = departmentIds;
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
     }
 }

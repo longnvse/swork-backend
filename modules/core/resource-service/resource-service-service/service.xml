@@ -37,6 +37,7 @@
         <column name="phaseId" type="Long"/>
         <column name="projectId" type="Long"/>
         <column name="resourceTypeName" type="String"/>
+        <column name="type" type="String"/>
         <column name="teamId" type="long"/>
         <column name="teamName" type="String"/>
         <column name="quantity" type="double"/>

@@ -43,9 +43,24 @@
 		<column name="workId" type="Long"/>
 
 
-		<finder name="F_C" return-type="FileManagerEntry">
+		<finder name="F_B" return-type="FileManagerEntry">
 			<finder-column name="fileId"/>
 			<finder-column name="businessId"/>
+		</finder>
+
+		<finder name="B_PID" return-type="Collection">
+			<finder-column name="businessId"/>
+			<finder-column name="projectId"/>
+		</finder>
+
+		<finder name="B_PHID" return-type="Collection">
+			<finder-column name="businessId"/>
+			<finder-column name="phaseId"/>
+		</finder>
+
+		<finder name="B_WID" return-type="Collection">
+			<finder-column name="businessId"/>
+			<finder-column name="workId"/>
 		</finder>
 
 	</entity>

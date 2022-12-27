@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.swork.common.util.api.CommonUtil;
 import com.swork.core.project.service.constant.Type;
 import com.swork.core.work.service.mapper.model.WorkMapperModel;
 import com.swork.core.work.service.model.WorkEntry;
@@ -96,6 +97,27 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
     }
 
     @Indexable(type = IndexableType.REINDEX)
+    public WorkEntry updateDateWorkEntry(long creatorId,
+                                         long workId,
+                                         Date startDate,
+                                         Date endDate,
+                                         ServiceContext serviceContext) {
+        WorkEntry workEntry = fetchWorkEntry(workId);
+
+        updateModifierAudit(
+                creatorId,
+                workEntry,
+                new Date(),
+                serviceContext
+        );
+
+        workEntry.setStartDate(commonUtil.getStartOfDate(startDate));
+        workEntry.setEndDate(commonUtil.getEndOfDate(endDate));
+
+        return updateWorkEntry(workEntry);
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
     public WorkEntry updateStatus(long creatorId,
                                   long workId,
                                   String status,
@@ -112,8 +134,11 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
         entry.setStatus(status);
 
-        return updateWorkEntry(entry);
+        if (status.equals(COMPLETED)) {
+            entry.setProgress(100L);
+        }
 
+        return updateWorkEntry(entry);
     }
 
     @Indexable(type = IndexableType.REINDEX)
@@ -133,7 +158,7 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
         entry.setProgress(progress);
 
-        if (entry.getStatus().equals(ACTIVE)) {
+        if (entry.getStatus().equals(PENDING)) {
             entry.setStatus(ACTIVE);
         }
 
@@ -149,8 +174,8 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
     private void setDataEntry(WorkEntry entry, WorkMapperModel model) {
         entry.setName(model.getName());
-        entry.setStartDate(model.getStartDate());
-        entry.setEndDate(model.getEndDate());
+        entry.setStartDate(commonUtil.getStartOfDate(model.getStartDate()));
+        entry.setEndDate(commonUtil.getEndOfDate(model.getEndDate()));
         entry.setDescription(model.getDescription());
         entry.setProgressType(model.getProgressType());
         entry.setIncompleteAmount(model.getIncompleteAmount());
@@ -238,12 +263,20 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         return TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS) + 1;
     }
 
-    public List<WorkEntry> findByProjectId(long projectId) {
-        return workEntryPersistence.findByProjectId(projectId);
+    public List<WorkEntry> findByProjectId(long projectId, boolean hasChildren) {
+        if (hasChildren) {
+            return workEntryPersistence.findByProjectId(projectId);
+        }
+
+        return workEntryPersistence.findByProjectId_PhaseId_ParentId(projectId, GetterUtil.DEFAULT_LONG, GetterUtil.DEFAULT_LONG);
     }
 
-    public List<WorkEntry> findByPhaseId(long phaseId) {
-        return workEntryPersistence.findByPhaseId(phaseId);
+    public List<WorkEntry> findByPhaseId(long phaseId, boolean hasChildren) {
+        if (hasChildren) {
+            return workEntryPersistence.findByPhaseId(phaseId);
+        }
+
+        return workEntryPersistence.findByPhaseId_ParentId(phaseId, GetterUtil.DEFAULT_LONG);
     }
 
     public WorkEntry findByPID_Name(long businessId,
@@ -266,7 +299,7 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         if (Validator.isNotNull(workEntry)) {
             workEntry.setProgress(progress);
 
-            if (workEntry.getStatus().equals(ACTIVE)) {
+            if (workEntry.getStatus().equals(PENDING)) {
                 workEntry.setStatus(ACTIVE);
             }
 
@@ -295,7 +328,16 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
         if (Validator.isNotNull(workEntry)) {
             workEntry.setCompleteAmount(completeAmount);
             if (workEntry.getIncompleteAmount() != 0) {
-                workEntry.setProgress((long) Math.ceil(completeAmount * 100 / workEntry.getIncompleteAmount()));
+                long progress = (long) Math.ceil(completeAmount * 100 / workEntry.getIncompleteAmount());
+                workEntry.setProgress(progress);
+
+                if (workEntry.getStatus().equals(PENDING)) {
+                    workEntry.setStatus(ACTIVE);
+                }
+
+                if (progress >= 100) {
+                    workEntry.setStatus(COMPLETED);
+                }
             }
         }
 
@@ -331,4 +373,6 @@ public class WorkEntryLocalServiceImpl extends WorkEntryLocalServiceBaseImpl {
 
     @Reference
     private WorkMemberEntryLocalService workMemberEntryLocalService;
+    @Reference
+    private CommonUtil commonUtil;
 }

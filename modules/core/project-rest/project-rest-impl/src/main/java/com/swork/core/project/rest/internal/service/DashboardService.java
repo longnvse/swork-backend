@@ -14,32 +14,32 @@ import java.util.Map;
 @Component(immediate = true, service = DashboardService.class)
 public class DashboardService {
 
-    public List<Chart> getDashboardStatusTask(long customerId, long projectId) {
+    public List<Chart> getDashboardStatusTask(long businessId, long projectId) {
 
         return dashboardMapper.mapChartStatusTask(dashboardRetriever
-                .getStatusTask(customerId, projectId));
+                .getStatusTask(businessId, projectId));
     }
 
-    public List<Chart> getDashboardTeamInout(long customerId, long projectId) {
+    public List<Chart> getDashboardTeamInout(long businessId, long projectId) {
 
         return dashboardMapper.mapChartTeam(
-                dashboardRetriever.getTeamInOut(customerId, projectId));
+                dashboardRetriever.getTeamInOut(businessId, projectId));
     }
 
-    public List<Chart> getDashboardBurnDown(long customerId, long projectId) {
+    public List<Chart> getDashboardBurnDown(long businessId, long projectId) {
 
         return dashboardMapper.mapChartBurnDown(
-                dashboardRetriever.getBurnDownTask(customerId, projectId, null, false),
-                dashboardRetriever.getBurnDownTask(customerId, projectId, "approved", true)
+                dashboardRetriever.getBurnDownTask(businessId, projectId, null, false),
+                dashboardRetriever.getBurnDownTask(businessId, projectId, "approved", true)
         );
     }
 
-    public List<Chart> getDashboardResourceProject(long customerId,
+    public List<Chart> getDashboardResourceProject(long businessId,
                                                    Long projectId) {
 
         List<Chart> chartList = new ArrayList<>();
 
-        Map<String, Double> hashMap = dashboardRetriever.getProjectResource(customerId, projectId);
+        Map<String, Double> hashMap = dashboardRetriever.getProjectResource(businessId, projectId);
 
         for (Map.Entry<String, Double> entry : hashMap.entrySet()) {
             Chart chart = new Chart();

@@ -15,6 +15,7 @@ import com.liferay.portal.vulcan.pagination.Pagination;
 import com.swork.core.work.rest.dto.v1_0.Work;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -47,7 +48,7 @@ public interface WorkResource {
 
 	public Page<Work> getWorksPage(
 			Boolean isTree, String search, Long projectId, Long phaseId,
-			Filter filter, Pagination pagination, Sort[] sorts)
+			Long parentId, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
 	public Work postWork(Work work) throws Exception;
@@ -70,7 +71,13 @@ public interface WorkResource {
 	public void putReportAmount(Long workId, Double completeAmount)
 		throws Exception;
 
+	public void putReportProcessManual(Long workId, Long progress)
+		throws Exception;
+
 	public void updateStatus(Long workId, String status) throws Exception;
+
+	public void updateDate(Long workId, Date startDate, Date endDate)
+		throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

@@ -272,8 +272,10 @@ public class WorkEntryLocalServiceUtil {
 		return getService().findByParentId(businessId, parentId);
 	}
 
-	public static List<WorkEntry> findByPhaseId(long phaseId) {
-		return getService().findByPhaseId(phaseId);
+	public static List<WorkEntry> findByPhaseId(
+		long phaseId, boolean hasChildren) {
+
+		return getService().findByPhaseId(phaseId, hasChildren);
 	}
 
 	public static WorkEntry findByPID_Name(
@@ -282,8 +284,10 @@ public class WorkEntryLocalServiceUtil {
 		return getService().findByPID_Name(businessId, parentId, name);
 	}
 
-	public static List<WorkEntry> findByProjectId(long projectId) {
-		return getService().findByProjectId(projectId);
+	public static List<WorkEntry> findByProjectId(
+		long projectId, boolean hasChildren) {
+
+		return getService().findByProjectId(projectId, hasChildren);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
@@ -428,6 +432,15 @@ public class WorkEntryLocalServiceUtil {
 
 		return getService().reportProgressByAmount(
 			creatorId, workId, completeAmount, serviceContext);
+	}
+
+	public static WorkEntry updateDateWorkEntry(
+		long creatorId, long workId, java.util.Date startDate,
+		java.util.Date endDate,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().updateDateWorkEntry(
+			creatorId, workId, startDate, endDate, serviceContext);
 	}
 
 	public static WorkEntry updateProcessWorkEntry(

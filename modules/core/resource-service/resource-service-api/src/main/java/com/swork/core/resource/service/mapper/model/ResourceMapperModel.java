@@ -16,6 +16,7 @@ public class ResourceMapperModel {
     Long resourceId;
     Date dateResource;
     Long totalAmount;
+    String type;
 
     public ResourceMapperModel() {
     }
@@ -99,5 +100,13 @@ public class ResourceMapperModel {
 
     public void setResourceId(Long resourceId) {
         this.resourceId = resourceId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

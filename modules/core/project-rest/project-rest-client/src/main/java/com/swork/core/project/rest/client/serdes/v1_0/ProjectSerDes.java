@@ -79,6 +79,16 @@ public class ProjectSerDes {
 			sb.append("\"");
 		}
 
+		if (project.getAttachNumber() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"attachNumber\": ");
+
+			sb.append(project.getAttachNumber());
+		}
+
 		if (project.getBudget() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -101,6 +111,16 @@ public class ProjectSerDes {
 			sb.append(_escape(project.getCode()));
 
 			sb.append("\"");
+		}
+
+		if (project.getCommentNumber() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"commentNumber\": ");
+
+			sb.append(project.getCommentNumber());
 		}
 
 		if (project.getDescription() != null) {
@@ -253,6 +273,20 @@ public class ProjectSerDes {
 			sb.append("\"");
 		}
 
+		if (project.getRole() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"role\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(project.getRole()));
+
+			sb.append("\"");
+		}
+
 		if (project.getStartDate() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -320,6 +354,13 @@ public class ProjectSerDes {
 				liferayToJSONDateFormat.format(project.getActualStartDate()));
 		}
 
+		if (project.getAttachNumber() == null) {
+			map.put("attachNumber", null);
+		}
+		else {
+			map.put("attachNumber", String.valueOf(project.getAttachNumber()));
+		}
+
 		if (project.getBudget() == null) {
 			map.put("budget", null);
 		}
@@ -332,6 +373,14 @@ public class ProjectSerDes {
 		}
 		else {
 			map.put("code", String.valueOf(project.getCode()));
+		}
+
+		if (project.getCommentNumber() == null) {
+			map.put("commentNumber", null);
+		}
+		else {
+			map.put(
+				"commentNumber", String.valueOf(project.getCommentNumber()));
 		}
 
 		if (project.getDescription() == null) {
@@ -408,6 +457,13 @@ public class ProjectSerDes {
 			map.put("progressType", String.valueOf(project.getProgressType()));
 		}
 
+		if (project.getRole() == null) {
+			map.put("role", null);
+		}
+		else {
+			map.put("role", String.valueOf(project.getRole()));
+		}
+
 		if (project.getStartDate() == null) {
 			map.put("startDate", null);
 		}
@@ -456,6 +512,12 @@ public class ProjectSerDes {
 						toDate((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "attachNumber")) {
+				if (jsonParserFieldValue != null) {
+					project.setAttachNumber(
+						Integer.valueOf((String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "budget")) {
 				if (jsonParserFieldValue != null) {
 					project.setBudget(
@@ -465,6 +527,12 @@ public class ProjectSerDes {
 			else if (Objects.equals(jsonParserFieldName, "code")) {
 				if (jsonParserFieldValue != null) {
 					project.setCode((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "commentNumber")) {
+				if (jsonParserFieldValue != null) {
+					project.setCommentNumber(
+						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "description")) {
@@ -540,6 +608,11 @@ public class ProjectSerDes {
 			else if (Objects.equals(jsonParserFieldName, "progressType")) {
 				if (jsonParserFieldValue != null) {
 					project.setProgressType((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "role")) {
+				if (jsonParserFieldValue != null) {
+					project.setRole((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "startDate")) {

@@ -25,6 +25,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import java.util.Collections;
+import java.util.Date;
 
 @Component(
         immediate = true,
@@ -35,6 +36,7 @@ public class WorkService {
     public Page<Work> getWorkPages(long businessId,
                                    Long projectId,
                                    Long phaseId,
+                                   Long parentId,
                                    Boolean isTree,
                                    String search,
                                    Filter filter,
@@ -52,9 +54,10 @@ public class WorkService {
                             booleanQuery.getPreBooleanFilter();
 
                     booleanFilter.add(businessIdFilter, BooleanClauseOccur.MUST);
-                    if (GetterUtil.getBoolean(isTree)) {
+
+                    if (Validator.isNotNull(parentId) || GetterUtil.getBoolean(isTree)) {
                         TermFilter parentIdFilter =
-                                new TermFilter(SearchFields.PARENT_ID, String.valueOf(GetterUtil.DEFAULT_LONG));
+                                new TermFilter(SearchFields.PARENT_ID, String.valueOf(GetterUtil.getLong(parentId)));
                         booleanFilter.add(parentIdFilter, BooleanClauseOccur.MUST);
                     }
 
@@ -133,6 +136,20 @@ public class WorkService {
         localService.updateStatus(creatorId, workId, status, serviceContext);
     }
 
+    public void updateDate(long creatorId,
+                           long workId,
+                           Date startDate,
+                           Date endDate,
+                           ServiceContext serviceContext) {
+        localService.updateDateWorkEntry(
+                creatorId,
+                workId,
+                startDate,
+                endDate,
+                serviceContext
+        );
+    }
+
     public void reportProgressByAmount(long creatorId,
                                        long workId,
                                        double completeAmount,
@@ -143,6 +160,11 @@ public class WorkService {
                 completeAmount,
                 serviceContext
         );
+    }
+
+    public void updateProgressManual(long workId,
+                                     long progress) {
+        localService.updateProgress(workId, progress);
     }
 
     @Reference

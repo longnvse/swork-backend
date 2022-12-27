@@ -176,6 +176,7 @@ public abstract class BasePhaseResourceTestCase {
 		phase.setExternalReferenceCode(regex);
 		phase.setName(regex);
 		phase.setProjectName(regex);
+		phase.setStatus(regex);
 
 		String json = PhaseSerDes.toJSON(phase);
 
@@ -187,6 +188,7 @@ public abstract class BasePhaseResourceTestCase {
 		Assert.assertEquals(regex, phase.getExternalReferenceCode());
 		Assert.assertEquals(regex, phase.getName());
 		Assert.assertEquals(regex, phase.getProjectName());
+		Assert.assertEquals(regex, phase.getStatus());
 	}
 
 	@Test
@@ -628,6 +630,24 @@ public abstract class BasePhaseResourceTestCase {
 	}
 
 	protected Phase testPutPhase_addPhase() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testUpdateDate() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Phase phase = testUpdateDate_addPhase();
+
+		assertHttpResponseStatusCode(
+			204,
+			phaseResource.updateDateHttpResponse(phase.getId(), null, null));
+
+		assertHttpResponseStatusCode(
+			404, phaseResource.updateDateHttpResponse(0L, null, null));
+	}
+
+	protected Phase testUpdateDate_addPhase() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
@@ -1225,8 +1245,11 @@ public abstract class BasePhaseResourceTestCase {
 		}
 
 		if (entityFieldName.equals("status")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
+			sb.append("'");
+			sb.append(String.valueOf(phase.getStatus()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		throw new IllegalArgumentException(
@@ -1285,6 +1308,7 @@ public abstract class BasePhaseResourceTestCase {
 				projectName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				startDate = RandomTestUtil.nextDate();
+				status = StringUtil.toLowerCase(RandomTestUtil.randomString());
 			}
 		};
 	}

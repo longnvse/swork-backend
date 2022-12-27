@@ -307,9 +307,9 @@ public class WorkEntryLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.swork.core.work.service.model.WorkEntry>
-		findByPhaseId(long phaseId) {
+		findByPhaseId(long phaseId, boolean hasChildren) {
 
-		return _workEntryLocalService.findByPhaseId(phaseId);
+		return _workEntryLocalService.findByPhaseId(phaseId, hasChildren);
 	}
 
 	@Override
@@ -322,9 +322,9 @@ public class WorkEntryLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.swork.core.work.service.model.WorkEntry>
-		findByProjectId(long projectId) {
+		findByProjectId(long projectId, boolean hasChildren) {
 
-		return _workEntryLocalService.findByProjectId(projectId);
+		return _workEntryLocalService.findByProjectId(projectId, hasChildren);
 	}
 
 	@Override
@@ -493,6 +493,16 @@ public class WorkEntryLocalServiceWrapper
 
 		return _workEntryLocalService.reportProgressByAmount(
 			creatorId, workId, completeAmount, serviceContext);
+	}
+
+	@Override
+	public com.swork.core.work.service.model.WorkEntry updateDateWorkEntry(
+		long creatorId, long workId, java.util.Date startDate,
+		java.util.Date endDate,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _workEntryLocalService.updateDateWorkEntry(
+			creatorId, workId, startDate, endDate, serviceContext);
 	}
 
 	@Override

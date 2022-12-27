@@ -68,6 +68,9 @@ public interface PhaseResource {
 	public Response putPhaseBatch(String callbackURL, Object object)
 		throws Exception;
 
+	public void updateDate(Long phaseId, Date startDate, Date endDate)
+		throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

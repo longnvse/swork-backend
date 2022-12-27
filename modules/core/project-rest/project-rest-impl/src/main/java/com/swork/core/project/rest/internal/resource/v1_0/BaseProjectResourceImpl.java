@@ -25,6 +25,7 @@ import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.portal.vulcan.util.ActionUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
+import com.swork.core.project.rest.dto.v1_0.GanttChart;
 import com.swork.core.project.rest.dto.v1_0.Project;
 import com.swork.core.project.rest.resource.v1_0.ProjectResource;
 
@@ -520,6 +521,37 @@ public abstract class BaseProjectResourceImpl
 			@javax.ws.rs.QueryParam("actualEndDate")
 			java.util.Date actualEndDate)
 		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'GET' 'http://localhost:8080/o/swork/project-rest/v1.0/projects/gantt-chart/{projectId}'  -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Operation(description = "Approval a Project")
+	@io.swagger.v3.oas.annotations.Parameters(
+		value = {
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
+				name = "projectId"
+			)
+		}
+	)
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Project")}
+	)
+	@javax.ws.rs.GET
+	@javax.ws.rs.Path("/projects/gantt-chart/{projectId}")
+	@javax.ws.rs.Produces({"application/json", "application/xml"})
+	@Override
+	public GanttChart getGanttChartProject(
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.PathParam("projectId")
+			Long projectId)
+		throws Exception {
+
+		return new GanttChart();
 	}
 
 	/**

@@ -39,6 +39,7 @@ import com.swork.core.phase.service.model.PhaseEntry;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -355,6 +356,11 @@ public interface PhaseEntryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PhaseEntry getPhaseEntryByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public PhaseEntry updateDate(
+		long creatorId, long phaseId, Date startDate, Date endDate,
+		ServiceContext serviceContext);
 
 	@Indexable(type = IndexableType.REINDEX)
 	@Transactional(

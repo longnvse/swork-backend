@@ -33,6 +33,7 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import com.swork.core.project.rest.client.dto.v1_0.GanttChart;
 import com.swork.core.project.rest.client.dto.v1_0.Project;
 import com.swork.core.project.rest.client.http.HttpInvoker;
 import com.swork.core.project.rest.client.pagination.Page;
@@ -178,6 +179,7 @@ public abstract class BaseProjectResourceTestCase {
 		project.setExternalReferenceCode(regex);
 		project.setName(regex);
 		project.setProgressType(regex);
+		project.setRole(regex);
 
 		String json = ProjectSerDes.toJSON(project);
 
@@ -190,6 +192,7 @@ public abstract class BaseProjectResourceTestCase {
 		Assert.assertEquals(regex, project.getExternalReferenceCode());
 		Assert.assertEquals(regex, project.getName());
 		Assert.assertEquals(regex, project.getProgressType());
+		Assert.assertEquals(regex, project.getRole());
 	}
 
 	@Test
@@ -716,6 +719,28 @@ public abstract class BaseProjectResourceTestCase {
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 
+	@Test
+	public void testGetGanttChartProject() throws Exception {
+		Project postProject = testGetProject_addProject();
+
+		GanttChart postGanttChart = testGetGanttChartProject_addGanttChart(
+			postProject.getId(), randomGanttChart());
+
+		GanttChart getGanttChart = projectResource.getGanttChartProject(
+			postProject.getId());
+
+		assertEquals(postGanttChart, getGanttChart);
+		assertValid(getGanttChart);
+	}
+
+	protected GanttChart testGetGanttChartProject_addGanttChart(
+			long projectId, GanttChart ganttChart)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	protected Project testGraphQLProject_addProject() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
@@ -760,6 +785,14 @@ public abstract class BaseProjectResourceTestCase {
 
 			assertEquals(project1, project2);
 		}
+	}
+
+	protected void assertEquals(
+		GanttChart ganttChart1, GanttChart ganttChart2) {
+
+		Assert.assertTrue(
+			ganttChart1 + " does not equal " + ganttChart2,
+			equals(ganttChart1, ganttChart2));
 	}
 
 	protected void assertEqualsIgnoringOrder(
@@ -809,6 +842,14 @@ public abstract class BaseProjectResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("attachNumber", additionalAssertFieldName)) {
+				if (project.getAttachNumber() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("budget", additionalAssertFieldName)) {
 				if (project.getBudget() == null) {
 					valid = false;
@@ -819,6 +860,14 @@ public abstract class BaseProjectResourceTestCase {
 
 			if (Objects.equals("code", additionalAssertFieldName)) {
 				if (project.getCode() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("commentNumber", additionalAssertFieldName)) {
+				if (project.getCommentNumber() == null) {
 					valid = false;
 				}
 
@@ -899,6 +948,14 @@ public abstract class BaseProjectResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("role", additionalAssertFieldName)) {
+				if (project.getRole() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("startDate", additionalAssertFieldName)) {
 				if (project.getStartDate() == null) {
 					valid = false;
@@ -940,7 +997,41 @@ public abstract class BaseProjectResourceTestCase {
 		Assert.assertTrue(valid);
 	}
 
+	protected void assertValid(GanttChart ganttChart) {
+		boolean valid = true;
+
+		for (String additionalAssertFieldName :
+				getAdditionalGanttChartAssertFieldNames()) {
+
+			if (Objects.equals("phases", additionalAssertFieldName)) {
+				if (ganttChart.getPhases() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("works", additionalAssertFieldName)) {
+				if (ganttChart.getWorks() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			throw new IllegalArgumentException(
+				"Invalid additional assert field name " +
+					additionalAssertFieldName);
+		}
+
+		Assert.assertTrue(valid);
+	}
+
 	protected String[] getAdditionalAssertFieldNames() {
+		return new String[0];
+	}
+
+	protected String[] getAdditionalGanttChartAssertFieldNames() {
 		return new String[0];
 	}
 
@@ -1027,6 +1118,17 @@ public abstract class BaseProjectResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("attachNumber", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						project1.getAttachNumber(),
+						project2.getAttachNumber())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("budget", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						project1.getBudget(), project2.getBudget())) {
@@ -1040,6 +1142,17 @@ public abstract class BaseProjectResourceTestCase {
 			if (Objects.equals("code", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						project1.getCode(), project2.getCode())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("commentNumber", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						project1.getCommentNumber(),
+						project2.getCommentNumber())) {
 
 					return false;
 				}
@@ -1150,6 +1263,16 @@ public abstract class BaseProjectResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("role", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						project1.getRole(), project2.getRole())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("startDate", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						project1.getStartDate(), project2.getStartDate())) {
@@ -1202,6 +1325,42 @@ public abstract class BaseProjectResourceTestCase {
 		}
 
 		return false;
+	}
+
+	protected boolean equals(GanttChart ganttChart1, GanttChart ganttChart2) {
+		if (ganttChart1 == ganttChart2) {
+			return true;
+		}
+
+		for (String additionalAssertFieldName :
+				getAdditionalGanttChartAssertFieldNames()) {
+
+			if (Objects.equals("phases", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						ganttChart1.getPhases(), ganttChart2.getPhases())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("works", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						ganttChart1.getWorks(), ganttChart2.getWorks())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			throw new IllegalArgumentException(
+				"Invalid additional assert field name " +
+					additionalAssertFieldName);
+		}
+
+		return true;
 	}
 
 	protected java.lang.reflect.Field[] getDeclaredFields(Class clazz)
@@ -1330,6 +1489,11 @@ public abstract class BaseProjectResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("attachNumber")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("budget")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1341,6 +1505,11 @@ public abstract class BaseProjectResourceTestCase {
 			sb.append("'");
 
 			return sb.toString();
+		}
+
+		if (entityFieldName.equals("commentNumber")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("description")) {
@@ -1431,6 +1600,14 @@ public abstract class BaseProjectResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("role")) {
+			sb.append("'");
+			sb.append(String.valueOf(project.getRole()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("startDate")) {
 			if (operator.equals("between")) {
 				sb = new StringBundler();
@@ -1513,8 +1690,10 @@ public abstract class BaseProjectResourceTestCase {
 			{
 				actualEndDate = RandomTestUtil.nextDate();
 				actualStartDate = RandomTestUtil.nextDate();
+				attachNumber = RandomTestUtil.randomInt();
 				budget = RandomTestUtil.randomLong();
 				code = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				commentNumber = RandomTestUtil.randomInt();
 				description = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				endDate = RandomTestUtil.nextDate();
@@ -1525,6 +1704,7 @@ public abstract class BaseProjectResourceTestCase {
 				progress = RandomTestUtil.randomLong();
 				progressType = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
+				role = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				startDate = RandomTestUtil.nextDate();
 			}
 		};
@@ -1538,6 +1718,13 @@ public abstract class BaseProjectResourceTestCase {
 
 	protected Project randomPatchProject() throws Exception {
 		return randomProject();
+	}
+
+	protected GanttChart randomGanttChart() throws Exception {
+		return new GanttChart() {
+			{
+			}
+		};
 	}
 
 	protected ProjectResource projectResource;

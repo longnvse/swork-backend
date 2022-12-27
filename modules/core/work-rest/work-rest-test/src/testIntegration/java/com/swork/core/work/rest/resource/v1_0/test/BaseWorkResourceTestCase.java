@@ -201,7 +201,7 @@ public abstract class BaseWorkResourceTestCase {
 	@Test
 	public void testGetWorksPage() throws Exception {
 		Page<Work> page = workResource.getWorksPage(
-			null, null, null, null, null, Pagination.of(1, 10), null);
+			null, null, null, null, null, null, Pagination.of(1, 10), null);
 
 		long totalCount = page.getTotalCount();
 
@@ -210,7 +210,7 @@ public abstract class BaseWorkResourceTestCase {
 		Work work2 = testGetWorksPage_addWork(randomWork());
 
 		page = workResource.getWorksPage(
-			null, null, null, null, null, Pagination.of(1, 10), null);
+			null, null, null, null, null, null, Pagination.of(1, 10), null);
 
 		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
@@ -238,7 +238,7 @@ public abstract class BaseWorkResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Work> page = workResource.getWorksPage(
-				null, null, null, null,
+				null, null, null, null, null,
 				getFilterString(entityField, "between", work1),
 				Pagination.of(1, 2), null);
 
@@ -263,7 +263,7 @@ public abstract class BaseWorkResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Work> page = workResource.getWorksPage(
-				null, null, null, null,
+				null, null, null, null, null,
 				getFilterString(entityField, "eq", work1), Pagination.of(1, 2),
 				null);
 
@@ -275,7 +275,7 @@ public abstract class BaseWorkResourceTestCase {
 	@Test
 	public void testGetWorksPageWithPagination() throws Exception {
 		Page<Work> totalPage = workResource.getWorksPage(
-			null, null, null, null, null, null, null);
+			null, null, null, null, null, null, null, null);
 
 		int totalCount = GetterUtil.getInteger(totalPage.getTotalCount());
 
@@ -286,16 +286,16 @@ public abstract class BaseWorkResourceTestCase {
 		Work work3 = testGetWorksPage_addWork(randomWork());
 
 		Page<Work> page1 = workResource.getWorksPage(
-			null, null, null, null, null, Pagination.of(1, totalCount + 2),
-			null);
+			null, null, null, null, null, null,
+			Pagination.of(1, totalCount + 2), null);
 
 		List<Work> works1 = (List<Work>)page1.getItems();
 
 		Assert.assertEquals(works1.toString(), totalCount + 2, works1.size());
 
 		Page<Work> page2 = workResource.getWorksPage(
-			null, null, null, null, null, Pagination.of(2, totalCount + 2),
-			null);
+			null, null, null, null, null, null,
+			Pagination.of(2, totalCount + 2), null);
 
 		Assert.assertEquals(totalCount + 3, page2.getTotalCount());
 
@@ -304,8 +304,8 @@ public abstract class BaseWorkResourceTestCase {
 		Assert.assertEquals(works2.toString(), 1, works2.size());
 
 		Page<Work> page3 = workResource.getWorksPage(
-			null, null, null, null, null, Pagination.of(1, totalCount + 3),
-			null);
+			null, null, null, null, null, null,
+			Pagination.of(1, totalCount + 3), null);
 
 		assertContains(work1, (List<Work>)page3.getItems());
 		assertContains(work2, (List<Work>)page3.getItems());
@@ -409,14 +409,14 @@ public abstract class BaseWorkResourceTestCase {
 
 		for (EntityField entityField : entityFields) {
 			Page<Work> ascPage = workResource.getWorksPage(
-				null, null, null, null, null, Pagination.of(1, 2),
+				null, null, null, null, null, null, Pagination.of(1, 2),
 				entityField.getName() + ":asc");
 
 			assertEquals(
 				Arrays.asList(work1, work2), (List<Work>)ascPage.getItems());
 
 			Page<Work> descPage = workResource.getWorksPage(
-				null, null, null, null, null, Pagination.of(1, 2),
+				null, null, null, null, null, null, Pagination.of(1, 2),
 				entityField.getName() + ":desc");
 
 			assertEquals(
@@ -629,6 +629,25 @@ public abstract class BaseWorkResourceTestCase {
 	}
 
 	@Test
+	public void testPutReportProcessManual() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Work work = testPutReportProcessManual_addWork();
+
+		assertHttpResponseStatusCode(
+			204,
+			workResource.putReportProcessManualHttpResponse(
+				work.getId(), null));
+
+		assertHttpResponseStatusCode(
+			404, workResource.putReportProcessManualHttpResponse(0L, null));
+	}
+
+	protected Work testPutReportProcessManual_addWork() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
 	public void testUpdateStatus() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
 		Work work = testUpdateStatus_addWork();
@@ -641,6 +660,23 @@ public abstract class BaseWorkResourceTestCase {
 	}
 
 	protected Work testUpdateStatus_addWork() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testUpdateDate() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Work work = testUpdateDate_addWork();
+
+		assertHttpResponseStatusCode(
+			204, workResource.updateDateHttpResponse(work.getId(), null, null));
+
+		assertHttpResponseStatusCode(
+			404, workResource.updateDateHttpResponse(0L, null, null));
+	}
+
+	protected Work testUpdateDate_addWork() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
@@ -737,8 +773,32 @@ public abstract class BaseWorkResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("attachNumber", additionalAssertFieldName)) {
+				if (work.getAttachNumber() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("commentNumber", additionalAssertFieldName)) {
+				if (work.getCommentNumber() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("complete", additionalAssertFieldName)) {
 				if (work.getComplete() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("createDate", additionalAssertFieldName)) {
+				if (work.getCreateDate() == null) {
 					valid = false;
 				}
 
@@ -799,6 +859,14 @@ public abstract class BaseWorkResourceTestCase {
 
 			if (Objects.equals("manages", additionalAssertFieldName)) {
 				if (work.getManages() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("modifiedDate", additionalAssertFieldName)) {
+				if (work.getModifiedDate() == null) {
 					valid = false;
 				}
 
@@ -1044,9 +1112,39 @@ public abstract class BaseWorkResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("attachNumber", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						work1.getAttachNumber(), work2.getAttachNumber())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("commentNumber", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						work1.getCommentNumber(), work2.getCommentNumber())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("complete", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						work1.getComplete(), work2.getComplete())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("createDate", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						work1.getCreateDate(), work2.getCreateDate())) {
 
 					return false;
 				}
@@ -1132,6 +1230,16 @@ public abstract class BaseWorkResourceTestCase {
 			if (Objects.equals("manages", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						work1.getManages(), work2.getManages())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("modifiedDate", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						work1.getModifiedDate(), work2.getModifiedDate())) {
 
 					return false;
 				}
@@ -1450,9 +1558,50 @@ public abstract class BaseWorkResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("attachNumber")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("commentNumber")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("complete")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("createDate")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(work.getCreateDate(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(work.getCreateDate(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(_dateFormat.format(work.getCreateDate()));
+			}
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("description")) {
@@ -1528,6 +1677,37 @@ public abstract class BaseWorkResourceTestCase {
 		if (entityFieldName.equals("manages")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("modifiedDate")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(work.getModifiedDate(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(work.getModifiedDate(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(_dateFormat.format(work.getModifiedDate()));
+			}
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("name")) {
@@ -1697,7 +1877,10 @@ public abstract class BaseWorkResourceTestCase {
 			{
 				actualEndDate = RandomTestUtil.nextDate();
 				actualStartDate = RandomTestUtil.nextDate();
+				attachNumber = RandomTestUtil.randomInt();
+				commentNumber = RandomTestUtil.randomInt();
 				complete = RandomTestUtil.randomDouble();
+				createDate = RandomTestUtil.nextDate();
 				description = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				descriptionProgress = StringUtil.toLowerCase(
@@ -1707,6 +1890,7 @@ public abstract class BaseWorkResourceTestCase {
 					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				incompleteAmount = RandomTestUtil.randomDouble();
+				modifiedDate = RandomTestUtil.nextDate();
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				parentId = RandomTestUtil.randomLong();
 				parentName = StringUtil.toLowerCase(

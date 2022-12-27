@@ -16,6 +16,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -62,15 +63,22 @@ public class WorkEntryModelDocumentContributor
         document.addKeyword(SearchFields.WORK_MANAGE,
                 getMemberIdsByType(baseModel.getWorkId(), ACCOUNT, Type.MANAGE.getValue()));
 
+        document.addKeywordSortable(SearchFields.WORK_MANAGE,
+                getMemberIdsByType(baseModel.getWorkId(), ACCOUNT, Type.MANAGE.getValue()));
+
         document.addKeyword(SearchFields.STATUS, baseModel.getStatus());
         document.addKeywordSortable(SearchFields.STATUS, baseModel.getStatus());
 
         document.addKeyword(SearchFields.WORK_HANDLE_ACCOUNT,
                 getMemberIdsByType(baseModel.getWorkId(), ACCOUNT, Type.HANDLE.getValue()));
+        document.addKeywordSortable(SearchFields.WORK_HANDLE_ACCOUNT,
+                getMemberIdsByType(baseModel.getWorkId(), ACCOUNT, Type.HANDLE.getValue()));
         document.addKeyword(SearchFields.WORK_HANDLE_DEPARTMENT,
                 getMemberIdsByType(baseModel.getWorkId(), DEPARTMENT, Type.HANDLE.getValue()));
 
         document.addKeyword(SearchFields.WORK_PARTICIPATE_ACCOUNT,
+                getMemberIdsByType(baseModel.getWorkId(), ACCOUNT, Type.PARTICIPATE.getValue()));
+        document.addKeywordSortable(SearchFields.WORK_PARTICIPATE_ACCOUNT,
                 getMemberIdsByType(baseModel.getWorkId(), ACCOUNT, Type.PARTICIPATE.getValue()));
         document.addKeyword(SearchFields.WORK_PARTICIPATE_DEPARTMENT,
                 getMemberIdsByType(baseModel.getWorkId(), DEPARTMENT, Type.PARTICIPATE.getValue()));
@@ -99,15 +107,15 @@ public class WorkEntryModelDocumentContributor
         document.addNumberSortable(SearchFields.PROGRESS, baseModel.getProgress());
     }
 
-    private Long[] getMemberIdsByType(long workId, String memberType, String type) {
+    private String getMemberIdsByType(long workId, String memberType, String type) {
         List<WorkMemberEntry> workMemberEntries =
                 workMemberEntryLocalService.findByW_MT_T(workId, memberType, type);
 
-        return workMemberEntries
+        return Arrays.toString(workMemberEntries
                 .stream()
                 .mapToLong(WorkMemberEntryModel::getMemberId)
                 .boxed()
-                .toArray(Long[]::new);
+                .toArray(Long[]::new));
     }
 
     @Reference

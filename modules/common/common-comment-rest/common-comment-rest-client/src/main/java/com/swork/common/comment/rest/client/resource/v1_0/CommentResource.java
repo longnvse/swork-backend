@@ -36,7 +36,7 @@ public interface CommentResource {
 			String filterString, Pagination pagination, String sortString)
 		throws Exception;
 
-	public Comment postComment(Comment comment) throws Exception;
+	public void postComment(Comment comment) throws Exception;
 
 	public HttpInvoker.HttpResponse postCommentHttpResponse(Comment comment)
 		throws Exception;
@@ -65,7 +65,7 @@ public interface CommentResource {
 	public HttpInvoker.HttpResponse getCommentHttpResponse(Long commentId)
 		throws Exception;
 
-	public Comment putComment(Long commentId, Comment comment) throws Exception;
+	public void putComment(Long commentId, Comment comment) throws Exception;
 
 	public HttpInvoker.HttpResponse putCommentHttpResponse(
 			Long commentId, Comment comment)
@@ -260,7 +260,7 @@ public interface CommentResource {
 			return httpInvoker.invoke();
 		}
 
-		public Comment postComment(Comment comment) throws Exception {
+		public void postComment(Comment comment) throws Exception {
 			HttpInvoker.HttpResponse httpResponse = postCommentHttpResponse(
 				comment);
 
@@ -290,7 +290,7 @@ public interface CommentResource {
 			}
 
 			try {
-				return CommentSerDes.toDTO(content);
+				return;
 			}
 			catch (Exception e) {
 				_logger.log(
@@ -645,7 +645,7 @@ public interface CommentResource {
 			return httpInvoker.invoke();
 		}
 
-		public Comment putComment(Long commentId, Comment comment)
+		public void putComment(Long commentId, Comment comment)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = putCommentHttpResponse(
@@ -677,7 +677,7 @@ public interface CommentResource {
 			}
 
 			try {
-				return CommentSerDes.toDTO(content);
+				return;
 			}
 			catch (Exception e) {
 				_logger.log(

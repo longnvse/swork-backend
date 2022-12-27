@@ -107,6 +107,62 @@ public class Work implements Serializable {
 	protected Date actualStartDate;
 
 	@Schema
+	public Integer getAttachNumber() {
+		return attachNumber;
+	}
+
+	public void setAttachNumber(Integer attachNumber) {
+		this.attachNumber = attachNumber;
+	}
+
+	@JsonIgnore
+	public void setAttachNumber(
+		UnsafeSupplier<Integer, Exception> attachNumberUnsafeSupplier) {
+
+		try {
+			attachNumber = attachNumberUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Integer attachNumber;
+
+	@Schema
+	public Integer getCommentNumber() {
+		return commentNumber;
+	}
+
+	public void setCommentNumber(Integer commentNumber) {
+		this.commentNumber = commentNumber;
+	}
+
+	@JsonIgnore
+	public void setCommentNumber(
+		UnsafeSupplier<Integer, Exception> commentNumberUnsafeSupplier) {
+
+		try {
+			commentNumber = commentNumberUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Integer commentNumber;
+
+	@Schema
 	public Double getComplete() {
 		return complete;
 	}
@@ -133,6 +189,34 @@ public class Work implements Serializable {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double complete;
+
+	@Schema
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	@JsonIgnore
+	public void setCreateDate(
+		UnsafeSupplier<Date, Exception> createDateUnsafeSupplier) {
+
+		try {
+			createDate = createDateUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Date createDate;
 
 	@Schema
 	public String getDescription() {
@@ -357,6 +441,34 @@ public class Work implements Serializable {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Manage[] manages;
+
+	@Schema
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	@JsonIgnore
+	public void setModifiedDate(
+		UnsafeSupplier<Date, Exception> modifiedDateUnsafeSupplier) {
+
+		try {
+			modifiedDate = modifiedDateUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Date modifiedDate;
 
 	@Schema
 	public String getName() {
@@ -892,6 +1004,26 @@ public class Work implements Serializable {
 			sb.append("\"");
 		}
 
+		if (attachNumber != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"attachNumber\": ");
+
+			sb.append(attachNumber);
+		}
+
+		if (commentNumber != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"commentNumber\": ");
+
+			sb.append(commentNumber);
+		}
+
 		if (complete != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -900,6 +1032,20 @@ public class Work implements Serializable {
 			sb.append("\"complete\": ");
 
 			sb.append(complete);
+		}
+
+		if (createDate != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"createDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(createDate));
+
+			sb.append("\"");
 		}
 
 		if (description != null) {
@@ -1016,6 +1162,20 @@ public class Work implements Serializable {
 			}
 
 			sb.append("]");
+		}
+
+		if (modifiedDate != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"modifiedDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(modifiedDate));
+
+			sb.append("\"");
 		}
 
 		if (name != null) {
@@ -1288,8 +1448,8 @@ public class Work implements Serializable {
 	@GraphQLName("ProgressType")
 	public static enum ProgressType {
 
-		MANUAL("manual"), BY_CHECKLIST("byChecklist"), BY_AMOUNT("byAmount"),
-		BY_PROPORTION("byProportion");
+		MANUAL("manual"), BY_AMOUNT("byAmount"),
+		PROPORTION_DATE("proportionDate");
 
 		@JsonCreator
 		public static ProgressType create(String value) {

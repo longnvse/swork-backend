@@ -47,7 +47,7 @@ components:
         description:
           type: string
         status:
-          enum: [ pending,active, completed, inactive, denied]
+          enum: [ pending,active, completed, inactive, denied ]
         manages:
           type: array
           items:
@@ -66,7 +66,7 @@ components:
           readOnly: true
         progressType:
           type: string
-          enum: [manual,byChecklist,byAmount,byProportion]
+          enum: [manual,byAmount,proportionDate]
         unit:
           type: string
         incompleteAmount:
@@ -79,6 +79,20 @@ components:
           type: string
         parentStatus:
           enum: [ pending,active, completed, inactive, denied]
+          readOnly: true
+        commentNumber:
+          type: integer
+          readOnly: true
+        attachNumber:
+          type: integer
+          readOnly: true
+        createDate:
+          type: string
+          format: date
+          readOnly: true
+        modifiedDate:
+          type: string
+          format: date
           readOnly: true
         works:
           type: array
@@ -184,6 +198,11 @@ paths:
             format: int64
         - in: query
           name: phaseId
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: parentId
           schema:
             type: integer
             format: int64
@@ -318,8 +337,33 @@ paths:
           description:
             "Project detail"
           content:
-            application/json: {}
-            application/xml: {}
+            application/json: { }
+            application/xml: { }
+  "/works/report-process/manual/{workId}":
+    put:
+      tags: [ "Work" ]
+      description: Update process a Project
+      operationId: putReportProcessManual
+      parameters:
+        - in: path
+          name: workId
+          required: true
+          schema:
+            format: int64
+            type: integer
+        - in: query
+          name: progress
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        204:
+          description:
+            "Project detail"
+          content:
+            application/json: { }
+            application/xml: { }
   "/works/approval/{workId}":
     put:
       tags: [ "Work" ]
@@ -343,6 +387,36 @@ paths:
           description:
             "Project detail"
           content:
-            application/json: {}
-            application/xml: {}
-
+            application/json: { }
+            application/xml: { }
+  "/works/date/{workId}":
+    put:
+      tags: [ "Work" ]
+      description: Update status a Project
+      operationId: updateDate
+      parameters:
+        - in: path
+          name: workId
+          required: true
+          schema:
+            format: int64
+            type: integer
+        - in: query
+          name: startDate
+          required: true
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: endDate
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        204:
+          description:
+            "Project detail"
+          content:
+            application/json: { }
+            application/xml: { }

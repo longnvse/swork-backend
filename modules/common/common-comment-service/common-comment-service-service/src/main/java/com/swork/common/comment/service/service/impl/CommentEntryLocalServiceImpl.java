@@ -82,6 +82,11 @@ public class CommentEntryLocalServiceImpl
         return commentEntryPersistence.findByPID(parentId);
     }
 
+    public int countByClassPkIdAndClassPkName(long classPkId,
+                                              String classPkName) {
+        return commentEntryPersistence.countByPKID_PKName(classPkId, classPkName);
+    }
+
     private void createModifierAudit(long businessId,
                                      long creatorId,
                                      CommentEntry entry,

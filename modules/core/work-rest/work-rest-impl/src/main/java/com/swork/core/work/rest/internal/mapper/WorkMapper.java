@@ -2,6 +2,8 @@ package com.swork.core.work.rest.internal.mapper;
 
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.swork.common.comment.service.service.CommentEntryLocalServiceUtil;
+import com.swork.common.file.service.FileManagerEntryLocalServiceUtil;
 import com.swork.core.phase.service.model.PhaseEntry;
 import com.swork.core.phase.service.service.PhaseEntryLocalService;
 import com.swork.core.project.service.constant.Type;
@@ -16,7 +18,9 @@ import com.swork.core.work.service.service.WorkMemberEntryLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Component(
         immediate = true,
@@ -55,7 +59,7 @@ public class WorkMapper {
         to.setDescription(from.getDescription());
         to.setParentId(GetterUtil.getLong(from.getParentId()) != 0 ? from.getParentId() : null);
 
-        WorkEntry parent = localService.fetchWorkEntry(from.getWorkId());
+        WorkEntry parent = localService.fetchWorkEntry(GetterUtil.getLong(from.getParentId()));
 
         if (Validator.isNotNull(parent)) {
             to.setParentName(parent.getName());
@@ -71,7 +75,7 @@ public class WorkMapper {
 
         to.setProjectId(GetterUtil.getLong(from.getProjectId()) != 0 ? from.getProjectId() : null);
 
-        ProjectEntry projectEntry = projectEntryLocalService.fetchProjectEntry(from.getProjectId());
+        ProjectEntry projectEntry = projectEntryLocalService.fetchProjectEntry(GetterUtil.getLong(from.getProjectId()));
 
         if (Validator.isNotNull(projectEntry)) {
             to.setProjectName(projectEntry.getName());
@@ -80,9 +84,13 @@ public class WorkMapper {
         to.setProgressType(Work.ProgressType.create(from.getProgressType()));
         to.setProgress(from.getProgress());
         to.setIncompleteAmount(from.getIncompleteAmount());
+        to.setComplete(from.getCompleteAmount());
         to.setUnit(from.getUnit());
         to.setStatus(Work.Status.create(from.getStatus()));
-
+        to.setCreateDate(from.getCreateDate());
+        to.setModifiedDate(from.getModifiedDate());
+        to.setCommentNumber(CommentEntryLocalServiceUtil.countByClassPkIdAndClassPkName(from.getWorkId(), "work"));
+        to.setAttachNumber(FileManagerEntryLocalServiceUtil.countByWorkId(from.getBusinessId(), from.getWorkId()));
         List<WorkMemberEntry> manageEntries =
                 memberEntryLocalService.findByW_T(from.getWorkId(), Type.MANAGE.getValue());
 

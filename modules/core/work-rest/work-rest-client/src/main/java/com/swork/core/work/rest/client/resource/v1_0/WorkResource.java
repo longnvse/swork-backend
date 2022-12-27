@@ -7,6 +7,9 @@ import com.swork.core.work.rest.client.pagination.Pagination;
 import com.swork.core.work.rest.client.problem.Problem;
 import com.swork.core.work.rest.client.serdes.v1_0.WorkSerDes;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -28,12 +31,14 @@ public interface WorkResource {
 
 	public Page<Work> getWorksPage(
 			Boolean isTree, String search, Long projectId, Long phaseId,
-			String filterString, Pagination pagination, String sortString)
+			Long parentId, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getWorksPageHttpResponse(
 			Boolean isTree, String search, Long projectId, Long phaseId,
-			String filterString, Pagination pagination, String sortString)
+			Long parentId, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public Work postWork(Work work) throws Exception;
@@ -84,10 +89,25 @@ public interface WorkResource {
 			Long workId, Double completeAmount)
 		throws Exception;
 
+	public void putReportProcessManual(Long workId, Long progress)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putReportProcessManualHttpResponse(
+			Long workId, Long progress)
+		throws Exception;
+
 	public void updateStatus(Long workId, String status) throws Exception;
 
 	public HttpInvoker.HttpResponse updateStatusHttpResponse(
 			Long workId, String status)
+		throws Exception;
+
+	public void updateDate(
+			Long workId, java.util.Date startDate, java.util.Date endDate)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse updateDateHttpResponse(
+			Long workId, java.util.Date startDate, java.util.Date endDate)
 		throws Exception;
 
 	public static class Builder {
@@ -163,12 +183,13 @@ public interface WorkResource {
 
 		public Page<Work> getWorksPage(
 				Boolean isTree, String search, Long projectId, Long phaseId,
-				String filterString, Pagination pagination, String sortString)
+				Long parentId, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = getWorksPageHttpResponse(
-				isTree, search, projectId, phaseId, filterString, pagination,
-				sortString);
+				isTree, search, projectId, phaseId, parentId, filterString,
+				pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -209,7 +230,8 @@ public interface WorkResource {
 
 		public HttpInvoker.HttpResponse getWorksPageHttpResponse(
 				Boolean isTree, String search, Long projectId, Long phaseId,
-				String filterString, Pagination pagination, String sortString)
+				Long parentId, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -247,6 +269,10 @@ public interface WorkResource {
 
 			if (phaseId != null) {
 				httpInvoker.parameter("phaseId", String.valueOf(phaseId));
+			}
+
+			if (parentId != null) {
+				httpInvoker.parameter("parentId", String.valueOf(parentId));
 			}
 
 			if (filterString != null) {
@@ -893,6 +919,93 @@ public interface WorkResource {
 			return httpInvoker.invoke();
 		}
 
+		public void putReportProcessManual(Long workId, Long progress)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putReportProcessManualHttpResponse(workId, progress);
+
+			String content = httpResponse.getContent();
+
+			if ((httpResponse.getStatusCode() / 100) != 2) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response content: " + content);
+				_logger.log(
+					Level.WARNING,
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.log(
+					Level.WARNING,
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+			else {
+				_logger.fine("HTTP response content: " + content);
+				_logger.fine(
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.fine(
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+			}
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse putReportProcessManualHttpResponse(
+				Long workId, Long progress)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(progress.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (progress != null) {
+				httpInvoker.parameter("progress", String.valueOf(progress));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/swork/work-rest/v1.0/works/report-process/manual/{workId}");
+
+			httpInvoker.path("workId", workId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
 		public void updateStatus(Long workId, String status) throws Exception {
 			HttpInvoker.HttpResponse httpResponse = updateStatusHttpResponse(
 				workId, status);
@@ -969,6 +1082,103 @@ public interface WorkResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/swork/work-rest/v1.0/works/approval/{workId}");
+
+			httpInvoker.path("workId", workId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void updateDate(
+				Long workId, java.util.Date startDate, java.util.Date endDate)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse = updateDateHttpResponse(
+				workId, startDate, endDate);
+
+			String content = httpResponse.getContent();
+
+			if ((httpResponse.getStatusCode() / 100) != 2) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response content: " + content);
+				_logger.log(
+					Level.WARNING,
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.log(
+					Level.WARNING,
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+			else {
+				_logger.fine("HTTP response content: " + content);
+				_logger.fine(
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.fine(
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+			}
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse updateDateHttpResponse(
+				Long workId, java.util.Date startDate, java.util.Date endDate)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(endDate.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+			if (startDate != null) {
+				httpInvoker.parameter(
+					"startDate", liferayToJSONDateFormat.format(startDate));
+			}
+
+			if (endDate != null) {
+				httpInvoker.parameter(
+					"endDate", liferayToJSONDateFormat.format(endDate));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/swork/work-rest/v1.0/works/date/{workId}");
 
 			httpInvoker.path("workId", workId);
 

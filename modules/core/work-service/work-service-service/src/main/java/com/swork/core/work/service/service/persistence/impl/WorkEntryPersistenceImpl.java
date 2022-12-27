@@ -1950,6 +1950,547 @@ public class WorkEntryPersistenceImpl
 	private static final String _FINDER_COLUMN_PROJECTID_PROJECTID_2 =
 		"workEntry.projectId = ?";
 
+	private FinderPath _finderPathWithPaginationFindByProjectId_ParentId;
+	private FinderPath _finderPathWithoutPaginationFindByProjectId_ParentId;
+	private FinderPath _finderPathCountByProjectId_ParentId;
+
+	/**
+	 * Returns all the work entries where projectId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @return the matching work entries
+	 */
+	@Override
+	public List<WorkEntry> findByProjectId_ParentId(
+		Long projectId, Long parentId) {
+
+		return findByProjectId_ParentId(
+			projectId, parentId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the work entries where projectId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @return the range of matching work entries
+	 */
+	@Override
+	public List<WorkEntry> findByProjectId_ParentId(
+		Long projectId, Long parentId, int start, int end) {
+
+		return findByProjectId_ParentId(projectId, parentId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the work entries where projectId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching work entries
+	 */
+	@Override
+	public List<WorkEntry> findByProjectId_ParentId(
+		Long projectId, Long parentId, int start, int end,
+		OrderByComparator<WorkEntry> orderByComparator) {
+
+		return findByProjectId_ParentId(
+			projectId, parentId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the work entries where projectId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching work entries
+	 */
+	@Override
+	public List<WorkEntry> findByProjectId_ParentId(
+		Long projectId, Long parentId, int start, int end,
+		OrderByComparator<WorkEntry> orderByComparator,
+		boolean useFinderCache) {
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath =
+					_finderPathWithoutPaginationFindByProjectId_ParentId;
+				finderArgs = new Object[] {projectId, parentId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByProjectId_ParentId;
+			finderArgs = new Object[] {
+				projectId, parentId, start, end, orderByComparator
+			};
+		}
+
+		List<WorkEntry> list = null;
+
+		if (useFinderCache) {
+			list = (List<WorkEntry>)finderCache.getResult(
+				finderPath, finderArgs);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (WorkEntry workEntry : list) {
+					if (!Objects.equals(projectId, workEntry.getProjectId()) ||
+						!Objects.equals(parentId, workEntry.getParentId())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					4 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(4);
+			}
+
+			sb.append(_SQL_SELECT_WORKENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_PROJECTID_PARENTID_PROJECTID_2);
+
+			sb.append(_FINDER_COLUMN_PROJECTID_PARENTID_PARENTID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(WorkEntryModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(projectId.longValue());
+
+				queryPos.add(parentId.longValue());
+
+				list = (List<WorkEntry>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first work entry in the ordered set where projectId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry findByProjectId_ParentId_First(
+			Long projectId, Long parentId,
+			OrderByComparator<WorkEntry> orderByComparator)
+		throws NoSuchWorkEntryException {
+
+		WorkEntry workEntry = fetchByProjectId_ParentId_First(
+			projectId, parentId, orderByComparator);
+
+		if (workEntry != null) {
+			return workEntry;
+		}
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("projectId=");
+		sb.append(projectId);
+
+		sb.append(", parentId=");
+		sb.append(parentId);
+
+		sb.append("}");
+
+		throw new NoSuchWorkEntryException(sb.toString());
+	}
+
+	/**
+	 * Returns the first work entry in the ordered set where projectId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry fetchByProjectId_ParentId_First(
+		Long projectId, Long parentId,
+		OrderByComparator<WorkEntry> orderByComparator) {
+
+		List<WorkEntry> list = findByProjectId_ParentId(
+			projectId, parentId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last work entry in the ordered set where projectId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry findByProjectId_ParentId_Last(
+			Long projectId, Long parentId,
+			OrderByComparator<WorkEntry> orderByComparator)
+		throws NoSuchWorkEntryException {
+
+		WorkEntry workEntry = fetchByProjectId_ParentId_Last(
+			projectId, parentId, orderByComparator);
+
+		if (workEntry != null) {
+			return workEntry;
+		}
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("projectId=");
+		sb.append(projectId);
+
+		sb.append(", parentId=");
+		sb.append(parentId);
+
+		sb.append("}");
+
+		throw new NoSuchWorkEntryException(sb.toString());
+	}
+
+	/**
+	 * Returns the last work entry in the ordered set where projectId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry fetchByProjectId_ParentId_Last(
+		Long projectId, Long parentId,
+		OrderByComparator<WorkEntry> orderByComparator) {
+
+		int count = countByProjectId_ParentId(projectId, parentId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<WorkEntry> list = findByProjectId_ParentId(
+			projectId, parentId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the work entries before and after the current work entry in the ordered set where projectId = &#63; and parentId = &#63;.
+	 *
+	 * @param workId the primary key of the current work entry
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next work entry
+	 * @throws NoSuchWorkEntryException if a work entry with the primary key could not be found
+	 */
+	@Override
+	public WorkEntry[] findByProjectId_ParentId_PrevAndNext(
+			long workId, Long projectId, Long parentId,
+			OrderByComparator<WorkEntry> orderByComparator)
+		throws NoSuchWorkEntryException {
+
+		WorkEntry workEntry = findByPrimaryKey(workId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			WorkEntry[] array = new WorkEntryImpl[3];
+
+			array[0] = getByProjectId_ParentId_PrevAndNext(
+				session, workEntry, projectId, parentId, orderByComparator,
+				true);
+
+			array[1] = workEntry;
+
+			array[2] = getByProjectId_ParentId_PrevAndNext(
+				session, workEntry, projectId, parentId, orderByComparator,
+				false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected WorkEntry getByProjectId_ParentId_PrevAndNext(
+		Session session, WorkEntry workEntry, Long projectId, Long parentId,
+		OrderByComparator<WorkEntry> orderByComparator, boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(4);
+		}
+
+		sb.append(_SQL_SELECT_WORKENTRY_WHERE);
+
+		sb.append(_FINDER_COLUMN_PROJECTID_PARENTID_PROJECTID_2);
+
+		sb.append(_FINDER_COLUMN_PROJECTID_PARENTID_PARENTID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(WorkEntryModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(projectId.longValue());
+
+		queryPos.add(parentId.longValue());
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(workEntry)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<WorkEntry> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the work entries where projectId = &#63; and parentId = &#63; from the database.
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 */
+	@Override
+	public void removeByProjectId_ParentId(Long projectId, Long parentId) {
+		for (WorkEntry workEntry :
+				findByProjectId_ParentId(
+					projectId, parentId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+					null)) {
+
+			remove(workEntry);
+		}
+	}
+
+	/**
+	 * Returns the number of work entries where projectId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param parentId the parent ID
+	 * @return the number of matching work entries
+	 */
+	@Override
+	public int countByProjectId_ParentId(Long projectId, Long parentId) {
+		FinderPath finderPath = _finderPathCountByProjectId_ParentId;
+
+		Object[] finderArgs = new Object[] {projectId, parentId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_COUNT_WORKENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_PROJECTID_PARENTID_PROJECTID_2);
+
+			sb.append(_FINDER_COLUMN_PROJECTID_PARENTID_PARENTID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(projectId.longValue());
+
+				queryPos.add(parentId.longValue());
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_PROJECTID_PARENTID_PROJECTID_2 =
+		"workEntry.projectId = ? AND ";
+
+	private static final String _FINDER_COLUMN_PROJECTID_PARENTID_PARENTID_2 =
+		"workEntry.parentId = ?";
+
 	private FinderPath _finderPathWithPaginationFindByProjectAndPhase;
 	private FinderPath _finderPathWithoutPaginationFindByProjectAndPhase;
 	private FinderPath _finderPathCountByProjectAndPhase;
@@ -2488,6 +3029,594 @@ public class WorkEntryPersistenceImpl
 	private static final String _FINDER_COLUMN_PROJECTANDPHASE_PHASEID_2 =
 		"workEntry.phaseId = ?";
 
+	private FinderPath
+		_finderPathWithPaginationFindByProjectId_PhaseId_ParentId;
+	private FinderPath
+		_finderPathWithoutPaginationFindByProjectId_PhaseId_ParentId;
+	private FinderPath _finderPathCountByProjectId_PhaseId_ParentId;
+
+	/**
+	 * Returns all the work entries where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @return the matching work entries
+	 */
+	@Override
+	public List<WorkEntry> findByProjectId_PhaseId_ParentId(
+		Long projectId, Long phaseId, Long parentId) {
+
+		return findByProjectId_PhaseId_ParentId(
+			projectId, phaseId, parentId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			null);
+	}
+
+	/**
+	 * Returns a range of all the work entries where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @return the range of matching work entries
+	 */
+	@Override
+	public List<WorkEntry> findByProjectId_PhaseId_ParentId(
+		Long projectId, Long phaseId, Long parentId, int start, int end) {
+
+		return findByProjectId_PhaseId_ParentId(
+			projectId, phaseId, parentId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the work entries where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching work entries
+	 */
+	@Override
+	public List<WorkEntry> findByProjectId_PhaseId_ParentId(
+		Long projectId, Long phaseId, Long parentId, int start, int end,
+		OrderByComparator<WorkEntry> orderByComparator) {
+
+		return findByProjectId_PhaseId_ParentId(
+			projectId, phaseId, parentId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the work entries where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching work entries
+	 */
+	@Override
+	public List<WorkEntry> findByProjectId_PhaseId_ParentId(
+		Long projectId, Long phaseId, Long parentId, int start, int end,
+		OrderByComparator<WorkEntry> orderByComparator,
+		boolean useFinderCache) {
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath =
+					_finderPathWithoutPaginationFindByProjectId_PhaseId_ParentId;
+				finderArgs = new Object[] {projectId, phaseId, parentId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath =
+				_finderPathWithPaginationFindByProjectId_PhaseId_ParentId;
+			finderArgs = new Object[] {
+				projectId, phaseId, parentId, start, end, orderByComparator
+			};
+		}
+
+		List<WorkEntry> list = null;
+
+		if (useFinderCache) {
+			list = (List<WorkEntry>)finderCache.getResult(
+				finderPath, finderArgs);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (WorkEntry workEntry : list) {
+					if (!Objects.equals(projectId, workEntry.getProjectId()) ||
+						!Objects.equals(phaseId, workEntry.getPhaseId()) ||
+						!Objects.equals(parentId, workEntry.getParentId())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					5 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(5);
+			}
+
+			sb.append(_SQL_SELECT_WORKENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_PROJECTID_PHASEID_PARENTID_PROJECTID_2);
+
+			sb.append(_FINDER_COLUMN_PROJECTID_PHASEID_PARENTID_PHASEID_2);
+
+			sb.append(_FINDER_COLUMN_PROJECTID_PHASEID_PARENTID_PARENTID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(WorkEntryModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(projectId.longValue());
+
+				queryPos.add(phaseId.longValue());
+
+				queryPos.add(parentId.longValue());
+
+				list = (List<WorkEntry>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first work entry in the ordered set where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry findByProjectId_PhaseId_ParentId_First(
+			Long projectId, Long phaseId, Long parentId,
+			OrderByComparator<WorkEntry> orderByComparator)
+		throws NoSuchWorkEntryException {
+
+		WorkEntry workEntry = fetchByProjectId_PhaseId_ParentId_First(
+			projectId, phaseId, parentId, orderByComparator);
+
+		if (workEntry != null) {
+			return workEntry;
+		}
+
+		StringBundler sb = new StringBundler(8);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("projectId=");
+		sb.append(projectId);
+
+		sb.append(", phaseId=");
+		sb.append(phaseId);
+
+		sb.append(", parentId=");
+		sb.append(parentId);
+
+		sb.append("}");
+
+		throw new NoSuchWorkEntryException(sb.toString());
+	}
+
+	/**
+	 * Returns the first work entry in the ordered set where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry fetchByProjectId_PhaseId_ParentId_First(
+		Long projectId, Long phaseId, Long parentId,
+		OrderByComparator<WorkEntry> orderByComparator) {
+
+		List<WorkEntry> list = findByProjectId_PhaseId_ParentId(
+			projectId, phaseId, parentId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last work entry in the ordered set where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry findByProjectId_PhaseId_ParentId_Last(
+			Long projectId, Long phaseId, Long parentId,
+			OrderByComparator<WorkEntry> orderByComparator)
+		throws NoSuchWorkEntryException {
+
+		WorkEntry workEntry = fetchByProjectId_PhaseId_ParentId_Last(
+			projectId, phaseId, parentId, orderByComparator);
+
+		if (workEntry != null) {
+			return workEntry;
+		}
+
+		StringBundler sb = new StringBundler(8);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("projectId=");
+		sb.append(projectId);
+
+		sb.append(", phaseId=");
+		sb.append(phaseId);
+
+		sb.append(", parentId=");
+		sb.append(parentId);
+
+		sb.append("}");
+
+		throw new NoSuchWorkEntryException(sb.toString());
+	}
+
+	/**
+	 * Returns the last work entry in the ordered set where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry fetchByProjectId_PhaseId_ParentId_Last(
+		Long projectId, Long phaseId, Long parentId,
+		OrderByComparator<WorkEntry> orderByComparator) {
+
+		int count = countByProjectId_PhaseId_ParentId(
+			projectId, phaseId, parentId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<WorkEntry> list = findByProjectId_PhaseId_ParentId(
+			projectId, phaseId, parentId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the work entries before and after the current work entry in the ordered set where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param workId the primary key of the current work entry
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next work entry
+	 * @throws NoSuchWorkEntryException if a work entry with the primary key could not be found
+	 */
+	@Override
+	public WorkEntry[] findByProjectId_PhaseId_ParentId_PrevAndNext(
+			long workId, Long projectId, Long phaseId, Long parentId,
+			OrderByComparator<WorkEntry> orderByComparator)
+		throws NoSuchWorkEntryException {
+
+		WorkEntry workEntry = findByPrimaryKey(workId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			WorkEntry[] array = new WorkEntryImpl[3];
+
+			array[0] = getByProjectId_PhaseId_ParentId_PrevAndNext(
+				session, workEntry, projectId, phaseId, parentId,
+				orderByComparator, true);
+
+			array[1] = workEntry;
+
+			array[2] = getByProjectId_PhaseId_ParentId_PrevAndNext(
+				session, workEntry, projectId, phaseId, parentId,
+				orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected WorkEntry getByProjectId_PhaseId_ParentId_PrevAndNext(
+		Session session, WorkEntry workEntry, Long projectId, Long phaseId,
+		Long parentId, OrderByComparator<WorkEntry> orderByComparator,
+		boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				6 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(5);
+		}
+
+		sb.append(_SQL_SELECT_WORKENTRY_WHERE);
+
+		sb.append(_FINDER_COLUMN_PROJECTID_PHASEID_PARENTID_PROJECTID_2);
+
+		sb.append(_FINDER_COLUMN_PROJECTID_PHASEID_PARENTID_PHASEID_2);
+
+		sb.append(_FINDER_COLUMN_PROJECTID_PHASEID_PARENTID_PARENTID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(WorkEntryModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(projectId.longValue());
+
+		queryPos.add(phaseId.longValue());
+
+		queryPos.add(parentId.longValue());
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(workEntry)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<WorkEntry> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the work entries where projectId = &#63; and phaseId = &#63; and parentId = &#63; from the database.
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 */
+	@Override
+	public void removeByProjectId_PhaseId_ParentId(
+		Long projectId, Long phaseId, Long parentId) {
+
+		for (WorkEntry workEntry :
+				findByProjectId_PhaseId_ParentId(
+					projectId, phaseId, parentId, QueryUtil.ALL_POS,
+					QueryUtil.ALL_POS, null)) {
+
+			remove(workEntry);
+		}
+	}
+
+	/**
+	 * Returns the number of work entries where projectId = &#63; and phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param projectId the project ID
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @return the number of matching work entries
+	 */
+	@Override
+	public int countByProjectId_PhaseId_ParentId(
+		Long projectId, Long phaseId, Long parentId) {
+
+		FinderPath finderPath = _finderPathCountByProjectId_PhaseId_ParentId;
+
+		Object[] finderArgs = new Object[] {projectId, phaseId, parentId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_SQL_COUNT_WORKENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_PROJECTID_PHASEID_PARENTID_PROJECTID_2);
+
+			sb.append(_FINDER_COLUMN_PROJECTID_PHASEID_PARENTID_PHASEID_2);
+
+			sb.append(_FINDER_COLUMN_PROJECTID_PHASEID_PARENTID_PARENTID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(projectId.longValue());
+
+				queryPos.add(phaseId.longValue());
+
+				queryPos.add(parentId.longValue());
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String
+		_FINDER_COLUMN_PROJECTID_PHASEID_PARENTID_PROJECTID_2 =
+			"workEntry.projectId = ? AND ";
+
+	private static final String
+		_FINDER_COLUMN_PROJECTID_PHASEID_PARENTID_PHASEID_2 =
+			"workEntry.phaseId = ? AND ";
+
+	private static final String
+		_FINDER_COLUMN_PROJECTID_PHASEID_PARENTID_PARENTID_2 =
+			"workEntry.parentId = ?";
+
 	private FinderPath _finderPathWithPaginationFindByPhaseId;
 	private FinderPath _finderPathWithoutPaginationFindByPhaseId;
 	private FinderPath _finderPathCountByPhaseId;
@@ -2976,6 +4105,543 @@ public class WorkEntryPersistenceImpl
 
 	private static final String _FINDER_COLUMN_PHASEID_PHASEID_2 =
 		"workEntry.phaseId = ?";
+
+	private FinderPath _finderPathWithPaginationFindByPhaseId_ParentId;
+	private FinderPath _finderPathWithoutPaginationFindByPhaseId_ParentId;
+	private FinderPath _finderPathCountByPhaseId_ParentId;
+
+	/**
+	 * Returns all the work entries where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @return the matching work entries
+	 */
+	@Override
+	public List<WorkEntry> findByPhaseId_ParentId(Long phaseId, Long parentId) {
+		return findByPhaseId_ParentId(
+			phaseId, parentId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the work entries where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @return the range of matching work entries
+	 */
+	@Override
+	public List<WorkEntry> findByPhaseId_ParentId(
+		Long phaseId, Long parentId, int start, int end) {
+
+		return findByPhaseId_ParentId(phaseId, parentId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the work entries where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching work entries
+	 */
+	@Override
+	public List<WorkEntry> findByPhaseId_ParentId(
+		Long phaseId, Long parentId, int start, int end,
+		OrderByComparator<WorkEntry> orderByComparator) {
+
+		return findByPhaseId_ParentId(
+			phaseId, parentId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the work entries where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>WorkEntryModelImpl</code>.
+	 * </p>
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param start the lower bound of the range of work entries
+	 * @param end the upper bound of the range of work entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching work entries
+	 */
+	@Override
+	public List<WorkEntry> findByPhaseId_ParentId(
+		Long phaseId, Long parentId, int start, int end,
+		OrderByComparator<WorkEntry> orderByComparator,
+		boolean useFinderCache) {
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByPhaseId_ParentId;
+				finderArgs = new Object[] {phaseId, parentId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByPhaseId_ParentId;
+			finderArgs = new Object[] {
+				phaseId, parentId, start, end, orderByComparator
+			};
+		}
+
+		List<WorkEntry> list = null;
+
+		if (useFinderCache) {
+			list = (List<WorkEntry>)finderCache.getResult(
+				finderPath, finderArgs);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (WorkEntry workEntry : list) {
+					if (!Objects.equals(phaseId, workEntry.getPhaseId()) ||
+						!Objects.equals(parentId, workEntry.getParentId())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					4 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(4);
+			}
+
+			sb.append(_SQL_SELECT_WORKENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_PHASEID_PARENTID_PHASEID_2);
+
+			sb.append(_FINDER_COLUMN_PHASEID_PARENTID_PARENTID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(WorkEntryModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(phaseId.longValue());
+
+				queryPos.add(parentId.longValue());
+
+				list = (List<WorkEntry>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first work entry in the ordered set where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry findByPhaseId_ParentId_First(
+			Long phaseId, Long parentId,
+			OrderByComparator<WorkEntry> orderByComparator)
+		throws NoSuchWorkEntryException {
+
+		WorkEntry workEntry = fetchByPhaseId_ParentId_First(
+			phaseId, parentId, orderByComparator);
+
+		if (workEntry != null) {
+			return workEntry;
+		}
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("phaseId=");
+		sb.append(phaseId);
+
+		sb.append(", parentId=");
+		sb.append(parentId);
+
+		sb.append("}");
+
+		throw new NoSuchWorkEntryException(sb.toString());
+	}
+
+	/**
+	 * Returns the first work entry in the ordered set where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry fetchByPhaseId_ParentId_First(
+		Long phaseId, Long parentId,
+		OrderByComparator<WorkEntry> orderByComparator) {
+
+		List<WorkEntry> list = findByPhaseId_ParentId(
+			phaseId, parentId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last work entry in the ordered set where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching work entry
+	 * @throws NoSuchWorkEntryException if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry findByPhaseId_ParentId_Last(
+			Long phaseId, Long parentId,
+			OrderByComparator<WorkEntry> orderByComparator)
+		throws NoSuchWorkEntryException {
+
+		WorkEntry workEntry = fetchByPhaseId_ParentId_Last(
+			phaseId, parentId, orderByComparator);
+
+		if (workEntry != null) {
+			return workEntry;
+		}
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("phaseId=");
+		sb.append(phaseId);
+
+		sb.append(", parentId=");
+		sb.append(parentId);
+
+		sb.append("}");
+
+		throw new NoSuchWorkEntryException(sb.toString());
+	}
+
+	/**
+	 * Returns the last work entry in the ordered set where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching work entry, or <code>null</code> if a matching work entry could not be found
+	 */
+	@Override
+	public WorkEntry fetchByPhaseId_ParentId_Last(
+		Long phaseId, Long parentId,
+		OrderByComparator<WorkEntry> orderByComparator) {
+
+		int count = countByPhaseId_ParentId(phaseId, parentId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<WorkEntry> list = findByPhaseId_ParentId(
+			phaseId, parentId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the work entries before and after the current work entry in the ordered set where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param workId the primary key of the current work entry
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next work entry
+	 * @throws NoSuchWorkEntryException if a work entry with the primary key could not be found
+	 */
+	@Override
+	public WorkEntry[] findByPhaseId_ParentId_PrevAndNext(
+			long workId, Long phaseId, Long parentId,
+			OrderByComparator<WorkEntry> orderByComparator)
+		throws NoSuchWorkEntryException {
+
+		WorkEntry workEntry = findByPrimaryKey(workId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			WorkEntry[] array = new WorkEntryImpl[3];
+
+			array[0] = getByPhaseId_ParentId_PrevAndNext(
+				session, workEntry, phaseId, parentId, orderByComparator, true);
+
+			array[1] = workEntry;
+
+			array[2] = getByPhaseId_ParentId_PrevAndNext(
+				session, workEntry, phaseId, parentId, orderByComparator,
+				false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected WorkEntry getByPhaseId_ParentId_PrevAndNext(
+		Session session, WorkEntry workEntry, Long phaseId, Long parentId,
+		OrderByComparator<WorkEntry> orderByComparator, boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			sb = new StringBundler(4);
+		}
+
+		sb.append(_SQL_SELECT_WORKENTRY_WHERE);
+
+		sb.append(_FINDER_COLUMN_PHASEID_PARENTID_PHASEID_2);
+
+		sb.append(_FINDER_COLUMN_PHASEID_PARENTID_PARENTID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(WorkEntryModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(phaseId.longValue());
+
+		queryPos.add(parentId.longValue());
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(workEntry)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<WorkEntry> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the work entries where phaseId = &#63; and parentId = &#63; from the database.
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 */
+	@Override
+	public void removeByPhaseId_ParentId(Long phaseId, Long parentId) {
+		for (WorkEntry workEntry :
+				findByPhaseId_ParentId(
+					phaseId, parentId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+					null)) {
+
+			remove(workEntry);
+		}
+	}
+
+	/**
+	 * Returns the number of work entries where phaseId = &#63; and parentId = &#63;.
+	 *
+	 * @param phaseId the phase ID
+	 * @param parentId the parent ID
+	 * @return the number of matching work entries
+	 */
+	@Override
+	public int countByPhaseId_ParentId(Long phaseId, Long parentId) {
+		FinderPath finderPath = _finderPathCountByPhaseId_ParentId;
+
+		Object[] finderArgs = new Object[] {phaseId, parentId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_COUNT_WORKENTRY_WHERE);
+
+			sb.append(_FINDER_COLUMN_PHASEID_PARENTID_PHASEID_2);
+
+			sb.append(_FINDER_COLUMN_PHASEID_PARENTID_PARENTID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(phaseId.longValue());
+
+				queryPos.add(parentId.longValue());
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_PHASEID_PARENTID_PHASEID_2 =
+		"workEntry.phaseId = ? AND ";
+
+	private static final String _FINDER_COLUMN_PHASEID_PARENTID_PARENTID_2 =
+		"workEntry.parentId = ?";
 
 	private FinderPath _finderPathWithPaginationFindByParentId;
 	private FinderPath _finderPathWithoutPaginationFindByParentId;
@@ -5900,6 +7566,27 @@ public class WorkEntryPersistenceImpl
 			new String[] {Long.class.getName()}, new String[] {"projectId"},
 			false);
 
+		_finderPathWithPaginationFindByProjectId_ParentId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByProjectId_ParentId",
+			new String[] {
+				Long.class.getName(), Long.class.getName(),
+				Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			},
+			new String[] {"projectId", "parentId"}, true);
+
+		_finderPathWithoutPaginationFindByProjectId_ParentId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"findByProjectId_ParentId",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"projectId", "parentId"}, true);
+
+		_finderPathCountByProjectId_ParentId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByProjectId_ParentId",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"projectId", "parentId"}, false);
+
 		_finderPathWithPaginationFindByProjectAndPhase = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByProjectAndPhase",
 			new String[] {
@@ -5919,6 +7606,35 @@ public class WorkEntryPersistenceImpl
 			new String[] {Long.class.getName(), Long.class.getName()},
 			new String[] {"projectId", "phaseId"}, false);
 
+		_finderPathWithPaginationFindByProjectId_PhaseId_ParentId =
+			new FinderPath(
+				FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+				"findByProjectId_PhaseId_ParentId",
+				new String[] {
+					Long.class.getName(), Long.class.getName(),
+					Long.class.getName(), Integer.class.getName(),
+					Integer.class.getName(), OrderByComparator.class.getName()
+				},
+				new String[] {"projectId", "phaseId", "parentId"}, true);
+
+		_finderPathWithoutPaginationFindByProjectId_PhaseId_ParentId =
+			new FinderPath(
+				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+				"findByProjectId_PhaseId_ParentId",
+				new String[] {
+					Long.class.getName(), Long.class.getName(),
+					Long.class.getName()
+				},
+				new String[] {"projectId", "phaseId", "parentId"}, true);
+
+		_finderPathCountByProjectId_PhaseId_ParentId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByProjectId_PhaseId_ParentId",
+			new String[] {
+				Long.class.getName(), Long.class.getName(), Long.class.getName()
+			},
+			new String[] {"projectId", "phaseId", "parentId"}, false);
+
 		_finderPathWithPaginationFindByPhaseId = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByPhaseId",
 			new String[] {
@@ -5936,6 +7652,26 @@ public class WorkEntryPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByPhaseId",
 			new String[] {Long.class.getName()}, new String[] {"phaseId"},
 			false);
+
+		_finderPathWithPaginationFindByPhaseId_ParentId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByPhaseId_ParentId",
+			new String[] {
+				Long.class.getName(), Long.class.getName(),
+				Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			},
+			new String[] {"phaseId", "parentId"}, true);
+
+		_finderPathWithoutPaginationFindByPhaseId_ParentId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByPhaseId_ParentId",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"phaseId", "parentId"}, true);
+
+		_finderPathCountByPhaseId_ParentId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByPhaseId_ParentId",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			new String[] {"phaseId", "parentId"}, false);
 
 		_finderPathWithPaginationFindByParentId = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByParentId",

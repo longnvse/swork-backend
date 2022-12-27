@@ -173,6 +173,7 @@ public abstract class BaseCommentResourceTestCase {
 
 		Comment comment = randomComment();
 
+		comment.setAvatar(regex);
 		comment.setContent(regex);
 		comment.setCreatorName(regex);
 
@@ -182,6 +183,7 @@ public abstract class BaseCommentResourceTestCase {
 
 		comment = CommentSerDes.toDTO(json);
 
+		Assert.assertEquals(regex, comment.getAvatar());
 		Assert.assertEquals(regex, comment.getContent());
 		Assert.assertEquals(regex, comment.getCreatorName());
 	}
@@ -423,17 +425,17 @@ public abstract class BaseCommentResourceTestCase {
 
 	@Test
 	public void testPostComment() throws Exception {
-		Comment randomComment = randomComment();
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Comment comment = testPostComment_addComment();
 
-		Comment postComment = testPostComment_addComment(randomComment);
+		assertHttpResponseStatusCode(
+			204, commentResource.postCommentHttpResponse(comment));
 
-		assertEquals(randomComment, postComment);
-		assertValid(postComment);
+		assertHttpResponseStatusCode(
+			404, commentResource.postCommentHttpResponse(comment));
 	}
 
-	protected Comment testPostComment_addComment(Comment comment)
-		throws Exception {
-
+	protected Comment testPostComment_addComment() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
@@ -547,20 +549,15 @@ public abstract class BaseCommentResourceTestCase {
 
 	@Test
 	public void testPutComment() throws Exception {
-		Comment postComment = testPutComment_addComment();
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Comment comment = testPutComment_addComment();
 
-		Comment randomComment = randomComment();
+		assertHttpResponseStatusCode(
+			204,
+			commentResource.putCommentHttpResponse(comment.getId(), comment));
 
-		Comment putComment = commentResource.putComment(
-			postComment.getId(), randomComment);
-
-		assertEquals(randomComment, putComment);
-		assertValid(putComment);
-
-		Comment getComment = commentResource.getComment(putComment.getId());
-
-		assertEquals(randomComment, getComment);
-		assertValid(getComment);
+		assertHttpResponseStatusCode(
+			404, commentResource.putCommentHttpResponse(0L, comment));
 	}
 
 	protected Comment testPutComment_addComment() throws Exception {
@@ -647,6 +644,14 @@ public abstract class BaseCommentResourceTestCase {
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
+
+			if (Objects.equals("avatar", additionalAssertFieldName)) {
+				if (comment.getAvatar() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
 
 			if (Objects.equals("classPkId", additionalAssertFieldName)) {
 				if (comment.getClassPkId() == null) {
@@ -801,6 +806,16 @@ public abstract class BaseCommentResourceTestCase {
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
+
+			if (Objects.equals("avatar", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						comment1.getAvatar(), comment2.getAvatar())) {
+
+					return false;
+				}
+
+				continue;
+			}
 
 			if (Objects.equals("classPkId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
@@ -987,6 +1002,14 @@ public abstract class BaseCommentResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("avatar")) {
+			sb.append("'");
+			sb.append(String.valueOf(comment.getAvatar()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("classPkId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1108,6 +1131,7 @@ public abstract class BaseCommentResourceTestCase {
 	protected Comment randomComment() throws Exception {
 		return new Comment() {
 			{
+				avatar = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				classPkId = RandomTestUtil.randomLong();
 				content = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				creatorId = RandomTestUtil.randomLong();

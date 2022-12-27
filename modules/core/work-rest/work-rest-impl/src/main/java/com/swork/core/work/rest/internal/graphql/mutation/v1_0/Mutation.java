@@ -12,6 +12,7 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 import com.swork.core.work.rest.dto.v1_0.Work;
 import com.swork.core.work.rest.resource.v1_0.WorkResource;
 
+import java.util.Date;
 import java.util.function.BiFunction;
 
 import javax.annotation.Generated;
@@ -121,6 +122,21 @@ public class Mutation {
 		return true;
 	}
 
+	@GraphQLField(description = "Update process a Project")
+	public boolean updateReportProcessManual(
+			@GraphQLName("workId") Long workId,
+			@GraphQLName("progress") Long progress)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_workResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			workResource -> workResource.putReportProcessManual(
+				workId, progress));
+
+		return true;
+	}
+
 	@GraphQLField(description = "Update status a Project")
 	public boolean updateStatus(
 			@GraphQLName("workId") Long workId,
@@ -131,6 +147,22 @@ public class Mutation {
 			_workResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			workResource -> workResource.updateStatus(workId, status));
+
+		return true;
+	}
+
+	@GraphQLField(description = "Update status a Project")
+	public boolean updateDate(
+			@GraphQLName("workId") Long workId,
+			@GraphQLName("startDate") Date startDate,
+			@GraphQLName("endDate") Date endDate)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_workResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			workResource -> workResource.updateDate(
+				workId, startDate, endDate));
 
 		return true;
 	}

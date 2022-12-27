@@ -61,7 +61,7 @@ public class AccountEntryLocalServiceImpl
                 serviceContext
         );
 
-        entry.setUsername(username.toLowerCase());
+        entry.setUsername(GetterUtil.getString(username).toLowerCase());
         entry.setPassword(password);
         entry.setFullName(fullName);
         entry.setDateOfBirth(dateOfBirth);

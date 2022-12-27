@@ -51,6 +51,15 @@ components:
           type: string
         progressType:
           type: string
+        commentNumber:
+          type: integer
+          readOnly: true
+        attachNumber:
+          type: integer
+          readOnly: true
+        role:
+          type: string
+          readOnly: true
     Manage:
       properties:
         id:
@@ -81,6 +90,7 @@ components:
         memberType:
           enum: [ account, department ]
           readOnly: true
+
     Participate:
       description: Project Participates
       properties:
@@ -100,6 +110,73 @@ components:
           enum: [ account, department ]
           readOnly: true
 
+    GanttChart:
+      properties:
+        phases:
+          type: array
+          items:
+            $ref: '#/components/schemas/Phase'
+        works:
+          type: array
+          items:
+            $ref: '#/components/schemas/Work'
+    Phase:
+      description: Phase In Project
+      properties:
+        id:
+          format: int64
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        status:
+          type: string
+          readOnly: true
+        progress:
+          type: integer
+          format: int64
+          readOnly: true
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        works:
+          type: array
+          items:
+            $ref: '#/components/schemas/Work'
+
+    Work:
+      description: Work In Phase and Project
+      properties:
+        id:
+          format: int64
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        status:
+          type: string
+          readOnly: true
+        progress:
+          type: integer
+          format: int64
+          readOnly: true
+        startDate:
+          type: string
+          format: date
+          readOnly: true
+        endDate:
+          type: string
+          format: date
+          readOnly: true
+        works:
+          type: array
+          items:
+            $ref: '#/components/schemas/Work'
     ValueChart:
       description: Present chart
       type: object
@@ -421,6 +498,29 @@ paths:
           content:
             application/json: { }
             application/xml: { }
+  "/projects/gantt-chart/{projectId}":
+    get:
+      tags: [ "Project" ]
+      description: Approval a Project
+      operationId: getGanttChartProject
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        200:
+          description:
+            "Project was updated"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GanttChart'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GanttChart'
   "/projects/member/{projectId}":
     put:
       tags: [ "Project" ]

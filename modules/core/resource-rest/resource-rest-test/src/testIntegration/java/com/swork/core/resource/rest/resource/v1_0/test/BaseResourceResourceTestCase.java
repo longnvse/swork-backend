@@ -178,6 +178,7 @@ public abstract class BaseResourceResourceTestCase {
 		resource.setParentName(regex);
 		resource.setResourceTypeName(regex);
 		resource.setTeamName(regex);
+		resource.setType(regex);
 		resource.setUnit(regex);
 
 		String json = ResourceSerDes.toJSON(resource);
@@ -191,6 +192,7 @@ public abstract class BaseResourceResourceTestCase {
 		Assert.assertEquals(regex, resource.getParentName());
 		Assert.assertEquals(regex, resource.getResourceTypeName());
 		Assert.assertEquals(regex, resource.getTeamName());
+		Assert.assertEquals(regex, resource.getType());
 		Assert.assertEquals(regex, resource.getUnit());
 	}
 
@@ -764,6 +766,14 @@ public abstract class BaseResourceResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("type", additionalAssertFieldName)) {
+				if (resource.getType() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("unit", additionalAssertFieldName)) {
 				if (resource.getUnit() == null) {
 					valid = false;
@@ -1004,6 +1014,16 @@ public abstract class BaseResourceResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("type", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						resource1.getType(), resource2.getType())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("unit", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						resource1.getUnit(), resource2.getUnit())) {
@@ -1227,6 +1247,14 @@ public abstract class BaseResourceResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("type")) {
+			sb.append("'");
+			sb.append(String.valueOf(resource.getType()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("unit")) {
 			sb.append("'");
 			sb.append(String.valueOf(resource.getUnit()));
@@ -1301,6 +1329,7 @@ public abstract class BaseResourceResourceTestCase {
 				teamName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				totalAmount = RandomTestUtil.randomLong();
+				type = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				unit = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				workId = RandomTestUtil.randomLong();
 			}

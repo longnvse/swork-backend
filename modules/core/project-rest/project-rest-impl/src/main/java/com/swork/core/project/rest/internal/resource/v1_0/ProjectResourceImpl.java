@@ -9,6 +9,7 @@ import com.liferay.portal.vulcan.pagination.Pagination;
 import com.swork.common.exception.model.SW_NoSuchEntryException;
 import com.swork.common.token.helper.api.CommonTokenHelper;
 import com.swork.common.token.model.UserTokenModel;
+import com.swork.core.project.rest.dto.v1_0.GanttChart;
 import com.swork.core.project.rest.dto.v1_0.Project;
 import com.swork.core.project.rest.internal.odata.v1_0.ProjectEntryModel;
 import com.swork.core.project.rest.internal.service.ProjectService;
@@ -40,12 +41,19 @@ public class ProjectResourceImpl extends BaseProjectResourceImpl {
 	public Page<Project> getProjectsPage(String type, String search, Filter filter, Pagination pagination, Sort[] sorts) throws Exception {
 		return service.getProjectPages(
 				getUserToken().getBusinessId(),
+				getUserToken().getAccountId(),
+				getUserToken().getDepartmentId(),
 				search,
 				filter,
 				pagination,
 				sorts,
 				getServiceContext()
 		);
+	}
+
+	@Override
+	public GanttChart getGanttChartProject(Long projectId) {
+		return service.getGanttChartData(projectId);
 	}
 
 	@Override
@@ -58,6 +66,7 @@ public class ProjectResourceImpl extends BaseProjectResourceImpl {
 		return service.postProject(
 				getUserToken().getBusinessId(),
 				getUserToken().getAccountId(),
+				getUserToken().getDepartmentId(),
 				project,
 				getServiceContext()
 		);
@@ -75,7 +84,10 @@ public class ProjectResourceImpl extends BaseProjectResourceImpl {
 	public Project getProject(Long projectId) throws Exception {
 		validator.validatorProjectIsExists(projectId);
 
-		return service.getProject(projectId);
+		return service.getProject(
+				getUserToken().getAccountId(),
+				getUserToken().getDepartmentId(),
+				projectId);
 	}
 
 	@Override
@@ -87,6 +99,7 @@ public class ProjectResourceImpl extends BaseProjectResourceImpl {
 
 		return service.putProject(
 				getUserToken().getAccountId(),
+				getUserToken().getDepartmentId(),
 				projectId,
 				project,
 				getServiceContext());

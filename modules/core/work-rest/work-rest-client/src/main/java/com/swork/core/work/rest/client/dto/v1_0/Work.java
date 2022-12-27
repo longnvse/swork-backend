@@ -63,6 +63,48 @@ public class Work implements Cloneable, Serializable {
 
 	protected Date actualStartDate;
 
+	public Integer getAttachNumber() {
+		return attachNumber;
+	}
+
+	public void setAttachNumber(Integer attachNumber) {
+		this.attachNumber = attachNumber;
+	}
+
+	public void setAttachNumber(
+		UnsafeSupplier<Integer, Exception> attachNumberUnsafeSupplier) {
+
+		try {
+			attachNumber = attachNumberUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Integer attachNumber;
+
+	public Integer getCommentNumber() {
+		return commentNumber;
+	}
+
+	public void setCommentNumber(Integer commentNumber) {
+		this.commentNumber = commentNumber;
+	}
+
+	public void setCommentNumber(
+		UnsafeSupplier<Integer, Exception> commentNumberUnsafeSupplier) {
+
+		try {
+			commentNumber = commentNumberUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Integer commentNumber;
+
 	public Double getComplete() {
 		return complete;
 	}
@@ -83,6 +125,27 @@ public class Work implements Cloneable, Serializable {
 	}
 
 	protected Double complete;
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public void setCreateDate(
+		UnsafeSupplier<Date, Exception> createDateUnsafeSupplier) {
+
+		try {
+			createDate = createDateUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date createDate;
 
 	public String getDescription() {
 		return description;
@@ -249,6 +312,27 @@ public class Work implements Cloneable, Serializable {
 	}
 
 	protected Manage[] manages;
+
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public void setModifiedDate(
+		UnsafeSupplier<Date, Exception> modifiedDateUnsafeSupplier) {
+
+		try {
+			modifiedDate = modifiedDateUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date modifiedDate;
 
 	public String getName() {
 		return name;
@@ -673,8 +757,8 @@ public class Work implements Cloneable, Serializable {
 
 	public static enum ProgressType {
 
-		MANUAL("manual"), BY_CHECKLIST("byChecklist"), BY_AMOUNT("byAmount"),
-		BY_PROPORTION("byProportion");
+		MANUAL("manual"), BY_AMOUNT("byAmount"),
+		PROPORTION_DATE("proportionDate");
 
 		public static ProgressType create(String value) {
 			for (ProgressType progressType : values()) {

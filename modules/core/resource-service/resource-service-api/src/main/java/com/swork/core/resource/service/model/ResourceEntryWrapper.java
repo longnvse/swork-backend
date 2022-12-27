@@ -57,6 +57,7 @@ public class ResourceEntryWrapper
 		attributes.put("phaseId", getPhaseId());
 		attributes.put("projectId", getProjectId());
 		attributes.put("resourceTypeName", getResourceTypeName());
+		attributes.put("type", getType());
 		attributes.put("teamId", getTeamId());
 		attributes.put("teamName", getTeamName());
 		attributes.put("quantity", getQuantity());
@@ -152,6 +153,12 @@ public class ResourceEntryWrapper
 
 		if (resourceTypeName != null) {
 			setResourceTypeName(resourceTypeName);
+		}
+
+		String type = (String)attributes.get("type");
+
+		if (type != null) {
+			setType(type);
 		}
 
 		Long teamId = (Long)attributes.get("teamId");
@@ -377,6 +384,16 @@ public class ResourceEntryWrapper
 	}
 
 	/**
+	 * Returns the type of this resource entry.
+	 *
+	 * @return the type of this resource entry
+	 */
+	@Override
+	public String getType() {
+		return model.getType();
+	}
+
+	/**
 	 * Returns the unit of this resource entry.
 	 *
 	 * @return the unit of this resource entry
@@ -589,6 +606,16 @@ public class ResourceEntryWrapper
 	@Override
 	public void setTotalAmount(Long totalAmount) {
 		model.setTotalAmount(totalAmount);
+	}
+
+	/**
+	 * Sets the type of this resource entry.
+	 *
+	 * @param type the type of this resource entry
+	 */
+	@Override
+	public void setType(String type) {
+		model.setType(type);
 	}
 
 	/**

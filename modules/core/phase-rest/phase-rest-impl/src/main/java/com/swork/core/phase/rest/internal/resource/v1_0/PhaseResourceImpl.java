@@ -95,6 +95,19 @@ public class PhaseResourceImpl extends BasePhaseResourceImpl {
 		);
 	}
 
+	@Override
+	public void updateDate(Long phaseId, Date startDate, Date endDate) throws Exception {
+		phaseValidator.validateForUpdateDate(phaseId, startDate, endDate);
+
+		phaseService.updateDate(
+				getUserToken().getAccountId(),
+				phaseId,
+				startDate,
+				endDate,
+				getServiceContext()
+		);
+	}
+
 	public ServiceContext getServiceContext() {
 		ServiceContext serviceContext = new ServiceContext();
 		serviceContext.setCompanyId(contextCompany.getCompanyId());

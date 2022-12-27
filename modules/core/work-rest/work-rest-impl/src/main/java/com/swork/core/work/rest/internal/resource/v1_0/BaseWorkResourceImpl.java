@@ -83,6 +83,10 @@ public abstract class BaseWorkResourceImpl
 			),
 			@io.swagger.v3.oas.annotations.Parameter(
 				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "parentId"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
 				name = "filter"
 			),
 			@io.swagger.v3.oas.annotations.Parameter(
@@ -119,6 +123,9 @@ public abstract class BaseWorkResourceImpl
 			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
 			@javax.ws.rs.QueryParam("phaseId")
 			Long phaseId,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.ws.rs.QueryParam("parentId")
+			Long parentId,
 			@javax.ws.rs.core.Context Filter filter,
 			@javax.ws.rs.core.Context Pagination pagination,
 			@javax.ws.rs.core.Context Sort[] sorts)
@@ -412,6 +419,45 @@ public abstract class BaseWorkResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0/works/report-process/manual/{workId}'  -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Operation(
+		description = "Update process a Project"
+	)
+	@io.swagger.v3.oas.annotations.Parameters(
+		value = {
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
+				name = "workId"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "progress"
+			)
+		}
+	)
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Work")}
+	)
+	@javax.ws.rs.Path("/works/report-process/manual/{workId}")
+	@javax.ws.rs.Produces({"application/json", "application/xml"})
+	@javax.ws.rs.PUT
+	@Override
+	public void putReportProcessManual(
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.PathParam("workId")
+			Long workId,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.QueryParam("progress")
+			Long progress)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0/works/approval/{workId}'  -u 'test@liferay.com:test'
 	 */
 	@io.swagger.v3.oas.annotations.Operation(
@@ -445,6 +491,53 @@ public abstract class BaseWorkResourceImpl
 			@javax.validation.constraints.NotNull
 			@javax.ws.rs.QueryParam("status")
 			String status)
+		throws Exception {
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/swork/work-rest/v1.0/works/date/{workId}'  -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Operation(
+		description = "Update status a Project"
+	)
+	@io.swagger.v3.oas.annotations.Parameters(
+		value = {
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
+				name = "workId"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "startDate"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "endDate"
+			)
+		}
+	)
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Work")}
+	)
+	@javax.ws.rs.Path("/works/date/{workId}")
+	@javax.ws.rs.Produces({"application/json", "application/xml"})
+	@javax.ws.rs.PUT
+	@Override
+	public void updateDate(
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.PathParam("workId")
+			Long workId,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.QueryParam("startDate")
+			java.util.Date startDate,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@javax.validation.constraints.NotNull
+			@javax.ws.rs.QueryParam("endDate")
+			java.util.Date endDate)
 		throws Exception {
 	}
 
@@ -498,7 +591,8 @@ public abstract class BaseWorkResourceImpl
 		return getWorksPage(
 			Boolean.parseBoolean((String)parameters.get("isTree")), search,
 			Long.parseLong((String)parameters.get("projectId")),
-			Long.parseLong((String)parameters.get("phaseId")), filter,
+			Long.parseLong((String)parameters.get("phaseId")),
+			Long.parseLong((String)parameters.get("parentId")), filter,
 			pagination, sorts);
 	}
 
